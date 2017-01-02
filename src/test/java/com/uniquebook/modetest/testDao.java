@@ -30,17 +30,22 @@ public class testDao {
 
     public static void main(String[] args) throws Exception {
         
+        
+        OrderDao orderDao = new OrderDao();
+        orderDao.updateOrderStatus("1", "approved","pending");
+        
+        
         //20000 leagues under the sea by jules verne 1 copy-131x199.png
         //20000 Leagues Under the Sea by Jules Verne 1 copy-131x199.png
         
-        System.out.println(Integer.parseInt(null));
-        BookDao bookDao = new BookDao();
+//        System.out.println(Integer.parseInt(null));
+//        BookDao bookDao = new BookDao();
 
         //productNumber=22&category=Teens
-        
-        Book b = bookDao.getBookbyProductNumber(22, "Teens");
-
-        System.out.println("what now :"+b.toString());
+//        
+//        Book b = bookDao.getBookbyProductNumber(22, "Teens");
+//
+//        System.out.println("what now :"+b.toString());
 
 //        OrderDao od = new OrderDao();
 //        System.out.println(od.getOrderCount());

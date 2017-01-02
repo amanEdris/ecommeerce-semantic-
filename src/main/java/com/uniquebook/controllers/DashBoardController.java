@@ -45,7 +45,7 @@ import org.apache.commons.fileupload.servlet.ServletFileUpload;
  *
  * @author edris
  */
-@WebServlet(name = "DashBoardController", urlPatterns = {"/dashboard", "/addProduct", "/addCustomer", "/updateCustomer"})
+@WebServlet(name = "DashBoardController", urlPatterns = {"/updateOrder", "/dashboard", "/addProduct", "/addCustomer", "/updateCustomer"})
 public class DashBoardController extends HttpServlet {
 
     private static final String DASHBOARD_PAGE_ADMIN = "/view/admin/admindashboard.jsp";
@@ -186,9 +186,15 @@ public class DashBoardController extends HttpServlet {
                     List<Order> orders = orderDao.getAllOrderBystatus("pending");
                     request.setAttribute("orders", orders);
                     request.setAttribute("type", "pending");
+                } else if (action.equals("editOrder")) {
+                    String orderNumber = (request.getParameter("orderNumber"));
+                    String orderStatus = (request.getParameter("orderStatus"));
+                    request.setAttribute("type", "updateOrder");
+                    request.setAttribute("orderNumber", orderNumber);
+                    request.setAttribute("orderstatus", orderStatus);
+
                 } else {
-                    //Edit action for order
-                    //product add and upfate features
+
                 }
 
             }
@@ -201,6 +207,13 @@ public class DashBoardController extends HttpServlet {
 
     }
 
+    /**
+     * @Todo item.file name renaming
+     * @param request
+     * @param response
+     * @throws ServletException
+     * @throws IOException
+     */
     protected void doPost(HttpServletRequest request,
             HttpServletResponse response) throws ServletException, IOException {
         String userPath = request.getServletPath();
@@ -259,22 +272,8 @@ public class DashBoardController extends HttpServlet {
                     for (FileItem item : formItems) {
                         // processes only fields that are not form fields
                         if (!item.isFormField()) {
+
                             String fileName = new File(item.getName()).getName();
-
-                            response.setContentType("text/html;charset=UTF-8");
-                            try (PrintWriter out = response.getWriter()) {
-
-                                out.println("<!DOCTYPE html>");
-                                out.println("<html>");
-                                out.println("<head>");
-                                out.println("<title>Servlet OrderController</title>");
-                                out.println("</head>");
-                                out.println("<body>");
-                                out.println("<h1>Here is a Book: file path" + fileName.toString());
-
-                                out.println("</body>");
-                                out.println("</html>");
-                            }
 
                             if (StringUtils.isNotEmpty(fileName)) {
                                 //add change file name
@@ -417,6 +416,17 @@ public class DashBoardController extends HttpServlet {
                 request.setAttribute("Message", "Email regitered please use different Email!");
             } else {
                 request.setAttribute("goodmessage", " Customer data updated!");
+            }//updateOrder
+        } else if (userPath.equals("/updateOrder")) {
+            boolean check = orderDao.updateOrderStatus(request.getParameter("orderNumber"),
+                    request.getParameter("orderstatus"), request.getParameter("previousOrderstatus"));
+            if (check) {
+                List<Order> orders = orderDao.getAllOrderBystatus(request.getParameter("orderstatus"));
+                request.setAttribute("orders", orders);
+                request.setAttribute("type",request.getParameter("orderstatus"));
+                request.setAttribute("goodmessage", "Order Status updated!");
+            } else {
+                request.setAttribute("Message", "Sorry unable to update order status!");
             }
         } else {
 
@@ -429,18 +439,33 @@ public class DashBoardController extends HttpServlet {
 
 }
 
-// try (PrintWriter out = response.getWriter()) {
-//                    response.setContentType("text/html;charset=UTF-8");
+//      response.setContentType("text/html;charset=UTF-8");
+//                            try (PrintWriter out = response.getWriter()) {
 //
-//                            out.println("<!DOCTYPE html>");
-//                            out.println("<html>");
-//                            out.println("<head>");
-//                            out.println("<title>Servlet OrderController</title>");
-//                            out.println("</head>");
-//                            out.println("<body>");
-//                            out.println("<h1>Here is a Book: file path" + filePath + " [ ]" + mainCategory + " [ ]"
-//                                    + book.toString() + " [ ]" + product.getProductName() + " [ ]" + imagePath);
+//                                out.println("<!DOCTYPE html>");
+//                                out.println("<html>");
+//                                out.println("<head>");
+//                                out.println("<title>Servlet OrderController</title>");
+//                                out.println("</head>");
+//                                out.println("<body>");
+//                                out.println("<h1>Here is a Book: file path :" + fileName.toString());
+//                                out.println("<h1>Here is a Book: file Name :" + item.getName());
 //
-//                            out.println("</body>");
-//                            out.println("</html>");
-//                        }
+//                                out.println("</body>");
+//                                out.println("</html>");
+//        }
+//                            
+//      response.setContentType("text/html;charset=UTF-8");
+//                            try (PrintWriter out = response.getWriter()) {
+//
+//                                out.println("<!DOCTYPE html>");
+//                                out.println("<html>");
+//                                out.println("<head>");
+//                                out.println("<title>Servlet OrderController</title>");
+//                                out.println("</head>");
+//                                out.println("<body>");
+//                                out.println("<h1>Here is a Book: file Name :" + item.getName());
+//
+//                                out.println("</body>");
+//                                out.println("</html>");
+//                            }

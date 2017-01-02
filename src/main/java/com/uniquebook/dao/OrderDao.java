@@ -72,7 +72,7 @@ public class OrderDao {
             //get delivery subjectName
             String deliverySubjectName = deliveryDao.getSubjectNameByOrderId(orderNumber);
             String[] salesSubjectNames = salesDao.getSalesByOrder(orderNumber.trim());
-            
+
             String getSalesSubjectPredicateObject = this.getSalesOrderPredicateObjects(salesSubjectNames);
             String deleteCustomerQuery = FusekiClient.PREFIX + "DELETE" //r:hasDelivery r:hasSales
                     + "{"
@@ -88,7 +88,7 @@ public class OrderDao {
                     + "  r:" + orderSubjectName + " r:hasSales  " + this.getSalesInsertSubjects(salesSubjectNames) + "."
                     + " " + this.getSalesOrderPredicateObjects(salesSubjectNames) + " "
                     + "}";
-            
+
             System.out.println("Order delete query" + deleteCustomerQuery);
             FusekiClient.insertFUSEKI(deleteCustomerQuery);
         } catch (Exception ex) {
@@ -98,11 +98,11 @@ public class OrderDao {
     }
 
     /**
-     * Generate predicate and object for sales of order
-     * For example. x:saleSubject ?p ?o.
-     * 
+     * Generate predicate and object for sales of order For example.
+     * x:saleSubject ?p ?o.
+     *
      * @param salesSubjectNames
-     * @return 
+     * @return
      */
     private String getSalesOrderPredicateObjects(String[] salesSubjectNames) {
         StringBuilder insertPart = new StringBuilder();
@@ -111,8 +111,6 @@ public class OrderDao {
         }
         return insertPart.toString();
     }
-
-     
 
     public String getSubjectNameByID(String orderNumber) {
         String subjectName = null;
@@ -310,6 +308,40 @@ public class OrderDao {
             Logger.getLogger(CustomerDao.class.getName()).log(Level.SEVERE, null, ex);
         }
         return count;
+    }
+    
+   
+
+    public boolean updateOrderStatus(String orderId, String orderStatus, String previousOrderStatus) {
+        boolean check = false;
+        try {
+            String updateQuery = FusekiClient.PREFIX;
+            updateQuery += "PREFIX r:<http://localhost:8080/UniqueBookshop/onto/Ecommerce.owl/>\n"
+                    + "PREFIX rdf:<http://www.w3.org/1999/02/22-rdf-syntax-ns#>\n"
+                    + "PREFIX xsd:<http://www.w3.org/2001/XMLSchema#>\n"
+                    + "PREFIX rdfs:<http://www.w3.org/2000/01/rdf-schema#>\n"
+                    + "\n"
+                    + "DELETE\n"
+                    + "{\n"
+                    + " ?o r:orderStatus  \""+previousOrderStatus+"\"^^xsd:string;\n"
+                    + "}\n"
+                    + "INSERT\n"
+                    + "{\n"
+                    + " ?o r:orderStatus  \""+orderStatus+"\"^^xsd:string;\n"
+                    + "}\n"
+                    + "WHERE \n"
+                    + "{  \n"
+                    + " ?o r:orderNumber \""+orderId+"\"^^xsd:string ;\n"
+                    + "}";
+            
+            FusekiClient.insertFUSEKI(updateQuery);
+            check = true;
+        } catch (Exception ex) {
+            Logger.getLogger(OrderDao.class.getName()).log(Level.SEVERE, null, ex);
+            check= false;
+        }
+        return check;
+
     }
 
 }
