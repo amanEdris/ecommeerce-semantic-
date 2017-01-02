@@ -10,6 +10,7 @@ import com.uniquebook.dao.BookDao;
 import com.uniquebook.dao.CustomerDao;
 import com.uniquebook.dao.FictionalBooksDao;
 import com.uniquebook.dao.KidsBookDao;
+import com.uniquebook.dao.ManagerDao;
 import com.uniquebook.dao.NonFictionalBooksDao;
 import com.uniquebook.dao.OrderDao;
 import com.uniquebook.models.Book;
@@ -25,7 +26,6 @@ import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -45,7 +45,7 @@ import org.apache.commons.fileupload.servlet.ServletFileUpload;
  *
  * @author edris
  */
-@WebServlet(name = "DashBoardController", urlPatterns = {"/updateOrder", "/dashboard", "/addProduct", "/addCustomer", "/updateCustomer"})
+@WebServlet(name = "DashBoardController", urlPatterns = {"/updateOrder", "/dashboard", "/addProduct", "/addCustomer", "/updateCustomer", "/addManager", "/updateManager"})
 public class DashBoardController extends HttpServlet {
 
     private static final String DASHBOARD_PAGE_ADMIN = "/view/admin/admindashboard.jsp";
@@ -60,6 +60,7 @@ public class DashBoardController extends HttpServlet {
     private NonFictionalBooksDao nonFictionBookDao;
     private KidsBookDao kidbookDao;
     private BookDao bookDao;
+    private ManagerDao managerDao;
 
     //private HashMap<String, Object> JSONROOT = new HashMap<String, Object>();
     // location to store file uploaded
@@ -78,6 +79,7 @@ public class DashBoardController extends HttpServlet {
         nonFictionBookDao = new NonFictionalBooksDao();
         kidbookDao = new KidsBookDao();
         bookDao = new BookDao();
+        managerDao = new ManagerDao();
     }
 
     @Override
@@ -114,6 +116,12 @@ public class DashBoardController extends HttpServlet {
                     List<Customer> customer = customerDao.getAllCustomer();
                     request.setAttribute("customers", customer);
                     request.setAttribute("type", "customer");
+                } else if (action.equals("showProfile")) {
+                    Manager mancager = new Manager();
+                    mancager = (Manager) session.getAttribute("adminUser");
+                    Manager manager = managerDao.getManagerByEmail(mancager.getEmail());
+                    request.setAttribute("User", manager);
+                    request.setAttribute("type", "createManger");
                 } else if (action.equals("listProduct")) {
                     //list products with each
                     List<FictionalBook> fictionList = fictionBookDao.getAllFictionalBook();
@@ -162,6 +170,16 @@ public class DashBoardController extends HttpServlet {
                     request.setAttribute("User", customer);
                     request.setAttribute("type", "Customeredit");
 
+                } else if (action.equals("listmanagers")) {
+                    List<Manager> managers = managerDao.getAllManager();
+                    request.setAttribute("managers", managers);
+                    request.setAttribute("type", "admin");
+                } else if (action.equals("editManager")) {
+                    String email = request.getParameter("email");
+                    Manager manager = managerDao.getManagerByEmail(email);
+                    request.setAttribute("User", manager);
+                    request.setAttribute("type", "createManger");
+
                 } else if (action.equals("deleteCustomer")) {
                     try {
                         String customerId = (request.getParameter("customerId"));
@@ -176,8 +194,25 @@ public class DashBoardController extends HttpServlet {
                         Logger.getLogger(DashBoardController.class.getName()).log(Level.SEVERE, null, ex);
                     }
 
+                } else if (action.equals("deleteManager")) {
+                    try {
+                        String email = (request.getParameter("email"));
+                        managerDao.deleteManager(email);
+
+                        List<Manager> managers = managerDao.getAllManager();
+                        request.setAttribute("managers", managers);
+                        request.setAttribute("type", "admin");
+
+                        //delete customer 
+                    } catch (Exception ex) {
+                        Logger.getLogger(DashBoardController.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+
                 } else if (action.equals("createCustomer")) {
                     request.setAttribute("type", "createCustomer");
+
+                } else if (action.equals("AddManager")) {
+                    request.setAttribute("type", "createManger");
 
                 } else if (action.equals("deleteOrder")) {
                     String orderNumber = (request.getParameter("orderNumber"));
@@ -388,42 +423,71 @@ public class DashBoardController extends HttpServlet {
             } else {
                 request.setAttribute("goodmessage", "New Customer added!");
             }
-        } else if (userPath.equals("/updateCustomer")) {
-            Customer c = new Customer();
-            Location l = new Location();
-            l.setAddress(request.getParameter("address_1"));
-            l.setCity(request.getParameter("city"));
-            l.setCountry(request.getParameter("country_id"));
-            l.setPostalCode(request.getParameter("postcode"));
-            c.setLocation(l);
+        } else if (userPath.equals("/addManager")) {
+            Manager c = new Manager();
             c.setEmail(request.getParameter("email"));
             c.setFirstName(request.getParameter("firstname"));
             c.setLastName(request.getParameter("lastname"));
             c.setPassword(request.getParameter("password"));
             c.setGender(request.getParameter("male"));
             c.setPhone(request.getParameter("telephone"));
-            c.setCustomerId(request.getParameter("customerId"));
-            Customer cc = new Customer();
-            cc.clone(c);
-            boolean check = customerDao.updateCustomer(c, cc);
-            String customerId = request.getParameter("customerId");
-            Customer customer = customerDao.getCustomerByID(customerId);
-            request.setAttribute("User", customer);
-            request.setAttribute("type", "Customeredit");
+            boolean check = managerDao.addManager(c);
+            request.setAttribute("type", "createManger");
+
+            if (check) {
+                request.setAttribute("Message", "Email regitered please use different Email!");
+            } else {
+                request.setAttribute("goodmessage", "New admin added!");
+            }
+        } else if (userPath.equals("/addManager")) {
+            Manager c = new Manager();
+            c.setEmail(request.getParameter("email"));
+            c.setFirstName(request.getParameter("firstname"));
+            c.setLastName(request.getParameter("lastname"));
+            c.setPassword(request.getParameter("password"));
+            c.setGender(request.getParameter("male"));
+            c.setPhone(request.getParameter("telephone"));
+            boolean check = managerDao.addManager(c);
+            request.setAttribute("type", "createManger");
+
+            if (check) {
+                request.setAttribute("Message", "Email regitered please use different Email!");
+            } else {
+                request.setAttribute("goodmessage", "New admin added!");
+            }
+        } else if (userPath.equals("/updateManager")) {
+            Manager c = new Manager();
+            c.setEmail(request.getParameter("email"));
+            c.setFirstName(request.getParameter("firstname"));
+            c.setLastName(request.getParameter("lastname"));
+            c.setPassword(request.getParameter("password"));
+            c.setGender(request.getParameter("male"));
+            c.setPhone(request.getParameter("telephone"));
+            boolean check = managerDao.updateManager(c);
+            request.setAttribute("type", "createManger");
+
+            if (check) {
+                request.setAttribute("Message", "Email regitered please use different Email!");
+            } else {
+                request.setAttribute("goodmessage", "New admin added!");
+            }
+            Manager manager = managerDao.getManagerByEmail(request.getParameter("email"));
+            request.setAttribute("User", manager);
+            request.setAttribute("type", "createManger");
 
             if (check) {
 
                 request.setAttribute("Message", "Email regitered please use different Email!");
             } else {
                 request.setAttribute("goodmessage", " Customer data updated!");
-            }//updateOrder
+            }
         } else if (userPath.equals("/updateOrder")) {
             boolean check = orderDao.updateOrderStatus(request.getParameter("orderNumber"),
                     request.getParameter("orderstatus"), request.getParameter("previousOrderstatus"));
             if (check) {
                 List<Order> orders = orderDao.getAllOrderBystatus(request.getParameter("orderstatus"));
                 request.setAttribute("orders", orders);
-                request.setAttribute("type",request.getParameter("orderstatus"));
+                request.setAttribute("type", request.getParameter("orderstatus"));
                 request.setAttribute("goodmessage", "Order Status updated!");
             } else {
                 request.setAttribute("Message", "Sorry unable to update order status!");

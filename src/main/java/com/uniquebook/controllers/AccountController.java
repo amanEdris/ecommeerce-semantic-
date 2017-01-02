@@ -62,6 +62,7 @@ public class AccountController extends HttpServlet {
         String userPath = request.getServletPath();
 
         if (userPath.equals("/admin")) {
+
             Manager mancager = new Manager();
             mancager = (Manager) session.getAttribute("adminUser");
 
