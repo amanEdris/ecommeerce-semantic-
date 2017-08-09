@@ -1,0 +1,60 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package com.uniquebook.models;
+
+/**
+ *
+ * @author edris
+ */
+public class Product {
+    private String description;
+    private float price;
+    private Integer quantity;
+    private Integer productNumber;
+    
+    public Product() {
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public float getPrice() {
+        return price;
+    }
+
+    public void setPrice(float price) {
+        this.price = price;
+    }
+
+    public Integer getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(Integer quantity) {
+        this.quantity = quantity;
+    }
+
+    public Integer getProductNumber() {
+        return productNumber;
+    }
+
+    public void setProductNumber(Integer productNumber) {
+        this.productNumber = productNumber;
+    }
+    
+
+    @Override
+    public String toString() {
+        return "Product{" + "description=" + description + ", price=" + price + ", quantity=" + quantity + ", productNumber=" + productNumber + '}';
+    }
+    
+    
+}
