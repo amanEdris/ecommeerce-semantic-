@@ -10,9 +10,14 @@ package com.uniquebook.models;
  * @author edris
  */
 public class Sale {
-
+    
     private Integer productQuantity;
     private Product product;
+
+    public Sale(Integer productQuantity, Product product) {
+        this.productQuantity = productQuantity;
+        this.product = product;
+    }
     
     public Integer getProductQuantity() {
         return productQuantity;
@@ -33,7 +38,7 @@ public class Sale {
     
     @Override
     public String toString() {
-        return "Sale{" + "productQuantity=" + productQuantity + ", product=" + product + '}';
+        return "Sale{" + "productQuantity=" + productQuantity + ", product=" + product.toString() + '}';
     }
     
 }

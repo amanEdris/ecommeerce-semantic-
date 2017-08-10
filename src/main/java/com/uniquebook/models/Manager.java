@@ -13,13 +13,8 @@ public class Manager extends Person{
 
 
 
-    public Manager(Person p ) {
-        super.setEmail(p.getEmail());
-        super.setPassword(p.getPassword());
-        super.setFirstName(p.getFirstName());
-        super.setLastName(p.getLastName());
-        super.setPhone(p.getPhone());
-        super.setGender(p.getGender());
+    public Manager( ) {
+       
     }
     
         @Override

@@ -66,7 +66,7 @@ public class Order {
     }
 
     public void setSales(Sale[] sales) {
-        this.sales = sales;
+        this.sales  = sales;
     }
 
     @Override

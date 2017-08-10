@@ -19,16 +19,15 @@ public class testCustomer {
             Location l = new Location();
             l.setAddress("this address");
             l.setCity("this city");
-            l.setCountry("this country");
-            
-            Person p = new Person();
+            l.setCountry("this country");             
+            Customer p = new Customer(l);
             p.setEmail("dd@mail.com");
             p.setFirstName("man");
             p.setGender("amle");
             p.setLastName("dandy");
             p.setPassword("password");
             p.setPhone("82938928988");
-            Customer c= new Customer(l, p);
+            Customer c= new Customer(l);
             System.out.println(c.toString());
         }
 

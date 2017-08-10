@@ -14,13 +14,7 @@ public class Customer extends Person{
     private Location location;
 
 
-    public Customer(Location location,Person p) {
-        super.setEmail(p.getEmail());
-        super.setPassword(p.getPassword());
-        super.setFirstName(p.getFirstName());
-        super.setLastName(p.getLastName());
-        super.setPhone(p.getPhone());
-        super.setGender(p.getGender());
+    public Customer(Location location) {
         this.location = location;
     }
     

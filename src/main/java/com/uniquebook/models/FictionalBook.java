@@ -12,17 +12,57 @@ import java.util.Date;
  * @author edris
  */
 public class FictionalBook extends Book {
-
-    public enum fictionalCategory {
-        COMICS, FICTION, GRPAHICS_NOVEL, LIERATURE, POETRY, ROMANCE, SCIENCE_FICTION,
-        THRILLERS, WESTERNS
-    };
-
+    private  String category;
+    
+    
     public FictionalBook() {
     }
 
+    public enum FictionalCategory {
+
+        COMICS("Comics"),
+        FICTION("Fiction"),
+        GRPAHICS_NOVEL("Graphical Novel"),
+        LIERATURE("Literature"),
+        POETRY("Poetry"),
+        ROMANCE("Romance"),
+        SCIENCE_FICTION("Science Fiction"),
+        THRILLERS("Trillers"),
+        WESTERNS("Westerns"),
+        MISTERY("Mistry");
+
+        private String name;
+
+        private FictionalCategory(String stringVal) {
+            name = stringVal;
+        }
+
+        public String toString() {
+            return name;
+        }
+
+        public static String getEnumByString(String code) {
+            for (FictionalCategory e : FictionalCategory.values()) {
+                if (code.equals(e.name)) {
+                    return e.name();
+                }
+            }
+            return null;
+        }
+
+    }
+    
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+
     @Override
     public String toString() {
-        return "FictionalBook{" + "book="+super.toString();
+        return "FictionalBook{" + "book=" + super.toString()+category+"--category";
     }
 }

@@ -15,15 +15,14 @@ import com.uniquebook.models.Person;
 public class testManager {
     
        public static void main(String[] args) throws Exception {
-            Person p = new Person();
+            Manager p = new Manager();
             p.setEmail("dd@mail.com");
             p.setFirstName("man");
             p.setGender("amle");
             p.setLastName("dandy");
             p.setPassword("password");
             p.setPhone("82938928988");
-            Manager m= new Manager(p);
-            System.out.println(m.toString());
+            System.out.println(p.toString());
         }
     
 }

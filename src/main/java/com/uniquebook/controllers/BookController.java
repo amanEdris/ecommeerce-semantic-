@@ -7,7 +7,6 @@ package com.uniquebook.controllers;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -21,7 +20,40 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet(name = "BookController", urlPatterns = {"/book"})
 public class BookController extends HttpServlet {
 
-    /** @param request servlet request
+    /**
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+     * methods.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
+        PrintWriter out = response.getWriter();
+        try {
+            /* TODO output your page here. You may use following sample code. */
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet BookController</title>");            
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet BookController at " + request.getContextPath() + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
+        } finally {
+            out.close();
+        }
+    }
+
+    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+    /**
+     * Handles the HTTP <code>GET</code> method.
+     *
+     * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
@@ -29,14 +61,13 @@ public class BookController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-        String messageUrl = "/book.jsp";
-        RequestDispatcher dispatchRequest =
-                request.getServletContext().getRequestDispatcher(messageUrl);
-        dispatchRequest.forward(request, response);
+        processRequest(request, response);
     }
 
-   /** @param request servlet request
+    /**
+     * Handles the HTTP <code>POST</code> method.
+     *
+     * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
@@ -44,10 +75,7 @@ public class BookController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String messageUrl = "/book.jsp";
-        RequestDispatcher dispatchRequest =
-                request.getServletContext().getRequestDispatcher(messageUrl);
-        dispatchRequest.forward(request, response);
+        processRequest(request, response);
     }
 
     /**

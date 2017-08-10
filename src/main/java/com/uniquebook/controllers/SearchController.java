@@ -17,8 +17,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author edris
  */
-@WebServlet(name = "Customer", urlPatterns = {"/customer"})
-public class CustomerController extends HttpServlet {
+@WebServlet(name = "SearchController", urlPatterns = {"/search"})
+public class SearchController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -32,17 +32,20 @@ public class CustomerController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
+        PrintWriter out = response.getWriter();
+        try {
             /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet Customer</title>");            
+            out.println("<title>Servlet SearchController</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet Customer at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet SearchController at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
+        } finally {
+            out.close();
         }
     }
 

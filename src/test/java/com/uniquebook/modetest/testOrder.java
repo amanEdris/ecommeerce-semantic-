@@ -7,6 +7,7 @@ package com.uniquebook.modetest;
 
 import com.uniquebook.models.Customer;
 import com.uniquebook.models.Delivery;
+import com.uniquebook.models.FictionalBook;
 import com.uniquebook.models.Location;
 import com.uniquebook.models.NonFictionalBook;
 import com.uniquebook.models.NonFictionalBook.NonFictionalCategory;
@@ -26,54 +27,49 @@ public class testOrder {
             l.setCity("this city");
             l.setCountry("this country");
             
-            Person p = new Person();
+            Customer p = new Customer(l);
             p.setEmail("dd@mail.com");
             p.setFirstName("man");
             p.setGender("amle");
             p.setLastName("dandy");
             p.setPassword("password");
             p.setPhone("82938928988");
-            
-            //Create customer
-            Customer c= new Customer(l, p);
-            
-            Date deliveryDate = new Date("12-12-12");
+                        
+            Date deliveryDate = new Date();
             //Create delivery
             Delivery  d= new Delivery(deliveryDate, l);
             
-        
+       
             
-            //create book product
+  //create book product
             NonFictionalBook b = new NonFictionalBook();
             b.setAuthor("jango");
             b.setImagepath("path");
             b.setIsbn("isbn");
-            b.setPublishedYear(deliveryDate);
+            b.setPublishedYear(null);
             b.setPublisher("maman");
             b.setQuantity(100);
             b.setDescription("a book product");
             b.setPrice(12);
             b.setQuantity(2);
             b.setProductNumber(30);
-            b.setCategory(NonFictionalCategory.ACTIVITY__GAME_BOOKS);//how to handle category 
+            b.setCategory("string");//how to handle category 
             //b.category(); set book category
             
             
             //Create sales data
-            Sale s= new Sale();
-            s.setProduct(b);
-            s.setProductQuantity(12);
+            Sale s= new Sale(12,b);
+            Sale[] sales ={s};
             
             Order o = new Order();
-            o.setCusotmer(c);
+            o.setOrderstatus("delivered");
+            o.setSales(sales);
+            o.setCusotmer(p);
             o.setOrderNumber(12);
             o.setTotalPrice((float) 12.50);
-            o.setDelivery(d);
-            
-            
-            
-           
-           
+            o.setDelivery(d);                  
+            System.out.println(o.toString());
+
        }
 
 }

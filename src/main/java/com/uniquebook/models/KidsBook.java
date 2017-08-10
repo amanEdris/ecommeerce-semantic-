@@ -9,19 +9,50 @@ package com.uniquebook.models;
  *
  * @author edris
  */
-public class KidsBook extends Book{
+public class KidsBook extends Book {
 
-    public enum kidsCategory {
-            AGE0_2,  AGE3_5, AGE6_8, AGES9_12,TEENS    };
+    private String category;
 
     public KidsBook() {
+
     }
 
+    public enum kidsBookCategory {
+        AGE0_2("Age 0-2"), AGE3_5("Age 3-5"), AGE6_8("Age 6-8"),
+        AGES9_12("Ages 9-12"), TEENS("Teens");
 
+        private String name;
+
+        private kidsBookCategory(String stringVal) {
+            name = stringVal;
+        }
+
+        public String toString() {
+            return name;
+        }
+
+        public static String getEnumByString(String code) {
+            for (kidsBookCategory e : kidsBookCategory.values()) {
+                if (code.equals(e.name)) {
+                    return e.name();
+                }
+            }
+            return null;
+        }
+
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
 
     @Override
     public String toString() {
-        return "KidsBook{" + "book=" +  super.toString();
+        return "KidsBook{" + "book="+category+"--" + super.toString();
     }
-    
+
 }
