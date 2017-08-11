@@ -13,6 +13,9 @@ public class NonFictionalBook extends Book {
 
     private String category;
 
+    public NonFictionalBook() {
+    }
+
     public enum NonFictionalCategory {
         HISTORY("History"), HOME__GARDEN("Home Garden"), ACTIVITY__GAME_BOOKS("Activity Game Books"),
         ANTIQUES__COLLECTIBLES("Antiques collectibles"), ARCHITECTURE("Architecture"), ART("Art"),
@@ -30,22 +33,20 @@ public class NonFictionalBook extends Book {
         private NonFictionalCategory(String stringVal) {
             name = stringVal;
         }
-        
-        
 
         public String toString() {
             return name;
         }
 
         public static String getEnumByString(String code) {
+
             for (NonFictionalCategory e : NonFictionalCategory.values()) {
                 if (code.equals(e.name)) {
-                    return e.name;
+                    return e.name();
                 }
             }
             return null;
         }
-
     }
 
     public String getCategory() {
@@ -56,12 +57,9 @@ public class NonFictionalBook extends Book {
         this.category = category;
     }
 
-    public NonFictionalBook() {
-    }
-
     @Override
     public String toString() {
-        return "NonFictionalBook{" + "category=" + category + '}'+super.toString();
+        return "NonFictionalBook{" + "category=" + category + '}' + super.toString();
     }
 
 }

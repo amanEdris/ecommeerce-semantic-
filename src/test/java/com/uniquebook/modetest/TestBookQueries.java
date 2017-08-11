@@ -37,7 +37,7 @@ public class TestBookQueries {
 
     public static void main(String[] args) throws Exception {
         RdfModelUtil RdfModelUtil = new RdfModelUtil();
-        Model rdfDB = RdfModelUtil.createModelFromUrl(TestBookQueries.dataUrl);
+        Model rdfDB = RdfModelUtil.createModelFromUrl();
         String cottageQuery;
         cottageQuery = PREFIX + "prefix r: <http://localhost:8080/UniqueBookshop/onto/Ecommerce.owl/>\n"
                 + "prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> \n"

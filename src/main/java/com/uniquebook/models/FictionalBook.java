@@ -42,6 +42,7 @@ public class FictionalBook extends Book {
         }
 
         public static String getEnumByString(String code) {
+           
             for (FictionalCategory e : FictionalCategory.values()) {
                 if (code.equals(e.name)) {
                     return e.name();
@@ -51,6 +52,8 @@ public class FictionalBook extends Book {
         }
 
     }
+    
+    
     
     public String getCategory() {
         return category;
