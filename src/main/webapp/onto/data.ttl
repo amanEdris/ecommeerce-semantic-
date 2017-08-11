@@ -44,7 +44,7 @@ r:fiveDysfunctions rdf:type r:Nonfiction;
 
           r:hasTitle "The five dysfunctions of a team leadership"^^xsd:string ;
 
-          r:hasImage "some URL"^^xsd:string .
+          r:hasImage "./image/Five Novels by Charles Dickens 1 copy-131x199.png"^^xsd:string .
 
 
 r:loremipsum rdf:type r:Nonfiction;
@@ -70,7 +70,7 @@ r:loremipsum rdf:type r:Nonfiction;
 
             r:hasTitle "The five dysfunctions of a team leadership"^^xsd:string ;
 
-            r:hasImage "some URL"^^xsd:string .
+            r:hasImage "./image/The Mayors Tongue by Nathaniel Rich 1 copy-131x199.png"^^xsd:string .
 
 
 
@@ -97,7 +97,7 @@ r:festivalMna rdf:type r:Nonfiction;
 
           r:hasTitle "The five dysfunctions of a team leadership"^^xsd:string ;
 
-          r:hasImage "some URL"^^xsd:string .
+          r:hasImage "./image/Seven Novels by Jules Verne 1 copy-131x199.png"^^xsd:string .
 
 r:beatuyenj rdf:type r:Nonfiction;
 
@@ -122,7 +122,7 @@ r:beatuyenj rdf:type r:Nonfiction;
 
           r:hasTitle "The five dysfunctions of a team leadership"^^xsd:string ;
 
-          r:hasImage "some URL"^^xsd:string .
+          r:hasImage "./image/The Complete Sherlock Holmes by Arthur Conan Doyle 1 copy-131x199.png"^^xsd:string .
 
 r:twity rdf:type r:Nonfiction;
 
@@ -147,7 +147,7 @@ r:twity rdf:type r:Nonfiction;
 
       r:hasTitle "The five dysfunctions of a team leadership"^^xsd:string ;
 
-      r:hasImage "some URL"^^xsd:string .
+      r:hasImage "./image/The ESV Study Bible Hardcover 1 copy-131x199.png"^^xsd:string .
 
 r:dawfff rdf:type r:Nonfiction;
 
@@ -172,7 +172,7 @@ r:dawfff rdf:type r:Nonfiction;
 
             r:hasTitle "The five dysfunctions of a team leadership"^^xsd:string ;
 
-            r:hasImage "some URL"^^xsd:string .
+            r:hasImage "./image/Grimms Complete Fairy Tales 1 copy-131x199.png"^^xsd:string .
 r:birdee rdf:type r:Nonfiction;
 
             r:hasQuantity "10"^^xsd:nonNegativeInteger ;
@@ -196,7 +196,7 @@ r:birdee rdf:type r:Nonfiction;
 
             r:hasTitle "The five dysfunctions of a team leadership"^^xsd:string ;
 
-            r:hasImage "some URL"^^xsd:string .
+            r:hasImage "./image/The Divine Comedy by Dante 1 copy-131x199.png"^^xsd:string .
 
 r:nantualee rdf:type r:Nonfiction;
 
@@ -221,7 +221,7 @@ r:nantualee rdf:type r:Nonfiction;
 
         r:hasTitle "The five dysfunctions of a team leadership"^^xsd:string ;
 
-        r:hasImage "some URL"^^xsd:string .
+        r:hasImage "./image/Alices Adventures in Wonderland and Other Stories by Lewis Carroll 1 copy-131x199.png"^^xsd:string .
 
 r:fljori rdf:type r:Customer;
 
@@ -364,7 +364,7 @@ r:telitabis rdf:type r:KidsBook;
 
            r:hasTitle "Telitabis"^^xsd:string ;
 
-           r:hasImage "some URL"^^xsd:string .
+           r:hasImage "./image/The Circle Series by Ted Dekker - Green 1 copy-131x199.png"^^xsd:string .
 
 
   r:teligram rdf:type r:KidsBook;
@@ -390,7 +390,7 @@ r:telitabis rdf:type r:KidsBook;
 
       r:hasTitle "Telitabis"^^xsd:string ;
 
-      r:hasImage "some URL"^^xsd:string .
+      r:hasImage "./image/Grimms Complete Fairy Tales 1 copy-131x199.png"^^xsd:string .
 
   r:teliwwwgram rdf:type r:KidsBook;
 
@@ -414,7 +414,7 @@ r:hasBookRevisionNo "3rd";
 
           r:hasTitle "Telitabis"^^xsd:string ;
 
-          r:hasImage "some URL"^^xsd:string .
+          r:hasImage "/image/The Divine Comedy by Dante 1 copy-131x199.png"^^xsd:string .
 
 r:telweermm rdf:type r:KidsBook;
 
@@ -439,7 +439,7 @@ r:telweermm rdf:type r:KidsBook;
 
           r:hasTitle "Telitabis"^^xsd:string ;
 
-          r:hasImage "some URL"^^xsd:string .
+          r:hasImage "./image/Alices Adventures in Wonderland and Other Stories by Lewis Carroll 1 copy-131x199.png"^^xsd:string .
 
 ###  http://www.semanticweb.org/edris/ontologies/2017/7/untitled-ontology-208#trueLove
 
@@ -466,7 +466,7 @@ r:trueLove rdf:type r:FictionAndLiterature;
 
           r:hasTitle "True love"^^xsd:string ;
 
-          r:hasImage "some URL"^^xsd:string .
+          r:hasImage "./image/The Circle Series by Ted Dekker - Green 1 copy-131x199.png"^^xsd:string .
 
 r:truefale rdf:type r:FictionAndLiterature;
 
@@ -491,7 +491,7 @@ r:truefale rdf:type r:FictionAndLiterature;
 
             r:hasTitle "True love"^^xsd:string ;
 
-            r:hasImage "some URL"^^xsd:string .
+            r:hasImage "./image/The MacArthur Study Bible 1 copy-131x199.png"^^xsd:string .
 
 r:wisefale rdf:type r:FictionAndLiterature;
 
@@ -516,7 +516,7 @@ r:wisefale rdf:type r:FictionAndLiterature;
 
           r:hasTitle "True love"^^xsd:string ;
 
-          r:hasImage "some URL"^^xsd:string .
+          r:hasImage "./image/Seven Novels by Jane Austen 1 copy-131x199.png"^^xsd:string .
 
 
 r:wiwsefale rdf:type r:FictionAndLiterature;
@@ -542,7 +542,7 @@ r:wiwsefale rdf:type r:FictionAndLiterature;
 
           r:hasTitle "True love"^^xsd:string ;
 
-          r:hasImage "some URL"^^xsd:string .
+          r:hasImage "./image/The Complete Works of William Shakespeare 1 copy-131x199.png"^^xsd:string .
 
 
 r:wiwwsefale rdf:type r:FictionAndLiterature;
@@ -567,7 +567,7 @@ r:hasBookRevisionNo "3rd";
 
             r:hasTitle "True love"^^xsd:string ;
 
-            r:hasImage "some URL"^^xsd:string .
+            r:hasImage "./image/The Chronicles of Narnia 1 copy-131x199.png"^^xsd:string .
 
 
 r:wiseselffale rdf:type r:FictionAndLiterature;
@@ -592,7 +592,7 @@ r:hasBookRevisionNo "3rd";
 
             r:hasTitle "True love"^^xsd:string ;
 
-            r:hasImage "some URL"^^xsd:string .
+            r:hasImage "./image/Christopher Paolini Inheritance Cycle - Brisingr 1 copy-131x199.png"^^xsd:string .
 
 r:truefale rdf:type r:FictionAndLiterature;
 
@@ -617,7 +617,7 @@ r:truefale rdf:type r:FictionAndLiterature;
 
             r:hasTitle "True love"^^xsd:string ;
 
-            r:hasImage "some URL"^^xsd:string .
+            r:hasImage "./image/Holy Bible English Standard Version 1 copy-131x199.png"^^xsd:string .
 
 r:truwefale rdf:type r:FictionAndLiterature;
 
@@ -642,4 +642,4 @@ r:truwefale rdf:type r:FictionAndLiterature;
 
             r:hasTitle "True love"^^xsd:string ;
 
-            r:hasImage "some URL"^^xsd:string .
+            r:hasImage "./image/Grimms Complete Fairy Tales 1 copy-131x199.png"^^xsd:string .

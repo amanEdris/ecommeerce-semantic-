@@ -33,5 +33,7 @@ public class BookDao {
         System.out.println(deleteQuery);
         UpdateAction.parseExecute(deleteQuery, model);
     }
+    
+   
 
 }

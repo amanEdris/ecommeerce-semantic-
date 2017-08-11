@@ -33,7 +33,7 @@ public class testDao {
         // System.out.println("Kids books model list:"+b.getAllKidsBook());
 
         FictionalBooksDao bw = new FictionalBooksDao();
-        //System.out.println(bw.getAllFictionalBookByCategory("Romance"));
+        System.out.println(bw.getAllFictionalBookByCategory("Romance"));
         // System.out.println("Kids books model list:"+b.getAllKidsBook());
         //System.out.println("Fictional booss model list"+bw.getAllFictionalBook());
         //System.out.println(bw.getFictionalBookByISBN("1394044949"));
@@ -86,21 +86,21 @@ public class testDao {
 //        
 //        System.out.println("you have added a book" + nonficational.getNonFictionalByProductNumber(c.getProductNumber()));
 //    
-        KidsBook c =new KidsBook();
-        c.setAuthor("jango");
-        c.setImagepath("path");
-        c.setIsbn("1394029492");
-        c.setPublishedYear(deliveryDate);
-        c.setPublisher("maman");
-        c.setQuantity(100);
-        c.setDescription("a book product");
-        c.setPrice(12);
-        c.setQuantity(2);
-        c.setProductNumber(30);
-        c.setCategory("Teens");
-        b.addKidsBook(c);
-        
-       System.out.println("you have added a book" + b.getKidBookByProductNumber(c.getProductNumber()));
+//        KidsBook c =new KidsBook();
+//        c.setAuthor("jango");
+//        c.setImagepath("path");
+//        c.setIsbn("1394029492");
+//        c.setPublishedYear(deliveryDate);
+//        c.setPublisher("maman");
+//        c.setQuantity(100);
+//        c.setDescription("a book product");
+//        c.setPrice(12);
+//        c.setQuantity(2);
+//        c.setProductNumber(30);
+//        c.setCategory("Teens");
+//        b.addKidsBook(c);
+//        
+//       System.out.println("you have added a book" + b.getKidBookByProductNumber(c.getProductNumber()));
        
     }
 
