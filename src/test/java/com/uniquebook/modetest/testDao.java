@@ -46,25 +46,25 @@ public class testDao {
         //System.out.println(b.getKidBookByProductNumber(20));
         Date deliveryDate = new Date();
 
-        FictionalBook bbn = new FictionalBook();
-        bbn.setAuthor("jango");
-        bbn.setImagepath("path");
-        bbn.setIsbn("1394029492");
-        bbn.setPublishedYear(deliveryDate);
-        bbn.setPublisher("maman");
-        bbn.setQuantity(100);
-        bbn.setDescription("a book product");
-        bbn.setPrice(12);
-        bbn.setQuantity(2);
-        bbn.setProductNumber(30);
-        bbn.setCategory("Romance");
-        //System.out.println("the book you added is:" + bbn.toString());
-        bw.addFictionalBooks(bbn);
-        
-        /**
-         * test can delete a book given producer consumer
-         */
-        BookDao nnd = new BookDao();
+//        FictionalBook bbn = new FictionalBook();
+//        bbn.setAuthor("jango");
+//        bbn.setImagepath("path");
+//        bbn.setIsbn("1394029492");
+//        bbn.setPublishedYear(deliveryDate);
+//        bbn.setPublisher("maman");
+//        bbn.setQuantity(100);
+//        bbn.setDescription("a book product");
+//        bbn.setPrice(12);
+//        bbn.setQuantity(2);
+//        bbn.setProductNumber(30);
+//        bbn.setCategory("Romance");
+//        //System.out.println("the book you added is:" + bbn.toString());
+//        bw.addFictionalBooks(bbn);
+//        
+//        /**
+//         * test can delete a book given producer consumer
+//         */
+//        BookDao nnd = new BookDao();
         //nnd.deleteFictionalBooks(bbn.getProductNumber());
         //System.out.println("you deleted a book" + bw.getFictionalBookByProductNumber(bbn.getProductNumber()));
 
