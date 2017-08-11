@@ -150,8 +150,8 @@ public class NonFictionalBooksDao {
                 b.setPrice(row.getLiteral("price").getFloat());
                 b.setQuantity(row.getLiteral("quantity").getInt());
                 b.setProductNumber(row.getLiteral("productNumber").getInt());
-                System.out.println(row.getLiteral("nonFictionalCategory").getValue().toString());
-                b.setCategory(FictionalBook.FictionalCategory.getEnumByString(row.getLiteral("nonFictionalCategory").getValue().toString()));
+                String categor = row.getLiteral("nonFictionalCategory").getValue().toString();
+                b.setCategory(NonFictionalBook.NonFictionalCategory.getEnumByString(categor));
                 books.add(b);
 
             }
@@ -162,8 +162,60 @@ public class NonFictionalBooksDao {
 
     }
 
-    public List<NonFictionalBook> getNonFictionalBookById() {
-        return null;
+public NonFictionalBook getNonFictionalBookByISBN(String ISBN) {
+        NonFictionalBook book= new   NonFictionalBook();
+        String booksQuery = RdfModelUtil.PREFIX;
+        
+        booksQuery += "SELECT  *\n"
+                + "\n"
+                + "WHERE\n"
+                + "{ \n"
+                + "  ?x a r:Nonfiction;\n"
+                + "                  r:hasQuantity ?quantity;\n"
+                + "                  r:hasISBN  ?isbn ;\n"
+                + "                  r:hasPublishedYear  ?publishedyear ;\n"
+                + "                  r:productNumber  ?productNumber;\n"
+                + "                  r:hasPrice ?price ;\n"
+                + "                  r:hasDescription ?description ;\n"
+                + "                  r:hasNonFictionalCategory ?nonFictionalCategory ;\n"
+                + "                  r:hasPublisher ?publisher ;\n"
+                + "                  r:hasAuthor ?author;\n"
+                + "                  r:hasTitle  ?title ;\n"
+                + "                  r:hasImage ?image ;\n"
+                + "   FILTER (sameTerm(?isbn ,\"" + ISBN + "\"^^xsd:string))\n"
+                + "\n"
+                + " }";
+                
+                  try {
+            Query query = QueryFactory.create(booksQuery, Syntax.syntaxARQ);
+            QueryExecution qe = QueryExecutionFactory.create(query, model);
+            ResultSet results = qe.execSelect();
+
+            while (results.hasNext()) {
+
+                QuerySolution row = results.next();
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+
+                book.setAuthor(row.getLiteral("author").getString());
+                book.setImagepath(row.getLiteral("image").getString());
+                book.setIsbn(row.getLiteral("isbn").getString());
+                Date deliveryDate = sdf.parse(row.getLiteral("publishedyear").getValue().toString());
+                book.setTitle(row.getLiteral("title").getString());
+                book.setPublishedYear(deliveryDate);
+                book.setPublisher(row.getLiteral("publisher").getString());
+                book.setQuantity(row.getLiteral("quantity").getInt());
+                book.setDescription(row.getLiteral("description").getString());
+                book.setPrice(row.getLiteral("price").getFloat());
+                book.setQuantity(row.getLiteral("quantity").getInt());
+                book.setProductNumber(row.getLiteral("productNumber").getInt());
+                System.out.println(row.getLiteral("nonFictionalCategory").getValue().toString());
+                book.setCategory(NonFictionalBook.NonFictionalCategory.getEnumByString(row.getLiteral("nonFictionalCategory").getValue().toString()));
+
+            }
+        } catch (ParseException ex) {
+            Logger.getLogger(FictionalBooksDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return book;
 
     }
 }

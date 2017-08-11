@@ -99,13 +99,113 @@ public class FictionalBooksDao {
 
     }
 
-    public List<FictionalBook> getAllFictionalBookByCategory() {
-        return null;
+    public List<FictionalBook> getAllFictionalBookByCategory(String category) {
+        List<FictionalBook> books = new ArrayList<FictionalBook>();
+        String BooksQuery = RdfModelUtil.PREFIX;
+        BooksQuery += "SELECT  * WHERE{\n"
+                + "   ?x a r:FictionAndLiterature;\n"
+                + "                  r:hasQuantity ?quantity;\n"
+                + "                  r:hasISBN  ?isbn ;\n"
+                + "                  r:hasPublishedYear  ?publishedyear ;\n"
+                + "                  r:productNumber ?productNumber;\n"
+                + "                  r:hasPrice ?price ;\n"
+                + "                  r:hasDescription ?description ;\n"
+                + "                  r:hasFictionalCategory ?fictionalCategory ;\n"
+                + "                  r:hasPublisher ?publisher ;\n"
+                + "                  r:hasAuthor ?author;\n"
+                + "                  r:hasTitle  ?title ;\n"
+                + "                  r:hasImage ?image .   \n"
+                + "   FILTER regex(?fictionalCategory, \"" + category + "\", \"i\")\n"
+                + "}";
+        try {
+            Query query = QueryFactory.create(BooksQuery, Syntax.syntaxARQ);
+            QueryExecution qe = QueryExecutionFactory.create(query, model);
+            ResultSet results = qe.execSelect();
+
+            while (results.hasNext()) {
+
+                QuerySolution row = results.next();
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                FictionalBook b = new FictionalBook();
+
+                b.setAuthor(row.getLiteral("author").getString());
+                b.setImagepath(row.getLiteral("image").getString());
+                b.setIsbn(row.getLiteral("isbn").getString());
+                Date deliveryDate = sdf.parse(row.getLiteral("publishedyear").getValue().toString());
+                b.setTitle(row.getLiteral("title").getString());
+                b.setPublishedYear(deliveryDate);
+                b.setPublisher(row.getLiteral("publisher").getString());
+                b.setQuantity(row.getLiteral("quantity").getInt());
+                b.setDescription(row.getLiteral("description").getString());
+                b.setPrice(row.getLiteral("price").getFloat());
+                b.setQuantity(row.getLiteral("quantity").getInt());
+                b.setProductNumber(row.getLiteral("productNumber").getInt());
+                System.out.println(row.getLiteral("fictionalCategory").getValue().toString());
+                b.setCategory(FictionalBook.FictionalCategory.getEnumByString(row.getLiteral("fictionalCategory").getValue().toString()));
+                books.add(b);
+
+            }
+        } catch (ParseException ex) {
+            Logger.getLogger(FictionalBooksDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return books;
 
     }
 
-    public List<FictionalBook> getFictionalBookById() {
-        return null;
+    public FictionalBook getFictionalBookByISBN(String ISBN) {
+        FictionalBook book= new   FictionalBook();
+        String booksQuery = RdfModelUtil.PREFIX;
+        
+        booksQuery += "SELECT  *\n"
+                + "\n"
+                + "WHERE\n"
+                + "{ \n"
+                + "  ?x a r:FictionAndLiterature;\n"
+                + "                  r:hasQuantity ?quantity;\n"
+                + "                  r:hasISBN  ?isbn ;\n"
+                + "                  r:hasPublishedYear  ?publishedyear ;\n"
+                + "                  r:productNumber  ?productNumber;\n"
+                + "                  r:hasPrice ?price ;\n"
+                + "                  r:hasDescription ?description ;\n"
+                + "                  r:hasFictionalCategory ?fictionalCategory ;\n"
+                + "                  r:hasPublisher ?publisher ;\n"
+                + "                  r:hasAuthor ?author;\n"
+                + "                  r:hasTitle  ?title ;\n"
+                + "                  r:hasImage ?image ;\n"
+                + "   FILTER (sameTerm(?isbn ,\"" + ISBN + "\"^^xsd:string))\n"
+                + "\n"
+                + " }";
+                
+                  try {
+            Query query = QueryFactory.create(booksQuery, Syntax.syntaxARQ);
+            QueryExecution qe = QueryExecutionFactory.create(query, model);
+            ResultSet results = qe.execSelect();
+
+            while (results.hasNext()) {
+
+                QuerySolution row = results.next();
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+
+                book.setAuthor(row.getLiteral("author").getString());
+                book.setImagepath(row.getLiteral("image").getString());
+                book.setIsbn(row.getLiteral("isbn").getString());
+                Date deliveryDate = sdf.parse(row.getLiteral("publishedyear").getValue().toString());
+                book.setTitle(row.getLiteral("title").getString());
+                book.setPublishedYear(deliveryDate);
+                book.setPublisher(row.getLiteral("publisher").getString());
+                book.setQuantity(row.getLiteral("quantity").getInt());
+                book.setDescription(row.getLiteral("description").getString());
+                book.setPrice(row.getLiteral("price").getFloat());
+                book.setQuantity(row.getLiteral("quantity").getInt());
+                book.setProductNumber(row.getLiteral("productNumber").getInt());
+                System.out.println(row.getLiteral("fictionalCategory").getValue().toString());
+                book.setCategory(FictionalBook.FictionalCategory.getEnumByString(row.getLiteral("fictionalCategory").getValue().toString()));
+
+            }
+        } catch (ParseException ex) {
+            Logger.getLogger(FictionalBooksDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return book;
 
     }
 
