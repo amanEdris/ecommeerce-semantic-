@@ -1,4 +1,7 @@
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset==UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE html>
 <html dir="ltr" lang="en">
     <head>
@@ -92,9 +95,7 @@
                             </div>
                         </div>
                         <ul>
-                            <form action="https://livedemo00.template-help.com/opencart_47983/index.php?route=module/currency" method="post" enctype="multipart/form-data">
-                                <li><a title="Euro" onclick="$('input[name=\'currency_code\']').attr('value', 'EUR').submit(); $(this).parent().parent().submit();"><span>€</span></a></li>
-                                <li><a title="Pound Sterling" onclick="$('input[name=\'currency_code\']').attr('value', 'GBP').submit(); $(this).parent().parent().submit();"><span>£</span></a></li>
+                            <form action="#" method="post" enctype="multipart/form-data">
                                 <li><a title="US Dollar"><span class="act">$</span></a></li>
                                 <input type="hidden" name="currency_code" value="">
                                 <input type="hidden" name="redirect" value="https://livedemo00.template-help.com/opencart_47983/index.php?route=common/home">
@@ -112,17 +113,11 @@
                     <ul class="foot foot-1">
                         <li><a href="#">Contact Us</a></li>
                         <li><a href="#">Returns</a></li>
-                        <li><a href="#">Site Map</a></li>
                     </ul>
                     <ul class="foot foot-2">
-                        <li><a href="#">Brands</a></li>
-                        <li><a href="#">Gift Vouchers</a></li>
-                        <li><a href="#">Affiliates</a></li>
-                        <li><a href="#">Specials</a></li>
                     </ul>
                     <ul class="foot foot-3">
                         <li><a href="#">Order History</a></li>
-                        <li><a href="#">Newsletter</a></li>
                     </ul>
                 </div>
             </div>
@@ -136,13 +131,12 @@
                                     <div class="col-sm-12">
                                         <div class="toprow">
                                             <ul class="links">
-                                                <li class="first"><a class="active" href="https://livedemo00.template-help.com/opencart_47983/index.php?route=common/home"><i class="fa fa-home"></i>Home</a></li>
-                                                <li><a class="" href="https://livedemo00.template-help.com/opencart_47983/index.php?route=account/wishlist" id="wishlist-total"><i class="fa fa-star"></i>Wish List (0)</a></li>
-                                                <li><a class="" href="https://livedemo00.template-help.com/opencart_47983/index.php?route=account/account"><i class="fa fa-user"></i>My Account</a></li>
-                                                <li><a class="" href="https://livedemo00.template-help.com/opencart_47983/index.php?route=checkout/cart"><i class="fa fa-shopping-cart"></i>Shopping Cart</a></li>
-                                                <li><a class="" href="https://livedemo00.template-help.com/opencart_47983/index.php?route=checkout/checkout"><i class="fa fa-check"></i>Checkout</a></li>
+                                                <li class="first"><a class="active" href="#"><i class="fa fa-home"></i>Home</a></li>
+                                                <li><a class="" href="#"><i class="fa fa-user"></i>My Account</a></li>
+                                                <li><a class="" href="#"><i class="fa fa-shopping-cart"></i>Shopping Cart</a></li>
+                                                <li><a class="" href="#"><i class="fa fa-check"></i>Checkout</a></li>
 
-                                                <li><a href="https://livedemo00.template-help.com/opencart_47983/index.php?route=account/register"><i class="fa fa-user"></i>Create an account</a></li><li class="login_h last"><a href="https://livedemo00.template-help.com/opencart_47983/index.php?route=account/login"><i class="fa fa-lock"></i>Login</a></li>
+                                                <li><a href="#"><i class="fa fa-user"></i>Create an account</a></li><li class="login_h last"><a href="#"><i class="fa fa-lock"></i>Login</a></li>
                                             </ul>
                                             <div class="clear"></div>
                                         </div>
@@ -171,14 +165,8 @@
                                             <div class="heading">en<i class="fa fa-angle-down"></i></div>
                                             <div class="heading1"><i class="fa fa-globe"></i>Language<i class="fa fa-angle-down"></i></div>
                                             <ul>
-                                                <form action="https://livedemo00.template-help.com/opencart_47983/index.php?route=module/language" method="post" enctype="multipart/form-data">
+                                                <form action="#" method="post" enctype="multipart/form-data">
                                                     <li><span alt="English" title="English" onclick="$('input[name=\'language_code\']').attr('value', 'en').submit(); $(this).parent().parent().submit();">en</span>
-                                                    </li><li><span alt="German" title="German" onclick="$('input[name=\'language_code\']').attr('value', 'de').submit(); $(this).parent().parent().submit();">de</span>
-                                                    </li><li><span alt="Spanish" title="Spanish" onclick="$('input[name=\'language_code\']').attr('value', 'es').submit(); $(this).parent().parent().submit();">es</span>
-                                                        <input type="hidden" name="language_code" value="">
-                                                        <input type="hidden" name="redirect" value="https://livedemo00.template-help.com/opencart_47983/index.php?route=common/home">
-                                                    </li>
-
                                                 </form>
                                             </ul>
                                         </div>
@@ -253,7 +241,7 @@
                                     <div id="menu-gadget">
                                         <div id="menu-icon">Categories</div>
                                         <ul id="nav" class="sf-menu-phone">
-                                            <li class="parent"><a href="#">Biography</a>
+                                            <li class="parent"><a href="/books?category="Fiction">Fiction</a>
                                                 <ul>
                                                     <li>
                                                         <a href="https://livedemo00.template-help.com/opencart_47983/index.php?route=product/category&amp;path=57_31">Niutase tras</a>
@@ -299,7 +287,7 @@
 
                                         <ul class="sf-menu">
                                             <li class="cat_1">
-                                                <a href="https://livedemo00.template-help.com/opencart_47983/index.php?route=product/category&amp;path=57" class="">Biography</a>
+                                                <a href="#" class="">Biography</a>
                                                 <div class="sf-mega" style="display: none;">
                                                     <ul class="sf-mega-section">
                                                         <li>
@@ -347,7 +335,7 @@
                                             <li class="cat_7">
                                                 <a href="https://livedemo00.template-help.com/opencart_47983/index.php?route=product/category&amp;path=76">Religion</a>
                                             </li>
-                                            <li class="button_sale"><a href="https://livedemo00.template-help.com/opencart_47983/index.php?route=product/special">Sale</a></li>
+                                            <li class="button_sale"><a href="#">Sale</a></li>
                                         </ul>
 
                                         <div class="clear"></div>
@@ -392,12 +380,30 @@
                                         ;
                                         </script>
 
-
+      
                                         <div class="box featured">
                                             <div class="box-heading">Books</div>
                                             <div class="box-content">
                                                 <div class="box-product">
-                                                  Here the products are displayed with loop
+                                                    <ul class="row">
+                                                        <c:forEach items="${books}" var="book">
+                                                            <tr>
+                                                                <td><c:out value="${book.isbn}" /></td>
+                                                                <td><c:out value="${book.author}" /></td>
+                                                                <td><c:out value="${book.publisher}" /></td>
+                                                                <td><c:out value="${book.title}" /></td>
+                                                                <td><c:out value="${book.imagepath}" /></td>
+                                                                <td><c:out value="${book.publishedYear}" /></td>
+                                                                <td><c:out value="${book.description}" /></td>
+                                                                <td><c:out value="${book.imagepath}" /></td>
+                                                                <td><c:out value="${book.quantity}" /></td>
+                                                                <td><c:out value="${book.price}" /></td>
+                                                                <td><c:out value="${book.productNumber}" /></td>
+                                                                <td><fmt:formatDate pattern="yyyy-MMM-dd" value="${book.publishedYear}" /></td>
+                                                                </tr>
+                                                        </c:forEach>
+
+                                                    </ul>
                                                 </div>
                                                 <div class="clear"></div>
                                             </div>
@@ -430,82 +436,70 @@
                                             ;
                                         </script>
 
-                                        </div>
-                                        <h1 style="display: none;">Unique book store</h1>
+                                    </div>
+                                    <h1 style="display: none;">Unique book store</h1>
+                                </div>
+                                <div class="clear"></div>
+                            </div>
+                        </div>
+                </div>
+                <div class="clear"></div>
+                </section>
+                <footer>
+                    <div class="footer-top">
+                        <div class="container">
+
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <h3>Information</h3>
+                                    <ul>
+                                        <li><a href="#">About</a></li>
+                                        <li><a href="#">Delivery</a></li>
+                                        <li><a href="#">Privacy Policy</a></li>
+                                        <li><a href="#">Terms &amp; Conditions</a></li>
+                                    </ul>
+                                </div>
+                                <div class="col-sm-3">
+                                    <h3>Customer Service</h3>
+                                    <ul>
+                                        <li><a href="#">Contact Us</a></li>
+                                    </ul>
+                                </div>
+
+                                <div class="col-sm-3">
+                                    <h3>My Account</h3>
+                                    <ul>
+                                        <li><a href="#">My Account</a></li>
+                                        <li><a href="#">Order History</a></li>
+                                    </ul>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div id="powered">
+                                    <span>Powered By <a href="h#">Unique</a><br>Books © 2017<!-- [[%FOOTER_LINK]] --></span>
+                                    <div class="#"></div>
+                                    <div class="social">
+                                        <ul>
+                                            <li><a href="https://facebook.com/" class="tooltip-2" title="" data-original-title="Facebook"><i class="fa fa-facebook"></i></a></li>
+                                            <li><a href="https://accounts.google.com/" class="tooltip-2" title="" data-original-title="Google+"><i class="fa fa-google-plus"></i></a></li>
+                                            <li><a href="https://livedemo00.template-help.com/opencart_47983/#" class="tooltip-2" title="" data-original-title="RSS"><i class="fa fa-rss"></i></a></li>
+                                            <li><a href="https://pinterest.com/" class="tooltip-2" title="" data-original-title="Pinterest"><i class="fa fa-pinterest"></i></a></li>
+                                            <li><a href="https://linkedin.com/" class="tooltip-2" title="" data-original-title="LinkedIn"><i class="fa fa-linkedin"></i></a></li>
+                                        </ul>
                                     </div>
                                     <div class="clear"></div>
                                 </div>
                             </div>
                         </div>
-                        <div class="clear"></div>
-                    </section>
-                    <footer>
-                        <div class="footer-top">
-                            <div class="container">
 
-                                <div class="row">
-                                    <div class="col-sm-3">
-                                        <h3>Information</h3>
-                                        <ul>
-                                            <li><a href="https://livedemo00.template-help.com/opencart_47983/index.php?route=information/information&amp;information_id=4">About</a></li>
-                                            <li><a href="https://livedemo00.template-help.com/opencart_47983/index.php?route=information/information&amp;information_id=6">Delivery</a></li>
-                                            <li><a href="https://livedemo00.template-help.com/opencart_47983/index.php?route=information/information&amp;information_id=3">Privacy Policy</a></li>
-                                            <li><a href="https://livedemo00.template-help.com/opencart_47983/index.php?route=information/information&amp;information_id=5">Terms &amp; Conditions</a></li>
-                                        </ul>
-                                    </div>
-                                    <div class="col-sm-3">
-                                        <h3>Customer Service</h3>
-                                        <ul>
-                                            <li><a href="https://livedemo00.template-help.com/opencart_47983/index.php?route=information/contact">Contact Us</a></li>
-                                            <li><a href="https://livedemo00.template-help.com/opencart_47983/index.php?route=account/return/insert">Returns</a></li>
-                                            <li><a href="https://livedemo00.template-help.com/opencart_47983/index.php?route=information/sitemap">Site Map</a></li>
-                                        </ul>
-                                    </div>
-                                    <div class="col-sm-3">
-                                        <h3>Extras</h3>
-                                        <ul>
-                                            <li><a href="https://livedemo00.template-help.com/opencart_47983/index.php?route=product/manufacturer">Brands</a></li>
-                                            <li><a href="https://livedemo00.template-help.com/opencart_47983/index.php?route=account/voucher">Gift Vouchers</a></li>
-                                            <li><a href="https://livedemo00.template-help.com/opencart_47983/index.php?route=affiliate/account">Affiliates</a></li>
-                                            <li><a href="https://livedemo00.template-help.com/opencart_47983/index.php?route=product/special">Specials</a></li>
-                                        </ul>
-                                    </div>
-                                    <div class="col-sm-3">
-                                        <h3>My Account</h3>
-                                        <ul>
-                                            <li><a href="https://livedemo00.template-help.com/opencart_47983/index.php?route=account/account">My Account</a></li>
-                                            <li><a href="https://livedemo00.template-help.com/opencart_47983/index.php?route=account/order">Order History</a></li>
-                                            <li><a href="https://livedemo00.template-help.com/opencart_47983/index.php?route=account/wishlist">Wish List</a></li>
-                                            <li><a href="https://livedemo00.template-help.com/opencart_47983/index.php?route=account/newsletter">Newsletter</a></li>
-                                        </ul>
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-sm-12">
-                                    <div id="powered">
-                                        <span>Powered By <a href="h#">Unique</a><br>Books © 2017<!-- [[%FOOTER_LINK]] --></span>
-                                        <div class="#"></div>
-                                        <div class="social">
-                                            <ul>
-                                                <li><a href="https://facebook.com/" class="tooltip-2" title="" data-original-title="Facebook"><i class="fa fa-facebook"></i></a></li>
-                                                <li><a href="https://accounts.google.com/" class="tooltip-2" title="" data-original-title="Google+"><i class="fa fa-google-plus"></i></a></li>
-                                                <li><a href="https://livedemo00.template-help.com/opencart_47983/#" class="tooltip-2" title="" data-original-title="RSS"><i class="fa fa-rss"></i></a></li>
-                                                <li><a href="https://pinterest.com/" class="tooltip-2" title="" data-original-title="Pinterest"><i class="fa fa-pinterest"></i></a></li>
-                                                <li><a href="https://linkedin.com/" class="tooltip-2" title="" data-original-title="LinkedIn"><i class="fa fa-linkedin"></i></a></li>
-                                            </ul>
-                                        </div>
-                                        <div class="clear"></div>
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div></footer>
-                </div>
+                    </div></footer>
             </div>
         </div>
-    </body>
+    </div>
+</body>
 </html>
