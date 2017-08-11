@@ -39,6 +39,10 @@ public class FictionalBooksDao {
         helperUtil = new HelperUtil();
     }
 
+    /**
+     * How to presist model changes to remote file upate and delete function
+     * @param b 
+     */
     public void addFictionalBooks(FictionalBook b) {
 
         String insertQuery = RdfModelUtil.PREFIX;
@@ -60,19 +64,7 @@ public class FictionalBooksDao {
 
         System.out.println(insertQuery);
         UpdateAction.parseExecute(insertQuery, model);
-
-    }
-
-    public void deleteFictionalBooks(int productNumber) {
-        String deleteQuery = RdfModelUtil.PREFIX;
-        deleteQuery += "DELETE {?s ?p ?o}\n"
-                + "       \n"
-                + "WHERE  { ?s ?p ?o . \n"
-                + "         FILTER (?o = "+productNumber+") \n"
-                + "}	";
         
-        System.out.println(deleteQuery);
-        UpdateAction.parseExecute(deleteQuery, model);
     }
 
     public void updateFictionalBooks(FictionalBook b) {

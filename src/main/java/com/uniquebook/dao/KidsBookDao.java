@@ -13,7 +13,10 @@ import com.hp.hpl.jena.query.QuerySolution;
 import com.hp.hpl.jena.query.ResultSet;
 import com.hp.hpl.jena.query.Syntax;
 import com.hp.hpl.jena.rdf.model.Model;
+import com.hp.hpl.jena.update.UpdateAction;
 import com.uniquebook.models.KidsBook;
+import com.uniquebook.models.NonFictionalBook;
+import com.uniquebook.utils.HelperUtil;
 import com.uniquebook.utils.RdfModelUtil;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -30,17 +33,33 @@ import java.util.logging.Logger;
 public class KidsBookDao {
 
     private Model model;
+    private HelperUtil helperUtil;
 
     public KidsBookDao() {
         model = RdfModelUtil.createModelFromUrl();
+        helperUtil = new HelperUtil();
     }
 
-    public void KidsBookBooks(KidsBook b) {
+    public void addKidsBook(KidsBook b) {
+        String insertQuery = RdfModelUtil.PREFIX;
+        insertQuery += "INSERT\n"
+                + "{\n"
+                + " r:" + helperUtil.generateNames() + "   a   r:KidsBook;\n"
+                + "          r:productNumber \"" + b.getProductNumber() + "\"^^xsd:nonNegativeInteger ;\n"
+                + "          r:hasISBN \"" + b.getIsbn() + "\"^^xsd:string ;\n"
+                + "          r:hasPrice \"" + b.getPrice() + "\"^^xsd:float ;\n"
+                + "          r:hasQuantity \"" + b.getQuantity() + "\"^^xsd:nonNegativeInteger ;\n"
+                + "          r:hasPublisher \"" + b.getPublisher() + "\"^^xsd:string ;\n"
+                + "          r:hasPublishedYear \"" + b.getStringPublishedYear() + "\"^^xsd:date ;\n"
+                + "          r:hasKidsBookCategory \"" + b.getCategory() + "\"^^xsd:string ;\n"
+                + "          r:hasAuthor \"" + b.getAuthor() + "\"^^xsd:string ;\n"
+                + "          r:hasDescription \"" + b.getDescription() + "\"^^xsd:string ;\n"
+                + "          r:hasTitle \"" + b.getTitle() + "\"^^xsd:string ;\n"
+                + "          r:hasImage \"" + b.getImagepath() + "\"^^xsd:string ."
+                + "}";
 
-    }
-
-    public void deleteKidsBook(int productNumber) {
-
+        System.out.println(insertQuery);
+        UpdateAction.parseExecute(insertQuery, model);
     }
 
     public void updateKidsBook(KidsBook b) {

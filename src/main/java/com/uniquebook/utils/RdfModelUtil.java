@@ -29,6 +29,7 @@ public class RdfModelUtil {
     private static String dataUrl = "http://localhost:8080/Reservation-0/onto/data.ttl";
 
     public static Model createModelFromUrl() {
+        
         Model model = null;
         try {
             URL u = new URL(dataUrl);

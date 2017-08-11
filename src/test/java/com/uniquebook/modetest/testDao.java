@@ -5,6 +5,7 @@
  */
 package com.uniquebook.modetest;
 
+import com.uniquebook.dao.BookDao;
 import com.uniquebook.dao.FictionalBooksDao;
 import com.uniquebook.dao.KidsBookDao;
 import com.uniquebook.dao.NonFictionalBooksDao;
@@ -36,8 +37,8 @@ public class testDao {
         // System.out.println("Kids books model list:"+b.getAllKidsBook());
         //System.out.println("Fictional booss model list"+bw.getAllFictionalBook());
         //System.out.println(bw.getFictionalBookByISBN("1394044949"));
-        System.out.println(nonficational.getNonFictionalBookByISBN("1373883389"));
-        System.out.println(nonficational.getNonFictionalByProductNumber(11));
+        //System.out.println(nonficational.getNonFictionalBookByISBN("1373883389"));
+        //System.out.println(nonficational.getNonFictionalByProductNumber(11));
 
         //System.out.println(b.getKidsBookByISBN("172343883389"));
         // System.out.println(bw.getFictionalBookByProductNumber(8));
@@ -57,14 +58,50 @@ public class testDao {
         bbn.setQuantity(2);
         bbn.setProductNumber(30);
         bbn.setCategory("Romance");
-        System.out.println("the book you added is:" + bbn.toString());
+        //System.out.println("the book you added is:" + bbn.toString());
         bw.addFictionalBooks(bbn);
-        System.out.println("you have added a book" + bw.getFictionalBookByISBN(bbn.getIsbn()));
-
-        bw.deleteFictionalBooks(30);
         
-        System.out.println("you deleted a book" + bw.getFictionalBookByProductNumber(30));
+        /**
+         * test can delete a book given producer consumer
+         */
+        BookDao nnd = new BookDao();
+        //nnd.deleteFictionalBooks(bbn.getProductNumber());
+        //System.out.println("you deleted a book" + bw.getFictionalBookByProductNumber(bbn.getProductNumber()));
 
+       // System.out.println("you have added a book" + bw.getFictionalBookByISBN(bbn.getIsbn()));
+        
+//        NonFictionalBook c = new NonFictionalBook();
+//        c.setAuthor("jango");
+//        c.setImagepath("path");
+//        c.setIsbn("1394029492");
+//        c.setPublishedYear(deliveryDate);
+//        c.setPublisher("maman");
+//        c.setQuantity(100);
+//        c.setDescription("a book product");
+//        c.setPrice(12);
+//        c.setQuantity(2);
+//        c.setProductNumber(30);
+//        c.setCategory("Business Books");
+//        nonficational.addNonFictionalBooks(c);
+//        
+//        System.out.println("you have added a book" + nonficational.getNonFictionalByProductNumber(c.getProductNumber()));
+//    
+        KidsBook c =new KidsBook();
+        c.setAuthor("jango");
+        c.setImagepath("path");
+        c.setIsbn("1394029492");
+        c.setPublishedYear(deliveryDate);
+        c.setPublisher("maman");
+        c.setQuantity(100);
+        c.setDescription("a book product");
+        c.setPrice(12);
+        c.setQuantity(2);
+        c.setProductNumber(30);
+        c.setCategory("Teens");
+        b.addKidsBook(c);
+        
+       System.out.println("you have added a book" + b.getKidBookByProductNumber(c.getProductNumber()));
+       
     }
 
 }
