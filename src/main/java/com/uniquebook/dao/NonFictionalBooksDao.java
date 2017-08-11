@@ -186,7 +186,45 @@ public NonFictionalBook getNonFictionalBookByISBN(String ISBN) {
                 + "\n"
                 + " }";
                 
-                  try {
+        queryBook(booksQuery, book);
+        return book;
+
+    }
+
+
+    public NonFictionalBook getNonFictionalByProductNumber(int productNumber) {
+        NonFictionalBook book = new NonFictionalBook();
+        String booksQuery = RdfModelUtil.PREFIX;
+
+        booksQuery += "SELECT  *\n"
+                + "\n"
+                + "WHERE\n"
+                + "{ \n"
+                + "  ?x a r:Nonfiction;\n"
+                + "                  r:hasQuantity ?quantity;\n"
+                + "                  r:hasISBN  ?isbn ;\n"
+                + "                  r:hasPublishedYear  ?publishedyear ;\n"
+                + "                  r:productNumber  ?productNumber;\n"
+                + "                  r:hasPrice ?price ;\n"
+                + "                  r:hasDescription ?description ;\n"
+                + "                  r:hasNonFictionalCategory ?nonFictionalCategory ;\n"
+                + "                  r:hasPublisher ?publisher ;\n"
+                + "                  r:hasAuthor ?author;\n"
+                + "                  r:hasTitle  ?title ;\n"
+                + "                  r:hasImage ?image ;\n"
+                + "   FILTER (?productNumber  = " + productNumber + " )\n"
+                + "\n"
+                + " }";
+
+        System.out.println("get book query+" + booksQuery);
+
+        queryBook(booksQuery, book);
+        return book;
+
+    }
+
+    private void queryBook(String booksQuery, NonFictionalBook book) {
+        try {
             Query query = QueryFactory.create(booksQuery, Syntax.syntaxARQ);
             QueryExecution qe = QueryExecutionFactory.create(query, model);
             ResultSet results = qe.execSelect();
@@ -215,7 +253,5 @@ public NonFictionalBook getNonFictionalBookByISBN(String ISBN) {
         } catch (ParseException ex) {
             Logger.getLogger(FictionalBooksDao.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return book;
-
     }
 }

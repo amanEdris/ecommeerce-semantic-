@@ -13,6 +13,7 @@ import com.hp.hpl.jena.query.QuerySolution;
 import com.hp.hpl.jena.query.ResultSet;
 import com.hp.hpl.jena.query.Syntax;
 import com.hp.hpl.jena.rdf.model.Model;
+import com.hp.hpl.jena.update.UpdateAction;
 import com.uniquebook.models.FictionalBook;
 import com.uniquebook.utils.RdfModelUtil;
 import java.text.ParseException;
@@ -36,6 +37,23 @@ public class FictionalBooksDao {
     }
 
     public void addFictionalBooks(FictionalBook b) {
+        String insertQuery = RdfModelUtil.PREFIX;
+        insertQuery += "INSERT\n"
+                + "{\n"
+                + " ?x   a   r:FictionAndLiterature;\n"
+                + "          r:productNumber \""+b.getProductNumber()+"\"^^xsd:nonNegativeInteger ;\n"
+                + "          r:hasISBN \""+b.getIsbn()+"\"^^xsd:string ;\n"
+                + "          r:hasPrice \""+b.getPrice()+"\"^^xsd:float ;\n"
+                + "          r:hasQuantity \""+b.getQuantity()+"\"^^xsd:nonNegativeInteger ;\n"
+                + "          r:hasPublisher \""+b.getPublisher()+"\"^^xsd:string ;\n"
+                + "          r:hasPublishedYear \""+b.getPublishedYear()+"\"^^xsd:date ;\n"
+                + "          r:hasFictionalCategory \""+b.getCategory()+"\"^^xsd:string ;\n"
+                + "          r:hasAuthor \""+b.getAuthor()+"\"^^xsd:string ;\n"
+                + "          r:hasDescription \""+b.getDescription()+"\"^^xsd:string ;\n"
+                + "          r:hasTitle \""+b.getTitle()+"\"^^xsd:string ;\n"
+                + "          r:hasImage \""+b.getImagepath()+"\"^^xsd:string ."
+                + "}";
+        UpdateAction.parseExecute(insertQuery, model);
 
     }
 
@@ -153,9 +171,9 @@ public class FictionalBooksDao {
     }
 
     public FictionalBook getFictionalBookByISBN(String ISBN) {
-        FictionalBook book= new   FictionalBook();
+        FictionalBook book = new FictionalBook();
         String booksQuery = RdfModelUtil.PREFIX;
-        
+
         booksQuery += "SELECT  *\n"
                 + "\n"
                 + "WHERE\n"
@@ -175,8 +193,45 @@ public class FictionalBooksDao {
                 + "   FILTER (sameTerm(?isbn ,\"" + ISBN + "\"^^xsd:string))\n"
                 + "\n"
                 + " }";
-                
-                  try {
+
+        queryBook(booksQuery, book);
+        return book;
+
+    }
+
+    
+    public FictionalBook getFictionalBookByProductNumber(int productNumber) {
+        FictionalBook book = new FictionalBook();
+        String booksQuery = RdfModelUtil.PREFIX;
+
+        booksQuery += "SELECT  *\n"
+                + "\n"
+                + "WHERE\n"
+                + "{ \n"
+                + "  ?x a r:FictionAndLiterature;\n"
+                + "                  r:hasQuantity ?quantity;\n"
+                + "                  r:hasISBN  ?isbn ;\n"
+                + "                  r:hasPublishedYear  ?publishedyear ;\n"
+                + "                  r:productNumber  ?productNumber;\n"
+                + "                  r:hasPrice ?price ;\n"
+                + "                  r:hasDescription ?description ;\n"
+                + "                  r:hasFictionalCategory ?fictionalCategory ;\n"
+                + "                  r:hasPublisher ?publisher ;\n"
+                + "                  r:hasAuthor ?author;\n"
+                + "                  r:hasTitle  ?title ;\n"
+                + "                  r:hasImage ?image ;\n"
+                + "   FILTER (?productNumber  = "+productNumber+" )\n"
+                + "\n"
+                + " }";
+        
+        System.out.println("get book query+"+booksQuery);
+
+        queryBook(booksQuery, book);
+        return book;
+
+    }
+    private void queryBook(String booksQuery, FictionalBook book) {
+        try {
             Query query = QueryFactory.create(booksQuery, Syntax.syntaxARQ);
             QueryExecution qe = QueryExecutionFactory.create(query, model);
             ResultSet results = qe.execSelect();
@@ -205,8 +260,7 @@ public class FictionalBooksDao {
         } catch (ParseException ex) {
             Logger.getLogger(FictionalBooksDao.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return book;
-
     }
+
 
 }

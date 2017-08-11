@@ -13,9 +13,7 @@ import com.hp.hpl.jena.query.QuerySolution;
 import com.hp.hpl.jena.query.ResultSet;
 import com.hp.hpl.jena.query.Syntax;
 import com.hp.hpl.jena.rdf.model.Model;
-import com.uniquebook.models.FictionalBook;
 import com.uniquebook.models.KidsBook;
-import com.uniquebook.models.NonFictionalBook;
 import com.uniquebook.utils.RdfModelUtil;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -186,6 +184,43 @@ public class KidsBookDao {
                 + "\n"
                 + " }";
 
+        queryBook(booksQuery, book);
+        return book;
+
+    }
+
+    public KidsBook getKidBookByProductNumber(int productNumber) {
+        KidsBook book = new KidsBook();
+        String booksQuery = RdfModelUtil.PREFIX;
+
+        booksQuery += "SELECT  *\n"
+                + "\n"
+                + "WHERE\n"
+                + "{ \n"
+                + "  ?x a r:KidsBook;\n"
+                + "                  r:hasQuantity ?quantity;\n"
+                + "                  r:hasISBN  ?isbn ;\n"
+                + "                  r:hasPublishedYear  ?publishedyear ;\n"
+                + "                  r:productNumber  ?productNumber;\n"
+                + "                  r:hasPrice ?price ;\n"
+                + "                  r:hasDescription ?description ;\n"
+                + "                  r:hasKidsBookCategory ?kidsCategory ;\n"
+                + "                  r:hasPublisher ?publisher ;\n"
+                + "                  r:hasAuthor ?author;\n"
+                + "                  r:hasTitle  ?title ;\n"
+                + "                  r:hasImage ?image ;\n"
+                + "   FILTER (?productNumber  = " + productNumber + " )\n"
+                + "\n"
+                + " }";
+
+        System.out.println("get book query+" + booksQuery);
+
+        queryBook(booksQuery, book);
+        return book;
+
+    }
+
+    private void queryBook(String booksQuery, KidsBook book) {
         try {
             Query query = QueryFactory.create(booksQuery, Syntax.syntaxARQ);
             QueryExecution qe = QueryExecutionFactory.create(query, model);
@@ -215,8 +250,5 @@ public class KidsBookDao {
         } catch (ParseException ex) {
             Logger.getLogger(FictionalBooksDao.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return book;
-
     }
-
 }

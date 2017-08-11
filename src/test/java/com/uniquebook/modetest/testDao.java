@@ -8,6 +8,7 @@ package com.uniquebook.modetest;
 import com.uniquebook.dao.FictionalBooksDao;
 import com.uniquebook.dao.KidsBookDao;
 import com.uniquebook.dao.NonFictionalBooksDao;
+import com.uniquebook.models.FictionalBook;
 import com.uniquebook.models.KidsBook;
 import com.uniquebook.models.NonFictionalBook;
 
@@ -33,8 +34,31 @@ public class testDao {
          // System.out.println("Kids books model list:"+b.getAllKidsBook());
          //System.out.println("Fictional booss model list"+bw.getAllFictionalBook());
          //System.out.println(bw.getFictionalBookByISBN("1394044949"));
-         //System.out.println(nonficational.getNonFictionalBookByISBN("1373883389"));
+         System.out.println(nonficational.getNonFictionalBookByISBN("1373883389"));
+         System.out.println(nonficational.getNonFictionalByProductNumber(11));  
+         
          //System.out.println(b.getKidsBookByISBN("172343883389"));
+         // System.out.println(bw.getFictionalBookByProductNumber(8));
+         
+         //System.out.println(b.getKidsBookByISBN("172343883389"));
+         //System.out.println(b.getKidBookByProductNumber(20));
+
+//         FictionalBook bbn = new FictionalBook();
+//            bbn.setAuthor("jango");
+//            bbn.setImagepath("path");
+//            bbn.setIsbn("1394029492");
+//            bbn.setPublishedYear(null);
+//            bbn.setPublisher("maman");
+//            bbn.setQuantity(100);
+//            bbn.setDescription("a book product");
+//            bbn.setPrice(12);
+//            bbn.setQuantity(2);
+//            bbn.setProductNumber(30);
+//            bbn.setCategory("Romance");
+//             System.out.println("the book you added is:"+bbn.toString());
+//            bw.addFictionalBooks(bbn);
+//            System.out.println("you have added a book"+bw.getFictionalBookByISBN(bbn.getIsbn()));
+
     }
     
     
