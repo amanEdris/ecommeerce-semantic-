@@ -7,9 +7,8 @@ package com.uniquebook.controllers;
 
 import com.uniquebook.dao.FictionalBooksDao;
 import com.uniquebook.dao.KidsBookDao;
-import com.uniquebook.models.NonFictionalBook;
+import com.uniquebook.dao.NonFictionalBooksDao;
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -22,12 +21,11 @@ import javax.servlet.http.HttpServletResponse;
  * @author edris
  */
 
-//, urlPatterns = {"/book"}
 @WebServlet(name="BookController",urlPatterns = {"/book"})
 public class BookController extends HttpServlet {
 
     private FictionalBooksDao fictionDao;
-    private NonFictionalBook nonFcitionDao;
+    private NonFictionalBooksDao nonFcitionDao;
     private KidsBookDao kidDao;
     private static String INSERT_OR_EDIT = "/view/book.jsp";
     private static String LIST_Books = "/view/listBook.jsp";
@@ -35,7 +33,7 @@ public class BookController extends HttpServlet {
     public BookController() {
         super();
         fictionDao = new FictionalBooksDao();
-        nonFcitionDao = new NonFictionalBook();
+        nonFcitionDao = new NonFictionalBooksDao();
         kidDao = new KidsBookDao();
     }
 
@@ -59,7 +57,7 @@ public class BookController extends HttpServlet {
             
         } else if (action.equalsIgnoreCase("listBooks")) {
             forward = LIST_Books;          
-            request.setAttribute("books", kidDao.getAllKidsBook());
+            request.setAttribute("books", nonFcitionDao.getAllNonFictionalBook());
         } else {
             
         }

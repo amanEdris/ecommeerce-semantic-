@@ -33,7 +33,7 @@ public class testDao {
         // System.out.println("Kids books model list:"+b.getAllKidsBook());
 
         FictionalBooksDao bw = new FictionalBooksDao();
-        System.out.println(bw.getAllFictionalBookByCategory("Romance"));
+        //System.out.println("Fictional books stored in Db are:"+bw.getAllFictionalBookByCategory("Romance"));
         // System.out.println("Kids books model list:"+b.getAllKidsBook());
         //System.out.println("Fictional booss model list"+bw.getAllFictionalBook());
         //System.out.println(bw.getFictionalBookByISBN("1394044949"));
@@ -46,27 +46,27 @@ public class testDao {
         //System.out.println(b.getKidBookByProductNumber(20));
         Date deliveryDate = new Date();
 
-//        FictionalBook bbn = new FictionalBook();
-//        bbn.setAuthor("jango");
-//        bbn.setImagepath("path");
-//        bbn.setIsbn("1394029492");
-//        bbn.setPublishedYear(deliveryDate);
-//        bbn.setPublisher("maman");
-//        bbn.setQuantity(100);
-//        bbn.setDescription("a book product");
-//        bbn.setPrice(12);
-//        bbn.setQuantity(2);
-//        bbn.setProductNumber(30);
-//        bbn.setCategory("Romance");
-//        //System.out.println("the book you added is:" + bbn.toString());
-//        bw.addFictionalBooks(bbn);
+        FictionalBook bbn = new FictionalBook();
+        bbn.setAuthor("jango");
+        bbn.setImagepath("./image/The Complete Works of William Shakespeare 1 copy-131x199.png");
+        bbn.setIsbn("1394029492");
+        bbn.setPublishedYear(deliveryDate);
+        bbn.setPublisher("maman");
+        bbn.setQuantity(100);
+        bbn.setDescription("a book product");
+        bbn.setPrice(12);
+        bbn.setQuantity(2);
+        bbn.setProductNumber(30);
+        bbn.setCategory("Romance");
+        //System.out.println("the book you added is:" + bbn.toString());
+        bw.addFictionalBooks(bbn);
 //        
 //        /**
 //         * test can delete a book given producer consumer
 //         */
-//        BookDao nnd = new BookDao();
-        //nnd.deleteFictionalBooks(bbn.getProductNumber());
-        //System.out.println("you deleted a book" + bw.getFictionalBookByProductNumber(bbn.getProductNumber()));
+        BookDao nnd = new BookDao();
+        nnd.deleteFictionalBooks(bbn.getProductNumber());
+        System.out.println("you deleted a book" + bw.getFictionalBookByProductNumber(bbn.getProductNumber()));
 
        // System.out.println("you have added a book" + bw.getFictionalBookByISBN(bbn.getIsbn()));
         

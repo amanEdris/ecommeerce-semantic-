@@ -15,7 +15,6 @@ import com.hp.hpl.jena.query.Syntax;
 import com.hp.hpl.jena.rdf.model.Model;
 import com.hp.hpl.jena.update.UpdateAction;
 import com.uniquebook.models.KidsBook;
-import com.uniquebook.models.NonFictionalBook;
 import com.uniquebook.utils.HelperUtil;
 import com.uniquebook.utils.RdfModelUtil;
 import java.text.ParseException;
@@ -60,6 +59,7 @@ public class KidsBookDao {
 
         System.out.println(insertQuery);
         UpdateAction.parseExecute(insertQuery, model);
+        
     }
 
     public void updateKidsBook(KidsBook b) {

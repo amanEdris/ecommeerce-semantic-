@@ -23,10 +23,13 @@ public class RdfModelUtil {
             + "prefix xsd: <http://www.w3.org/2001/XMLSchema#> \n"
             + "prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> ";
     
+    public static  final String RDF_DATA_MODEL_PATH = "src/onto/data.ttl";
+
+    
     
     private Model model = null;
     //the url of rdf individuals created 
-    private static String dataUrl = "http://localhost:8080/Reservation-0/onto/data.ttl";
+    private static String dataUrl = "http://localhost:8080/UniqueBookApp/onto/data.ttl";
 
     public static Model createModelFromUrl() {
         
@@ -38,5 +41,9 @@ public class RdfModelUtil {
         }
         return model;
     }
+    
+    
+    
+    
 
 }

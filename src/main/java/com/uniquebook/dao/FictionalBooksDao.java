@@ -65,6 +65,9 @@ public class FictionalBooksDao {
         System.out.println(insertQuery);
         UpdateAction.parseExecute(insertQuery, model);
         
+        
+
+        
     }
 
     public void updateFictionalBooks(FictionalBook b) {

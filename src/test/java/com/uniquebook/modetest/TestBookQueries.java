@@ -29,7 +29,7 @@ import java.util.Date;
  */
 public class TestBookQueries {
 
-    public static String dataUrl = "http://localhost:8080/Reservation-0/onto/data.ttl";
+    public static String dataUrl = "http://localhost:8080/UniqueBookApp/onto/data.ttl";
     public static String PREFIX = "prefix r: <http://localhost:8080/UniqueBookshop/onto/Ecommerce.owl/>\n"
             + "prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> \n"
             + "prefix xsd: <http://www.w3.org/2001/XMLSchema#> \n"

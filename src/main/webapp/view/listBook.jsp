@@ -150,8 +150,6 @@
                                             </div>
                                             <ul>
                                                 <form action="https://livedemo00.template-help.com/opencart_47983/index.php?route=module/currency" method="post" enctype="multipart/form-data">
-                                                    <li><a title="Euro" onclick="$('input[name=\'currency_code\']').attr('value', 'EUR').submit(); $(this).parent().parent().submit();"><span>€</span></a></li>
-                                                    <li><a title="Pound Sterling" onclick="$('input[name=\'currency_code\']').attr('value', 'GBP').submit(); $(this).parent().parent().submit();"><span>£</span></a></li>
                                                     <li><a title="US Dollar"><span class="act">$</span></a></li>
                                                     <input type="hidden" name="currency_code" value="">
                                                     <input type="hidden" name="redirect" value="https://livedemo00.template-help.com/opencart_47983/index.php?route=common/home">
@@ -380,27 +378,34 @@
                                         ;
                                         </script>
 
-      
+
                                         <div class="box featured">
                                             <div class="box-heading">Books</div>
                                             <div class="box-content">
                                                 <div class="box-product">
+                                                    <c:set var="count" value="0" scope="page" />
                                                     <ul class="row">
                                                         <c:forEach items="${books}" var="book">
-                                                            <tr>
-                                                                <td><c:out value="${book.isbn}" /></td>
-                                                                <td><c:out value="${book.author}" /></td>
-                                                                <td><c:out value="${book.publisher}" /></td>
-                                                                <td><c:out value="${book.title}" /></td>
-                                                                <td><c:out value="${book.imagepath}" /></td>
-                                                                <td><c:out value="${book.publishedYear}" /></td>
-                                                                <td><c:out value="${book.description}" /></td>
-                                                                <td><c:out value="${book.imagepath}" /></td>
-                                                                <td><c:out value="${book.quantity}" /></td>
-                                                                <td><c:out value="${book.price}" /></td>
-                                                                <td><c:out value="${book.productNumber}" /></td>
-                                                                <td><fmt:formatDate pattern="yyyy-MMM-dd" value="${book.publishedYear}" /></td>
-                                                                </tr>
+                                                            <c:set var="count" value="${count + 1}" />
+                                                            <c:choose>
+                                                                <c:when test="${count == '1'}">
+                                                                    <c:set var="val" value="11"  />
+
+                                                                    <li class="first-in-line  col-sm-2">  book 1st </li>
+                                                                    </c:when>
+                                                                    <c:when test="${count == 6}">
+                                                                    <c:set var="count" value="0"  />
+                                                                    <li class="last-in-line   col-sm-2">  book last</li>
+
+                                                                    </c:when>
+                                                                    <c:otherwise>
+                                                                        <c:set var="vale" value="${val - 1}" />
+
+                                                                    <li class="col-sm-2">  book middle </li>
+                                                                    </c:otherwise>
+                                                                </c:choose>
+
+
                                                         </c:forEach>
 
                                                     </ul>
