@@ -13,7 +13,6 @@ import com.hp.hpl.jena.query.QuerySolution;
 import com.hp.hpl.jena.query.ResultSet;
 import com.hp.hpl.jena.query.Syntax;
 import com.hp.hpl.jena.rdf.model.Model;
-import com.uniquebook.models.FictionalBook;
 import com.uniquebook.models.NonFictionalBook;
 import com.uniquebook.utils.RdfModelUtil;
 import java.text.ParseException;

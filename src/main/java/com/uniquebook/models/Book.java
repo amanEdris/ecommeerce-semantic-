@@ -5,6 +5,7 @@
  */
 package com.uniquebook.models;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -64,7 +65,12 @@ public class Book extends Product{
         this.imagepath = imagepath;
     }
 
-    public Date getPublishedYear() {
+    public String getStringPublishedYear() {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        return sdf.format(publishedYear);
+    }
+    
+    public Date getPublishedYear(){
         return publishedYear;
     }
 

@@ -15,6 +15,7 @@ import com.hp.hpl.jena.query.Syntax;
 import com.hp.hpl.jena.rdf.model.Model;
 import com.hp.hpl.jena.update.UpdateAction;
 import com.uniquebook.models.FictionalBook;
+import com.uniquebook.utils.HelperUtil;
 import com.uniquebook.utils.RdfModelUtil;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -31,34 +32,47 @@ import java.util.logging.Logger;
 public class FictionalBooksDao {
 
     private Model model;
+    private HelperUtil helperUtil;
 
     public FictionalBooksDao() {
         model = RdfModelUtil.createModelFromUrl();
+        helperUtil = new HelperUtil();
     }
 
     public void addFictionalBooks(FictionalBook b) {
+
         String insertQuery = RdfModelUtil.PREFIX;
         insertQuery += "INSERT\n"
                 + "{\n"
-                + " ?x   a   r:FictionAndLiterature;\n"
-                + "          r:productNumber \""+b.getProductNumber()+"\"^^xsd:nonNegativeInteger ;\n"
-                + "          r:hasISBN \""+b.getIsbn()+"\"^^xsd:string ;\n"
-                + "          r:hasPrice \""+b.getPrice()+"\"^^xsd:float ;\n"
-                + "          r:hasQuantity \""+b.getQuantity()+"\"^^xsd:nonNegativeInteger ;\n"
-                + "          r:hasPublisher \""+b.getPublisher()+"\"^^xsd:string ;\n"
-                + "          r:hasPublishedYear \""+b.getPublishedYear()+"\"^^xsd:date ;\n"
-                + "          r:hasFictionalCategory \""+b.getCategory()+"\"^^xsd:string ;\n"
-                + "          r:hasAuthor \""+b.getAuthor()+"\"^^xsd:string ;\n"
-                + "          r:hasDescription \""+b.getDescription()+"\"^^xsd:string ;\n"
-                + "          r:hasTitle \""+b.getTitle()+"\"^^xsd:string ;\n"
-                + "          r:hasImage \""+b.getImagepath()+"\"^^xsd:string ."
+                + " r:" + helperUtil.generateNames() + "   a   r:FictionAndLiterature;\n"
+                + "          r:productNumber \"" + b.getProductNumber() + "\"^^xsd:nonNegativeInteger ;\n"
+                + "          r:hasISBN \"" + b.getIsbn() + "\"^^xsd:string ;\n"
+                + "          r:hasPrice \"" + b.getPrice() + "\"^^xsd:float ;\n"
+                + "          r:hasQuantity \"" + b.getQuantity() + "\"^^xsd:nonNegativeInteger ;\n"
+                + "          r:hasPublisher \"" + b.getPublisher() + "\"^^xsd:string ;\n"
+                + "          r:hasPublishedYear \"" + b.getStringPublishedYear() + "\"^^xsd:date ;\n"
+                + "          r:hasFictionalCategory \"" + b.getCategory() + "\"^^xsd:string ;\n"
+                + "          r:hasAuthor \"" + b.getAuthor() + "\"^^xsd:string ;\n"
+                + "          r:hasDescription \"" + b.getDescription() + "\"^^xsd:string ;\n"
+                + "          r:hasTitle \"" + b.getTitle() + "\"^^xsd:string ;\n"
+                + "          r:hasImage \"" + b.getImagepath() + "\"^^xsd:string ."
                 + "}";
+
+        System.out.println(insertQuery);
         UpdateAction.parseExecute(insertQuery, model);
 
     }
 
     public void deleteFictionalBooks(int productNumber) {
-
+        String deleteQuery = RdfModelUtil.PREFIX;
+        deleteQuery += "DELETE {?s ?p ?o}\n"
+                + "       \n"
+                + "WHERE  { ?s ?p ?o . \n"
+                + "         FILTER (?o = "+productNumber+") \n"
+                + "}	";
+        
+        System.out.println(deleteQuery);
+        UpdateAction.parseExecute(deleteQuery, model);
     }
 
     public void updateFictionalBooks(FictionalBook b) {
@@ -199,7 +213,6 @@ public class FictionalBooksDao {
 
     }
 
-    
     public FictionalBook getFictionalBookByProductNumber(int productNumber) {
         FictionalBook book = new FictionalBook();
         String booksQuery = RdfModelUtil.PREFIX;
@@ -220,16 +233,17 @@ public class FictionalBooksDao {
                 + "                  r:hasAuthor ?author;\n"
                 + "                  r:hasTitle  ?title ;\n"
                 + "                  r:hasImage ?image ;\n"
-                + "   FILTER (?productNumber  = "+productNumber+" )\n"
+                + "   FILTER (?productNumber  = " + productNumber + " )\n"
                 + "\n"
                 + " }";
-        
-        System.out.println("get book query+"+booksQuery);
+
+        System.out.println("get book query+" + booksQuery);
 
         queryBook(booksQuery, book);
         return book;
 
     }
+
     private void queryBook(String booksQuery, FictionalBook book) {
         try {
             Query query = QueryFactory.create(booksQuery, Syntax.syntaxARQ);
@@ -261,6 +275,5 @@ public class FictionalBooksDao {
             Logger.getLogger(FictionalBooksDao.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
 
 }
