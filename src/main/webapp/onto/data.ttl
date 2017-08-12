@@ -414,7 +414,7 @@ r:hasBookRevisionNo "3rd";
 
           r:hasTitle "Telitabis"^^xsd:string ;
 
-          r:hasImage "/image/The Divine Comedy by Dante 1 copy-131x199.png"^^xsd:string .
+          r:hasImage "../image/The Divine Comedy by Dante 1 copy-131x199.png"^^xsd:string .
 
 r:telweermm rdf:type r:KidsBook;
 

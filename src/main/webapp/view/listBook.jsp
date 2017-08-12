@@ -142,34 +142,6 @@
                                             <div class="clear"></div>
                                         </div>
 
-                                        <div id="currency" class="header-button">
-                                            <div>
-                                                <div class="heading-1"><i class="fa fa-money"></i>Currency<i class="fa fa-angle-down"></i></div>
-                                                <div class="heading">
-                                                    $<i class="fa fa-angle-down"></i>
-                                                </div>
-                                            </div>
-                                            <ul>
-                                                <form action="https://livedemo00.template-help.com/opencart_47983/index.php?route=module/currency" method="post" enctype="multipart/form-data">
-                                                    <li><a title="US Dollar"><span class="act">$</span></a></li>
-                                                    <input type="hidden" name="currency_code" value="">
-                                                    <input type="hidden" name="redirect" value="https://livedemo00.template-help.com/opencart_47983/index.php?route=common/home">
-                                                </form>
-                                            </ul>
-
-                                        </div>
-
-
-                                        <div id="language" class="header-button">
-                                            <div class="heading">en<i class="fa fa-angle-down"></i></div>
-                                            <div class="heading1"><i class="fa fa-globe"></i>Language<i class="fa fa-angle-down"></i></div>
-                                            <ul>
-                                                <form action="#" method="post" enctype="multipart/form-data">
-                                                    <li><span alt="English" title="English" onclick="$('input[name=\'language_code\']').attr('value', 'en').submit(); $(this).parent().parent().submit();">en</span>
-                                                </form>
-                                            </ul>
-                                        </div>
-
 
                                         <div class="cart-position">
                                             <div class="cart-inner"><div id="cart">
@@ -200,12 +172,13 @@
                                 </div>
                             </div>
                         </div>
+
                         <div class="top_color">
                             <div class="container">
                                 <div class="row">
                                     <div class="col-sm-12">
 
-                                        <div id="logo"><a href="#home"><img src="./image/logo-copy.png" title="RealBooks" alt="RealBooks"></a></div>
+                                        <div id="logo"><a href="#home"><img src="./image/logo-copy.png" title="RealBooks" alt="Uniquebooks"></a></div>
 
                                         <div id="search">
                                             <div class="inner">
@@ -354,34 +327,34 @@
                                 <div id="notification"></div>
                                 <div class="row">
                                     <div class="col-sm-12    right" id="content"><script type="text/javascript">
-                                        if ($('.container').width() > 723) {
-                                            (function ($) {
-                                                $.fn.equalHeights = function (minHeight, maxHeight) {
-                                                    tallest = (minHeight) ? minHeight : 0;
-                                                    this.each(function () {
-                                                        if ($(this).height() > tallest) {
-                                                            tallest = $(this).height()
-                                                        }
-                                                    });
-                                                    if ((maxHeight) && tallest > maxHeight)
-                                                        tallest = maxHeight;
-                                                    return this.each(function () {
-                                                        $(this).height(tallest)
-                                                    })
-                                                }
-                                            })(jQuery)
-                                            $(window).load(function () {
-                                                if ($(".maxheight-feat").length) {
-                                                    $(".maxheight-feat").equalHeights()
-                                                }
-                                            });
-                                        }
-                                        ;
+            if ($('.container').width() > 723) {
+                (function ($) {
+                    $.fn.equalHeights = function (minHeight, maxHeight) {
+                        tallest = (minHeight) ? minHeight : 0;
+                        this.each(function () {
+                            if ($(this).height() > tallest) {
+                                tallest = $(this).height()
+                            }
+                        });
+                        if ((maxHeight) && tallest > maxHeight)
+                            tallest = maxHeight;
+                        return this.each(function () {
+                            $(this).height(tallest)
+                        })
+                    }
+                })(jQuery)
+                $(window).load(function () {
+                    if ($(".maxheight-feat").length) {
+                        $(".maxheight-feat").equalHeights()
+                    }
+                });
+            }
+            ;
                                         </script>
 
 
                                         <div class="box featured">
-                                            <div class="box-heading">Books</div>
+                                            <div class="box-heading">Fiction Books</div>
                                             <div class="box-content">
                                                 <div class="box-product">
                                                     <c:set var="count" value="0" scope="page" />
@@ -393,14 +366,21 @@
                                                                     <c:set var="val" value="11"  />
 
                                                                     <li class="first-in-line  col-sm-2">
+                                                                        <div class="image2">
+                                                                            <a href="/UniqueBookApp/book?action=show&productNo=<c:out value="${book.productNumber}" />"> 
+
+                                                                                <img id="img_49" src="<c:out value="${book.imagepath}" />" alt="<c:out value="${book.title}" />">
+                                                                            </a>
+                                                                        </div>
+
                                                                         <div class="inner">
                                                                             <div class="f-left maxheight-feat" style="height: 86px;">
-                                                                                <div class="name "><a href="<c:out value="${book.productNumber}" />"><c:out value="${book.title}" /></a></div>
+                                                                                <div class="name "><a href="/UniqueBookApp/book?action=show&productNo=<c:out value="${book.productNumber}" />"><c:out value="${book.title}" /></a></div>
                                                                                 <div class="description"><c:out value="${book.description}..." /></div>
                                                                             </div>
                                                                             <div class="cart-button">
                                                                                 <div class="price">
-                                                                                    <c:out value="${book.price}" />
+                                                                                    <c:out value="${book.price}" />$
                                                                                 </div>
                                                                                 <div class="cart"><a title="" data-id="49;" class="button addToCart tooltip-1" data-original-title="Add to cart"><i class="fa fa-shopping-cart"></i><span>Add to cart</span></a></div>
                                                                                 <span class="clear"></span>
@@ -415,15 +395,21 @@
                                                                 <c:when test="${count == 6}">
                                                                     <c:set var="count" value="0"  />
                                                                     <li class="last-in-line   col-sm-2">
+                                                                        <div class="image2">
+                                                                            <a href="/UniqueBookApp/book?action=show&productNo=<c:out value="${book.productNumber}" />"> 
 
-                                                                    <div class="inner">
+                                                                                <img id="img_49" src="<c:out value="${book.imagepath}" />" alt="<c:out value="${book.title}" />">
+                                                                            </a>
+                                                                        </div>
+
+                                                                        <div class="inner">
                                                                             <div class="f-left maxheight-feat" style="height: 86px;">
-                                                                                <div class="name "><a href="<c:out value="${book.productNumber}" />"><c:out value="${book.title}" /></a></div>
+                                                                                <div class="name "><a href="/UniqueBookApp/book?action=show&productNo=<c:out value="${book.productNumber}" />"><c:out value="${book.title}" /></a></div>
                                                                                 <div class="description"><c:out value="${book.description}..." /></div>
                                                                             </div>
                                                                             <div class="cart-button">
                                                                                 <div class="price">
-                                                                                    <c:out value="${book.price}" />
+                                                                                    <c:out value="${book.price}" />$
                                                                                 </div>
                                                                                 <div class="cart"><a title="" data-id="49;" class="button addToCart tooltip-1" data-original-title="Add to cart"><i class="fa fa-shopping-cart"></i><span>Add to cart</span></a></div>
                                                                                 <span class="clear"></span>
@@ -440,14 +426,22 @@
                                                                     <c:set var="vale" value="${val - 1}" />
 
                                                                     <li class="col-sm-2">
-                                                                    <div class="inner">
+
+                                                                        <div class="image2">
+                                                                            <a href="/UniqueBookApp/book?action=show&productNo=<c:out value="${book.productNumber}" />"> 
+
+                                                                                <img id="img_49" src="<c:out value="${book.imagepath}" />" alt="<c:out value="${book.title}" />">
+                                                                            </a>
+                                                                        </div>
+                                                                            
+                                                                        <div class="inner">
                                                                             <div class="f-left maxheight-feat" style="height: 86px;">
-                                                                                <div class="name "><a href="<c:out value="${book.productNumber}" />"><c:out value="${book.title}" /></a></div>
+                                                                                <div class="name "><a href="<c:out value="/UniqueBookApp/book?action=show&productNo${book.productNumber}" />"><c:out value="${book.title}" /></a></div>
                                                                                 <div class="description"><c:out value="${book.description}...." /></div>
                                                                             </div>
                                                                             <div class="cart-button">
                                                                                 <div class="price">
-                                                                                    <c:out value="${book.price}" />
+                                                                                    <c:out value="${book.price}" />$
                                                                                 </div>
                                                                                 <div class="cart"><a title="" data-id="49;" class="button addToCart tooltip-1" data-original-title="Add to cart"><i class="fa fa-shopping-cart"></i><span>Add to cart</span></a></div>
                                                                                 <span class="clear"></span>
@@ -459,8 +453,8 @@
                                                                         <div class="clear"><div class="clear"></div></div>
 
                                                                     </li>
-                                                                    </c:otherwise>
-                                                                </c:choose>
+                                                                </c:otherwise>
+                                                            </c:choose>
 
 
                                                         </c:forEach>
