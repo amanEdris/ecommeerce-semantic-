@@ -69,6 +69,7 @@
 
     </head>
     <body class="common-home">
+        <c:set var="urlRequest" value="http://localhost:8080/UniqueBookApp/book?" scope="page" />
         <div id="body">
             <div class="swipe" style="height: 330px;">
                 <div class="swipe-menu">
@@ -208,7 +209,7 @@
 
                                         <div id="search">
                                             <div class="inner">
-                                                <div class="button-search">[]
+                                                <div class="button-search">
                                                     <i class="fa fa-search"></i>
                                                     <span>Search</span>
                                                 </div>
@@ -391,17 +392,73 @@
                                                                 <c:when test="${count == '1'}">
                                                                     <c:set var="val" value="11"  />
 
-                                                                    <li class="first-in-line  col-sm-2">  book 1st </li>
-                                                                    </c:when>
-                                                                    <c:when test="${count == 6}">
+                                                                    <li class="first-in-line  col-sm-2">
+                                                                        <div class="inner">
+                                                                            <div class="f-left maxheight-feat" style="height: 86px;">
+                                                                                <div class="name "><a href="<c:out value="${book.productNumber}" />"><c:out value="${book.title}" /></a></div>
+                                                                                <div class="description"><c:out value="${book.description}..." /></div>
+                                                                            </div>
+                                                                            <div class="cart-button">
+                                                                                <div class="price">
+                                                                                    <c:out value="${book.price}" />
+                                                                                </div>
+                                                                                <div class="cart"><a title="" data-id="49;" class="button addToCart tooltip-1" data-original-title="Add to cart"><i class="fa fa-shopping-cart"></i><span>Add to cart</span></a></div>
+                                                                                <span class="clear"></span>
+                                                                            </div>
+
+                                                                            <div class="clear">
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="clear"><div class="clear"></div></div>
+                                                                    </li>
+                                                                </c:when>
+                                                                <c:when test="${count == 6}">
                                                                     <c:set var="count" value="0"  />
-                                                                    <li class="last-in-line   col-sm-2">  book last</li>
+                                                                    <li class="last-in-line   col-sm-2">
 
-                                                                    </c:when>
-                                                                    <c:otherwise>
-                                                                        <c:set var="vale" value="${val - 1}" />
+                                                                    <div class="inner">
+                                                                            <div class="f-left maxheight-feat" style="height: 86px;">
+                                                                                <div class="name "><a href="<c:out value="${book.productNumber}" />"><c:out value="${book.title}" /></a></div>
+                                                                                <div class="description"><c:out value="${book.description}..." /></div>
+                                                                            </div>
+                                                                            <div class="cart-button">
+                                                                                <div class="price">
+                                                                                    <c:out value="${book.price}" />
+                                                                                </div>
+                                                                                <div class="cart"><a title="" data-id="49;" class="button addToCart tooltip-1" data-original-title="Add to cart"><i class="fa fa-shopping-cart"></i><span>Add to cart</span></a></div>
+                                                                                <span class="clear"></span>
+                                                                            </div>
 
-                                                                    <li class="col-sm-2">  book middle </li>
+                                                                            <div class="clear">
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="clear"><div class="clear"></div></div>
+                                                                    </li>
+
+                                                                </c:when>
+                                                                <c:otherwise>
+                                                                    <c:set var="vale" value="${val - 1}" />
+
+                                                                    <li class="col-sm-2">
+                                                                    <div class="inner">
+                                                                            <div class="f-left maxheight-feat" style="height: 86px;">
+                                                                                <div class="name "><a href="<c:out value="${book.productNumber}" />"><c:out value="${book.title}" /></a></div>
+                                                                                <div class="description"><c:out value="${book.description}...." /></div>
+                                                                            </div>
+                                                                            <div class="cart-button">
+                                                                                <div class="price">
+                                                                                    <c:out value="${book.price}" />
+                                                                                </div>
+                                                                                <div class="cart"><a title="" data-id="49;" class="button addToCart tooltip-1" data-original-title="Add to cart"><i class="fa fa-shopping-cart"></i><span>Add to cart</span></a></div>
+                                                                                <span class="clear"></span>
+                                                                            </div>
+
+                                                                            <div class="clear">
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="clear"><div class="clear"></div></div>
+
+                                                                    </li>
                                                                     </c:otherwise>
                                                                 </c:choose>
 

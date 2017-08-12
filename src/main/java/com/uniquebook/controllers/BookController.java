@@ -29,7 +29,9 @@ public class BookController extends HttpServlet {
     private KidsBookDao kidDao;
     private static String INSERT_OR_EDIT = "/view/book.jsp";
     private static String LIST_Books = "/view/listBook.jsp";
+    private static String SHOW_Books = "/view/showBook.jsp";
 
+    
     public BookController() {
         super();
         fictionDao = new FictionalBooksDao();
@@ -55,9 +57,19 @@ public class BookController extends HttpServlet {
              //getBookby product number
              //set to request
             
-        } else if (action.equalsIgnoreCase("listBooks")) {
+        } else if (action.equalsIgnoreCase("show")) {
+             forward = SHOW_Books;
+             //getBookby product number
+             //set to request
+             //for request from cart or index 
+            
+        }
+        
+        else if (action.equalsIgnoreCase("listBooks")) {
             forward = LIST_Books;          
             request.setAttribute("books", nonFcitionDao.getAllNonFictionalBook());
+            request.setAttribute("books",fictionDao.getAllFictionalBook());
+            request.setAttribute("books",kidDao.getAllKidsBook());
         } else {
             
         }
