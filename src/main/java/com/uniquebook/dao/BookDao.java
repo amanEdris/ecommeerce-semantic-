@@ -7,6 +7,7 @@ package com.uniquebook.dao;
 
 import com.hp.hpl.jena.rdf.model.Model;
 import com.hp.hpl.jena.update.UpdateAction;
+import com.uniquebook.models.Book;
 import com.uniquebook.utils.RdfModelUtil;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -21,13 +22,20 @@ import java.util.logging.Logger;
  */
 public class BookDao {
 
+    private FictionalBooksDao fictionDao;
+    private NonFictionalBooksDao nonFcitionDao;
+    private KidsBookDao kidDao;
+
     private Model model;
 
     public BookDao() {
         model = RdfModelUtil.createModelFromUrl();
+        fictionDao = new FictionalBooksDao();
+        nonFcitionDao = new NonFictionalBooksDao();
+        kidDao = new KidsBookDao();
     }
 
-    public void deleteFictionalBooks(int productNumber) {
+    public void deleteBooks(int productNumber) {
         FileOutputStream stream = null;
         try {
             String deleteQuery = RdfModelUtil.PREFIX;
@@ -51,6 +59,17 @@ public class BookDao {
                 Logger.getLogger(BookDao.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+    }
+
+    public Book getBookbyProductNumber(int productNumber) {
+        Book b = new Book();
+        b = nonFcitionDao.getNonFictionalByProductNumber(productNumber);
+        if(b.equals(null)){
+           b =  kidDao.getKidBookByProductNumber(productNumber);
+        }else{
+           b = fictionDao.getFictionalBookByProductNumber(productNumber);
+        }
+        return b;
     }
 
 }

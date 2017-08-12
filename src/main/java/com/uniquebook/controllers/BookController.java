@@ -5,9 +5,11 @@
  */
 package com.uniquebook.controllers;
 
+import com.uniquebook.dao.BookDao;
 import com.uniquebook.dao.FictionalBooksDao;
 import com.uniquebook.dao.KidsBookDao;
 import com.uniquebook.dao.NonFictionalBooksDao;
+import com.uniquebook.models.Book;
 import java.io.IOException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -27,6 +29,8 @@ public class BookController extends HttpServlet {
     private FictionalBooksDao fictionDao;
     private NonFictionalBooksDao nonFcitionDao;
     private KidsBookDao kidDao;
+    private BookDao bookDao;
+
     private static String INSERT_OR_EDIT = "/view/book.jsp";
     private static String LIST_Books = "/view/listBook.jsp";
     private static String SHOW_Books = "/view/showBook.jsp";
@@ -37,6 +41,7 @@ public class BookController extends HttpServlet {
         fictionDao = new FictionalBooksDao();
         nonFcitionDao = new NonFictionalBooksDao();
         kidDao = new KidsBookDao();
+        bookDao = new BookDao();
     }
 
    
@@ -58,18 +63,19 @@ public class BookController extends HttpServlet {
              //set to request
             
         } else if (action.equalsIgnoreCase("show")) {
+             Book b = new Book();
              forward = SHOW_Books;
-             //getBookby product number
-             //set to request
-             //for request from cart or index 
-            
+             int productId = Integer.parseInt(request.getParameter("productNo"));
+             b= bookDao.getBookbyProductNumber(productId);
+             request.setAttribute("category", b.getClass());
+             request.setAttribute("book", b);              
         }
         
         else if (action.equalsIgnoreCase("listBooks")) {
             forward = LIST_Books;          
-            request.setAttribute("books", nonFcitionDao.getAllNonFictionalBook());
+            request.setAttribute("nonfibooks", nonFcitionDao.getAllNonFictionalBook());
+            request.setAttribute("kidbooks",kidDao.getAllKidsBook());
             request.setAttribute("books",fictionDao.getAllFictionalBook());
-            request.setAttribute("books",kidDao.getAllKidsBook());
         } else {
             
         }

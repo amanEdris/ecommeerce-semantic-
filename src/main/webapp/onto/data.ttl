@@ -68,7 +68,7 @@ r:loremipsum rdf:type r:Nonfiction;
 
             r:hasAuthor "Patrick Lencioni"^^xsd:string ;
 
-            r:hasTitle "The five dysfunctions of a team leadership"^^xsd:string ;
+            r:hasTitle "History of Finland"^^xsd:string ;
 
             r:hasImage "./image/The Mayors Tongue by Nathaniel Rich 1 copy-131x199.png"^^xsd:string .
 
@@ -95,7 +95,7 @@ r:festivalMna rdf:type r:Nonfiction;
 
           r:hasAuthor "Patrick Lencioni"^^xsd:string ;
 
-          r:hasTitle "The five dysfunctions of a team leadership"^^xsd:string ;
+          r:hasTitle "Getting things done"^^xsd:string ;
 
           r:hasImage "./image/Seven Novels by Jules Verne 1 copy-131x199.png"^^xsd:string .
 
@@ -112,7 +112,7 @@ r:beatuyenj rdf:type r:Nonfiction;
 
           r:hasPrice "35.0"^^xsd:float ;
 
-          r:hasDescription "A falable describing the five reasons why team leadership fails."^^xsd:string ;
+          r:hasDescription "A falable describing the five reasons ....."^^xsd:string ;
 
           r:hasNonFictionalCategory "Computers"^^xsd:string ;
 
@@ -120,7 +120,7 @@ r:beatuyenj rdf:type r:Nonfiction;
 
           r:hasAuthor "Patrick Lencioni"^^xsd:string ;
 
-          r:hasTitle "The five dysfunctions of a team leadership"^^xsd:string ;
+          r:hasTitle "Lorem ipsum"^^xsd:string ;
 
           r:hasImage "./image/The Complete Sherlock Holmes by Arthur Conan Doyle 1 copy-131x199.png"^^xsd:string .
 
@@ -145,7 +145,7 @@ r:twity rdf:type r:Nonfiction;
 
       r:hasAuthor "Patrick Lencioni"^^xsd:string ;
 
-      r:hasTitle "The five dysfunctions of a team leadership"^^xsd:string ;
+      r:hasTitle "doresem ipusim"^^xsd:string ;
 
       r:hasImage "./image/The ESV Study Bible Hardcover 1 copy-131x199.png"^^xsd:string .
 
@@ -170,7 +170,7 @@ r:dawfff rdf:type r:Nonfiction;
 
             r:hasAuthor "Patrick Lencioni"^^xsd:string ;
 
-            r:hasTitle "The five dysfunctions of a team leadership"^^xsd:string ;
+            r:hasTitle "Amazying change life"^^xsd:string ;
 
             r:hasImage "./image/Grimms Complete Fairy Tales 1 copy-131x199.png"^^xsd:string .
 r:birdee rdf:type r:Nonfiction;
@@ -194,7 +194,7 @@ r:birdee rdf:type r:Nonfiction;
 
             r:hasAuthor "Patrick Lencioni"^^xsd:string ;
 
-            r:hasTitle "The five dysfunctions of a team leadership"^^xsd:string ;
+            r:hasTitle "Postive thinking"^^xsd:string ;
 
             r:hasImage "./image/The Divine Comedy by Dante 1 copy-131x199.png"^^xsd:string .
 
@@ -280,6 +280,7 @@ r:fljoriLocation rdf:type r:Location;
 
 
 ###  http://www.semanticweb.org/edris/ontologies/2017/7/untitled-ontology-208#fljoriOrder
+
 
 r:fljoriOrder rdf:type r:Order;
 
@@ -414,7 +415,7 @@ r:hasBookRevisionNo "3rd";
 
           r:hasTitle "Telitabis"^^xsd:string ;
 
-          r:hasImage "../image/The Divine Comedy by Dante 1 copy-131x199.png"^^xsd:string .
+          r:hasImage "./image/Alices Adventures in Wonderland and Other Stories by Lewis Carroll 1 copy-131x199.png"^^xsd:string .
 
 r:telweermm rdf:type r:KidsBook;
 

@@ -9,6 +9,7 @@ import com.uniquebook.dao.BookDao;
 import com.uniquebook.dao.FictionalBooksDao;
 import com.uniquebook.dao.KidsBookDao;
 import com.uniquebook.dao.NonFictionalBooksDao;
+import com.uniquebook.models.Book;
 import com.uniquebook.models.FictionalBook;
 import com.uniquebook.models.KidsBook;
 import com.uniquebook.models.NonFictionalBook;
@@ -65,11 +66,13 @@ public class testDao {
 //         * test can delete a book given producer consumer
 //         */
         BookDao nnd = new BookDao();
-        nnd.deleteFictionalBooks(bbn.getProductNumber());
-        System.out.println("you deleted a book" + bw.getFictionalBookByProductNumber(bbn.getProductNumber()));
+      //  nnd.deleteBooks(bbn.getProductNumber());
+       // System.out.println("you deleted a book" + bw.getFictionalBookByProductNumber(bbn.getProductNumber()));
+       Book bc= nnd.getBookbyProductNumber(5);
+        System.out.println("you query book"+bc.getImagepath());
+        System.out.println();
+        // System.out.println("you have added a book" + bw.getFictionalBookByISBN(bbn.getIsbn()));
 
-       // System.out.println("you have added a book" + bw.getFictionalBookByISBN(bbn.getIsbn()));
-        
 //        NonFictionalBook c = new NonFictionalBook();
 //        c.setAuthor("jango");
 //        c.setImagepath("path");
@@ -101,7 +104,6 @@ public class testDao {
 //        b.addKidsBook(c);
 //        
 //       System.out.println("you have added a book" + b.getKidBookByProductNumber(c.getProductNumber()));
-       
     }
 
 }

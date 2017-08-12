@@ -367,7 +367,7 @@
 
                                                                     <li class="first-in-line  col-sm-2">
                                                                         <div class="image2">
-                                                                            <a href="/UniqueBookApp/book?action=show&productNo=<c:out value="${book.productNumber}" />"> 
+                                                                            <a href="/UniqueBookApp/book?action=show&productNo=<c:out value="${book.productNumber}" />">
 
                                                                                 <img id="img_49" src="<c:out value="${book.imagepath}" />" alt="<c:out value="${book.title}" />">
                                                                             </a>
@@ -396,7 +396,7 @@
                                                                     <c:set var="count" value="0"  />
                                                                     <li class="last-in-line   col-sm-2">
                                                                         <div class="image2">
-                                                                            <a href="/UniqueBookApp/book?action=show&productNo=<c:out value="${book.productNumber}" />"> 
+                                                                            <a href="/UniqueBookApp/book?action=show&productNo=<c:out value="${book.productNumber}" />">
 
                                                                                 <img id="img_49" src="<c:out value="${book.imagepath}" />" alt="<c:out value="${book.title}" />">
                                                                             </a>
@@ -428,12 +428,12 @@
                                                                     <li class="col-sm-2">
 
                                                                         <div class="image2">
-                                                                            <a href="/UniqueBookApp/book?action=show&productNo=<c:out value="${book.productNumber}" />"> 
+                                                                            <a href="/UniqueBookApp/book?action=show&productNo=<c:out value="${book.productNumber}" />">
 
                                                                                 <img id="img_49" src="<c:out value="${book.imagepath}" />" alt="<c:out value="${book.title}" />">
                                                                             </a>
                                                                         </div>
-                                                                            
+
                                                                         <div class="inner">
                                                                             <div class="f-left maxheight-feat" style="height: 86px;">
                                                                                 <div class="name "><a href="<c:out value="/UniqueBookApp/book?action=show&productNo${book.productNumber}" />"><c:out value="${book.title}" /></a></div>
@@ -465,7 +465,228 @@
                                             </div>
                                         </div>
 
+                                        <div class="box featured">
+                                            <div class="box-heading">Non Fictional Books</div>
+                                            <div class="box-content">
+                                                <div class="box-product">
+                                                    <c:set var="count" value="0" scope="page" />
+                                                    <ul class="row">
+                                                        <c:forEach items="${nonfibooks}" var="nonbook">
+                                                            <c:set var="count" value="${count + 1}" />
+                                                            <c:choose>
+                                                                <c:when test="${count == '1'}">
+                                                                    <c:set var="val" value="11"  />
 
+                                                                    <li class="first-in-line  col-sm-2">
+                                                                        <div class="image2">
+                                                                            <a href="/UniqueBookApp/book?action=show&productNo=<c:out value="${nonbook.productNumber}" />">
+
+                                                                                <img id="img_49" src="<c:out value="${nonbook.imagepath}" />" alt="<c:out value="${nonbook.title}" />">
+                                                                            </a>
+                                                                        </div>
+
+                                                                        <div class="inner">
+                                                                            <div class="f-left maxheight-feat" style="height: 86px;">
+                                                                                <div class="name "><a href="/UniqueBookApp/book?action=show&productNo=<c:out value="${nonbook.productNumber}" />"><c:out value="${nonbook.title}" /></a></div>
+                                                                                <div class="description"><c:out value="${nonbook.description}..." /></div>
+                                                                            </div>
+                                                                            <div class="cart-button">
+                                                                                <div class="price">
+                                                                                    <c:out value="${nonbook.price}" />$
+                                                                                </div>
+                                                                                <div class="cart"><a title="" data-id="49;" class="button addToCart tooltip-1" data-original-title="Add to cart"><i class="fa fa-shopping-cart"></i><span>Add to cart</span></a></div>
+                                                                                <span class="clear"></span>
+                                                                            </div>
+
+                                                                            <div class="clear">
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="clear"><div class="clear"></div></div>
+                                                                    </li>
+                                                                </c:when>
+                                                                <c:when test="${count == 6}">
+                                                                    <c:set var="count" value="0"  />
+                                                                    <li class="last-in-line   col-sm-2">
+                                                                        <div class="image2">
+                                                                            <a href="/UniqueBookApp/book?action=show&productNo=<c:out value="${nonbook.productNumber}" />">
+
+                                                                                <img id="img_49" src="<c:out value="${nonbook.imagepath}" />" alt="<c:out value="${nonbook.title}" />">
+                                                                            </a>
+                                                                        </div>
+
+                                                                        <div class="inner">
+                                                                            <div class="f-left maxheight-feat" style="height: 86px;">
+                                                                                <div class="name "><a href="/UniqueBookApp/book?action=show&productNo=<c:out value="${nonbook.productNumber}" />"><c:out value="${nonbook.title}" /></a></div>
+                                                                                <div class="description"><c:out value="${nonbook.description}..." /></div>
+                                                                            </div>
+                                                                            <div class="cart-button">
+                                                                                <div class="price">
+                                                                                    <c:out value="${nonbook.price}" />$
+                                                                                </div>
+                                                                                <div class="cart"><a title="" data-id="49;" class="button addToCart tooltip-1" data-original-title="Add to cart"><i class="fa fa-shopping-cart"></i><span>Add to cart</span></a></div>
+                                                                                <span class="clear"></span>
+                                                                            </div>
+
+                                                                            <div class="clear">
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="clear"><div class="clear"></div></div>
+                                                                    </li>
+
+                                                                </c:when>
+                                                                <c:otherwise>
+                                                                    <c:set var="vale" value="${val - 1}" />
+
+                                                                    <li class="col-sm-2">
+
+                                                                        <div class="image2">
+                                                                            <a href="/UniqueBookApp/book?action=show&productNo=<c:out value="${nonbook.productNumber}" />">
+
+                                                                                <img id="img_49" src="<c:out value="${nonbook.imagepath}" />" alt="<c:out value="${nonbook.title}" />">
+                                                                            </a>
+                                                                        </div>
+
+                                                                        <div class="inner">
+                                                                            <div class="f-left maxheight-feat" style="height: 86px;">
+                                                                                <div class="name "><a href="<c:out value="/UniqueBookApp/book?action=show&productNo${nonbook.productNumber}" />"><c:out value="${nonbook.title}" /></a></div>
+                                                                                <div class="description"><c:out value="${nonbook.description}...." /></div>
+                                                                            </div>
+                                                                            <div class="cart-button">
+                                                                                <div class="price">
+                                                                                    <c:out value="${nonbook.price}" />$
+                                                                                </div>
+                                                                                <div class="cart"><a title="" data-id="49;" class="button addToCart tooltip-1" data-original-title="Add to cart"><i class="fa fa-shopping-cart"></i><span>Add to cart</span></a></div>
+                                                                                <span class="clear"></span>
+                                                                            </div>
+
+                                                                            <div class="clear">
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="clear"><div class="clear"></div></div>
+
+                                                                    </li>
+                                                                </c:otherwise>
+                                                            </c:choose>
+
+
+                                                        </c:forEach>
+
+                                                    </ul>
+                                                </div>
+                                                <div class="clear"></div>
+                                            </div>
+                                        </div>
+                                        <div class="box featured">
+                                            <div class="box-heading">Kids Book</div>
+                                            <div class="box-content">
+                                                <div class="box-product">
+                                                    <c:set var="count" value="0" scope="page" />
+                                                    <ul class="row">
+                                                        <c:forEach items="${kidbooks}" var="kidbook">
+                                                            <c:set var="count" value="${count + 1}" />
+                                                            <c:choose>
+                                                                <c:when test="${count == '1'}">
+                                                                    <c:set var="val" value="11"  />
+
+                                                                    <li class="first-in-line  col-sm-2">
+                                                                        <div class="image2">
+                                                                            <a href="/UniqueBookApp/book?action=show&productNo=<c:out value="${kidbook.productNumber}" />">
+
+                                                                                <img id="img_49" src="<c:out value="${kidbook.imagepath}" />" alt="<c:out value="${kidbook.title}" />">
+                                                                            </a>
+                                                                        </div>
+
+                                                                        <div class="inner">
+                                                                            <div class="f-left maxheight-feat" style="height: 86px;">
+                                                                                <div class="name "><a href="/UniqueBookApp/book?action=show&productNo=<c:out value="${kidbook.productNumber}" />"><c:out value="${kidbook.title}" /></a></div>
+                                                                                <div class="description"><c:out value="${kidbook.description}..." /></div>
+                                                                            </div>
+                                                                            <div class="cart-button">
+                                                                                <div class="price">
+                                                                                    <c:out value="${kidbook.price}" />$
+                                                                                </div>
+                                                                                <div class="cart"><a title="" data-id="49;" class="button addToCart tooltip-1" data-original-title="Add to cart"><i class="fa fa-shopping-cart"></i><span>Add to cart</span></a></div>
+                                                                                <span class="clear"></span>
+                                                                            </div>
+
+                                                                            <div class="clear">
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="clear"><div class="clear"></div></div>
+                                                                    </li>
+                                                                </c:when>
+                                                                <c:when test="${count == 6}">
+                                                                    <c:set var="count" value="0"  />
+                                                                    <li class="last-in-line   col-sm-2">
+                                                                        <div class="image2">
+                                                                            <a href="/UniqueBookApp/book?action=show&productNo=<c:out value="${kidbook.productNumber}" />">
+
+                                                                                <img id="img_49" src="<c:out value="${kidbook.imagepath}" />" alt="<c:out value="${kidbook.title}" />">
+                                                                            </a>
+                                                                        </div>
+
+                                                                        <div class="inner">
+                                                                            <div class="f-left maxheight-feat" style="height: 86px;">
+                                                                                <div class="name "><a href="/UniqueBookApp/book?action=show&productNo=<c:out value="${kidbook.productNumber}" />"><c:out value="${kidbook.title}" /></a></div>
+                                                                                <div class="description"><c:out value="${kidbook.description}..." /></div>
+                                                                            </div>
+                                                                            <div class="cart-button">
+                                                                                <div class="price">
+                                                                                    <c:out value="${kidbook.price}" />$
+                                                                                </div>
+                                                                                <div class="cart"><a title="" data-id="49;" class="button addToCart tooltip-1" data-original-title="Add to cart"><i class="fa fa-shopping-cart"></i><span>Add to cart</span></a></div>
+                                                                                <span class="clear"></span>
+                                                                            </div>
+
+                                                                            <div class="clear">
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="clear"><div class="clear"></div></div>
+                                                                    </li>
+
+                                                                </c:when>
+                                                                <c:otherwise>
+                                                                    <c:set var="vale" value="${val - 1}" />
+
+                                                                    <li class="col-sm-2">
+
+                                                                        <div class="image2">
+                                                                            <a href="/UniqueBookApp/book?action=show&productNo=<c:out value="${kidbook.productNumber}" />">
+
+                                                                                <img id="img_49" src="<c:out value="${kidbook.imagepath}" />" alt="<c:out value="${kidbook.title}" />">
+                                                                            </a>
+                                                                        </div>
+
+                                                                        <div class="inner">
+                                                                            <div class="f-left maxheight-feat" style="height: 86px;">
+                                                                                <div class="name "><a href="<c:out value="/UniqueBookApp/book?action=show&productNo=${kidbook.productNumber}" />"><c:out value="${kidbook.title}" /></a></div>
+                                                                                <div class="description"><c:out value="${kidbook.description}...." /></div>
+                                                                            </div>
+                                                                            <div class="cart-button">
+                                                                                <div class="price">
+                                                                                    <c:out value="${kidbook.price}" />$
+                                                                                </div>
+                                                                                <div class="cart"><a title="" data-id="49;" class="button addToCart tooltip-1" data-original-title="Add to cart"><i class="fa fa-shopping-cart"></i><span>Add to cart</span></a></div>
+                                                                                <span class="clear"></span>
+                                                                            </div>
+
+                                                                            <div class="clear">
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="clear"><div class="clear"></div></div>
+
+                                                                    </li>
+                                                                </c:otherwise>
+                                                            </c:choose>
+
+
+                                                        </c:forEach>
+
+                                                    </ul>
+                                                </div>
+                                                <div class="clear"></div>
+                                            </div>
+                                        </div>
                                         <script type="text/javascript">
                                             if ($('.container').width() > 723) {
                                                 (function ($) {
