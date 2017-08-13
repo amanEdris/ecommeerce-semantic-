@@ -95,7 +95,7 @@
                                 $<i class="fa fa-angle-down"></i>
                             </div>
                         </div>
-                    
+
 
                     </div>
 
@@ -225,278 +225,230 @@
                                                                 <a href="/books?category=Romance">Romance </a>
                                                             </li>
                                                         </ul>
-                                                <i class="fa fa-angle-down"></i><i class="fa fa-angle-down"></i></li>
-                                            <li><a href="/books?category=Kids Book">Kids Book</a>
-                                            </li>
-                                            <li><a href="/books?category=Biography">Biography</a>
-                                            </li>
-                                            <li><a href="/books?category=Health Fitness">Health Fitness</a>
-                                            </li>
-                                            <li><a href="/books?category=Cook Books">Cook Books</a>
-                                            </li>
-                                             <li><a href="/books?category=Religion">Religion</a>
-                                            </li>
-                                        </ul>
-                                    </div>
-
-                                    <div id="menu" class="">
-
-                                        <ul class="sf-menu">
-                                            <li class="cat_1">
-                                                <a href="#" class="">Biography</a>
-                                                <div class="sf-mega" style="display: none;">
-                                                    <ul class="sf-mega-section">
-                                                        <li>
-                                                            <a class="screenshot1" href="https://livedemo00.template-help.com/opencart_47983/index.php?route=product/category&amp;path=57_31">Niutase tras</a>
-                                                        </li>
-                                                        <li>
-                                                            <a class="screenshot1" href="https://livedemo00.template-help.com/opencart_47983/index.php?route=product/category&amp;path=57_29">Matse</a>
-                                                            <ul style="display: block;">
-                                                                <li>
-                                                                    <a href="https://livedemo00.template-help.com/opencart_47983/index.php?route=product/category&amp;path=57_29_36">Dolore magna</a>
-                                                                </li>
-                                                                <li>
-                                                                    <a href="https://livedemo00.template-help.com/opencart_47983/index.php?route=product/category&amp;path=57_29_30">Lorem ipsum dolor sit amet </a>
-                                                                </li>
-                                                            </ul>
-                                                        </li>
-                                                        <li>
-                                                            <a class="screenshot1" href="https://livedemo00.template-help.com/opencart_47983/index.php?route=product/category&amp;path=57_32">Veyrtser</a>
-                                                        </li>
-                                                        <li>
-                                                            <a class="screenshot1" href="https://livedemo00.template-help.com/opencart_47983/index.php?route=product/category&amp;path=57_28">nuygase bytas</a>
-                                                        </li>
-                                                        <li>
-                                                            <a class="screenshot1" href="https://livedemo00.template-help.com/opencart_47983/index.php?route=product/category&amp;path=57_35">Litdera</a>
-                                                        </li>
-
-                                                    </ul>
+                                                        <i class="fa fa-angle-down"></i><i class="fa fa-angle-down"></i></li>
+                                                    <li><a href="/books?category=Kids Book">Kids Book</a>
+                                                    </li>
+                                                    <li><a href="/books?category=Biography">Biography</a>
+                                                    </li>
+                                                    <li><a href="/books?category=Health Fitness">Health Fitness</a>
+                                                    </li>
+                                                    <li><a href="/books?category=Cook Books">Cook Books</a>
+                                                    </li>
+                                                    <li><a href="/books?category=Religion">Religion</a>
+                                                    </li>
+                                                </ul>
                                                 </div>
-                                            </li>
-                                            <li class="cat_2">
-                                                <a href="https://livedemo00.template-help.com/opencart_47983/index.php?route=product/category&amp;path=20">Fiction</a>
-                                            </li>
-                                            <li class="cat_3">
-                                                <a href="https://livedemo00.template-help.com/opencart_47983/index.php?route=product/category&amp;path=17">Health &amp; Fitness</a>
-                                            </li>
-                                            <li class="cat_4">
-                                                <a href="https://livedemo00.template-help.com/opencart_47983/index.php?route=product/category&amp;path=24">History</a>
-                                            </li>
-                                            <li class="cat_5">
-                                                <a href="https://livedemo00.template-help.com/opencart_47983/index.php?route=product/category&amp;path=25">Mystery</a>
-                                            </li>
-                                            <li class="cat_6">
-                                                <a href="https://livedemo00.template-help.com/opencart_47983/index.php?route=product/category&amp;path=75">Politics &amp; Current Affairs</a>
-                                            </li>
-                                            <li class="cat_7">
-                                                <a href="https://livedemo00.template-help.com/opencart_47983/index.php?route=product/category&amp;path=76">Religion</a>
-                                            </li>
-                                            <li class="button_sale"><a href="#">Sale</a></li>
-                                        </ul>
 
-                                        <div class="clear"></div>
+                                                <div id="menu" class="">
 
-                                    </div>
+                                                    <ul class="sf-menu">
+                                                        <li class="cat_1">
+                                                            <a href="#" class="">Biography</a>
+                                                            <div class="sf-mega" style="display: none;">
+                                                                <ul class="sf-mega-section">
+                                                                    <li>
+                                                                        <a class="screenshot1" href="https://livedemo00.template-help.com/opencart_47983/index.php?route=product/category&amp;path=57_31">Niutase tras</a>
+                                                                    </li>
+                                                                    <li>
+                                                                        <a class="screenshot1" href="https://livedemo00.template-help.com/opencart_47983/index.php?route=product/category&amp;path=57_29">Matse</a>
+                                                                        <ul style="display: block;">
+                                                                            <li>
+                                                                                <a href="https://livedemo00.template-help.com/opencart_47983/index.php?route=product/category&amp;path=57_29_36">Dolore magna</a>
+                                                                            </li>
+                                                                            <li>
+                                                                                <a href="https://livedemo00.template-help.com/opencart_47983/index.php?route=product/category&amp;path=57_29_30">Lorem ipsum dolor sit amet </a>
+                                                                            </li>
+                                                                        </ul>
+                                                                    </li>
+                                                                    <li>
+                                                                        <a class="screenshot1" href="https://livedemo00.template-help.com/opencart_47983/index.php?route=product/category&amp;path=57_32">Veyrtser</a>
+                                                                    </li>
+                                                                    <li>
+                                                                        <a class="screenshot1" href="https://livedemo00.template-help.com/opencart_47983/index.php?route=product/category&amp;path=57_28">nuygase bytas</a>
+                                                                    </li>
+                                                                    <li>
+                                                                        <a class="screenshot1" href="https://livedemo00.template-help.com/opencart_47983/index.php?route=product/category&amp;path=57_35">Litdera</a>
+                                                                    </li>
 
-                                </div>
-                            </div>
-                        </div>
+                                                                </ul>
+                                                            </div>
+                                                        </li>
+                                                        <li class="cat_2">
+                                                            <a href="https://livedemo00.template-help.com/opencart_47983/index.php?route=product/category&amp;path=20">Fiction</a>
+                                                        </li>
+                                                        <li class="cat_3">
+                                                            <a href="https://livedemo00.template-help.com/opencart_47983/index.php?route=product/category&amp;path=17">Health &amp; Fitness</a>
+                                                        </li>
+                                                        <li class="cat_4">
+                                                            <a href="https://livedemo00.template-help.com/opencart_47983/index.php?route=product/category&amp;path=24">History</a>
+                                                        </li>
+                                                        <li class="cat_5">
+                                                            <a href="https://livedemo00.template-help.com/opencart_47983/index.php?route=product/category&amp;path=25">Mystery</a>
+                                                        </li>
+                                                        <li class="cat_6">
+                                                            <a href="https://livedemo00.template-help.com/opencart_47983/index.php?route=product/category&amp;path=75">Politics &amp; Current Affairs</a>
+                                                        </li>
+                                                        <li class="cat_7">
+                                                            <a href="https://livedemo00.template-help.com/opencart_47983/index.php?route=product/category&amp;path=76">Religion</a>
+                                                        </li>
+                                                        <li class="button_sale"><a href="#">Sale</a></li>
+                                                    </ul>
 
-                    </header>
-                    <section>
+                                                    <div class="clear"></div>
 
-                        <div id="container">
-                            <p id="back-top" style="display: none;"> <a href="https://livedemo00.template-help.com/opencart_47983/#top"><span></span></a> </p>
-                            <div class="container">
-                                <div id="notification"></div>
-                                <div class="row">
-                                    <div class="col-sm-12    right" id="content"><script type="text/javascript">
-            if ($('.container').width() > 723) {
-                (function ($) {
-                    $.fn.equalHeights = function (minHeight, maxHeight) {
-                        tallest = (minHeight) ? minHeight : 0;
-                        this.each(function () {
-                            if ($(this).height() > tallest) {
-                                tallest = $(this).height()
-                            }
-                        });
-                        if ((maxHeight) && tallest > maxHeight)
-                            tallest = maxHeight;
-                        return this.each(function () {
-                            $(this).height(tallest)
-                        })
-                    }
-                })(jQuery)
-                $(window).load(function () {
-                    if ($(".maxheight-feat").length) {
-                        $(".maxheight-feat").equalHeights()
-                    }
-                });
-            }
-            ;
-                                        </script>
+                                                </div>
+
+                                                </div>
+                                                </div>
+                                                </div>
+
+                                                </header>
+                                                <section>
+
+                                                    <div id="container">
+                                                        <p id="back-top" style="display: none;"> <a href="https://livedemo00.template-help.com/opencart_47983/#top"><span></span></a> </p>
+                                                        <div class="container">
+                                                            <div id="notification"></div>
+                                                            <div class="row">
+                                                                <div class="col-sm-12    right" id="content">
+                                                                  <div class="col-sm-10 col-sm-12    right" id="content">	<div class="breadcrumb">
+                                                                  		<a href="http://localhost:8080/UniqueBookApp/">Home</a>
+                                                                  		 » <a href="http://localhost:8080/UniqueBookApp/book?action=show&productNo=#" class="last"><c:out value="${book.title}" /></a>
+                                                                  		</div>
+                                                                  	<div class="product-info">
+                                                                  		<div class="row">
+
+                                                                  	<div class="col-sm-4">
+                                                                  			<h1 class="view"><c:out value="${book.title}" /></h1>
 
 
-                                        <div class="box featured">
-                                            <div class="box-heading">#book cataegory with sub category</div>
-                                            <div class="box-content">
-                                                <div class="box-product">
-                                                    <div id="colorbox">
-                                                        
-                                                        <div id="cboxWrapper" style="height: 323px; width: 742px;">
-                                                            <div id="cboxTopLeft" style="float: left;"></div>
-                                                            <div id="cboxTopCenter" style="float: left; width: 700px;"></div>
-                                                            <div id="cboxTopRight" style="float: left;"></div>
-                                                        </div>
-                                                    </div>
-                                                    <div style="clear: left;">
-                                                        <div id="cboxMiddleLeft" style="float: left; height: 281px;"></div>
-                                                        <div id="cboxContent" style="float: left; width: 700px; height: 281px;">
-                                                            <div id="cboxLoadedContent" style="width: 700px; overflow: auto; height: 253px;">
-                                                                <div class="">
-                                                                    <div class="wrapper marg row">
-                                                                        <div class="left col-sm-4">
-                                                                            <div class="image3">
-                                                                                <a href="#">
-                                                                                    <img src="<c:out value="${book.imagepath}" />" alt="<c:out value="${book.title}" />">
-                                                                                </a>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="right col-sm-5">
-                                                                            <h2><c:out value="${book.title}" /> by<i> <c:out value="${book.author}" /></i></h2> 
-                                                                            <div class="inf">
-                                                                                <span class="manufacture">Published year:<fmt:formatDate pattern="yyyy-MMM-dd" value="${book.publishedYear}" /></span></br>
-                                                                                <c:if test="${book.quantity > 0}">
-                                                                                    <span class="prod-stock-2">Availability:</span>
-                                                                                    <span class="prod-stock">In Stock</span>
-                                                                                </c:if>
-                                                                                <span class="clear"></span>
-                                                                                <div class="price">
-                                                                                    <span class="text-price">Price: </span>
-                                                                                    <c:out value="${book.price}" />$
-                                                                                </div>
-                                                                            </div>
 
-                                                                            <div class="cart-button">
+                                                <div id="full_gallery">
+                                                                  		<div class="bx-wrapper" style="max-width: 100%;"><div class="bx-viewport" style="width: 100%; overflow: hidden; position: relative; height: 0px;">
+<img src="<c:out value="${book.imagepath}" />" title="<c:out value="${book.title}"/>></a>
+                                                      </div><div class="bx-controls bx-has-controls-direction">
+                                                      <div class="bx-controls-direction"><a class="bx-prev" href=""><i class="fa fa-chevron-left"></i></a><a class="bx-next" href=""><i class="fa fa-chevron-right"></i></a></div></div></div>
 
-                                                                                <div class="wishlist">
-                                                                                    <div class="cart">
-                                                                                        <a title="" data-id="49;" class="button addToCart-1 tooltip-1" data-original-title="Add to cart">
-                                                                                            <i class="fa fa-shopping-cart"></i>
-                                                                                            <span>Add to cart</span>
-                                                                                        </a>
-                                                                                    </div>
-                                                                                </div>
-                                                                                <span class="clear"></span>
-                                                                            </div>
-                                                                                
-                                                                             <p style="border-bottom-color:gray,border-bottom-width: 1px"><c:out value="${book.description}" /></p>
-                                                                            <div class="clear"></div>
+                                                                  	</div>
 
-                                                                        </div>
-                                                                            
-                                                                        
+                                                                  				<div id="default_gallery" class="left spacing">
+                                                                  						<div class="image">
+                                                                  				<div><img  src="<c:out value="${book.imagepath}"/>" title="<c:out value="${book.title}" />" alt="<c:out value="${book.title}"/> style="position: absolute;"></div>
+                                                                  			</div>
+
+                                                          	<div class="image-additional">
+	<div class="bx-wrapper" style="max-width: 230px;"><div class="bx-viewport" style="width: 100%; overflow: hidden; position: relative; height: 70px;">
+</div><div class="bx-controls bx-has-controls-direction"><div class="bx-controls-direction"><a class="bx-prev disabled" href=""><i class="fa fa-chevron-left"></i></a><a class="bx-next disabled" href=""><i class="fa fa-chevron-right"></i></a></div></div></div>
+                                                                  					<div class="clear"></div>
+                                                                  				</div>
+                                                                  					</div>
+                                                                  				</div>
+                                                                  	<div class="col-sm-8">
+                                                                  		<h1><c:out value="${book.title}" /></h1>
+                                                                  	  <div class="description">
+                                                                  		<div class="product-section">
+                                                                  						<span>Author:</span><c:out value="${book.author}" /><br>
+                                                                              <c:if  test="${book.quantity > 0}">
+                                                                                <span>Availability:</span><div class="prod-stock">In Stock</div>
+
+                                                                              </c:if>
+                                                                  		</div>
+
+                                                                  	  	  <div class="price">
+                                                                  		<span class="text-price">Price:</span>
+                                                                  				<span class="price"><c:out value="${book.price}" />$</span>
+
+                                                                  							  </div>
+                                                                  	  	   	  	  <div class="cart">
+                                                                  		<div class="prod-row">
+                                                                  			<div class="cart-top">
+                                                                  				<div class="cart-top-padd form-inline">
+                                                                  					<label>Qty:						<input class="q-mini" type="text" name="quantity" size="2" value="1">
+                                                                  						<input class="q-mini" type="hidden" name="product_id" size="2" value="49">
+                                                                  					</label>
+
+                                                                  				</div>
+                                                                  				<div class="extra-button">
+                                                                  					<a title="" id="button-cart" class="button-prod tooltip-1" data-original-title="Add to Cart"><i class="fa fa-shopping-cart"></i><span>Add to Cart</span></a>
+                                                                  				</div>
+                                                                  				<div class="clear"></div>
+                                                                  							</div>
+                                                                  		</div>
+                                                                  		</div>
+                                                                  		<div class="clear"></div>
+
+                                                                  				<div class="clear"></div>
+                                                                  	</div>
                                                                     </div>
-
-
+                                                                    </div>
+                                                                  	<div class="tabs">
+                                                                  		<div class="tab-heading">
+                                                                  			Description		</div>
+                                                                  		<div class="tab-content">
+                                                                  			<c:out value="${book.description}" />
+                                                                  	</div>
+                                                                  			</div>
+                                                                    <div class="clear"></div>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                         <div class="clear"></div>
+                                                </section>
+                                                <footer>
+                                                    <div class="footer-top">
+                                                        <div class="container">
+
+                                                            <div class="row">
+                                                                <div class="col-sm-3">
+                                                                    <h3>Information</h3>
+                                                                    <ul>
+                                                                        <li><a href="#">About</a></li>
+                                                                        <li><a href="#">Delivery</a></li>
+                                                                        <li><a href="#">Privacy Policy</a></li>
+                                                                        <li><a href="#">Terms &amp; Conditions</a></li>
+                                                                    </ul>
+                                                                </div>
+                                                                <div class="col-sm-3">
+                                                                    <h3>Customer Service</h3>
+                                                                    <ul>
+                                                                        <li><a href="#">Contact Us</a></li>
+                                                                    </ul>
+                                                                </div>
+
+                                                                <div class="col-sm-3">
+                                                                    <h3>My Account</h3>
+                                                                    <ul>
+                                                                        <li><a href="#">My Account</a></li>
+                                                                        <li><a href="#">Order History</a></li>
+                                                                    </ul>
+                                                                </div>
+
+                                                            </div>
+                                                        </div>
                                                     </div>
+                                                    <div class="container">
+                                                        <div class="row">
+                                                            <div class="col-sm-12">
+                                                                <div id="powered">
+                                                                    <span>Powered By <a href="h#">Unique</a><br>Books © 2017<!-- [[%FOOTER_LINK]] --></span>
+                                                                    <div class="#"></div>
+                                                                    <div class="social">
+                                                                        <ul>
+                                                                            <li><a href="https://facebook.com/" class="tooltip-2" title="" data-original-title="Facebook"><i class="fa fa-facebook"></i></a></li>
+                                                                            <li><a href="https://accounts.google.com/" class="tooltip-2" title="" data-original-title="Google+"><i class="fa fa-google-plus"></i></a></li>
+                                                                            <li><a href="https://livedemo00.template-help.com/opencart_47983/#" class="tooltip-2" title="" data-original-title="RSS"><i class="fa fa-rss"></i></a></li>
+                                                                            <li><a href="https://pinterest.com/" class="tooltip-2" title="" data-original-title="Pinterest"><i class="fa fa-pinterest"></i></a></li>
+                                                                            <li><a href="https://linkedin.com/" class="tooltip-2" title="" data-original-title="LinkedIn"><i class="fa fa-linkedin"></i></a></li>
+                                                                        </ul>
+                                                                    </div>
+                                                                    <div class="clear"></div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                    </div></footer>
                                                 </div>
-
-
-                                                <script type="text/javascript">
-                                                    if ($('.container').width() > 723) {
-                                                        (function ($) {
-                                                            $.fn.equalHeights = function (minHeight, maxHeight) {
-                                                                tallest = (minHeight) ? minHeight : 0;
-                                                                this.each(function () {
-                                                                    if ($(this).height() > tallest) {
-                                                                        tallest = $(this).height()
-                                                                    }
-                                                                });
-                                                                if ((maxHeight) && tallest > maxHeight)
-                                                                    tallest = maxHeight;
-                                                                return this.each(function () {
-                                                                    $(this).height(tallest)
-                                                                })
-                                                            }
-                                                        })(jQuery)
-                                                        $(window).load(function () {
-                                                            if ($(".maxheight-spec").length) {
-                                                                $(".maxheight-spec").equalHeights()
-                                                            }
-                                                        });
-                                                    }
-                                                    ;
-                                                </script>
-
-                                            </div>
-                                            <h1 style="display: none;">Unique book store</h1>
-                                        </div>
-                                        <div class="clear"></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="clear"></div>
-                    </section>
-                    <footer>
-                        <div class="footer-top">
-                            <div class="container">
-
-                                <div class="row">
-                                    <div class="col-sm-3">
-                                        <h3>Information</h3>
-                                        <ul>
-                                            <li><a href="#">About</a></li>
-                                            <li><a href="#">Delivery</a></li>
-                                            <li><a href="#">Privacy Policy</a></li>
-                                            <li><a href="#">Terms &amp; Conditions</a></li>
-                                        </ul>
-                                    </div>
-                                    <div class="col-sm-3">
-                                        <h3>Customer Service</h3>
-                                        <ul>
-                                            <li><a href="#">Contact Us</a></li>
-                                        </ul>
-                                    </div>
-
-                                    <div class="col-sm-3">
-                                        <h3>My Account</h3>
-                                        <ul>
-                                            <li><a href="#">My Account</a></li>
-                                            <li><a href="#">Order History</a></li>
-                                        </ul>
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-sm-12">
-                                    <div id="powered">
-                                        <span>Powered By <a href="h#">Unique</a><br>Books © 2017<!-- [[%FOOTER_LINK]] --></span>
-                                        <div class="#"></div>
-                                        <div class="social">
-                                            <ul>
-                                                <li><a href="https://facebook.com/" class="tooltip-2" title="" data-original-title="Facebook"><i class="fa fa-facebook"></i></a></li>
-                                                <li><a href="https://accounts.google.com/" class="tooltip-2" title="" data-original-title="Google+"><i class="fa fa-google-plus"></i></a></li>
-                                                <li><a href="https://livedemo00.template-help.com/opencart_47983/#" class="tooltip-2" title="" data-original-title="RSS"><i class="fa fa-rss"></i></a></li>
-                                                <li><a href="https://pinterest.com/" class="tooltip-2" title="" data-original-title="Pinterest"><i class="fa fa-pinterest"></i></a></li>
-                                                <li><a href="https://linkedin.com/" class="tooltip-2" title="" data-original-title="LinkedIn"><i class="fa fa-linkedin"></i></a></li>
-                                            </ul>
-                                        </div>
-                                        <div class="clear"></div>
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div></footer>
-                </div>
-            </div>
-        </div>
-    </body>
-</html>
+                                                </div>
+                                                </div>
+                                                </body>
+                                                </html>

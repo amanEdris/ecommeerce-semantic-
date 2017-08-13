@@ -35,7 +35,7 @@ public class RdfModelUtil {
         
         Model model = null;
         try {
-            URL u = new URL(dataUrl);
+            URL u = new URL(dataUrl); 
             model = FileManager.get().loadModel(u.toString(), "TTL");
         } catch (MalformedURLException ex) {
         }

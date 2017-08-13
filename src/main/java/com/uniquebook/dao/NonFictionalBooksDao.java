@@ -17,6 +17,7 @@ import com.hp.hpl.jena.update.UpdateAction;
 import com.uniquebook.models.NonFictionalBook;
 import com.uniquebook.utils.HelperUtil;
 import com.uniquebook.utils.RdfModelUtil;
+import com.uniquebook.utils.TestRDFfile;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -32,7 +33,7 @@ import java.util.logging.Logger;
 public class NonFictionalBooksDao {
 
     private Model model;
-    private HelperUtil helperUtil;
+    private  HelperUtil helperUtil;
 
     public NonFictionalBooksDao() {
         model = RdfModelUtil.createModelFromUrl();
@@ -58,7 +59,6 @@ public class NonFictionalBooksDao {
                 + "          r:hasImage \"" + b.getImagepath() + "\"^^xsd:string ."
                 + "}";
 
-        System.out.println(insertQuery);
         UpdateAction.parseExecute(insertQuery, model);
     }
 
@@ -112,7 +112,6 @@ public class NonFictionalBooksDao {
                 b.setCategory(NonFictionalBook.NonFictionalCategory.getEnumByString(category));
                 books.add(b);
                 
-                System.out.println("book added with category" + b.getCategory()+"where category name is:"+category);
 
             }
         } catch (ParseException ex) {
@@ -235,7 +234,6 @@ public NonFictionalBook getNonFictionalBookByISBN(String ISBN) {
                 + "\n"
                 + " }";
 
-        System.out.println("get book query+" + booksQuery);
 
         queryBook(booksQuery, book);
         return book;
@@ -265,7 +263,6 @@ public NonFictionalBook getNonFictionalBookByISBN(String ISBN) {
                 book.setPrice(row.getLiteral("price").getFloat());
                 book.setQuantity(row.getLiteral("quantity").getInt());
                 book.setProductNumber(row.getLiteral("productNumber").getInt());
-                System.out.println(row.getLiteral("nonFictionalCategory").getValue().toString());
                 book.setCategory(NonFictionalBook.NonFictionalCategory.getEnumByString(row.getLiteral("nonFictionalCategory").getValue().toString()));
 
             }

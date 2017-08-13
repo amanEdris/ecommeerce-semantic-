@@ -67,7 +67,6 @@ public class BookController extends HttpServlet {
              forward = SHOW_Books;
              int productId = Integer.parseInt(request.getParameter("productNo"));
              b= bookDao.getBookbyProductNumber(productId);
-             request.setAttribute("category", b.getClass());
              request.setAttribute("book", b);              
         }
         

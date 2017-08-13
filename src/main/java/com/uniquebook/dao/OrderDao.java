@@ -22,6 +22,7 @@ public class OrderDao {
         model = RdfModelUtil.createModelFromUrl();
     }
     
+    
     public void addOrder(Order b){
         
     }

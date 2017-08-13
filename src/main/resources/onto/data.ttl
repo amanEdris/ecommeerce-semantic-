@@ -1,0 +1,646 @@
+@prefix : <http://localhost:8080/UniqueBookshop/onto/Ecommerce.owl/>.
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+
+##Individuals
+
+
+:edi rdf:type :Manager;
+
+     :hasPhone "+358440993393"^^xsd:string ;
+
+     :hasName "Edi man"^^xsd:string ;
+
+     :hasPassword "admin"^^xsd:string ;
+
+     :hasEmail "edi@gmail.com"^^xsd:string ;
+
+     :hasGender "male"^^xsd:string .
+
+
+
+
+:fiveDysfunctions rdf:type :Nonfiction;
+
+          :hasQuantity "10"^^xsd:nonNegativeInteger ;
+
+          :hasISBN "1373883389"^^xsd:string ;
+          :hasBookRevisionNo "3rd";
+
+          :hasPublishedYear "2005-01-01"^^xsd:date ;
+
+          :productNumber "11"^^xsd:nonNegativeInteger ;
+
+          :hasPrice "35.0"^^xsd:float ;
+
+          :hasDescription "A falable describing the five reasons why team leadership fails."^^xsd:string ;
+
+          :hasNonFictionalCategory "Business Books"^^xsd:string ;
+
+          :hasPublisher "Jossey Bass"^^xsd:string ;
+
+          :hasAuthor "Patrick Lencioni"^^xsd:string ;
+
+          :hasTitle "The five dysfunctions of a team leadership"^^xsd:string ;
+
+          :hasImage "./image/Five Novels by Charles Dickens 1 copy-131x199.png"^^xsd:string .
+
+
+:loremipsum rdf:type :Nonfiction;
+
+            :hasQuantity "10"^^xsd:nonNegativeInteger ;
+
+            :hasISBN "1733883389"^^xsd:string ;
+            :hasBookRevisionNo "1st";
+
+            :hasPublishedYear "2005-01-01"^^xsd:date ;
+
+            :productNumber "12"^^xsd:nonNegativeInteger ;
+
+            :hasPrice "35.0"^^xsd:float ;
+
+            :hasDescription "A falable describing the five reasons why team leadership fails."^^xsd:string ;
+
+            :hasNonFictionalCategory "History"^^xsd:string ;
+
+            :hasPublisher "Jossey Bass"^^xsd:string ;
+
+            :hasAuthor "Patrick Lencioni"^^xsd:string ;
+
+            :hasTitle "History of Finland"^^xsd:string ;
+
+            :hasImage "./image/The Mayors Tongue by Nathaniel Rich 1 copy-131x199.png"^^xsd:string .
+
+
+
+:festivalMna rdf:type :Nonfiction;
+
+          :hasQuantity "10"^^xsd:nonNegativeInteger ;
+
+          :hasISBN "373883389"^^xsd:string ;
+          :hasBookRevisionNo "3rd";
+
+          :hasPublishedYear "2005-01-01"^^xsd:date ;
+
+          :productNumber "13"^^xsd:nonNegativeInteger ;
+
+          :hasPrice "35.0"^^xsd:float ;
+
+          :hasDescription "A falable describing the five reasons why team leadership fails."^^xsd:string ;
+
+          :hasNonFictionalCategory "Cook Books"^^xsd:string ;
+
+          :hasPublisher "Jossey Bass"^^xsd:string ;
+
+          :hasAuthor "Patrick Lencioni"^^xsd:string ;
+
+          :hasTitle "Getting things done"^^xsd:string ;
+
+          :hasImage "./image/Seven Novels by Jules Verne 1 copy-131x199.png"^^xsd:string .
+
+:beatuyenj rdf:type :Nonfiction;
+
+          :hasQuantity "10"^^xsd:nonNegativeInteger ;
+
+          :hasISBN "173733389"^^xsd:string ;
+          :hasBookRevisionNo "3rd";
+
+          :hasPublishedYear "2005-01-01"^^xsd:date ;
+
+          :productNumber "14"^^xsd:nonNegativeInteger ;
+
+          :hasPrice "35.0"^^xsd:float ;
+
+          :hasDescription "A falable describing the five reasons ....."^^xsd:string ;
+
+          :hasNonFictionalCategory "Computers"^^xsd:string ;
+
+          :hasPublisher "Jossey Bass"^^xsd:string ;
+
+          :hasAuthor "Patrick Lencioni"^^xsd:string ;
+
+          :hasTitle "Lorem ipsum"^^xsd:string ;
+
+          :hasImage "./image/The Complete Sherlock Holmes by Arthur Conan Doyle 1 copy-131x199.png"^^xsd:string .
+
+:twity rdf:type :Nonfiction;
+
+      :hasQuantity "10"^^xsd:nonNegativeInteger ;
+
+      :hasISBN "17373889"^^xsd:string ;
+      :hasBookRevisionNo "3rd";
+
+      :hasPublishedYear "2005-01-01"^^xsd:date ;
+
+      :productNumber "15"^^xsd:nonNegativeInteger ;
+
+      :hasPrice "35.0"^^xsd:float ;
+
+      :hasDescription "A falable describing the five reasons why team leadership fails."^^xsd:string ;
+
+      :hasNonFictionalCategory "Biography"^^xsd:string ;
+
+      :hasPublisher "Jossey Bass"^^xsd:string ;
+
+      :hasAuthor "Patrick Lencioni"^^xsd:string ;
+
+      :hasTitle "doresem ipusim"^^xsd:string ;
+
+      :hasImage "./image/The ESV Study Bible Hardcover 1 copy-131x199.png"^^xsd:string .
+
+:dawfff rdf:type :Nonfiction;
+
+            :hasQuantity "10"^^xsd:nonNegativeInteger ;
+
+            :hasISBN "173883389"^^xsd:string ;
+            :hasBookRevisionNo "3rd";
+
+            :hasPublishedYear "2005-01-01"^^xsd:date ;
+
+            :productNumber "16"^^xsd:nonNegativeInteger ;
+
+            :hasPrice "35.0"^^xsd:float ;
+
+            :hasDescription "A falable describing the five reasons why team leadership fails."^^xsd:string ;
+
+            :hasNonFictionalCategory "Biography"^^xsd:string ;
+
+            :hasPublisher "Jossey Bass"^^xsd:string ;
+
+            :hasAuthor "Patrick Lencioni"^^xsd:string ;
+
+            :hasTitle "Amazying change life"^^xsd:string ;
+
+            :hasImage "./image/Grimms Complete Fairy Tales 1 copy-131x199.png"^^xsd:string .
+:birdee rdf:type :Nonfiction;
+
+            :hasQuantity "10"^^xsd:nonNegativeInteger ;
+
+            :hasISBN "1737388379"^^xsd:string ;
+            :hasBookRevisionNo "2nd";
+
+            :hasPublishedYear "2005-01-01"^^xsd:date ;
+
+            :productNumber "17"^^xsd:nonNegativeInteger ;
+
+            :hasPrice "35.0"^^xsd:float ;
+
+            :hasDescription "A falable describing the five reasons why team leadership fails."^^xsd:string ;
+
+            :hasNonFictionalCategory "Health Fitness"^^xsd:string ;
+
+            :hasPublisher "Jossey Bass"^^xsd:string ;
+
+            :hasAuthor "Patrick Lencioni"^^xsd:string ;
+
+            :hasTitle "Postive thinking"^^xsd:string ;
+
+            :hasImage "./image/The Divine Comedy by Dante 1 copy-131x199.png"^^xsd:string .
+
+:nantualee rdf:type :Nonfiction;
+
+        :hasQuantity "10"^^xsd:nonNegativeInteger ;
+
+        :hasISBN "173738129"^^xsd:string ;
+        :hasBookRevisionNo "4th";
+
+        :hasPublishedYear "2005-01-01"^^xsd:date ;
+
+        :productNumber "18"^^xsd:nonNegativeInteger ;
+
+        :hasPrice "35.0"^^xsd:float ;
+
+        :hasDescription "A falable describing the five reasons why team leadership fails."^^xsd:string ;
+
+        :hasNonFictionalCategory "Health Fitness"^^xsd:string ;
+
+        :hasPublisher "Jossey Bass"^^xsd:string ;
+
+        :hasAuthor "Patrick Lencioni"^^xsd:string ;
+
+        :hasTitle "The five dysfunctions of a team leadership"^^xsd:string ;
+
+        :hasImage "./image/Alices Adventures in Wonderland and Other Stories by Lewis Carroll 1 copy-131x199.png"^^xsd:string .
+
+:fljori rdf:type :Customer;
+
+        :hasPhone "+358440993393"^^xsd:string ;
+
+        :hasLastName "Fljori Flojerlla"^^xsd:string ;
+
+        :hasGender "female"^^xsd:string ;
+
+        :hasPassword "fljori"^^xsd:string ;
+
+        :hasEmail "fljori@gmail.com"^^xsd:string ;
+
+        :hasPassword "flori"^^xsd:string ;
+
+        :hasLocation :fljoriLocation ;
+        :hasFirstName "dd" .
+
+:edia rdf:type :Customer;
+        :hasPhone "+358440993393"^^xsd:string ;
+        :hasName "edi minasa"^^xsd:string ;
+        :hasGender "male"^^xsd:string ;
+        :hasPassword "ed"^^xsd:string ;
+        :hasEmail "edi@gmail.com"^^xsd:string ;
+        :hasPassword "ed"^^xsd:string ;
+        :hasLocation :ediLocation;
+        :hasFirstName "dd"^^xsd:string;
+        :hasLastName "bnb"^^xsd:string.
+
+:ediLocation rdf:type :Location;
+        :hasPostalCode "20590"^^xsd:nonNegativeInteger ;
+        :hasCity "Espoo"^^xsd:string ;
+        :hasCountry "Finland"^^xsd:string ;
+        :hasAddress "Kirstinharju 1b 21"^^xsd:string .
+
+:ediDelivery rdf:type :Delivery;
+        :hasDeliveryDate "2017-09-09T10:20:15"^^xsd:dateTime ;
+        :hasLocation :ediLocation.
+
+
+:fljoriDelivery rdf:type :Delivery;
+        :hasDeliveryDate "2017-09-09T10:20:15"^^xsd:dateTime ;
+        :hasLocation :fljoriLocation .
+
+
+
+
+:fljoriLocation rdf:type :Location;
+        :hasPostalCode "20590"^^xsd:nonNegativeInteger ;
+        :hasCity "Espoo"^^xsd:string ;
+
+        :hasCountry "Finland"^^xsd:string ;
+
+        :hasAddress "Kirstinharju 1b 21"^^xsd:string .
+
+
+
+###  http://www.semanticweb.org/edris/ontologies/2017/7/untitled-ontology-208#fljoriOrder
+
+
+:fljoriOrder rdf:type :Order;
+
+             :orderNumber "1"^^xsd:nonNegativeInteger ;
+
+             :hasTotalPrice "100"^^xsd:nonNegativeInteger ;
+
+             :orderStatus "pending"^^xsd:string ;
+
+             :hasCustomer :fljori ;
+
+             :hasDelivery :fljoriDelivery ;
+
+             :hasSales :floriSale ,
+       :floriSalekid .
+
+
+:edOrder rdf:type :Order;
+             :orderNumber "2"^^xsd:nonNegativeInteger ;
+             :hasTotalPrice "100"^^xsd:nonNegativeInteger ;
+             :orderStatus "pending"^^xsd:string ;
+             :hasCustomer :edia ;
+             :hasDelivery :ediDelivery ;
+             :hasSales :ediSale .
+
+:ediSale rdf:type :Sale;
+            :hasProductSalesQuantity "2"^^xsd:nonNegativeInteger ;
+            :hasProduct :fiveDysfunctions .
+
+###  http://www.semanticweb.org/edris/ontologies/2017/7/untitled-ontology-208#floriSale
+
+:floriSale rdf:type :Sale;
+
+           :hasProductSalesQuantity "3"^^xsd:nonNegativeInteger ;
+
+           :hasProduct :fiveDysfunctions .
+
+
+
+###  http://www.semanticweb.org/edris/ontologies/2017/7/untitled-ontology-208#floriSalekid
+
+:floriSalekid rdf:type :Sale;
+
+      :hasProductSalesQuantity "1"^^xsd:nonNegativeInteger ;
+
+      :hasProduct :telitabis .
+
+
+
+###  http://www.semanticweb.org/edris/ontologies/2017/7/untitled-ontology-208#inventory
+
+:inventory rdf:type :Inventory;
+
+           :hasProduct :fiveDysfunctions ,
+       :telitabis ,
+       :trueLove .
+
+
+
+###  http://www.semanticweb.org/edris/ontologies/2017/7/untitled-ontology-208#telitabis
+
+:telitabis rdf:type :KidsBook;
+
+           :hasISBN "172343883389"^^xsd:string ;
+           :hasBookRevisionNo "2nd";
+
+           :productNumber "19"^^xsd:nonNegativeInteger ;
+
+           :hasQuantity "20"^^xsd:nonNegativeInteger ;
+
+           :hasPublishedYear "2005-01-01"^^xsd:date ;
+
+           :hasPrice "65.0"^^xsd:float ;
+
+           :hasKidsBookCategory "Age 3-5"^^xsd:string ;
+
+           :hasPublisher "Jossey Bass"^^xsd:string ;
+
+           :hasDescription "Kids book about four little toy characters."^^xsd:string ;
+
+           :hasAuthor "Teleitabis Lencioni"^^xsd:string ;
+
+           :hasTitle "Telitabis"^^xsd:string ;
+
+           :hasImage "./image/The Circle Series by Ted Dekker - Green 1 copy-131x199.png"^^xsd:string .
+
+
+  :teligram rdf:type :KidsBook;
+
+      :hasISBN "154342389"^^xsd:string ;
+      :hasBookRevisionNo "3rd";
+
+      :productNumber "20"^^xsd:nonNegativeInteger ;
+
+      :hasQuantity "20"^^xsd:nonNegativeInteger ;
+
+      :hasPublishedYear "2005-01-01"^^xsd:date ;
+
+      :hasPrice "65.0"^^xsd:float ;
+
+      :hasKidsBookCategory "Age 0-2"^^xsd:string ;
+
+      :hasPublisher "Jossey Bass"^^xsd:string ;
+
+      :hasDescription "Kids book about four little toy characters."^^xsd:string ;
+
+      :hasAuthor "Teleitabis Lencioni"^^xsd:string ;
+
+      :hasTitle "Telitabis"^^xsd:string ;
+
+      :hasImage "./image/Grimms Complete Fairy Tales 1 copy-131x199.png"^^xsd:string .
+
+  :teliwwwgram rdf:type :KidsBook;
+
+          :hasISBN "173738083389"^^xsd:string ;
+:hasBookRevisionNo "3rd";
+          :productNumber "21"^^xsd:nonNegativeInteger ;
+
+          :hasQuantity "20"^^xsd:nonNegativeInteger ;
+
+          :hasPublishedYear "2005-01-01"^^xsd:date ;
+
+          :hasPrice "65.0"^^xsd:float ;
+
+          :hasKidsBookCategory "Teens"^^xsd:string ;
+
+          :hasPublisher "Jossey Bass"^^xsd:string ;
+
+          :hasDescription "Kids book about four little toy characters."^^xsd:string ;
+
+          :hasAuthor "Teleitabis Lencioni"^^xsd:string ;
+
+          :hasTitle "Telitabis"^^xsd:string ;
+
+          :hasImage "./image/Alices Adventures in Wonderland and Other Stories by Lewis Carroll 1 copy-131x199.png"^^xsd:string .
+
+:telweermm rdf:type :KidsBook;
+
+          :hasISBN "12302038183389"^^xsd:string ;
+          :hasBookRevisionNo "3rd";
+
+          :productNumber "22"^^xsd:nonNegativeInteger ;
+
+          :hasQuantity "20"^^xsd:nonNegativeInteger ;
+
+          :hasPublishedYear "2005-01-01"^^xsd:date ;
+
+          :hasPrice "65.0"^^xsd:float ;
+
+          :hasKidsBookCategory "Teens"^^xsd:string ;
+
+          :hasPublisher "Jossey Bass"^^xsd:string ;
+
+          :hasDescription "Kids book about four little toy characters."^^xsd:string ;
+
+          :hasAuthor "Teleitabis Lencioni"^^xsd:string ;
+
+          :hasTitle "Telitabis"^^xsd:string ;
+
+          :hasImage "./image/Alices Adventures in Wonderland and Other Stories by Lewis Carroll 1 copy-131x199.png"^^xsd:string .
+
+###  http://www.semanticweb.org/edris/ontologies/2017/7/untitled-ontology-208#trueLove
+
+:trueLove rdf:type :FictionAndLiterature;
+
+          :productNumber "8"^^xsd:nonNegativeInteger ;
+
+          :hasISBN "139402949"^^xsd:string ;
+          :hasBookRevisionNo "3rd";
+
+          :hasPrice "25.0"^^xsd:float ;
+
+          :hasQuantity "30"^^xsd:nonNegativeInteger ;
+
+          :hasPublisher "Jossey Bass"^^xsd:string ;
+          :hasPublishedYear "2005-01-01"^^xsd:date ;
+
+
+          :hasFictionalCategory "Romance"^^xsd:string ;
+
+          :hasAuthor "Teleitabis Lencioni"^^xsd:string ;
+
+          :hasDescription "The true story of a shallow relaionship turing to love"^^xsd:string ;
+
+          :hasTitle "True love"^^xsd:string ;
+
+          :hasImage "./image/The Circle Series by Ted Dekker - Green 1 copy-131x199.png"^^xsd:string .
+
+:truefale rdf:type :FictionAndLiterature;
+
+            :productNumber "1"^^xsd:nonNegativeInteger ;
+
+            :hasISBN "123954949"^^xsd:string ;
+            :hasBookRevisionNo "3rd";
+
+            :hasPrice "25.0"^^xsd:float ;
+
+            :hasQuantity "30"^^xsd:nonNegativeInteger ;
+
+            :hasPublisher "Jossey Bass"^^xsd:string ;
+            :hasPublishedYear "2005-01-01"^^xsd:date ;
+
+
+            :hasFictionalCategory "Romance"^^xsd:string ;
+
+            :hasAuthor "Teleitabis Lencioni"^^xsd:string ;
+
+            :hasDescription "The true story of a shallow relaionship turing to love"^^xsd:string ;
+
+            :hasTitle "True love"^^xsd:string ;
+
+            :hasImage "./image/The MacArthur Study Bible 1 copy-131x199.png"^^xsd:string .
+
+:wisefale rdf:type :FictionAndLiterature;
+
+          :productNumber "2"^^xsd:nonNegativeInteger ;
+
+          :hasISBN "13941124949"^^xsd:string ;
+          :hasBookRevisionNo "3rd";
+
+          :hasPrice "25.0"^^xsd:float ;
+
+          :hasQuantity "30"^^xsd:nonNegativeInteger ;
+
+          :hasPublisher "Jossey Bass"^^xsd:string ;
+          :hasPublishedYear "2005-01-01"^^xsd:date ;
+
+
+          :hasFictionalCategory "Mistry"^^xsd:string ;
+
+          :hasAuthor "Teleitabis Lencioni"^^xsd:string ;
+
+          :hasDescription "The true story of a shallow relaionship turing to love"^^xsd:string ;
+
+          :hasTitle "True love"^^xsd:string ;
+
+          :hasImage "./image/Seven Novels by Jane Austen 1 copy-131x199.png"^^xsd:string .
+
+
+:wiwsefale rdf:type :FictionAndLiterature;
+
+          :productNumber "3"^^xsd:nonNegativeInteger ;
+
+          :hasISBN "394049491"^^xsd:string ;
+          :hasBookRevisionNo "3rd";
+
+          :hasPrice "25.0"^^xsd:float ;
+
+          :hasQuantity "30"^^xsd:nonNegativeInteger ;
+
+          :hasPublisher "Jossey Bass"^^xsd:string ;
+          :hasPublishedYear "2005-01-01"^^xsd:date ;
+
+
+          :hasFictionalCategory "Mistry"^^xsd:string ;
+
+          :hasAuthor "Teleitabis Lencioni"^^xsd:string ;
+
+          :hasDescription "The true story of a shallow relaionship turing to love"^^xsd:string ;
+
+          :hasTitle "True love"^^xsd:string ;
+
+          :hasImage "./image/The Complete Works of William Shakespeare 1 copy-131x199.png"^^xsd:string .
+
+
+:wiwwsefale rdf:type :FictionAndLiterature;
+
+            :productNumber "4"^^xsd:nonNegativeInteger ;
+
+            :hasISBN "1394044949"^^xsd:string ;
+:hasBookRevisionNo "3rd";
+            :hasPrice "25.0"^^xsd:float ;
+
+            :hasQuantity "30"^^xsd:nonNegativeInteger ;
+
+            :hasPublisher "Jossey Bass"^^xsd:string ;
+            :hasPublishedYear "2005-01-01"^^xsd:date ;
+
+
+            :hasFictionalCategory "Comics"^^xsd:string ;
+
+            :hasAuthor "Teleitabis Lencioni"^^xsd:string ;
+
+            :hasDescription "The true story of a shallow relaionship turing to love"^^xsd:string ;
+
+            :hasTitle "True love"^^xsd:string ;
+
+            :hasImage "./image/The Chronicles of Narnia 1 copy-131x199.png"^^xsd:string .
+
+
+:wiseselffale rdf:type :FictionAndLiterature;
+
+            :productNumber "5"^^xsd:nonNegativeInteger ;
+
+            :hasISBN "1394047949"^^xsd:string ;
+:hasBookRevisionNo "3rd";
+            :hasPrice "25.0"^^xsd:float ;
+
+            :hasQuantity "30"^^xsd:nonNegativeInteger ;
+
+            :hasPublisher "Jossey Bass"^^xsd:string ;
+            :hasPublishedYear "2005-01-01"^^xsd:date ;
+
+
+            :hasFictionalCategory "Comics"^^xsd:string ;
+
+            :hasAuthor "Teleitabis Lencioni"^^xsd:string ;
+
+            :hasDescription "The true story of a shallow relaionship turing to love"^^xsd:string ;
+
+            :hasTitle "True love"^^xsd:string ;
+
+            :hasImage "./image/Christopher Paolini Inheritance Cycle - Brisingr 1 copy-131x199.png"^^xsd:string .
+
+:truefale rdf:type :FictionAndLiterature;
+
+            :productNumber "6"^^xsd:nonNegativeInteger ;
+
+            :hasISBN "1039404949"^^xsd:string ;
+            :hasBookRevisionNo "3rd";
+
+            :hasPrice "25.0"^^xsd:float ;
+
+            :hasQuantity "30"^^xsd:nonNegativeInteger ;
+
+            :hasPublisher "Jossey Bass"^^xsd:string ;
+            :hasPublishedYear "2005-01-01"^^xsd:date ;
+
+
+            :hasFictionalCategory "Fiction"^^xsd:string ;
+
+            :hasAuthor "Teleitabis Lencioni"^^xsd:string ;
+
+            :hasDescription "The true story of a shallow relaionship turing to love"^^xsd:string ;
+
+            :hasTitle "True love"^^xsd:string ;
+
+            :hasImage "./image/Holy Bible English Standard Version 1 copy-131x199.png"^^xsd:string .
+
+:truwefale rdf:type :FictionAndLiterature;
+
+            :productNumber "7"^^xsd:nonNegativeInteger ;
+
+            :hasISBN "1394074949"^^xsd:string ;
+            :hasBookRevisionNo "3rd";
+
+            :hasPrice "25.0"^^xsd:float ;
+
+            :hasQuantity "30"^^xsd:nonNegativeInteger ;
+
+            :hasPublisher "Jossey Bass"^^xsd:string ;
+            :hasPublishedYear "2005-01-01"^^xsd:date ;
+
+
+            :hasFictionalCategory "Fiction"^^xsd:string ;
+
+            :hasAuthor "Teleitabis Lencioni"^^xsd:string ;
+
+            :hasDescription "The true story of a shallow relaionship turing to love"^^xsd:string ;
+
+            :hasTitle "True love"^^xsd:string ;
+
+            :hasImage "./image/Grimms Complete Fairy Tales 1 copy-131x199.png"^^xsd:string .
