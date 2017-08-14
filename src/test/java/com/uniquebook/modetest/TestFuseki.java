@@ -12,8 +12,11 @@ import com.hp.hpl.jena.query.QueryFactory;
 import com.hp.hpl.jena.query.QuerySolution;
 import com.hp.hpl.jena.query.ResultSet;
 import com.hp.hpl.jena.query.Syntax;
+import com.hp.hpl.jena.update.UpdateAction;
 import com.hp.hpl.jena.update.UpdateFactory;
 import com.hp.hpl.jena.update.UpdateProcessor;
+import com.hp.hpl.jena.update.UpdateRequest;
+import com.uniquebook.dao.KidsBookDao;
 import com.uniquebook.models.KidsBook;
 import com.uniquebook.utils.HelperUtil;
 import com.uniquebook.utils.FusekiClient;
@@ -22,6 +25,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
+import org.apache.jena.query.ParameterizedSparqlString;
 import org.apache.jena.update.UpdateExecutionFactory;
 
 /**
@@ -96,11 +100,12 @@ public class TestFuseki {
         b.setDescription("a book product");
         b.setPrice(12);
         b.setQuantity(2);
-        b.setProductNumber(30);
+        b.setProductNumber(31);
         b.setCategory("Romance");
         
+        helperUtil = new HelperUtil();
         String insertQuery = FusekiClient.PREFIX;
-        insertQuery += "INSERT\n"
+        insertQuery += "INSERT DATA\n"
                 + "{\n"
                 + " r:" + helperUtil.generateNames() + "   a   r:KidsBook;\n"
                 + "          r:productNumber \"" + b.getProductNumber() + "\"^^xsd:nonNegativeInteger ;\n"
@@ -116,6 +121,18 @@ public class TestFuseki {
                 + "          r:hasImage \"" + b.getImagepath() + "\"^^xsd:string ."
                 + "}";
         
+        ParameterizedSparqlString s = new ParameterizedSparqlString();
+        s.setCommandText(insertQuery);
+        org.apache.jena.update.UpdateRequest update = s.asUpdate();
+        org.apache.jena.update.UpdateProcessor proc =  UpdateExecutionFactory.createRemote(update, updateQueryURL);
+
+//        UpdateProcessor upp = UpdateExecutionFactory.createRemote(
+//        UpdateFactory.create(insertQuery), 
+//                "http://localhost:3030/ds/update");
+        proc.execute();
+        
+        KidsBookDao k = new KidsBookDao();
+        System.out.println("All is well:"+k.getKidBookByProductNumber(31));
         
         
 //    UpdateProcessor upp = UpdateExecutionFactory.createRemote( UpdateFactory.create(insertQuery),
