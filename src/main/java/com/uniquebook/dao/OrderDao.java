@@ -7,7 +7,7 @@ package com.uniquebook.dao;
 
 import com.hp.hpl.jena.rdf.model.Model;
 import com.uniquebook.models.Order;
-import com.uniquebook.utils.RdfModelUtil;
+import com.uniquebook.utils.FusekiClient;
 import java.util.List;
 
 /**
@@ -16,10 +16,9 @@ import java.util.List;
  */
 public class OrderDao {
     
-    private Model model;
             
     public OrderDao() {
-        model = RdfModelUtil.createModelFromUrl();
+        //model = FusekiClient.createModelFromUrl();
     }
     
     

@@ -560,7 +560,7 @@ r:hasBookRevisionNo "3rd";
             r:hasPublishedYear "2005-01-01"^^xsd:date ;
 
 
-            r:hasFictionalCategory "Comics"^^xsd:string ;
+            r:hasFictionalCategory "Mistry"^^xsd:string ;
 
             r:hasAuthor "Teleitabis Lencioni"^^xsd:string ;
 
@@ -585,7 +585,7 @@ r:hasBookRevisionNo "3rd";
             r:hasPublishedYear "2005-01-01"^^xsd:date ;
 
 
-            r:hasFictionalCategory "Comics"^^xsd:string ;
+            r:hasFictionalCategory "Mistry"^^xsd:string ;
 
             r:hasAuthor "Teleitabis Lencioni"^^xsd:string ;
 

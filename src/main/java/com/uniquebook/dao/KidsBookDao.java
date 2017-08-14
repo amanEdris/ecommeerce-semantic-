@@ -5,18 +5,13 @@
  */
 package com.uniquebook.dao;
 
-import com.hp.hpl.jena.query.Query;
-import com.hp.hpl.jena.query.QueryExecution;
-import com.hp.hpl.jena.query.QueryExecutionFactory;
-import com.hp.hpl.jena.query.QueryFactory;
 import com.hp.hpl.jena.query.QuerySolution;
 import com.hp.hpl.jena.query.ResultSet;
-import com.hp.hpl.jena.query.Syntax;
 import com.hp.hpl.jena.rdf.model.Model;
 import com.hp.hpl.jena.update.UpdateAction;
 import com.uniquebook.models.KidsBook;
 import com.uniquebook.utils.HelperUtil;
-import com.uniquebook.utils.RdfModelUtil;
+import com.uniquebook.utils.FusekiClient;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -35,12 +30,11 @@ public class KidsBookDao {
     private HelperUtil helperUtil;
 
     public KidsBookDao() {
-        model = RdfModelUtil.createModelFromUrl();
         helperUtil = new HelperUtil();
     }
 
     public void addKidsBook(KidsBook b) {
-        String insertQuery = RdfModelUtil.PREFIX;
+        String insertQuery = FusekiClient.PREFIX;
         insertQuery += "INSERT\n"
                 + "{\n"
                 + " r:" + helperUtil.generateNames() + "   a   r:KidsBook;\n"
@@ -68,7 +62,7 @@ public class KidsBookDao {
 
     public List<KidsBook> getAllKidsBook() {
         List<KidsBook> books = new ArrayList<KidsBook>();
-        String BooksQuery = RdfModelUtil.PREFIX;
+        String BooksQuery = FusekiClient.PREFIX;
         BooksQuery += "SELECT  *\n"
                 + "\n"
                 + "WHERE\n"
@@ -86,45 +80,15 @@ public class KidsBookDao {
                 + "                  r:hasTitle  ?title ;\n"
                 + "                  r:hasImage ?image .\n"
                 + "} ";
-        try {
-            Query query = QueryFactory.create(BooksQuery, Syntax.syntaxARQ);
-            QueryExecution qe = QueryExecutionFactory.create(query, model);
-            ResultSet results = qe.execSelect();
-
-            while (results.hasNext()) {
-
-                QuerySolution row = results.next();
-                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-                KidsBook b = new KidsBook();
-                b.setAuthor(row.getLiteral("author").getString());
-                b.setImagepath(row.getLiteral("image").getString());
-                b.setIsbn(row.getLiteral("isbn").getString());
-                Date deliveryDate = sdf.parse(row.getLiteral("publishedyear").getValue().toString());
-                b.setTitle(row.getLiteral("title").getString());
-                b.setPublishedYear(deliveryDate);
-                b.setPublisher(row.getLiteral("publisher").getString());
-                b.setQuantity(row.getLiteral("quantity").getInt());
-                b.setDescription(row.getLiteral("description").getString());
-                b.setPrice(row.getLiteral("price").getFloat());
-                b.setQuantity(row.getLiteral("quantity").getInt());
-                b.setProductNumber(row.getLiteral("productNumber").getInt());
-                String category = row.getLiteral("kidsCategory").getValue().toString();
-                b.setCategory(KidsBook.kidsBookCategory.getEnumByString(category));
-
-                System.out.println("book added with category" + b.getCategory() + "where category name is:" + category);
-
-                books.add(b);
-
-            }
-        } catch (ParseException ex) {
-            Logger.getLogger(NonFictionalBooksDao.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        queryAllBooks(BooksQuery, books);
         return books;
     }
 
+  
+
     public List<KidsBook> getAllKidsBookByCategory(String category) {
         List<KidsBook> books = new ArrayList<KidsBook>();
-        String BooksQuery = RdfModelUtil.PREFIX;
+        String BooksQuery = FusekiClient.PREFIX;
         BooksQuery += "SELECT  *\n"
                 + "\n"
                 + "WHERE\n"
@@ -143,45 +107,14 @@ public class KidsBookDao {
                 + "                  r:hasImage ?image .\n"
                 + " FILTER regex(?kidsCategory, \"" + category + "\", \"i\")\n"
                 + "} ";
-        try {
-            Query query = QueryFactory.create(BooksQuery, Syntax.syntaxARQ);
-            QueryExecution qe = QueryExecutionFactory.create(query, model);
-            ResultSet results = qe.execSelect();
-
-            while (results.hasNext()) {
-
-                QuerySolution row = results.next();
-                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-                KidsBook b = new KidsBook();
-                b.setAuthor(row.getLiteral("author").getString());
-                b.setImagepath(row.getLiteral("image").getString());
-                b.setIsbn(row.getLiteral("isbn").getString());
-                Date deliveryDate = sdf.parse(row.getLiteral("publishedyear").getValue().toString());
-                b.setTitle(row.getLiteral("title").getString());
-                b.setPublishedYear(deliveryDate);
-                b.setPublisher(row.getLiteral("publisher").getString());
-                b.setQuantity(row.getLiteral("quantity").getInt());
-                b.setDescription(row.getLiteral("description").getString());
-                b.setPrice(row.getLiteral("price").getFloat());
-                b.setQuantity(row.getLiteral("quantity").getInt());
-                b.setProductNumber(row.getLiteral("productNumber").getInt());
-                String c = row.getLiteral("kidsCategory").getValue().toString();
-                b.setCategory(KidsBook.kidsBookCategory.getEnumByString(c));
-
-                System.out.println("book added with category" + b.getCategory() + "where category name is:" + category);
-                books.add(b);
-
-            }
-        } catch (ParseException ex) {
-            Logger.getLogger(NonFictionalBooksDao.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        queryAllBooks(BooksQuery, books);
         return books;
 
     }
 
     public KidsBook getKidsBookByISBN(String Isbn) {
         KidsBook book = new KidsBook();
-        String booksQuery = RdfModelUtil.PREFIX;
+        String booksQuery = FusekiClient.PREFIX;
 
         booksQuery += "SELECT  *\n"
                 + "\n"
@@ -210,7 +143,7 @@ public class KidsBookDao {
 
     public KidsBook getKidBookByProductNumber(int productNumber) {
         KidsBook book = new KidsBook();
-        String booksQuery = RdfModelUtil.PREFIX;
+        String booksQuery = FusekiClient.PREFIX;
 
         booksQuery += "SELECT  *\n"
                 + "\n"
@@ -232,7 +165,7 @@ public class KidsBookDao {
                 + "\n"
                 + " }";
 
-        System.out.println("get book query+" + booksQuery);
+        //System.out.println("get book query+" + booksQuery);
 
         queryBook(booksQuery, book);
         return book;
@@ -241,10 +174,8 @@ public class KidsBookDao {
 
     private void queryBook(String booksQuery, KidsBook book) {
         try {
-            Query query = QueryFactory.create(booksQuery, Syntax.syntaxARQ);
-            QueryExecution qe = QueryExecutionFactory.create(query, model);
-            ResultSet results = qe.execSelect();
-
+            ResultSet results = FusekiClient.queryFUSEKI(booksQuery);
+           
             while (results.hasNext()) {
 
                 QuerySolution row = results.next();
@@ -262,12 +193,46 @@ public class KidsBookDao {
                 book.setPrice(row.getLiteral("price").getFloat());
                 book.setQuantity(row.getLiteral("quantity").getInt());
                 book.setProductNumber(row.getLiteral("productNumber").getInt());
-                System.out.println(row.getLiteral("kidsCategory").getValue().toString());
-                book.setCategory(KidsBook.kidsBookCategory.getEnumByString(row.getLiteral("kidsCategory").getValue().toString()));
+                //System.out.println(row.getLiteral("kidsCategory").getValue().toString());
+                book.setCategory(row.getLiteral("kidsCategory").getValue().toString());
 
             }
         } catch (ParseException ex) {
             Logger.getLogger(FictionalBooksDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+      private void queryAllBooks(String BooksQuery, List<KidsBook> books) {
+        try {
+            ResultSet results = FusekiClient.queryFUSEKI(BooksQuery);
+
+            while (results.hasNext()) {
+
+                QuerySolution row = results.next();
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                KidsBook b = new KidsBook();
+                b.setAuthor(row.getLiteral("author").getString());
+                b.setImagepath(row.getLiteral("image").getString());
+                b.setIsbn(row.getLiteral("isbn").getString());
+                Date deliveryDate = sdf.parse(row.getLiteral("publishedyear").getValue().toString());
+                b.setTitle(row.getLiteral("title").getString());
+                b.setPublishedYear(deliveryDate);
+                b.setPublisher(row.getLiteral("publisher").getString());
+                b.setQuantity(row.getLiteral("quantity").getInt());
+                b.setDescription(row.getLiteral("description").getString());
+                b.setPrice(row.getLiteral("price").getFloat());
+                b.setQuantity(row.getLiteral("quantity").getInt());
+                b.setProductNumber(row.getLiteral("productNumber").getInt());
+                String category = row.getLiteral("kidsCategory").getValue().toString();
+                b.setCategory(category);
+
+                //System.out.println("book added with category" + b.getCategory() + "where category name is:" + category);
+
+                books.add(b);
+
+            }
+        } catch (ParseException ex) {
+            Logger.getLogger(NonFictionalBooksDao.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 }

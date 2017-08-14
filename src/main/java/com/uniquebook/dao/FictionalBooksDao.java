@@ -5,18 +5,13 @@
  */
 package com.uniquebook.dao;
 
-import com.hp.hpl.jena.query.Query;
-import com.hp.hpl.jena.query.QueryExecution;
-import com.hp.hpl.jena.query.QueryExecutionFactory;
-import com.hp.hpl.jena.query.QueryFactory;
 import com.hp.hpl.jena.query.QuerySolution;
 import com.hp.hpl.jena.query.ResultSet;
-import com.hp.hpl.jena.query.Syntax;
 import com.hp.hpl.jena.rdf.model.Model;
 import com.hp.hpl.jena.update.UpdateAction;
 import com.uniquebook.models.FictionalBook;
 import com.uniquebook.utils.HelperUtil;
-import com.uniquebook.utils.RdfModelUtil;
+import com.uniquebook.utils.FusekiClient;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -31,11 +26,9 @@ import java.util.logging.Logger;
  */
 public class FictionalBooksDao {
 
-    private Model model;
     private HelperUtil helperUtil;
 
     public FictionalBooksDao() {
-        model = RdfModelUtil.createModelFromUrl();
         helperUtil = new HelperUtil();
     }
 
@@ -45,7 +38,7 @@ public class FictionalBooksDao {
      */
     public void addFictionalBooks(FictionalBook b) {
 
-        String insertQuery = RdfModelUtil.PREFIX;
+        String insertQuery = FusekiClient.PREFIX;
         insertQuery += "INSERT\n"
                 + "{\n"
                 + " r:" + helperUtil.generateNames() + "   a   r:FictionAndLiterature;\n"
@@ -63,7 +56,7 @@ public class FictionalBooksDao {
                 + "}";
 
         System.out.println(insertQuery);
-        UpdateAction.parseExecute(insertQuery, model);
+       // UpdateAction.parseExecute(insertQuery, model);
         
         
 
@@ -76,7 +69,7 @@ public class FictionalBooksDao {
 
     public List<FictionalBook> getAllFictionalBook() {
         List<FictionalBook> books = new ArrayList<FictionalBook>();
-        String BooksQuery = RdfModelUtil.PREFIX;
+        String BooksQuery = FusekiClient.PREFIX;
         BooksQuery += "SELECT  * WHERE{\n"
                 + "   ?x a r:FictionAndLiterature;\n"
                 + "                  r:hasQuantity ?quantity;\n"
@@ -91,44 +84,16 @@ public class FictionalBooksDao {
                 + "                  r:hasTitle  ?title ;\n"
                 + "                  r:hasImage ?image .   \n"
                 + "}";
-        try {
-            Query query = QueryFactory.create(BooksQuery, Syntax.syntaxARQ);
-            QueryExecution qe = QueryExecutionFactory.create(query, model);
-            ResultSet results = qe.execSelect();
-
-            while (results.hasNext()) {
-
-                QuerySolution row = results.next();
-                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-                FictionalBook b = new FictionalBook();
-
-                b.setAuthor(row.getLiteral("author").getString());
-                b.setImagepath(row.getLiteral("image").getString());
-                b.setIsbn(row.getLiteral("isbn").getString());
-                Date deliveryDate = sdf.parse(row.getLiteral("publishedyear").getValue().toString());
-                b.setTitle(row.getLiteral("title").getString());
-                b.setPublishedYear(deliveryDate);
-                b.setPublisher(row.getLiteral("publisher").getString());
-                b.setQuantity(row.getLiteral("quantity").getInt());
-                b.setDescription(row.getLiteral("description").getString());
-                b.setPrice(row.getLiteral("price").getFloat());
-                b.setQuantity(row.getLiteral("quantity").getInt());
-                b.setProductNumber(row.getLiteral("productNumber").getInt());
-                System.out.println(row.getLiteral("fictionalCategory").getValue().toString());
-                b.setCategory(FictionalBook.FictionalCategory.getEnumByString(row.getLiteral("fictionalCategory").getValue().toString()));
-                books.add(b);
-
-            }
-        } catch (ParseException ex) {
-            Logger.getLogger(FictionalBooksDao.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        queryAllBooks(BooksQuery, books);
         return books;
 
     }
 
+    
+
     public List<FictionalBook> getAllFictionalBookByCategory(String category) {
         List<FictionalBook> books = new ArrayList<FictionalBook>();
-        String BooksQuery = RdfModelUtil.PREFIX;
+        String BooksQuery = FusekiClient.PREFIX;
         BooksQuery += "SELECT  * WHERE{\n"
                 + "   ?x a r:FictionAndLiterature;\n"
                 + "                  r:hasQuantity ?quantity;\n"
@@ -144,44 +109,15 @@ public class FictionalBooksDao {
                 + "                  r:hasImage ?image .   \n"
                 + "   FILTER regex(?fictionalCategory, \"" + category + "\", \"i\")\n"
                 + "}";
-        try {
-            Query query = QueryFactory.create(BooksQuery, Syntax.syntaxARQ);
-            QueryExecution qe = QueryExecutionFactory.create(query, model);
-            ResultSet results = qe.execSelect();
-
-            while (results.hasNext()) {
-
-                QuerySolution row = results.next();
-                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-                FictionalBook b = new FictionalBook();
-
-                b.setAuthor(row.getLiteral("author").getString());
-                b.setImagepath(row.getLiteral("image").getString());
-                b.setIsbn(row.getLiteral("isbn").getString());
-                Date deliveryDate = sdf.parse(row.getLiteral("publishedyear").getValue().toString());
-                b.setTitle(row.getLiteral("title").getString());
-                b.setPublishedYear(deliveryDate);
-                b.setPublisher(row.getLiteral("publisher").getString());
-                b.setQuantity(row.getLiteral("quantity").getInt());
-                b.setDescription(row.getLiteral("description").getString());
-                b.setPrice(row.getLiteral("price").getFloat());
-                b.setQuantity(row.getLiteral("quantity").getInt());
-                b.setProductNumber(row.getLiteral("productNumber").getInt());
-                System.out.println(row.getLiteral("fictionalCategory").getValue().toString());
-                b.setCategory(FictionalBook.FictionalCategory.getEnumByString(row.getLiteral("fictionalCategory").getValue().toString()));
-                books.add(b);
-
-            }
-        } catch (ParseException ex) {
-            Logger.getLogger(FictionalBooksDao.class.getName()).log(Level.SEVERE, null, ex);
-        }
+  
+        queryAllBooks(BooksQuery, books);
+        
         return books;
-
     }
 
     public FictionalBook getFictionalBookByISBN(String ISBN) {
         FictionalBook book = new FictionalBook();
-        String booksQuery = RdfModelUtil.PREFIX;
+        String booksQuery = FusekiClient.PREFIX;
 
         booksQuery += "SELECT  *\n"
                 + "\n"
@@ -210,7 +146,7 @@ public class FictionalBooksDao {
 
     public FictionalBook getFictionalBookByProductNumber(int productNumber) {
         FictionalBook book = new FictionalBook();
-        String booksQuery = RdfModelUtil.PREFIX;
+        String booksQuery = FusekiClient.PREFIX;
 
         booksQuery += "SELECT  *\n"
                 + "\n"
@@ -232,7 +168,7 @@ public class FictionalBooksDao {
                 + "\n"
                 + " }";
 
-        System.out.println("get book query+" + booksQuery);
+        //System.out.println("get book query+" + booksQuery);
 
         queryBook(booksQuery, book);
         return book;
@@ -241,9 +177,7 @@ public class FictionalBooksDao {
 
     private void queryBook(String booksQuery, FictionalBook book) {
         try {
-            Query query = QueryFactory.create(booksQuery, Syntax.syntaxARQ);
-            QueryExecution qe = QueryExecutionFactory.create(query, model);
-            ResultSet results = qe.execSelect();
+            ResultSet results = FusekiClient.queryFUSEKI(booksQuery);
 
             while (results.hasNext()) {
 
@@ -262,8 +196,8 @@ public class FictionalBooksDao {
                 book.setPrice(row.getLiteral("price").getFloat());
                 book.setQuantity(row.getLiteral("quantity").getInt());
                 book.setProductNumber(row.getLiteral("productNumber").getInt());
-                System.out.println(row.getLiteral("fictionalCategory").getValue().toString());
-                book.setCategory(FictionalBook.FictionalCategory.getEnumByString(row.getLiteral("fictionalCategory").getValue().toString()));
+                //System.out.println(row.getLiteral("fictionalCategory").getValue().toString());
+                book.setCategory(row.getLiteral("fictionalCategory").getValue().toString());
 
             }
         } catch (ParseException ex) {
@@ -271,4 +205,36 @@ public class FictionalBooksDao {
         }
     }
 
+    private void queryAllBooks(String BooksQuery, List<FictionalBook> books) {
+        try {
+            
+            ResultSet results = FusekiClient.queryFUSEKI(BooksQuery);
+
+            while (results.hasNext()) {
+
+                QuerySolution row = results.next();
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                FictionalBook b = new FictionalBook();
+
+                b.setAuthor(row.getLiteral("author").getString());
+                b.setImagepath(row.getLiteral("image").getString());
+                b.setIsbn(row.getLiteral("isbn").getString());
+                Date deliveryDate = sdf.parse(row.getLiteral("publishedyear").getValue().toString());
+                b.setTitle(row.getLiteral("title").getString());
+                b.setPublishedYear(deliveryDate);
+                b.setPublisher(row.getLiteral("publisher").getString());
+                b.setQuantity(row.getLiteral("quantity").getInt());
+                b.setDescription(row.getLiteral("description").getString());
+                b.setPrice(row.getLiteral("price").getFloat());
+                b.setQuantity(row.getLiteral("quantity").getInt());
+                b.setProductNumber(row.getLiteral("productNumber").getInt());
+                //System.out.println(row.getLiteral("fictionalCategory").getValue().toString());
+                b.setCategory(row.getLiteral("fictionalCategory").getValue().toString());
+                books.add(b);
+
+            }
+        } catch (ParseException ex) {
+            Logger.getLogger(FictionalBooksDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 }

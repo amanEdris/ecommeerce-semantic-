@@ -7,7 +7,7 @@ package com.uniquebook.dao;
 
 import com.hp.hpl.jena.rdf.model.Model;
 import com.uniquebook.models.Customer;
-import com.uniquebook.utils.RdfModelUtil;
+import com.uniquebook.utils.FusekiClient;
 import java.util.List;
 
 /**
@@ -16,10 +16,8 @@ import java.util.List;
  */
 public class CustomerDao {
     
-    private Model model;
             
     public CustomerDao() {
-        model = RdfModelUtil.createModelFromUrl();
     }
     
     public void addCustomer(Customer b){

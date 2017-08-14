@@ -5,6 +5,7 @@
  */
 package com.uniquebook.controllers;
 
+import com.uniquebook.models.*;
 import com.uniquebook.dao.BookDao;
 import com.uniquebook.dao.FictionalBooksDao;
 import com.uniquebook.dao.KidsBookDao;
@@ -22,8 +23,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author edris
  */
-
-@WebServlet(name="BookController",urlPatterns = {"/book"})
+@WebServlet(name = "BookController", urlPatterns = {"/book"})
 public class BookController extends HttpServlet {
 
     private FictionalBooksDao fictionDao;
@@ -35,7 +35,6 @@ public class BookController extends HttpServlet {
     private static String LIST_Books = "/view/listBook.jsp";
     private static String SHOW_Books = "/view/showBook.jsp";
 
-    
     public BookController() {
         super();
         fictionDao = new FictionalBooksDao();
@@ -44,7 +43,6 @@ public class BookController extends HttpServlet {
         bookDao = new BookDao();
     }
 
-   
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -58,30 +56,47 @@ public class BookController extends HttpServlet {
             //forward to  book list jsp
             request.setAttribute("books", kidDao.getAllKidsBook());
         } else if (action.equalsIgnoreCase("edit")) {
-             forward = INSERT_OR_EDIT;
-             //getBookby product number
-             //set to request
-            
+            forward = INSERT_OR_EDIT;
+            //getBookby product number
+            //set to request
+
         } else if (action.equalsIgnoreCase("show")) {
-             Book b = new Book();
-             forward = SHOW_Books;
-             int productId = Integer.parseInt(request.getParameter("productNo"));
-             b= bookDao.getBookbyProductNumber(productId);
-             request.setAttribute("book", b);              
-        }
-        
-        else if (action.equalsIgnoreCase("listBooks")) {
-            forward = LIST_Books;          
-            request.setAttribute("nonfibooks", nonFcitionDao.getAllNonFictionalBook());
-            request.setAttribute("kidbooks",kidDao.getAllKidsBook());
-            request.setAttribute("books",fictionDao.getAllFictionalBook());
+            Book b = new Book();
+            forward = SHOW_Books;
+            int productId = Integer.parseInt(request.getParameter("productNo"));
+            String category = (request.getParameter("category"));
+
+            b = bookDao.getBookbyProductNumber(productId, category);
+            request.setAttribute("book", b);
+        } else if (action.equalsIgnoreCase("listBooks")) {
+            forward = LIST_Books;
+            String category = (request.getParameter("category"));
+            request.setAttribute("category",category);
+            if (category != null) {
+                if (NonFictionalBook.NonFictionalCategory.getEnumByString(category) != null) {
+                    request.setAttribute("cat", 1);               
+                    request.setAttribute("nonfibooks", nonFcitionDao.getAllNonFictionalBookByCategory(category));
+                } else if (category.equals("Kids Book")) {
+                     request.setAttribute("cat", 2);
+                    request.setAttribute("kidbooks", kidDao.getAllKidsBook());
+                } else {
+                     request.setAttribute("cat", 3);
+                    request.setAttribute("books", fictionDao.getAllFictionalBookByCategory(category));
+                }
+            } else {
+                request.setAttribute("category", category);
+                request.setAttribute("nonfibooks", nonFcitionDao.getAllNonFictionalBook());
+                request.setAttribute("kidbooks", kidDao.getAllKidsBook());
+                request.setAttribute("books", fictionDao.getAllFictionalBook());
+
+            }
+
         } else {
-            
+
         }
         RequestDispatcher view = request.getRequestDispatcher(forward);
         view.forward(request, response);
     }
-
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -89,8 +104,6 @@ public class BookController extends HttpServlet {
 
     }
 
- 
-    
     @Override
     public String getServletInfo() {
         return "Short description";

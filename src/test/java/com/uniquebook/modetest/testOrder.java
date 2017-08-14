@@ -73,3 +73,27 @@ public class testOrder {
        }
 
 }
+
+
+
+
+
+
+
+    /***
+    public static final String RDF_DATA_MODEL_PATH = "src/onto/data.ttl";
+
+    private Model model = null;
+    //the url of rdf individuals created 
+    private static String dataUrl = "http://localhost:8080/UniqueBookApp/onto/data.ttl";
+
+    public static Model createModelFromUrl() {
+
+        Model model = null;
+        try {
+            URL u = new URL(dataUrl);
+            model = FileManager.get().loadModel(u.toString(), "TTL");
+        } catch (MalformedURLException ex) {
+        }
+        return model;
+    }**/

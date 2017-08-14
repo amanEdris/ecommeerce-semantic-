@@ -10,10 +10,9 @@ import com.uniquebook.dao.FictionalBooksDao;
 import com.uniquebook.dao.KidsBookDao;
 import com.uniquebook.dao.NonFictionalBooksDao;
 import com.uniquebook.models.Book;
-import com.uniquebook.models.FictionalBook;
-import com.uniquebook.models.KidsBook;
-import com.uniquebook.models.NonFictionalBook;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  *
@@ -46,21 +45,26 @@ public class testDao {
         //System.out.println(b.getKidsBookByISBN("172343883389"));
         //System.out.println(b.getKidBookByProductNumber(20));
         Date deliveryDate = new Date();
+//
+//        FictionalBook bbn = new FictionalBook();
+//        bbn.setAuthor("jango");
+//        bbn.setImagepath("./image/The Complete Works of William Shakespeare 1 copy-131x199.png");
+//        bbn.setIsbn("1394029492");
+//        bbn.setPublishedYear(deliveryDate);
+//        bbn.setPublisher("maman");
+//        bbn.setQuantity(100);
+//        bbn.setDescription("a book product");
+//        bbn.setPrice(12);
+//        bbn.setQuantity(2);
+//        bbn.setProductNumber(30);
+//        bbn.setCategory("Romance");
+//        //System.out.println("the book you added is:" + bbn.toString());
+//        bw.addFictionalBooks(bbn);
+       
+//        System.out.println("the book you added is:" + bbn.toString());
 
-        FictionalBook bbn = new FictionalBook();
-        bbn.setAuthor("jango");
-        bbn.setImagepath("./image/The Complete Works of William Shakespeare 1 copy-131x199.png");
-        bbn.setIsbn("1394029492");
-        bbn.setPublishedYear(deliveryDate);
-        bbn.setPublisher("maman");
-        bbn.setQuantity(100);
-        bbn.setDescription("a book product");
-        bbn.setPrice(12);
-        bbn.setQuantity(2);
-        bbn.setProductNumber(30);
-        bbn.setCategory("Romance");
-        //System.out.println("the book you added is:" + bbn.toString());
-        bw.addFictionalBooks(bbn);
+
+
 //        
 //        /**
 //         * test can delete a book given producer consumer
@@ -68,9 +72,15 @@ public class testDao {
         BookDao nnd = new BookDao();
       //  nnd.deleteBooks(bbn.getProductNumber());
        // System.out.println("you deleted a book" + bw.getFictionalBookByProductNumber(bbn.getProductNumber()));
-       Book bc= nnd.getBookbyProductNumber(5);
-        System.out.println("you query book"+bc.getImagepath());
-        System.out.println();
+//          
+//          System.out.println(nnd.getAllBooksbyCategory("History").toString());
+//          
+//          List<Book> books = new ArrayList<Book>();
+ 
+//        bc=  nnd.getBookbyProductNumber(7);
+//        System.out.println("Fiction book"+bc.getImagepath()+bc.getIsbn());
+//        bc=  nnd.getBookbyProductNumber(22);
+//        System.out.println("Kids book"+bc.getImagepath()+bc.getIsbn());
         // System.out.println("you have added a book" + bw.getFictionalBookByISBN(bbn.getIsbn()));
 
 //        NonFictionalBook c = new NonFictionalBook();
