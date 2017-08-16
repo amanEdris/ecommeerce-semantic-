@@ -197,8 +197,8 @@
                                                     <ul class="acount">
                                                         <li><a href="/UniqueBookApp/book?action=list">Product</a> 
                                                         <li><a href="/UniqueBookApp/order?action=list">Orders</a></li>
-                                                        <li><a href="/UniqueBookApp/order?action=list">Customers</a></li>
-                                                        <li><a href="/UniqueBookApp/order?action=list">Admin Accounts</a></li>
+                                                        <li><a href="/UniqueBookApp/order?action=show">Customers</a></li>
+                                                        <li><a href="/UniqueBookApp/order?action=show">Admin Accounts</a></li>
                                                 </div>
                                             </div>
                                         </aside>

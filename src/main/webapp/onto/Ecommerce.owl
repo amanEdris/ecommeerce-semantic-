@@ -11,6 +11,27 @@
 
 #################################################################
 #
+#    Annotation properties
+#
+#################################################################
+
+
+###  http://www.semanticweb.org/edris/ontologies/2017/7/untitled-ontology-208#hasName
+
+:hasName rdf:type owl:AnnotationProperty .
+
+
+
+###  http://www.semanticweb.org/edris/ontologies/2017/7/untitled-ontology-208#hasProductName
+
+:hasProductName rdf:type owl:AnnotationProperty .
+
+
+
+
+
+#################################################################
+#
 #    Datatypes
 #
 #################################################################
@@ -34,9 +55,9 @@ xsd:date rdf:type rdfs:Datatype .
 ###  http://www.semanticweb.org/edris/ontologies/2017/7/untitled-ontology-208#hasCustomer
 
 :hasCustomer rdf:type owl:ObjectProperty ;
-
+             
              rdfs:range :Customer ;
-
+             
              rdfs:domain :Order .
 
 
@@ -44,9 +65,9 @@ xsd:date rdf:type rdfs:Datatype .
 ###  http://www.semanticweb.org/edris/ontologies/2017/7/untitled-ontology-208#hasDelivery
 
 :hasDelivery rdf:type owl:ObjectProperty ;
-
+             
              rdfs:range :Delivery ;
-
+             
              rdfs:domain :Order .
 
 
@@ -54,10 +75,10 @@ xsd:date rdf:type rdfs:Datatype .
 ###  http://www.semanticweb.org/edris/ontologies/2017/7/untitled-ontology-208#hasLocation
 
 :hasLocation rdf:type owl:ObjectProperty ;
-
+             
              rdfs:domain :Customer ,
                          :Delivery ;
-
+             
              rdfs:range :Location .
 
 
@@ -65,9 +86,9 @@ xsd:date rdf:type rdfs:Datatype .
 ###  http://www.semanticweb.org/edris/ontologies/2017/7/untitled-ontology-208#hasProduct
 
 :hasProduct rdf:type owl:ObjectProperty ;
-
+            
             rdfs:range :Product ;
-
+            
             rdfs:domain :Sale .
 
 
@@ -75,9 +96,9 @@ xsd:date rdf:type rdfs:Datatype .
 ###  http://www.semanticweb.org/edris/ontologies/2017/7/untitled-ontology-208#hasSales
 
 :hasSales rdf:type owl:ObjectProperty ;
-
+          
           rdfs:domain :Order ;
-
+          
           rdfs:range :Sale .
 
 
@@ -94,9 +115,9 @@ xsd:date rdf:type rdfs:Datatype .
 ###  http://www.semanticweb.org/edris/ontologies/2017/7/untitled-ontology-208#hasAddress
 
 :hasAddress rdf:type owl:DatatypeProperty ;
-
+            
             rdfs:domain :Location ;
-
+            
             rdfs:range xsd:string .
 
 
@@ -104,9 +125,9 @@ xsd:date rdf:type rdfs:Datatype .
 ###  http://www.semanticweb.org/edris/ontologies/2017/7/untitled-ontology-208#hasAuthor
 
 :hasAuthor rdf:type owl:DatatypeProperty ;
-
+           
            rdfs:domain :Book ;
-
+           
            rdfs:range xsd:string .
 
 
@@ -114,9 +135,9 @@ xsd:date rdf:type rdfs:Datatype .
 ###  http://www.semanticweb.org/edris/ontologies/2017/7/untitled-ontology-208#hasBookRevisionNo
 
 :hasBookRevisionNo rdf:type owl:DatatypeProperty ;
-
+                   
                    rdfs:domain :Book ;
-
+                   
                    rdfs:range xsd:string .
 
 
@@ -124,9 +145,9 @@ xsd:date rdf:type rdfs:Datatype .
 ###  http://www.semanticweb.org/edris/ontologies/2017/7/untitled-ontology-208#hasCity
 
 :hasCity rdf:type owl:DatatypeProperty ;
-
+         
          rdfs:domain :Location ;
-
+         
          rdfs:range xsd:string .
 
 
@@ -134,9 +155,9 @@ xsd:date rdf:type rdfs:Datatype .
 ###  http://www.semanticweb.org/edris/ontologies/2017/7/untitled-ontology-208#hasCountry
 
 :hasCountry rdf:type owl:DatatypeProperty ;
-
+            
             rdfs:domain :Location ;
-
+            
             rdfs:range xsd:string .
 
 
@@ -144,9 +165,9 @@ xsd:date rdf:type rdfs:Datatype .
 ###  http://www.semanticweb.org/edris/ontologies/2017/7/untitled-ontology-208#hasDeliveryDate
 
 :hasDeliveryDate rdf:type owl:DatatypeProperty ;
-
+                 
                  rdfs:domain :Delivery ;
-
+                 
                  rdfs:range xsd:dateTime .
 
 
@@ -154,9 +175,9 @@ xsd:date rdf:type rdfs:Datatype .
 ###  http://www.semanticweb.org/edris/ontologies/2017/7/untitled-ontology-208#hasDescription
 
 :hasDescription rdf:type owl:DatatypeProperty ;
-
+                
                 rdfs:domain :Product ;
-
+                
                 rdfs:range xsd:string .
 
 
@@ -164,9 +185,9 @@ xsd:date rdf:type rdfs:Datatype .
 ###  http://www.semanticweb.org/edris/ontologies/2017/7/untitled-ontology-208#hasEmail
 
 :hasEmail rdf:type owl:DatatypeProperty ;
-
+          
           rdfs:domain :Person ;
-
+          
           rdfs:range xsd:string .
 
 
@@ -174,9 +195,9 @@ xsd:date rdf:type rdfs:Datatype .
 ###  http://www.semanticweb.org/edris/ontologies/2017/7/untitled-ontology-208#hasFictionalCategory
 
 :hasFictionalCategory rdf:type owl:DatatypeProperty ;
-
+                      
                       rdfs:domain :FictionAndLiterature ;
-
+                      
                       rdfs:range [ rdf:type rdfs:Datatype ;
                                    owl:oneOf [ rdf:type rdf:List ;
                                                rdf:first "Comics" ;
@@ -213,11 +234,11 @@ xsd:date rdf:type rdfs:Datatype .
 ###  http://www.semanticweb.org/edris/ontologies/2017/7/untitled-ontology-208#hasFirstName
 
 :hasFirstName rdf:type owl:DatatypeProperty ;
-
+              
               rdfs:domain :Person ;
-
+              
               rdfs:range xsd:string ;
-
+              
               rdfs:subPropertyOf owl:topDataProperty .
 
 
@@ -225,9 +246,9 @@ xsd:date rdf:type rdfs:Datatype .
 ###  http://www.semanticweb.org/edris/ontologies/2017/7/untitled-ontology-208#hasGender
 
 :hasGender rdf:type owl:DatatypeProperty ;
-
+           
            rdfs:domain :Person ;
-
+           
            rdfs:range xsd:string .
 
 
@@ -235,11 +256,11 @@ xsd:date rdf:type rdfs:Datatype .
 ###  http://www.semanticweb.org/edris/ontologies/2017/7/untitled-ontology-208#hasISBN
 
 :hasISBN rdf:type owl:DatatypeProperty ;
-
+         
          rdfs:domain :Book ;
-
+         
          rdfs:range xsd:string ;
-
+         
          rdfs:subPropertyOf owl:topDataProperty .
 
 
@@ -247,9 +268,9 @@ xsd:date rdf:type rdfs:Datatype .
 ###  http://www.semanticweb.org/edris/ontologies/2017/7/untitled-ontology-208#hasImage
 
 :hasImage rdf:type owl:DatatypeProperty ;
-
-          rdfs:domain :Book ;
-
+          
+          rdfs:domain :Product ;
+          
           rdfs:range xsd:string .
 
 
@@ -257,9 +278,9 @@ xsd:date rdf:type rdfs:Datatype .
 ###  http://www.semanticweb.org/edris/ontologies/2017/7/untitled-ontology-208#hasKidsBookCategory
 
 :hasKidsBookCategory rdf:type owl:DatatypeProperty ;
-
+                     
                      rdfs:domain :KidsBook ;
-
+                     
                      rdfs:range [ rdf:type rdfs:Datatype ;
                                   owl:oneOf [ rdf:type rdf:List ;
                                               rdf:first "Age 0-2" ;
@@ -284,9 +305,9 @@ xsd:date rdf:type rdfs:Datatype .
 ###  http://www.semanticweb.org/edris/ontologies/2017/7/untitled-ontology-208#hasLastName
 
 :hasLastName rdf:type owl:DatatypeProperty ;
-
+             
              rdfs:domain :Person ;
-
+             
              rdfs:range xsd:string .
 
 
@@ -294,9 +315,9 @@ xsd:date rdf:type rdfs:Datatype .
 ###  http://www.semanticweb.org/edris/ontologies/2017/7/untitled-ontology-208#hasNonFictionalCategory
 
 :hasNonFictionalCategory rdf:type owl:DatatypeProperty ;
-
+                         
                          rdfs:domain :Nonfiction ;
-
+                         
                          rdfs:range [ rdf:type rdfs:Datatype ;
                                       owl:oneOf [ rdf:type rdf:List ;
                                                   rdf:first " History" ;
@@ -399,9 +420,9 @@ xsd:date rdf:type rdfs:Datatype .
 ###  http://www.semanticweb.org/edris/ontologies/2017/7/untitled-ontology-208#hasPassword
 
 :hasPassword rdf:type owl:DatatypeProperty ;
-
+             
              rdfs:domain :Person ;
-
+             
              rdfs:range xsd:string .
 
 
@@ -409,9 +430,9 @@ xsd:date rdf:type rdfs:Datatype .
 ###  http://www.semanticweb.org/edris/ontologies/2017/7/untitled-ontology-208#hasPhone
 
 :hasPhone rdf:type owl:DatatypeProperty ;
-
+          
           rdfs:domain :Person ;
-
+          
           rdfs:range xsd:string .
 
 
@@ -419,11 +440,11 @@ xsd:date rdf:type rdfs:Datatype .
 ###  http://www.semanticweb.org/edris/ontologies/2017/7/untitled-ontology-208#hasPostalCode
 
 :hasPostalCode rdf:type owl:DatatypeProperty ;
-
+               
                rdfs:domain :Location ;
-
+               
                rdfs:range xsd:int ;
-
+               
                rdfs:subPropertyOf owl:topDataProperty .
 
 
@@ -431,9 +452,9 @@ xsd:date rdf:type rdfs:Datatype .
 ###  http://www.semanticweb.org/edris/ontologies/2017/7/untitled-ontology-208#hasPrice
 
 :hasPrice rdf:type owl:DatatypeProperty ;
-
+          
           rdfs:domain :Product ;
-
+          
           rdfs:range xsd:float .
 
 
@@ -441,9 +462,9 @@ xsd:date rdf:type rdfs:Datatype .
 ###  http://www.semanticweb.org/edris/ontologies/2017/7/untitled-ontology-208#hasProductSalesQuantity
 
 :hasProductSalesQuantity rdf:type owl:DatatypeProperty ;
-
+                         
                          rdfs:domain :Sale ;
-
+                         
                          rdfs:subPropertyOf owl:topDataProperty .
 
 
@@ -451,9 +472,9 @@ xsd:date rdf:type rdfs:Datatype .
 ###  http://www.semanticweb.org/edris/ontologies/2017/7/untitled-ontology-208#hasPublishedYear
 
 :hasPublishedYear rdf:type owl:DatatypeProperty ;
-
+                  
                   rdfs:domain :Book ;
-
+                  
                   rdfs:range xsd:date .
 
 
@@ -461,9 +482,9 @@ xsd:date rdf:type rdfs:Datatype .
 ###  http://www.semanticweb.org/edris/ontologies/2017/7/untitled-ontology-208#hasPublisher
 
 :hasPublisher rdf:type owl:DatatypeProperty ;
-
+              
               rdfs:domain :Book ;
-
+              
               rdfs:range xsd:string .
 
 
@@ -471,9 +492,9 @@ xsd:date rdf:type rdfs:Datatype .
 ###  http://www.semanticweb.org/edris/ontologies/2017/7/untitled-ontology-208#hasQuantity
 
 :hasQuantity rdf:type owl:DatatypeProperty ;
-
+             
              rdfs:domain :Product ;
-
+             
              rdfs:range xsd:int .
 
 
@@ -481,9 +502,9 @@ xsd:date rdf:type rdfs:Datatype .
 ###  http://www.semanticweb.org/edris/ontologies/2017/7/untitled-ontology-208#hasTitle
 
 :hasTitle rdf:type owl:DatatypeProperty ;
-
+          
           rdfs:domain :Book ;
-
+          
           rdfs:range xsd:string .
 
 
@@ -491,9 +512,9 @@ xsd:date rdf:type rdfs:Datatype .
 ###  http://www.semanticweb.org/edris/ontologies/2017/7/untitled-ontology-208#hasTotalPrice
 
 :hasTotalPrice rdf:type owl:DatatypeProperty ;
-
+               
                rdfs:domain :Order ;
-
+               
                rdfs:range xsd:int .
 
 
@@ -501,9 +522,9 @@ xsd:date rdf:type rdfs:Datatype .
 ###  http://www.semanticweb.org/edris/ontologies/2017/7/untitled-ontology-208#orderNumber
 
 :orderNumber rdf:type owl:DatatypeProperty ;
-
+             
              rdfs:domain :Order ;
-
+             
              rdfs:range xsd:int .
 
 
@@ -511,9 +532,9 @@ xsd:date rdf:type rdfs:Datatype .
 ###  http://www.semanticweb.org/edris/ontologies/2017/7/untitled-ontology-208#orderStatus
 
 :orderStatus rdf:type owl:DatatypeProperty ;
-
+             
              rdfs:domain :Order ;
-
+             
              rdfs:range [ rdf:type rdfs:Datatype ;
                           owl:oneOf [ rdf:type rdf:List ;
                                       rdf:first "approved" ;
@@ -532,9 +553,9 @@ xsd:date rdf:type rdfs:Datatype .
 ###  http://www.semanticweb.org/edris/ontologies/2017/7/untitled-ontology-208#productNumber
 
 :productNumber rdf:type owl:DatatypeProperty ;
-
+               
                rdfs:domain :Product ;
-
+               
                rdfs:range xsd:nonNegativeInteger .
 
 
@@ -551,7 +572,7 @@ xsd:date rdf:type rdfs:Datatype .
 ###  http://www.semanticweb.org/edris/ontologies/2017/7/untitled-ontology-208#Book
 
 :Book rdf:type owl:Class ;
-
+      
       rdfs:subClassOf :Product .
 
 
@@ -559,7 +580,7 @@ xsd:date rdf:type rdfs:Datatype .
 ###  http://www.semanticweb.org/edris/ontologies/2017/7/untitled-ontology-208#Customer
 
 :Customer rdf:type owl:Class ;
-
+          
           rdfs:subClassOf :Person .
 
 
@@ -573,15 +594,21 @@ xsd:date rdf:type rdfs:Datatype .
 ###  http://www.semanticweb.org/edris/ontologies/2017/7/untitled-ontology-208#FictionAndLiterature
 
 :FictionAndLiterature rdf:type owl:Class ;
-
+                      
                       rdfs:subClassOf :Book .
+
+
+
+###  http://www.semanticweb.org/edris/ontologies/2017/7/untitled-ontology-208#Inventory
+
+:Inventory rdf:type owl:Class .
 
 
 
 ###  http://www.semanticweb.org/edris/ontologies/2017/7/untitled-ontology-208#KidsBook
 
 :KidsBook rdf:type owl:Class ;
-
+          
           rdfs:subClassOf :Book .
 
 
@@ -595,7 +622,7 @@ xsd:date rdf:type rdfs:Datatype .
 ###  http://www.semanticweb.org/edris/ontologies/2017/7/untitled-ontology-208#Manager
 
 :Manager rdf:type owl:Class ;
-
+         
          rdfs:subClassOf :Person .
 
 
@@ -603,7 +630,7 @@ xsd:date rdf:type rdfs:Datatype .
 ###  http://www.semanticweb.org/edris/ontologies/2017/7/untitled-ontology-208#Nonfiction
 
 :Nonfiction rdf:type owl:Class ;
-
+            
             rdfs:subClassOf :Book .
 
 
@@ -641,673 +668,835 @@ xsd:date rdf:type rdfs:Datatype .
 #################################################################
 
 
+###  http://www.semanticweb.org/edris/ontologies/2017/7/untitled-ontology-208#beatuyenj
+
+:beatuyenj rdf:type :Nonfiction ,
+                    owl:NamedIndividual ;
+           
+           :hasImage "./image/The Complete Sherlock Holmes by Arthur Conan Doyle 1 copy-131x199.png"^^xsd:string ;
+           
+           :hasQuantity "10"^^xsd:nonNegativeInteger ;
+           
+           :productNumber "14"^^xsd:nonNegativeInteger ;
+           
+           :hasISBN "173733389"^^xsd:string ;
+           
+           :hasPublishedYear "2005-01-01"^^xsd:date ;
+           
+           :hasPrice "35.0"^^xsd:float ;
+           
+           :hasDescription "A falable describing the five reasons ....."^^xsd:string ;
+           
+           :hasNonFictionalCategory "Computers"^^xsd:string ;
+           
+           :hasPublisher "Jossey Bass"^^xsd:string ;
+           
+           :hasTitle "Lorem ipsum"^^xsd:string ;
+           
+           :hasAuthor "Patrick Lencioni"^^xsd:string ;
+           
+           :hasProductName "The five dysfunctions of a team leadership"^^xsd:string ;
+           
+           :hasBookRevisionNo "3rd" .
+
+
+
+###  http://www.semanticweb.org/edris/ontologies/2017/7/untitled-ontology-208#birdee
+
+:birdee rdf:type :Nonfiction ,
+                 owl:NamedIndividual ;
+        
+        :hasImage "./image/The Divine Comedy by Dante 1 copy-131x199.png"^^xsd:string ;
+        
+        :hasQuantity "10"^^xsd:nonNegativeInteger ;
+        
+        :productNumber "17"^^xsd:nonNegativeInteger ;
+        
+        :hasISBN "1737388379"^^xsd:string ;
+        
+        :hasPublishedYear "2005-01-01"^^xsd:date ;
+        
+        :hasPrice "35.0"^^xsd:float ;
+        
+        :hasDescription "A falable describing the five reasons why team leadership fails."^^xsd:string ;
+        
+        :hasNonFictionalCategory "Health Fitness"^^xsd:string ;
+        
+        :hasPublisher "Jossey Bass"^^xsd:string ;
+        
+        :hasAuthor "Patrick Lencioni"^^xsd:string ;
+        
+        :hasTitle "Postive thinking"^^xsd:string ;
+        
+        :hasProductName "The five dysfunctions of a team leadership"^^xsd:string ;
+        
+        :hasBookRevisionNo "2nd" .
+
+
+
+###  http://www.semanticweb.org/edris/ontologies/2017/7/untitled-ontology-208#dawfff
+
+:dawfff rdf:type :Nonfiction ,
+                 owl:NamedIndividual ;
+        
+        :hasImage "./image/Grimms Complete Fairy Tales 1 copy-131x199.png"^^xsd:string ;
+        
+        :hasQuantity "10"^^xsd:nonNegativeInteger ;
+        
+        :productNumber "16"^^xsd:nonNegativeInteger ;
+        
+        :hasISBN "173883389"^^xsd:string ;
+        
+        :hasPublishedYear "2005-01-01"^^xsd:date ;
+        
+        :hasPrice "35.0"^^xsd:float ;
+        
+        :hasDescription "A falable describing the five reasons why team leadership fails."^^xsd:string ;
+        
+        :hasTitle "Amazying change life"^^xsd:string ;
+        
+        :hasNonFictionalCategory "Biography"^^xsd:string ;
+        
+        :hasPublisher "Jossey Bass"^^xsd:string ;
+        
+        :hasAuthor "Patrick Lencioni"^^xsd:string ;
+        
+        :hasProductName "The five dysfunctions of a team leadership"^^xsd:string ;
+        
+        :hasBookRevisionNo "3rd" .
+
+
+
+###  http://www.semanticweb.org/edris/ontologies/2017/7/untitled-ontology-208#edOrder
+
+:edOrder rdf:type :Order ,
+                  owl:NamedIndividual ;
+         
+         :hasTotalPrice "100"^^xsd:nonNegativeInteger ;
+         
+         :orderNumber "2"^^xsd:nonNegativeInteger ;
+         
+         :orderStatus "pending"^^xsd:string ;
+         
+         :hasDelivery :ediDelivery ;
+         
+         :hasSales :ediSale ;
+         
+         :hasCustomer :edia .
+
+
+
 ###  http://www.semanticweb.org/edris/ontologies/2017/7/untitled-ontology-208#edi
 
+:edi rdf:type :Manager ,
+              owl:NamedIndividual ;
+     
+     :hasPhone "+358440993393"^^xsd:string ;
+     
+     :hasName "Edi man"^^xsd:string ;
+     
+     :hasPassword "admin"^^xsd:string ;
+     
+     :hasEmail "edi@gmail.com"^^xsd:string ;
+     
+     :hasGender "male"^^xsd:string .
 
- :edi rdf:type  :Manager;
 
+
+###  http://www.semanticweb.org/edris/ontologies/2017/7/untitled-ontology-208#ediDelivery
+
+:ediDelivery rdf:type :Delivery ,
+                      owl:NamedIndividual ;
+             
+             :hasDeliveryDate "2017-09-09T10:20:15"^^xsd:dateTime ;
+             
+             :hasLocation :ediLocation .
+
+
+
+###  http://www.semanticweb.org/edris/ontologies/2017/7/untitled-ontology-208#ediLocation
+
+:ediLocation rdf:type :Location ,
+                      owl:NamedIndividual ;
+             
+             :hasPostalCode "20590"^^xsd:nonNegativeInteger ;
+             
+             :hasCity "Espoo"^^xsd:string ;
+             
+             :hasCountry "Finland"^^xsd:string ;
+             
+             :hasAddress "Kirstinharju 1b 21"^^xsd:string .
+
+
+
+###  http://www.semanticweb.org/edris/ontologies/2017/7/untitled-ontology-208#ediSale
+
+:ediSale rdf:type :Sale ,
+                  owl:NamedIndividual ;
+         
+         :hasProductSalesQuantity "2"^^xsd:nonNegativeInteger ;
+         
+         :hasProduct :fiveDysfunctions .
+
+
+
+###  http://www.semanticweb.org/edris/ontologies/2017/7/untitled-ontology-208#edia
+
+:edia rdf:type :Customer ,
+               owl:NamedIndividual ;
+      
       :hasPhone "+358440993393"^^xsd:string ;
-
-      :hasName "Edi man"^^xsd:string ;
-
-      :hasPassword "admin"^^xsd:string ;
-
+      
+      :hasLastName "bnb"^^xsd:string ;
+      
+      :hasFirstName "dd"^^xsd:string ;
+      
+      :hasPassword "ed"^^xsd:string ;
+      
+      :hasName "edi minasa"^^xsd:string ;
+      
       :hasEmail "edi@gmail.com"^^xsd:string ;
-
-      :hasGender "male"^^xsd:string .
-
-
-
-
- :fiveDysfunctions rdf:type  :Nonfiction;
-
-           :hasQuantity "10"^^xsd:nonNegativeInteger ;
-
-           :hasISBN "1373883389"^^xsd:string ;
-           :hasBookRevisionNo "3rd";
-
-           :hasPublishedYear "2005-01-01"^^xsd:date ;
-
-           :productNumber "11"^^xsd:nonNegativeInteger ;
-
-           :hasPrice "35.0"^^xsd:float ;
-
-           :hasDescription "A falable describing the five reasons why team leadership fails."^^xsd:string ;
-
-           :hasNonFictionalCategory "Business Books"^^xsd:string ;
-
-           :hasPublisher "Jossey Bass"^^xsd:string ;
-
-           :hasAuthor "Patrick Lencioni"^^xsd:string ;
-
-           :hasTitle "The five dysfunctions of a team leadership"^^xsd:string ;
-
-           :hasImage "./image/Five Novels by Charles Dickens 1 copy-131x199.png"^^xsd:string;
-
-           :hasProductName "The five dysfunctions of a team leadership"^^xsd:string.
+      
+      :hasGender "male"^^xsd:string ;
+      
+      :hasLocation :ediLocation .
 
 
- :loremipsum rdf:type  :Nonfiction;
 
+###  http://www.semanticweb.org/edris/ontologies/2017/7/untitled-ontology-208#festivalMna
+
+:festivalMna rdf:type :Nonfiction ,
+                      owl:NamedIndividual ;
+             
+             :hasImage "./image/Seven Novels by Jules Verne 1 copy-131x199.png"^^xsd:string ;
+             
              :hasQuantity "10"^^xsd:nonNegativeInteger ;
-
-             :hasISBN "1733883389"^^xsd:string ;
-             :hasBookRevisionNo "1st";
-
+             
+             :productNumber "13"^^xsd:nonNegativeInteger ;
+             
              :hasPublishedYear "2005-01-01"^^xsd:date ;
-
-             :productNumber "12"^^xsd:nonNegativeInteger ;
-
+             
              :hasPrice "35.0"^^xsd:float ;
-
+             
+             :hasISBN "373883389"^^xsd:string ;
+             
              :hasDescription "A falable describing the five reasons why team leadership fails."^^xsd:string ;
-
+             
+             :hasTitle "Getting things done"^^xsd:string ;
+             
              :hasNonFictionalCategory "History"^^xsd:string ;
-
+             
              :hasPublisher "Jossey Bass"^^xsd:string ;
-
+             
              :hasAuthor "Patrick Lencioni"^^xsd:string ;
-
-             :hasTitle "History of Finland"^^xsd:string ;
-
-             :hasImage "./image/The Mayors Tongue by Nathaniel Rich 1 copy-131x199.png"^^xsd:string;
-
-             :hasProductName "The five dysfunctions of a team leadership"^^xsd:string.
-
-
-
-
- :festivalMna rdf:type  :Nonfiction;
-
-           :hasQuantity "10"^^xsd:nonNegativeInteger ;
-
-           :hasISBN "373883389"^^xsd:string ;
-           :hasBookRevisionNo "3rd";
-
-           :hasPublishedYear "2005-01-01"^^xsd:date ;
-
-           :productNumber "13"^^xsd:nonNegativeInteger ;
-
-           :hasPrice "35.0"^^xsd:float ;
-
-           :hasDescription "A falable describing the five reasons why team leadership fails."^^xsd:string ;
-
-           :hasNonFictionalCategory "History"^^xsd:string ;
-
-           :hasPublisher "Jossey Bass"^^xsd:string ;
-
-           :hasAuthor "Patrick Lencioni"^^xsd:string ;
-
-           :hasTitle "Getting things done"^^xsd:string ;
-
-           :hasImage "./image/Seven Novels by Jules Verne 1 copy-131x199.png"^^xsd:string ;
-           :hasProductName "The five dysfunctions of a team leadership"^^xsd:string.
-
-
- :beatuyenj rdf:type  :Nonfiction;
-
-           :hasQuantity "10"^^xsd:nonNegativeInteger ;
-
-           :hasISBN "173733389"^^xsd:string ;
-           :hasBookRevisionNo "3rd";
-
-           :hasPublishedYear "2005-01-01"^^xsd:date ;
-
-           :productNumber "14"^^xsd:nonNegativeInteger ;
-
-           :hasPrice "35.0"^^xsd:float ;
-
-           :hasDescription "A falable describing the five reasons ....."^^xsd:string ;
-
-           :hasNonFictionalCategory "Computers"^^xsd:string ;
-
-           :hasPublisher "Jossey Bass"^^xsd:string ;
-
-           :hasAuthor "Patrick Lencioni"^^xsd:string ;
-
-           :hasTitle "Lorem ipsum"^^xsd:string ;
-
-           :hasImage "./image/The Complete Sherlock Holmes by Arthur Conan Doyle 1 copy-131x199.png"^^xsd:string ;
-           :hasProductName "The five dysfunctions of a team leadership"^^xsd:string.
-
-
- :twity rdf:type  :Nonfiction;
-
-       :hasQuantity "10"^^xsd:nonNegativeInteger ;
-
-       :hasISBN "17373889"^^xsd:string ;
-       :hasBookRevisionNo "3rd";
-
-       :hasPublishedYear "2005-01-01"^^xsd:date ;
-
-       :productNumber "15"^^xsd:nonNegativeInteger ;
-
-       :hasPrice "35.0"^^xsd:float ;
-
-       :hasDescription "A falable describing the five reasons why team leadership fails."^^xsd:string ;
-
-       :hasNonFictionalCategory "Biography"^^xsd:string ;
-
-       :hasPublisher "Jossey Bass"^^xsd:string ;
-
-       :hasAuthor "Patrick Lencioni"^^xsd:string ;
-
-       :hasTitle "doresem ipusim"^^xsd:string ;
-
-       :hasImage "./image/The ESV Study Bible Hardcover 1 copy-131x199.png"^^xsd:string .
-
- :dawfff rdf:type  :Nonfiction;
-
-             :hasQuantity "10"^^xsd:nonNegativeInteger ;
-
-             :hasISBN "173883389"^^xsd:string ;
-             :hasBookRevisionNo "3rd";
-
-             :hasPublishedYear "2005-01-01"^^xsd:date ;
-
-             :productNumber "16"^^xsd:nonNegativeInteger ;
-
-             :hasPrice "35.0"^^xsd:float ;
-
-             :hasDescription "A falable describing the five reasons why team leadership fails."^^xsd:string ;
-
-             :hasNonFictionalCategory "Biography"^^xsd:string ;
-
-             :hasPublisher "Jossey Bass"^^xsd:string ;
-
-             :hasAuthor "Patrick Lencioni"^^xsd:string ;
-
-             :hasTitle "Amazying change life"^^xsd:string ;
-
-             :hasImage "./image/Grimms Complete Fairy Tales 1 copy-131x199.png"^^xsd:string ;
-             :hasProductName "The five dysfunctions of a team leadership"^^xsd:string.
-
- :birdee rdf:type  :Nonfiction;
-
-             :hasQuantity "10"^^xsd:nonNegativeInteger ;
-
-             :hasISBN "1737388379"^^xsd:string ;
-             :hasBookRevisionNo "2nd";
-
-             :hasPublishedYear "2005-01-01"^^xsd:date ;
-
-             :productNumber "17"^^xsd:nonNegativeInteger ;
-
-             :hasPrice "35.0"^^xsd:float ;
-
-             :hasDescription "A falable describing the five reasons why team leadership fails."^^xsd:string ;
-
-             :hasNonFictionalCategory "Health Fitness"^^xsd:string ;
-
-             :hasPublisher "Jossey Bass"^^xsd:string ;
-
-             :hasAuthor "Patrick Lencioni"^^xsd:string ;
-             :hasProductName "The five dysfunctions of a team leadership"^^xsd:string;
-
-             :hasTitle "Postive thinking"^^xsd:string ;
-
-             :hasImage "./image/The Divine Comedy by Dante 1 copy-131x199.png"^^xsd:string .
-
- :nantualee rdf:type  :Nonfiction;
-
-         :hasQuantity "10"^^xsd:nonNegativeInteger ;
-
-         :hasISBN "173738129"^^xsd:string ;
-         :hasBookRevisionNo "4th";
-
-         :hasPublishedYear "2005-01-01"^^xsd:date ;
-
-         :productNumber "18"^^xsd:nonNegativeInteger ;
-
-         :hasPrice "35.0"^^xsd:float ;
-         :hasProductName "The five dysfunctions of a team leadership"^^xsd:string;
-
-
-         :hasDescription "A falable describing the five reasons why team leadership fails."^^xsd:string ;
-
-         :hasNonFictionalCategory "Health Fitness"^^xsd:string ;
-
-         :hasPublisher "Jossey Bass"^^xsd:string ;
-
-         :hasAuthor "Patrick Lencioni"^^xsd:string ;
-
-         :hasTitle "The five dysfunctions of a team leadership"^^xsd:string ;
-
-         :hasImage "./image/Alices Adventures in Wonderland and Other Stories by Lewis Carroll 1 copy-131x199.png"^^xsd:string .
-
- :fljori rdf:type  :Customer;
-
-         :hasPhone "+358440993393"^^xsd:string ;
-
-         :hasLastName "Fljori Flojerlla"^^xsd:string ;
-
-         :hasGender "female"^^xsd:string ;
-
-         :hasPassword "fljori"^^xsd:string ;
-
-         :hasEmail "fljori@gmail.com"^^xsd:string ;
-
-         :hasPassword "flori"^^xsd:string ;
-
-         :hasLocation  :fljoriLocation ;
-         :hasFirstName "dd" .
-
- :edia rdf:type  :Customer;
-         :hasPhone "+358440993393"^^xsd:string ;
-         :hasName "edi minasa"^^xsd:string ;
-         :hasGender "male"^^xsd:string ;
-         :hasPassword "ed"^^xsd:string ;
-         :hasEmail "edi@gmail.com"^^xsd:string ;
-         :hasPassword "ed"^^xsd:string ;
-         :hasLocation  :ediLocation;
-         :hasFirstName "dd"^^xsd:string;
-         :hasLastName "bnb"^^xsd:string.
-
- :ediLocation rdf:type  :Location;
-         :hasPostalCode "20590"^^xsd:nonNegativeInteger ;
-         :hasCity "Espoo"^^xsd:string ;
-         :hasCountry "Finland"^^xsd:string ;
-         :hasAddress "Kirstinharju 1b 21"^^xsd:string .
-
- :ediDelivery rdf:type  :Delivery;
-         :hasDeliveryDate "2017-09-09T10:20:15"^^xsd:dateTime ;
-         :hasLocation  :ediLocation.
-
-
- :fljoriDelivery rdf:type  :Delivery;
-         :hasDeliveryDate "2017-09-09T10:20:15"^^xsd:dateTime ;
-         :hasLocation  :fljoriLocation .
-
-
-
-
- :fljoriLocation rdf:type  :Location;
-         :hasPostalCode "20590"^^xsd:nonNegativeInteger ;
-         :hasCity "Espoo"^^xsd:string ;
-
-         :hasCountry "Finland"^^xsd:string ;
-
-         :hasAddress "Kirstinharju 1b 21"^^xsd:string .
+             
+             :hasProductName "The five dysfunctions of a team leadership"^^xsd:string ;
+             
+             :hasBookRevisionNo "3rd" .
+
+
+
+###  http://www.semanticweb.org/edris/ontologies/2017/7/untitled-ontology-208#fiveDysfunctions
+
+:fiveDysfunctions rdf:type :Nonfiction ,
+                           owl:NamedIndividual ;
+                  
+                  :hasImage "./image/Five Novels by Charles Dickens 1 copy-131x199.png"^^xsd:string ;
+                  
+                  :hasQuantity "10"^^xsd:nonNegativeInteger ;
+                  
+                  :productNumber "11"^^xsd:nonNegativeInteger ;
+                  
+                  :hasISBN "1373883389"^^xsd:string ;
+                  
+                  :hasPublishedYear "2005-01-01"^^xsd:date ;
+                  
+                  :hasPrice "35.0"^^xsd:float ;
+                  
+                  :hasDescription "A falable describing the five reasons why team leadership fails."^^xsd:string ;
+                  
+                  :hasNonFictionalCategory "Business Books"^^xsd:string ;
+                  
+                  :hasPublisher "Jossey Bass"^^xsd:string ;
+                  
+                  :hasAuthor "Patrick Lencioni"^^xsd:string ;
+                  
+                  :hasTitle "The five dysfunctions of a team leadership"^^xsd:string ;
+                  
+                  :hasProductName "The five dysfunctions of a team leadership"^^xsd:string ;
+                  
+                  :hasBookRevisionNo "3rd" .
+
+
+
+###  http://www.semanticweb.org/edris/ontologies/2017/7/untitled-ontology-208#fljori
+
+:fljori rdf:type :Customer ,
+                 owl:NamedIndividual ;
+        
+        :hasPhone "+358440993393"^^xsd:string ;
+        
+        :hasLastName "Fljori Flojerlla"^^xsd:string ;
+        
+        :hasGender "female"^^xsd:string ;
+        
+        :hasPassword "fljori"^^xsd:string ;
+        
+        :hasEmail "fljori@gmail.com"^^xsd:string ;
+        
+        :hasPassword "flori"^^xsd:string ;
+        
+        :hasFirstName "dd" ;
+        
+        :hasLocation :fljoriLocation .
+
+
+
+###  http://www.semanticweb.org/edris/ontologies/2017/7/untitled-ontology-208#fljoriDelivery
+
+:fljoriDelivery rdf:type :Delivery ,
+                         owl:NamedIndividual ;
+                
+                :hasDeliveryDate "2017-09-09T10:20:15"^^xsd:dateTime ;
+                
+                :hasLocation :fljoriLocation .
+
+
+
+###  http://www.semanticweb.org/edris/ontologies/2017/7/untitled-ontology-208#fljoriLocation
+
+:fljoriLocation rdf:type :Location ,
+                         owl:NamedIndividual ;
+                
+                :hasPostalCode "20590"^^xsd:nonNegativeInteger ;
+                
+                :hasCity "Espoo"^^xsd:string ;
+                
+                :hasCountry "Finland"^^xsd:string ;
+                
+                :hasAddress "Kirstinharju 1b 21"^^xsd:string .
 
 
 
 ###  http://www.semanticweb.org/edris/ontologies/2017/7/untitled-ontology-208#fljoriOrder
 
+:fljoriOrder rdf:type :Order ,
+                      owl:NamedIndividual ;
+             
+             :orderNumber "1"^^xsd:nonNegativeInteger ;
+             
+             :hasTotalPrice "100"^^xsd:nonNegativeInteger ;
+             
+             :orderStatus "pending"^^xsd:string ;
+             
+             :hasCustomer :fljori ;
+             
+             :hasDelivery :fljoriDelivery ;
+             
+             :hasSales :floriSale ,
+                       :floriSalekid .
 
- :fljoriOrder rdf:type  :Order;
 
-              :orderNumber "1"^^xsd:nonNegativeInteger ;
-
-              :hasTotalPrice "100"^^xsd:nonNegativeInteger ;
-
-              :orderStatus "pending"^^xsd:string ;
-
-              :hasCustomer  :fljori ;
-
-              :hasDelivery  :fljoriDelivery ;
-
-              :hasSales  :floriSale ,
-        :floriSalekid .
-
-
- :edOrder rdf:type  :Order;
-              :orderNumber "2"^^xsd:nonNegativeInteger ;
-              :hasTotalPrice "100"^^xsd:nonNegativeInteger ;
-              :orderStatus "pending"^^xsd:string ;
-              :hasCustomer  :edia ;
-              :hasDelivery  :ediDelivery ;
-              :hasSales  :ediSale .
-
- :ediSale rdf:type  :Sale;
-             :hasProductSalesQuantity "2"^^xsd:nonNegativeInteger ;
-             :hasProduct  :fiveDysfunctions .
 
 ###  http://www.semanticweb.org/edris/ontologies/2017/7/untitled-ontology-208#floriSale
 
- :floriSale rdf:type  :Sale;
-
-            :hasProductSalesQuantity "3"^^xsd:nonNegativeInteger ;
-
-            :hasProduct  :fiveDysfunctions .
+:floriSale rdf:type :Sale ,
+                    owl:NamedIndividual ;
+           
+           :hasProductSalesQuantity "3"^^xsd:nonNegativeInteger ;
+           
+           :hasProduct :fiveDysfunctions .
 
 
 
 ###  http://www.semanticweb.org/edris/ontologies/2017/7/untitled-ontology-208#floriSalekid
 
- :floriSalekid rdf:type  :Sale;
-
-       :hasProductSalesQuantity "1"^^xsd:nonNegativeInteger ;
-
-       :hasProduct  :telitabis .
+:floriSalekid rdf:type :Sale ,
+                       owl:NamedIndividual ;
+              
+              :hasProductSalesQuantity "1"^^xsd:nonNegativeInteger ;
+              
+              :hasProduct :telitabis .
 
 
 
 ###  http://www.semanticweb.org/edris/ontologies/2017/7/untitled-ontology-208#inventory
 
- :inventory rdf:type  :Inventory;
+:inventory rdf:type :Inventory ,
+                    owl:NamedIndividual ;
+           
+           :hasProduct :fiveDysfunctions ,
+                       :telitabis ,
+                       :trueLove .
 
-            :hasProduct  :fiveDysfunctions ,
-        :telitabis ,
-        :trueLove .
+
+
+###  http://www.semanticweb.org/edris/ontologies/2017/7/untitled-ontology-208#loremipsum
+
+:loremipsum rdf:type :Nonfiction ,
+                     owl:NamedIndividual ;
+            
+            :hasImage "./image/The Mayors Tongue by Nathaniel Rich 1 copy-131x199.png"^^xsd:string ;
+            
+            :hasQuantity "10"^^xsd:nonNegativeInteger ;
+            
+            :productNumber "12"^^xsd:nonNegativeInteger ;
+            
+            :hasISBN "1733883389"^^xsd:string ;
+            
+            :hasPublishedYear "2005-01-01"^^xsd:date ;
+            
+            :hasPrice "35.0"^^xsd:float ;
+            
+            :hasDescription "A falable describing the five reasons why team leadership fails."^^xsd:string ;
+            
+            :hasNonFictionalCategory "History"^^xsd:string ;
+            
+            :hasTitle "History of Finland"^^xsd:string ;
+            
+            :hasPublisher "Jossey Bass"^^xsd:string ;
+            
+            :hasAuthor "Patrick Lencioni"^^xsd:string ;
+            
+            :hasProductName "The five dysfunctions of a team leadership"^^xsd:string ;
+            
+            :hasBookRevisionNo "1st" .
+
+
+
+###  http://www.semanticweb.org/edris/ontologies/2017/7/untitled-ontology-208#nantualee
+
+:nantualee rdf:type :Nonfiction ,
+                    owl:NamedIndividual ;
+           
+           :hasImage "./image/Alices Adventures in Wonderland and Other Stories by Lewis Carroll 1 copy-131x199.png"^^xsd:string ;
+           
+           :hasQuantity "10"^^xsd:nonNegativeInteger ;
+           
+           :hasISBN "173738129"^^xsd:string ;
+           
+           :productNumber "18"^^xsd:nonNegativeInteger ;
+           
+           :hasPublishedYear "2005-01-01"^^xsd:date ;
+           
+           :hasPrice "35.0"^^xsd:float ;
+           
+           :hasDescription "A falable describing the five reasons why team leadership fails."^^xsd:string ;
+           
+           :hasNonFictionalCategory "Health Fitness"^^xsd:string ;
+           
+           :hasPublisher "Jossey Bass"^^xsd:string ;
+           
+           :hasAuthor "Patrick Lencioni"^^xsd:string ;
+           
+           :hasTitle "The five dysfunctions of a team leadership"^^xsd:string ;
+           
+           :hasProductName "The five dysfunctions of a team leadership"^^xsd:string ;
+           
+           :hasBookRevisionNo "4th" .
+
+
+
+###  http://www.semanticweb.org/edris/ontologies/2017/7/untitled-ontology-208#teligram
+
+:teligram rdf:type :KidsBook ,
+                   owl:NamedIndividual ;
+          
+          :hasImage "./image/Grimms Complete Fairy Tales 1 copy-131x199.png"^^xsd:string ;
+          
+          :hasISBN "154342389"^^xsd:string ;
+          
+          :productNumber "20"^^xsd:nonNegativeInteger ;
+          
+          :hasQuantity "20"^^xsd:nonNegativeInteger ;
+          
+          :hasPublishedYear "2005-01-01"^^xsd:date ;
+          
+          :hasPrice "65.0"^^xsd:float ;
+          
+          :hasKidsBookCategory "Age 0-2"^^xsd:string ;
+          
+          :hasPublisher "Jossey Bass"^^xsd:string ;
+          
+          :hasDescription "Kids book about four little toy characters."^^xsd:string ;
+          
+          :hasAuthor "Teleitabis Lencioni"^^xsd:string ;
+          
+          :hasTitle "Telitabis"^^xsd:string ;
+          
+          :hasProductName "The five dysfunctions of a team leadership"^^xsd:string ;
+          
+          :hasBookRevisionNo "3rd" .
 
 
 
 ###  http://www.semanticweb.org/edris/ontologies/2017/7/untitled-ontology-208#telitabis
 
- :telitabis rdf:type  :KidsBook;
-
-            :hasISBN "172343883389"^^xsd:string ;
-            :hasBookRevisionNo "2nd";
-
-            :productNumber "19"^^xsd:nonNegativeInteger ;
-            :hasProductName "The five dysfunctions of a team leadership"^^xsd:string;
-
-            :hasQuantity "20"^^xsd:nonNegativeInteger ;
-
-            :hasPublishedYear "2005-01-01"^^xsd:date ;
-
-            :hasPrice "65.0"^^xsd:float ;
-
-            :hasKidsBookCategory "Age 3-5"^^xsd:string ;
-
-            :hasPublisher "Jossey Bass"^^xsd:string ;
-
-            :hasDescription "Kids book about four little toy characters."^^xsd:string ;
-
-            :hasAuthor "Teleitabis Lencioni"^^xsd:string ;
-
-            :hasTitle "Telitabis"^^xsd:string ;
-
-            :hasImage "./image/The Circle Series by Ted Dekker - Green 1 copy-131x199.png"^^xsd:string .
-
-
-   :teligram rdf:type  :KidsBook;
-
-       :hasISBN "154342389"^^xsd:string ;
-       :hasBookRevisionNo "3rd";
-
-       :productNumber "20"^^xsd:nonNegativeInteger ;
-
-       :hasQuantity "20"^^xsd:nonNegativeInteger ;
-       :hasProductName "The five dysfunctions of a team leadership"^^xsd:string;
-
-
-       :hasPublishedYear "2005-01-01"^^xsd:date ;
-
-       :hasPrice "65.0"^^xsd:float ;
-
-       :hasKidsBookCategory "Age 0-2"^^xsd:string ;
-
-       :hasPublisher "Jossey Bass"^^xsd:string ;
-
-       :hasDescription "Kids book about four little toy characters."^^xsd:string ;
-
-       :hasAuthor "Teleitabis Lencioni"^^xsd:string ;
-
-       :hasTitle "Telitabis"^^xsd:string ;
-
-       :hasImage "./image/Grimms Complete Fairy Tales 1 copy-131x199.png"^^xsd:string .
-
-   :teliwwwgram rdf:type  :KidsBook;
-
-           :hasISBN "173738083389"^^xsd:string ;
- :hasBookRevisionNo "3rd";
-           :productNumber "21"^^xsd:nonNegativeInteger ;
-
+:telitabis rdf:type :KidsBook ,
+                    owl:NamedIndividual ;
+           
+           :hasImage "./image/The Circle Series by Ted Dekker - Green 1 copy-131x199.png"^^xsd:string ;
+           
+           :hasISBN "172343883389"^^xsd:string ;
+           
+           :productNumber "19"^^xsd:nonNegativeInteger ;
+           
            :hasQuantity "20"^^xsd:nonNegativeInteger ;
-
+           
            :hasPublishedYear "2005-01-01"^^xsd:date ;
-           :hasProductName "The five dysfunctions of a team leadership"^^xsd:string;
-
-
+           
            :hasPrice "65.0"^^xsd:float ;
-
-           :hasKidsBookCategory "Teens"^^xsd:string ;
-
+           
+           :hasKidsBookCategory "Age 3-5"^^xsd:string ;
+           
            :hasPublisher "Jossey Bass"^^xsd:string ;
-
+           
            :hasDescription "Kids book about four little toy characters."^^xsd:string ;
-
+           
            :hasAuthor "Teleitabis Lencioni"^^xsd:string ;
-
+           
            :hasTitle "Telitabis"^^xsd:string ;
+           
+           :hasProductName "The five dysfunctions of a team leadership"^^xsd:string ;
+           
+           :hasBookRevisionNo "2nd" .
 
-           :hasImage "./image/Alices Adventures in Wonderland and Other Stories by Lewis Carroll 1 copy-131x199.png"^^xsd:string .
 
- :telweermm rdf:type  :KidsBook;
 
+###  http://www.semanticweb.org/edris/ontologies/2017/7/untitled-ontology-208#teliwwwgram
+
+:teliwwwgram rdf:type :KidsBook ,
+                      owl:NamedIndividual ;
+             
+             :hasImage "./image/Alices Adventures in Wonderland and Other Stories by Lewis Carroll 1 copy-131x199.png"^^xsd:string ;
+             
+             :hasISBN "173738083389"^^xsd:string ;
+             
+             :hasQuantity "20"^^xsd:nonNegativeInteger ;
+             
+             :hasPublishedYear "2005-01-01"^^xsd:date ;
+             
+             :productNumber "21"^^xsd:nonNegativeInteger ;
+             
+             :hasPrice "65.0"^^xsd:float ;
+             
+             :hasPublisher "Jossey Bass"^^xsd:string ;
+             
+             :hasDescription "Kids book about four little toy characters."^^xsd:string ;
+             
+             :hasKidsBookCategory "Teens"^^xsd:string ;
+             
+             :hasAuthor "Teleitabis Lencioni"^^xsd:string ;
+             
+             :hasTitle "Telitabis"^^xsd:string ;
+             
+             :hasProductName "The five dysfunctions of a team leadership"^^xsd:string ;
+             
+             :hasBookRevisionNo "3rd" .
+
+
+
+###  http://www.semanticweb.org/edris/ontologies/2017/7/untitled-ontology-208#telweermm
+
+:telweermm rdf:type :KidsBook ,
+                    owl:NamedIndividual ;
+           
+           :hasImage "./image/Alices Adventures in Wonderland and Other Stories by Lewis Carroll 1 copy-131x199.png"^^xsd:string ;
+           
            :hasISBN "12302038183389"^^xsd:string ;
-           :hasBookRevisionNo "3rd";
-           :hasProductName "The five dysfunctions of a team leadership"^^xsd:string;
-
-           :productNumber "22"^^xsd:nonNegativeInteger ;
-
+           
            :hasQuantity "20"^^xsd:nonNegativeInteger ;
-
+           
            :hasPublishedYear "2005-01-01"^^xsd:date ;
-
+           
+           :productNumber "22"^^xsd:nonNegativeInteger ;
+           
            :hasPrice "65.0"^^xsd:float ;
-
-           :hasKidsBookCategory "Teens"^^xsd:string ;
-
+           
            :hasPublisher "Jossey Bass"^^xsd:string ;
-
+           
            :hasDescription "Kids book about four little toy characters."^^xsd:string ;
-
+           
+           :hasKidsBookCategory "Teens"^^xsd:string ;
+           
            :hasAuthor "Teleitabis Lencioni"^^xsd:string ;
-
+           
            :hasTitle "Telitabis"^^xsd:string ;
+           
+           :hasProductName "The five dysfunctions of a team leadership"^^xsd:string ;
+           
+           :hasBookRevisionNo "3rd" .
 
-           :hasImage "./image/Alices Adventures in Wonderland and Other Stories by Lewis Carroll 1 copy-131x199.png"^^xsd:string .
+
 
 ###  http://www.semanticweb.org/edris/ontologies/2017/7/untitled-ontology-208#trueLove
 
- :trueLove rdf:type  :FictionAndLiterature;
+:trueLove rdf:type :FictionAndLiterature ,
+                   owl:NamedIndividual ;
+          
+          :hasImage "./image/The Circle Series by Ted Dekker - Green 1 copy-131x199.png"^^xsd:string ;
+          
+          :hasISBN "139402949"^^xsd:string ;
+          
+          :hasPublishedYear "2005-01-01"^^xsd:date ;
+          
+          :hasPrice "25.0"^^xsd:float ;
+          
+          :hasQuantity "30"^^xsd:nonNegativeInteger ;
+          
+          :productNumber "8"^^xsd:nonNegativeInteger ;
+          
+          :hasPublisher "Jossey Bass"^^xsd:string ;
+          
+          :hasFictionalCategory "Romance"^^xsd:string ;
+          
+          :hasAuthor "Teleitabis Lencioni"^^xsd:string ;
+          
+          :hasProductName "The five dysfunctions of a team leadership"^^xsd:string ;
+          
+          :hasDescription "The true story of a shallow relaionship turing to love"^^xsd:string ;
+          
+          :hasTitle "True love"^^xsd:string ;
+          
+          :hasBookRevisionNo "3rd" .
 
-           :productNumber "8"^^xsd:nonNegativeInteger ;
 
-           :hasISBN "139402949"^^xsd:string ;
-           :hasBookRevisionNo "3rd";
-           :hasProductName "The five dysfunctions of a team leadership"^^xsd:string;
 
-           :hasPrice "25.0"^^xsd:float ;
+###  http://www.semanticweb.org/edris/ontologies/2017/7/untitled-ontology-208#truefale
 
-           :hasQuantity "30"^^xsd:nonNegativeInteger ;
+:truefale rdf:type :FictionAndLiterature ,
+                   owl:NamedIndividual ;
+          
+          :hasImage "./image/Holy Bible English Standard Version 1 copy-131x199.png"^^xsd:string ,
+                    "./image/The MacArthur Study Bible 1 copy-131x199.png"^^xsd:string ;
+          
+          :productNumber "1"^^xsd:nonNegativeInteger ;
+          
+          :hasISBN "1039404949"^^xsd:string ,
+                   "123954949"^^xsd:string ;
+          
+          :hasPublishedYear "2005-01-01"^^xsd:date ;
+          
+          :hasPrice "25.0"^^xsd:float ;
+          
+          :hasQuantity "30"^^xsd:nonNegativeInteger ;
+          
+          :productNumber "6"^^xsd:nonNegativeInteger ;
+          
+          :hasFictionalCategory "Fiction"^^xsd:string ;
+          
+          :hasPublisher "Jossey Bass"^^xsd:string ;
+          
+          :hasFictionalCategory "Romance"^^xsd:string ;
+          
+          :hasAuthor "Teleitabis Lencioni"^^xsd:string ;
+          
+          :hasProductName "The five dysfunctions of a team leadership"^^xsd:string ;
+          
+          :hasDescription "The true story of a shallow relaionship turing to love"^^xsd:string ;
+          
+          :hasTitle "True love"^^xsd:string ;
+          
+          :hasBookRevisionNo "3rd" .
 
-           :hasPublisher "Jossey Bass"^^xsd:string ;
+
+
+###  http://www.semanticweb.org/edris/ontologies/2017/7/untitled-ontology-208#truwefale
+
+:truwefale rdf:type :FictionAndLiterature ,
+                    owl:NamedIndividual ;
+           
+           :hasImage "./image/Grimms Complete Fairy Tales 1 copy-131x199.png"^^xsd:string ;
+           
+           :hasISBN "1394074949"^^xsd:string ;
+           
            :hasPublishedYear "2005-01-01"^^xsd:date ;
-
-
-           :hasFictionalCategory "Romance"^^xsd:string ;
-
-           :hasAuthor "Teleitabis Lencioni"^^xsd:string ;
-
-           :hasDescription "The true story of a shallow relaionship turing to love"^^xsd:string ;
-
-           :hasTitle "True love"^^xsd:string ;
-
-           :hasImage "./image/The Circle Series by Ted Dekker - Green 1 copy-131x199.png"^^xsd:string .
-
- :truefale rdf:type  :FictionAndLiterature;
-
-             :productNumber "1"^^xsd:nonNegativeInteger ;
-
-             :hasISBN "123954949"^^xsd:string ;
-             :hasBookRevisionNo "3rd";
-
-             :hasPrice "25.0"^^xsd:float ;
-             :hasProductName "The five dysfunctions of a team leadership"^^xsd:string;
-
-             :hasQuantity "30"^^xsd:nonNegativeInteger ;
-
-             :hasPublisher "Jossey Bass"^^xsd:string ;
-             :hasPublishedYear "2005-01-01"^^xsd:date ;
-
-
-             :hasFictionalCategory "Romance"^^xsd:string ;
-
-             :hasAuthor "Teleitabis Lencioni"^^xsd:string ;
-
-             :hasDescription "The true story of a shallow relaionship turing to love"^^xsd:string ;
-
-             :hasTitle "True love"^^xsd:string ;
-
-             :hasImage "./image/The MacArthur Study Bible 1 copy-131x199.png"^^xsd:string .
-
- :wisefale rdf:type  :FictionAndLiterature;
-
-           :productNumber "2"^^xsd:nonNegativeInteger ;
-
-           :hasISBN "13941124949"^^xsd:string ;
-           :hasBookRevisionNo "3rd";
-
+           
            :hasPrice "25.0"^^xsd:float ;
-
+           
            :hasQuantity "30"^^xsd:nonNegativeInteger ;
-           :hasProductName "The five dysfunctions of a team leadership"^^xsd:string;
-
+           
+           :productNumber "7"^^xsd:nonNegativeInteger ;
+           
+           :hasFictionalCategory "Fiction"^^xsd:string ;
+           
            :hasPublisher "Jossey Bass"^^xsd:string ;
-           :hasPublishedYear "2005-01-01"^^xsd:date ;
-
-
-           :hasFictionalCategory "Mistry"^^xsd:string ;
-
+           
            :hasAuthor "Teleitabis Lencioni"^^xsd:string ;
-
+           
+           :hasProductName "The five dysfunctions of a team leadership"^^xsd:string ;
+           
            :hasDescription "The true story of a shallow relaionship turing to love"^^xsd:string ;
-
+           
            :hasTitle "True love"^^xsd:string ;
+           
+           :hasBookRevisionNo "3rd" .
 
-           :hasImage "./image/Seven Novels by Jane Austen 1 copy-131x199.png"^^xsd:string .
 
 
- :wiwsefale rdf:type  :FictionAndLiterature;
+###  http://www.semanticweb.org/edris/ontologies/2017/7/untitled-ontology-208#twity
 
+:twity rdf:type :Nonfiction ,
+                owl:NamedIndividual ;
+       
+       :hasImage "./image/The ESV Study Bible Hardcover 1 copy-131x199.png"^^xsd:string ;
+       
+       :hasQuantity "10"^^xsd:nonNegativeInteger ;
+       
+       :productNumber "15"^^xsd:nonNegativeInteger ;
+       
+       :hasISBN "17373889"^^xsd:string ;
+       
+       :hasPublishedYear "2005-01-01"^^xsd:date ;
+       
+       :hasPrice "35.0"^^xsd:float ;
+       
+       :hasDescription "A falable describing the five reasons why team leadership fails."^^xsd:string ;
+       
+       :hasNonFictionalCategory "Biography"^^xsd:string ;
+       
+       :hasPublisher "Jossey Bass"^^xsd:string ;
+       
+       :hasAuthor "Patrick Lencioni"^^xsd:string ;
+       
+       :hasTitle "doresem ipusim"^^xsd:string ;
+       
+       :hasBookRevisionNo "3rd" .
+
+
+
+###  http://www.semanticweb.org/edris/ontologies/2017/7/untitled-ontology-208#wisefale
+
+:wisefale rdf:type :FictionAndLiterature ,
+                   owl:NamedIndividual ;
+          
+          :hasImage "./image/Seven Novels by Jane Austen 1 copy-131x199.png"^^xsd:string ;
+          
+          :hasISBN "13941124949"^^xsd:string ;
+          
+          :productNumber "2"^^xsd:nonNegativeInteger ;
+          
+          :hasPublishedYear "2005-01-01"^^xsd:date ;
+          
+          :hasPrice "25.0"^^xsd:float ;
+          
+          :hasQuantity "30"^^xsd:nonNegativeInteger ;
+          
+          :hasPublisher "Jossey Bass"^^xsd:string ;
+          
+          :hasFictionalCategory "Mistry"^^xsd:string ;
+          
+          :hasAuthor "Teleitabis Lencioni"^^xsd:string ;
+          
+          :hasProductName "The five dysfunctions of a team leadership"^^xsd:string ;
+          
+          :hasDescription "The true story of a shallow relaionship turing to love"^^xsd:string ;
+          
+          :hasTitle "True love"^^xsd:string ;
+          
+          :hasBookRevisionNo "3rd" .
+
+
+
+###  http://www.semanticweb.org/edris/ontologies/2017/7/untitled-ontology-208#wiseselffale
+
+:wiseselffale rdf:type :FictionAndLiterature ,
+                       owl:NamedIndividual ;
+              
+              :hasImage "./image/Christopher Paolini Inheritance Cycle - Brisingr 1 copy-131x199.png"^^xsd:string ;
+              
+              :hasISBN "1394047949"^^xsd:string ;
+              
+              :hasPublishedYear "2005-01-01"^^xsd:date ;
+              
+              :hasPrice "25.0"^^xsd:float ;
+              
+              :hasQuantity "30"^^xsd:nonNegativeInteger ;
+              
+              :productNumber "5"^^xsd:nonNegativeInteger ;
+              
+              :hasPublisher "Jossey Bass"^^xsd:string ;
+              
+              :hasFictionalCategory "Mistry"^^xsd:string ;
+              
+              :hasAuthor "Teleitabis Lencioni"^^xsd:string ;
+              
+              :hasProductName "The five dysfunctions of a team leadership"^^xsd:string ;
+              
+              :hasDescription "The true story of a shallow relaionship turing to love"^^xsd:string ;
+              
+              :hasTitle "True love"^^xsd:string ;
+              
+              :hasBookRevisionNo "3rd" .
+
+
+
+###  http://www.semanticweb.org/edris/ontologies/2017/7/untitled-ontology-208#wiwsefale
+
+:wiwsefale rdf:type :FictionAndLiterature ,
+                    owl:NamedIndividual ;
+           
+           :hasImage "./image/The Complete Works of William Shakespeare 1 copy-131x199.png"^^xsd:string ;
+           
+           :hasPublishedYear "2005-01-01"^^xsd:date ;
+           
+           :hasPrice "25.0"^^xsd:float ;
+           
            :productNumber "3"^^xsd:nonNegativeInteger ;
-
-           :hasISBN "394049491"^^xsd:string ;
-           :hasBookRevisionNo "3rd";
-
-           :hasPrice "25.0"^^xsd:float ;
-           :hasProductName "The five dysfunctions of a team leadership"^^xsd:string;
-
+           
            :hasQuantity "30"^^xsd:nonNegativeInteger ;
-
+           
+           :hasISBN "394049491"^^xsd:string ;
+           
            :hasPublisher "Jossey Bass"^^xsd:string ;
-           :hasPublishedYear "2005-01-01"^^xsd:date ;
-
-
+           
            :hasFictionalCategory "Mistry"^^xsd:string ;
-
+           
            :hasAuthor "Teleitabis Lencioni"^^xsd:string ;
-
+           
+           :hasProductName "The five dysfunctions of a team leadership"^^xsd:string ;
+           
            :hasDescription "The true story of a shallow relaionship turing to love"^^xsd:string ;
-
+           
            :hasTitle "True love"^^xsd:string ;
-
-           :hasImage "./image/The Complete Works of William Shakespeare 1 copy-131x199.png"^^xsd:string .
-
-
- :wiwwsefale rdf:type  :FictionAndLiterature;
-
-             :productNumber "4"^^xsd:nonNegativeInteger ;
-
-             :hasISBN "1394044949"^^xsd:string ;
- :hasBookRevisionNo "3rd";
-             :hasPrice "25.0"^^xsd:float ;
-             :hasProductName "The five dysfunctions of a team leadership"^^xsd:string;
-
-             :hasQuantity "30"^^xsd:nonNegativeInteger ;
-
-             :hasPublisher "Jossey Bass"^^xsd:string ;
-             :hasPublishedYear "2005-01-01"^^xsd:date ;
+           
+           :hasBookRevisionNo "3rd" .
 
 
-             :hasFictionalCategory "Mistry"^^xsd:string ;
 
-             :hasAuthor "Teleitabis Lencioni"^^xsd:string ;
+###  http://www.semanticweb.org/edris/ontologies/2017/7/untitled-ontology-208#wiwwsefale
 
-             :hasDescription "The true story of a shallow relaionship turing to love"^^xsd:string ;
-
-             :hasTitle "True love"^^xsd:string ;
-
-             :hasImage "./image/The Chronicles of Narnia 1 copy-131x199.png"^^xsd:string .
-
-
- :wiseselffale rdf:type  :FictionAndLiterature;
-
-             :productNumber "5"^^xsd:nonNegativeInteger ;
-
-             :hasISBN "1394047949"^^xsd:string ;
- :hasBookRevisionNo "3rd";
-             :hasPrice "25.0"^^xsd:float ;
-             :hasProductName "The five dysfunctions of a team leadership"^^xsd:string;
-
-             :hasQuantity "30"^^xsd:nonNegativeInteger ;
-
-             :hasPublisher "Jossey Bass"^^xsd:string ;
-             :hasPublishedYear "2005-01-01"^^xsd:date ;
-
-
-             :hasFictionalCategory "Mistry"^^xsd:string ;
-
-             :hasAuthor "Teleitabis Lencioni"^^xsd:string ;
-
-             :hasDescription "The true story of a shallow relaionship turing to love"^^xsd:string ;
-
-             :hasTitle "True love"^^xsd:string ;
-
-             :hasImage "./image/Christopher Paolini Inheritance Cycle - Brisingr 1 copy-131x199.png"^^xsd:string .
-
- :truefale rdf:type  :FictionAndLiterature;
-
-             :productNumber "6"^^xsd:nonNegativeInteger ;
-
-             :hasISBN "1039404949"^^xsd:string ;
-             :hasBookRevisionNo "3rd";
-
-             :hasPrice "25.0"^^xsd:float ;
-
-             :hasQuantity "30"^^xsd:nonNegativeInteger ;
-
-             :hasPublisher "Jossey Bass"^^xsd:string ;
-             :hasPublishedYear "2005-01-01"^^xsd:date ;
-
-             :hasProductName "The five dysfunctions of a team leadership"^^xsd:string;
+:wiwwsefale rdf:type :FictionAndLiterature ,
+                     owl:NamedIndividual ;
+            
+            :hasImage "./image/The Chronicles of Narnia 1 copy-131x199.png"^^xsd:string ;
+            
+            :hasISBN "1394044949"^^xsd:string ;
+            
+            :hasPublishedYear "2005-01-01"^^xsd:date ;
+            
+            :hasPrice "25.0"^^xsd:float ;
+            
+            :hasQuantity "30"^^xsd:nonNegativeInteger ;
+            
+            :productNumber "4"^^xsd:nonNegativeInteger ;
+            
+            :hasPublisher "Jossey Bass"^^xsd:string ;
+            
+            :hasFictionalCategory "Mistry"^^xsd:string ;
+            
+            :hasAuthor "Teleitabis Lencioni"^^xsd:string ;
+            
+            :hasProductName "The five dysfunctions of a team leadership"^^xsd:string ;
+            
+            :hasDescription "The true story of a shallow relaionship turing to love"^^xsd:string ;
+            
+            :hasTitle "True love"^^xsd:string ;
+            
+            :hasBookRevisionNo "3rd" .
 
 
-             :hasFictionalCategory "Fiction"^^xsd:string ;
-
-             :hasAuthor "Teleitabis Lencioni"^^xsd:string ;
-
-             :hasDescription "The true story of a shallow relaionship turing to love"^^xsd:string ;
-
-             :hasTitle "True love"^^xsd:string ;
-
-             :hasImage "./image/Holy Bible English Standard Version 1 copy-131x199.png"^^xsd:string .
-
- :truwefale rdf:type  :FictionAndLiterature;
-
-             :productNumber "7"^^xsd:nonNegativeInteger ;
-
-             :hasISBN "1394074949"^^xsd:string ;
-             :hasBookRevisionNo "3rd";
-             :hasProductName "The five dysfunctions of a team leadership"^^xsd:string;
-
-             :hasPrice "25.0"^^xsd:float ;
-
-             :hasQuantity "30"^^xsd:nonNegativeInteger ;
-
-             :hasPublisher "Jossey Bass"^^xsd:string ;
-             :hasPublishedYear "2005-01-01"^^xsd:date ;
 
 
-             :hasFictionalCategory "Fiction"^^xsd:string ;
+###  Generated by the OWL API (version 3.4.2) http://owlapi.sourceforge.net
 
-             :hasAuthor "Teleitabis Lencioni"^^xsd:string ;
-
-             :hasDescription "The true story of a shallow relaionship turing to love"^^xsd:string ;
-
-             :hasTitle "True love"^^xsd:string ;
-
-             :hasImage "./image/Grimms Complete Fairy Tales 1 copy-131x199.png"^^xsd:string .

@@ -28,6 +28,8 @@ public class testCustomer {
             p.setPassword("password");
             p.setPhone("82938928988");
             Customer c= new Customer(l);
+            
+            
             System.out.println(c.toString());
         }
 

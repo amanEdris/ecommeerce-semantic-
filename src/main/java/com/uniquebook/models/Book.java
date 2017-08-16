@@ -21,7 +21,6 @@ public class Book extends Product{
     private String author;
     private String publisher;
     private String title;
-    private String imagepath;
     private Date publishedYear;
     
 
@@ -57,13 +56,7 @@ public class Book extends Product{
         this.title = title;
     }
 
-    public String getImagepath() {
-        return imagepath;
-    }
-
-    public void setImagepath(String imagepath) {
-        this.imagepath = imagepath;
-    }
+    
 
     public String getStringPublishedYear() {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
@@ -82,6 +75,6 @@ public class Book extends Product{
     
     @Override
     public String toString() {
-        return "Book{" + "isbn=" + isbn + ", author=" + author + ", publisher=" + publisher + ", title=" + title + ", imagepath=" + imagepath + ", publishedYear=" + publishedYear + '}'+super.toString();
+        return "Book{" + "isbn=" + isbn + ", author=" + author + ", publisher=" + publisher + ", title=" + title + ", publishedYear=" + publishedYear + '}'+super.toString();
     }
 }

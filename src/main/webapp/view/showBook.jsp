@@ -119,104 +119,111 @@
             <div id="page">
                 <div id="shadow">
                     <div class="shadow" style="height: 2193px;"></div>
-                     <jsp:include page="includesPages/_header.jsp"></jsp:include>
+                    <jsp:include page="includesPages/_header.jsp"></jsp:include>
 
-                                                <section>
+                        <section>
 
-                                                    <div id="container">
-                                                        <p id="back-top" style="display: none;"> <a href="https://livedemo00.template-help.com/opencart_47983/#top"><span></span></a> </p>
-                                                        <div class="container">
-                                                            <div id="notification"></div>
-                                                            <div class="row">
-                                                                <div class="col-sm-12    right" id="content">
-                                                                    <div class="col-sm-10 col-sm-12    right" id="content">	<div class="breadcrumb">
-                                                                            <a href="http://localhost:8080/UniqueBookApp/">Home</a>
-                                                                            » <a href="http://localhost:8080/UniqueBookApp/book?action=show&productNo=#" class="last"><c:out value="${book.title}" /></a>
-                                                                        </div>
-                                                                        <div class="product-info">
-                                                                            <div class="row">
+                            <div id="container">
+                                <p id="back-top" style="display: none;"> <a href="https://livedemo00.template-help.com/opencart_47983/#top"><span></span></a> </p>
+                                <div class="container">
+                                    <div id="notification"></div>
+                                    <div class="row">
+                                        <div class="col-sm-12    right" id="content">
+                                            <div class="col-sm-10 col-sm-12    right" id="content">	<div class="breadcrumb">
+                                                    <a href="http://localhost:8080/UniqueBookApp/">Home</a>
+                                                    » <a href="http://localhost:8080/UniqueBookApp/book?action=show&productNo=#" class="last"><c:out value="${book.title}" /></a>
+                                            </div>
+                                            <div class="product-info">
+                                                <div class="row">
 
-                                                                                <div class="col-sm-4">
-                                                                                    <h1 class="view"><c:out value="${book.title}" /></h1>
+                                                    <div class="col-sm-4">
+                                                        <h1 class="view"><c:out value="${book.title}" /></h1>
 
 
 
-                                                                                    <div id="full_gallery">
-                                                                                        <div class="bx-wrapper" style="max-width: 100%;"><div class="bx-viewport" style="width: 100%; overflow: hidden; position: relative; height: 0px;">
-                                                                                                <img src="<c:out value="${book.imagepath}" />" title="<c:out value="${book.title}"/>></a>
-                                                                                                     </div><div class="bx-controls bx-has-controls-direction">
-                                                                                                     <div class="bx-controls-direction"><a class="bx-prev" href=""><i class="fa fa-chevron-left"></i></a><a class="bx-next" href=""><i class="fa fa-chevron-right"></i></a></div></div></div>
+                                                        <div id="full_gallery">
+                                                            <div class="bx-wrapper" style="max-width: 100%;"><div class="bx-viewport" style="width: 100%; overflow: hidden; position: relative; height: 0px;">
+                                                                    <img src="<c:out value="${book.imagepath}" />" title="<c:out value="${book.title}"/>></a>
+                                                                         </div><div class="bx-controls bx-has-controls-direction">
+                                                                         <div class="bx-controls-direction"><a class="bx-prev" href=""><i class="fa fa-chevron-left"></i></a><a class="bx-next" href=""><i class="fa fa-chevron-right"></i></a></div></div></div>
 
-                                                                                    </div>
+                                                        </div>
 
-                                                                                    <div id="default_gallery" class="left spacing">
-                                                                                        <div class="image">
-                                                                                            <div><img  src="<c:out value="${book.imagepath}"/>" title="<c:out value="${book.title}" />" alt="<c:out value="${book.title}"/> style="position: absolute;"></div>
-                                                                                        </div>
+                                                        <div id="default_gallery" class="left spacing">
+                                                            <div class="image">
+                                                                <div><img  src="<c:out value="${book.imagepath}"/>" title="<c:out value="${book.title}" />" alt="<c:out value="${book.title}"/> style="position: absolute;"></div>
+                                                            </div>
 
-                                                                                        <div class="image-additional">
-                                                                                            <div class="bx-wrapper" style="max-width: 230px;"><div class="bx-viewport" style="width: 100%; overflow: hidden; position: relative; height: 70px;">
-                                                                                                </div><div class="bx-controls bx-has-controls-direction"><div class="bx-controls-direction"><a class="bx-prev disabled" href=""><i class="fa fa-chevron-left"></i></a><a class="bx-next disabled" href=""><i class="fa fa-chevron-right"></i></a></div></div></div>
-                                                                                            <div class="clear"></div>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </div>
-                                                                                <div class="col-sm-8">
-                                                                                    <h1><c:out value="${book.title}" /></h1>
-                                                                                    <div class="description">
-                                                                                        <div class="product-section">
-                                                                                            <span>Author:</span><c:out value="${book.author}" /><br>
-                                                                                            <c:if  test="${book.quantity > 0}">
-                                                                                                <span>Availability:</span><div class="prod-stock">In Stock</div>
-
-                                                                                            </c:if>
-                                                                                        </div>
-
-                                                                                        <div class="price">
-                                                                                            <span class="text-price">Price:</span>
-                                                                                            <span class="price"><c:out value="${book.price}" />$</span>
-
-                                                                                        </div>
-                                                                                        <div class="cart">
-                                                                                            <div class="prod-row">
-                                                                                                <div class="cart-top">
-                                                                                                    <div class="cart-top-padd form-inline">
-                                                                                                        <label>Qty: <input class="q-mini" type="text" name="quantity" size="2" value="1">
-                                                                                                            <input class="q-mini" type="hidden" name="product_id" size="2" value="49">
-                                                                                                        </label>
-
-                                                                                                    </div>
-                                                                                                    <div class="extra-button">
-                                                                                                        <a title="" id="button-cart" class="button-prod tooltip-1" data-original-title="Add to Cart"><i class="fa fa-shopping-cart"></i><span>Add to Cart</span></a>
-                                                                                                    </div>
-                                                                                                    <div class="clear"></div>
-                                                                                                </div>
-                                                                                            </div>
-                                                                                        </div>
-                                                                                        <div class="clear"></div>
-
-                                                                                        <div class="clear"></div>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                            <div class="tabs">
-                                                                                <div class="tab-heading">
-                                                                                    Description		</div>
-                                                                                <div class="tab-content">
-                                                                                    <c:out value="${book.description}" />
-                                                                                </div>
-                                                                            </div>
-                                                                            <div class="clear"></div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
+                                                            <div class="image-additional">
+                                                                <div class="bx-wrapper" style="max-width: 230px;"><div class="bx-viewport" style="width: 100%; overflow: hidden; position: relative; height: 70px;">
+                                                                    </div><div class="bx-controls bx-has-controls-direction"><div class="bx-controls-direction"><a class="bx-prev disabled" href=""><i class="fa fa-chevron-left"></i></a><a class="bx-next disabled" href=""><i class="fa fa-chevron-right"></i></a></div></div></div>
                                                                 <div class="clear"></div>
-                                                                </section>
-                                            <jsp:include page="includesPages/_footer.jsp"></jsp:include>
-
-
-                                                           </div>
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                    </body>
-                                                    </html>
+                                                    <div class="col-sm-8">
+                                                        <h1><c:out value="${book.title}" /></h1>
+                                                        <div class="description">
+                                                            <div class="product-section">
+                                                                <span>Author:</span><c:out value="${book.author}" /><br>
+                                                                <c:if  test="${book.quantity > 0}">
+                                                                    <span>Availability:</span><div class="prod-stock">In Stock</div>
+
+                                                                </c:if>
+                                                            </div>
+
+                                                            <div class="price">
+                                                                <span class="text-price">Price:</span>
+                                                                <span class="price"><c:out value="${book.price}" />$</span>
+
+                                                            </div>
+                                                            <div class="cart">
+                                                                <div class="prod-row">
+                                                                    <div class="cart-top">
+                                                                        <form  action="addToCart" method="post">
+
+                                                                            <div class="cart-top-padd form-inline">
+                                                                                <label>Qty: <input class="q-mini" type="text" name="quantity" size="2" value="1">
+                                                                                    <input class="q-mini" type="hidden" name="productNo" size="2" value="<c:out value="${book.productNumber}"/>">
+                                                                                    <input type="hidden" name="category" value="<c:out value="${category}"/>" />
+
+                                                                                </label>
+                                                                            </div>
+                                                                            <div class="extra-button">
+                                                                                <button style="border: 1px;background: whitesmoke"><span>Add to Cart</span><i class="fa fa-shopping-cart"></i></button>
+
+
+                                                                        </form>
+                                                                        </a>
+                                                                    </div>
+                                                                    <div class="clear"></div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="clear"></div>
+
+                                                        <div class="clear"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="tabs">
+                                                <div class="tab-heading">
+                                                    Description		</div>
+                                                <div class="tab-content">
+                                                    <c:out value="${book.description}" />
+                                                </div>
+                                            </div>
+                                            <div class="clear"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="clear"></div>
+                                </section>
+                                <jsp:include page="includesPages/_footer.jsp"></jsp:include>
+
+
+                            </div>
+                        </div>
+                </div>
+                </body>
+                </html>

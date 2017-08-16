@@ -15,6 +15,8 @@ public class Product {
     private Integer quantity;
     private Integer productNumber;
     private String productName;
+    private String imagepath;
+
 
     public String getProductName() {
         return productName;
@@ -59,6 +61,13 @@ public class Product {
         this.productNumber = productNumber;
     }
     
+    public String getImagepath() {
+        return imagepath;
+    }
+
+    public void setImagepath(String imagepath) {
+        this.imagepath = imagepath;
+    }
 
     @Override
     public String toString() {

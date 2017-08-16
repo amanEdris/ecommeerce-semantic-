@@ -11,6 +11,7 @@ import com.uniquebook.models.Book;
 import com.uniquebook.models.FictionalBook;
 import com.uniquebook.models.KidsBook;
 import com.uniquebook.models.NonFictionalBook;
+import com.uniquebook.models.Product;
 import com.uniquebook.utils.FusekiClient;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -31,7 +32,6 @@ public class BookDao {
     private NonFictionalBooksDao nonFcitionDao;
     private KidsBookDao kidDao;
 
-
     public BookDao() {
         fictionDao = new FictionalBooksDao();
         nonFcitionDao = new NonFictionalBooksDao();
@@ -39,32 +39,21 @@ public class BookDao {
     }
 
     /**
-    public void deleteBooks(int productNumber) {
-        FileOutputStream stream = null;
-        try {
-            String deleteQuery = FusekiClient.PREFIX;
-            deleteQuery += "DELETE {?s ?p ?o}\n"
-                    + "       \n"
-                    + "WHERE  { ?s ?p ?o ."
-                    + "         ?s r:productNumber ?r. \n"
-                    + "         FILTER (?o = " + productNumber + ") \n"
-                    + "}	";
-            System.out.println(deleteQuery);
-            UpdateAction.parseExecute(deleteQuery, model);
-            File file = new File(FusekiClient.RDF_DATA_MODEL_PATH);
-            stream = new FileOutputStream(file);
-            model.write(stream, "TTL");
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(BookDao.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            try {
-                stream.close();
-            } catch (IOException ex) {
-                Logger.getLogger(BookDao.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-    }**/
-
+     * public void deleteBooks(int productNumber) { FileOutputStream stream =
+     * null; try { String deleteQuery = FusekiClient.PREFIX; deleteQuery +=
+     * "DELETE {?s ?p ?o}\n" + " \n" + "WHERE { ?s ?p ?o ." + " ?s
+     * r:productNumber ?r. \n" + " FILTER (?o = " + productNumber + ") \n" + "}
+     * "; System.out.println(deleteQuery);
+     * UpdateAction.parseExecute(deleteQuery, model); File file = new
+     * File(FusekiClient.RDF_DATA_MODEL_PATH); stream = new
+     * FileOutputStream(file); model.write(stream, "TTL"); } catch
+     * (FileNotFoundException ex) {
+     * Logger.getLogger(BookDao.class.getName()).log(Level.SEVERE, null, ex); }
+     * finally { try { stream.close(); } catch (IOException ex) {
+     * Logger.getLogger(BookDao.class.getName()).log(Level.SEVERE, null, ex); }
+     * }
+    }*
+     */
     public Book getBookbyProductNumber(int productNumber, String category) {
         Book b = new Book();
 
@@ -82,10 +71,15 @@ public class BookDao {
         return b;
     }
 
-
-    
-     
-
-   
+    public Product getProductbyProductNumber(int productNumber, String category) {
+        Book b = this.getBookbyProductNumber(productNumber, category);
+        Product p = new Product();
+        p.setDescription(b.getDescription());
+        p.setImagepath(b.getImagepath());
+        p.setPrice(b.getPrice());
+        p.setProductName(b.getProductName());
+        p.setProductNumber(b.getProductNumber());
+        return p;
+    }
 
 }

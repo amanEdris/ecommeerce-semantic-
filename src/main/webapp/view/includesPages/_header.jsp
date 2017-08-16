@@ -1,3 +1,5 @@
+
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <header id="header">
     <div class="top-line">
         <div class="container">
@@ -5,12 +7,14 @@
                 <div class="col-sm-12">
                     <div class="toprow">
                         <ul class="links">
-                            <li class="first"><a class="active" href="#"><i class="fa fa-home"></i>Home</a></li>
-                            <li><a class="" href="#"><i class="fa fa-user"></i>My Account</a></li>
-                            <li><a class="" href="#"><i class="fa fa-shopping-cart"></i>Shopping Cart</a></li>
-                            <li><a class="" href="#"><i class="fa fa-check"></i>Checkout</a></li>
+                       
+                            <li class="first"><a class="active" href="/UniqueBookApp"><i class="fa fa-home"></i>Home</a></li>
+                            <li><a class="" href="/UniqueBookApp/account?action=edit&data=show"><i class="fa fa-user"></i>My Account</a></li>
+                            <li><a class="" href="/UniqueBookApp/cart?action=show"><i class="fa fa-shopping-cart"></i>Shopping Cart</a></li>
+                            <li><a class="" href="/UniqueBookApp/cart?action=checkout"><i class="fa fa-check"></i>Checkout</a></li>
 
-                            <li><a href="#"><i class="fa fa-user"></i>Create an account</a></li><li class="login_h last"><a href="#"><i class="fa fa-lock"></i>Login</a></li>
+                            <li><a href="/UniqueBookApp/account?action=edit"><i class="fa fa-user"></i>Create an account</a></li>
+                            <li class="login_h last"> <a href="/UniqueBookApp/account?action=login"><i class="fa fa-lock"></i>Login</a></li>
                         </ul>
                         <div class="clear"></div>
                     </div>
@@ -24,8 +28,7 @@
                                         <i class="fa fa-shopping-cart"></i>
                                         <b>Cart:</b>
                                         <span class="sc-button"></span>
-                                        <span id="cart-total2">0</span>
-                                        <span id="cart-total">0 item(s) $0.00</span>
+                                        <span id="cart-total">4 item(s) 0.56$</span>
                                         <i class="fa fa-angle-down"></i>
                                         <span class="clear"></span>
                                     </span>

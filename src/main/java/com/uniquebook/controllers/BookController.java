@@ -34,6 +34,8 @@ public class BookController extends HttpServlet {
     private static String INSERT_OR_EDIT = "/view/book.jsp";
     private static String LIST_Books = "/view/listBook.jsp";
     private static String SHOW_Books = "/view/showBook.jsp";
+    private static String ADD_Books = "/view/book.jsp";
+    
 
     public BookController() {
         super();
@@ -50,17 +52,21 @@ public class BookController extends HttpServlet {
         String forward = "";
         String action = request.getParameter("action");
         if (action.equalsIgnoreCase("delete")) {
-            //delete book 
+             // TODO:  delete book 
             forward = LIST_Books;
             //get all books 
             //forward to  book list jsp
             request.setAttribute("books", kidDao.getAllKidsBook());
         } else if (action.equalsIgnoreCase("edit")) {
             forward = INSERT_OR_EDIT;
-            //getBookby product number
-            //set to request
+             // TODO: getBookby product number
+             // TODO: set to request
 
-        } else if (action.equalsIgnoreCase("show")) {
+        } else if (action.equalsIgnoreCase("list")) {
+            forward = LIST_Books;
+             // TODO: list all books 
+
+        }else if (action.equalsIgnoreCase("show")) {
             Book b = new Book();
             forward = SHOW_Books;
             int productId = Integer.parseInt(request.getParameter("productNo"));
@@ -68,6 +74,8 @@ public class BookController extends HttpServlet {
 
             b = bookDao.getBookbyProductNumber(productId, category);
             request.setAttribute("book", b);
+            request.setAttribute("category",category);
+
         } else if (action.equalsIgnoreCase("listBooks")) {
             forward = LIST_Books;
             String category = (request.getParameter("category"));
@@ -92,6 +100,7 @@ public class BookController extends HttpServlet {
             }
 
         } else {
+             forward = ADD_Books;
 
         }
         RequestDispatcher view = request.getRequestDispatcher(forward);
@@ -101,6 +110,7 @@ public class BookController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        // TODO:  implement assignment productNumber￼
 
     }
 

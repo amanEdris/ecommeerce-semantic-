@@ -74,7 +74,7 @@
             <div class="swipe" style="height: 330px;">
                 <div class="swipe-menu">
                     <ul class="links">
-                        <li class="first"><a class="active" href="#"><i class="fa fa-home"></i>Home</a></li>
+                        <li class="first"><a class="active" href="/UniqueBookApp"><i class="fa fa-home"></i>Home</a></li>
                         <li><a class="" href="/UniqueBookApp/account?action=edit&data=show"><i class="fa fa-user"></i>My Account</a></li>
                         <li><a class="" href="/UniqueBookApp/cart?action=show"><i class="fa fa-shopping-cart"></i>Shopping Cart</a></li>
                         <li><a class="" href="/UniqueBookApp/cart?action=checkout"><i class="fa fa-check"></i>Checkout</a></li>
@@ -136,7 +136,7 @@
                                             <div class="breadcrumb">
                                               <a href="/UniqueBookApp">Home</a>
                                                 » <a href="/UniqueBookApp/account?action=show">Account</a>
-                                                » <a href="/UniqueBookApp/account?action=edit" class="last">Register</a>
+                                                » <a href="/UniqueBookApp/account?action=login" class="last">login</a>
                                             </div>
                                             <h1>Register Account</h1>
 
@@ -195,10 +195,9 @@
                                                 <div class="box-heading">Account</div>
                                                 <div class="box-content">
                                                     <ul class="acount">
-                                                        <li><a href="/UniqueBookApp/book?action=list">Product</a> 
-                                                        <li><a href="/UniqueBookApp/order?action=list">Orders</a></li>
-                                                        <li><a href="/UniqueBookApp/order?action=list">Customers</a></li>
-                                                        <li><a href="/UniqueBookApp/order?action=list">Admin Accounts</a></li>
+                                                        <li><a href="/UniqueBookApp/account?action=login">Login</a> / <a href="http://localhost:8080/UniqueBookApp/account?action=edit">Register</a></li>
+                                                        <li><a href="/UniqueBookApp/account?action=edit&data=show">My Account</a></li>
+                                                        <li><a href="/UniqueBookApp/order?action=show">Order History</a></li>
                                                 </div>
                                             </div>
                                         </aside>

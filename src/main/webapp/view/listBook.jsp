@@ -74,11 +74,11 @@
             <div class="swipe" style="height: 330px;">
                 <div class="swipe-menu">
                     <ul class="links">
-                        <li class="first"><a class="active" href="#"><i class="fa fa-home"></i>Home</a></li>
-                        <li><a class="" href="#"><i class="fa fa-user"></i>My Account</a></li>
-                        <li><a class="" href="#"><i class="fa fa-shopping-cart"></i>Shopping Cart</a></li>
-                        <li><a class="" href="#"><i class="fa fa-check"></i>Checkout</a></li>
-                        <li><a href="#"><i class="fa fa-user"></i>Create an account</a></li><li class="login_h"><a href="#"><i class="fa fa-lock"></i>Login</a></li>   					</ul>
+                        <li class="first"><a class="active" href="/UniqueBookApp"><i class="fa fa-home"></i>Home</a></li>
+                        <li><a class="" href="/UniqueBookApp/account?action=edit&data=show"><i class="fa fa-user"></i>My Account</a></li>
+                        <li><a class="" href="/UniqueBookApp/cart?action=show"><i class="fa fa-shopping-cart"></i>Shopping Cart</a></li>
+                        <li><a class="" href="/UniqueBookApp/cart?action=checkout"><i class="fa fa-check"></i>Checkout</a></li>
+                        <li><a href="/UniqueBookApp/account?action=edit"><i class="fa fa-user"></i>Create an account</a></li><li class="login_h"><a href="#"><i class="fa fa-lock"></i>Login</a></li>   					</ul>
 
                     <div id="language" class="header-button">
                         <div class="heading">en<i class="fa fa-angle-down"></i></div>
@@ -164,9 +164,9 @@
 
                                             <div class="box featured">
 
-
+                                            
                                             <c:if  test="${cat == 3}">
-                                                <div class="box-heading">  Fiction Books >><i><c:out value="${category}"/></i>
+                                                <div class="breadcrumb">  Fiction Books >><i><c:out value="${category}"/></i>
                                                 </div>   
                                             </c:if>
 
@@ -282,7 +282,7 @@
 
                                         <div class="box featured">
                                             <c:if  test="${cat == 1}">
-                                                <div class="box-heading">     Non Fictional Books >> <i><c:out value="${category}"/></i>
+                                                <div class="breadcrumb">     Non Fictional Books >> <i><c:out value="${category}"/></i>
                                                 </div>  </c:if>
 
                                                 <div class="box-content">
@@ -397,7 +397,7 @@
                                         <div class="box featured">
                                             <c:if  test="${cat == 2}">           
 
-                                                <div class="box-heading">   Kids Book >><i><c:out value="${category}"/></i>
+                                                <div class="breadcrumb">   Kids Book >><i><c:out value="${category}"/></i>
                                                 </div> </c:if>
 
                                                 <div class="box-content">

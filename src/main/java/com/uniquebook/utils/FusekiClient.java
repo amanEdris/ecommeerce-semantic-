@@ -11,6 +11,8 @@ import com.hp.hpl.jena.query.QueryExecutionFactory;
 import com.hp.hpl.jena.query.QueryFactory;
 import com.hp.hpl.jena.query.ResultSet;
 import com.hp.hpl.jena.query.Syntax;
+import org.apache.jena.query.ParameterizedSparqlString;
+import org.apache.jena.update.UpdateExecutionFactory;
 
 /**
  *
@@ -29,12 +31,28 @@ public class FusekiClient {
     public static final String QUERY_FUSEKI_CLIENT_URL = "http://localhost:3030/ds/query";
     public static final String UPDATE_FUSEKI_CLIENT_URL = "http://localhost:3030/ds/update";
 
-
+    /**
+     * 
+     * @param BooksQuery
+     * @return Result set from Db
+     */
     public static ResultSet queryFUSEKI(String BooksQuery) {
         Query query = QueryFactory.create(BooksQuery, Syntax.syntaxARQ);
         QueryExecution qe = QueryExecutionFactory.sparqlService(QUERY_FUSEKI_CLIENT_URL, query);
         ResultSet results = qe.execSelect();
         return results;
+    }
+    
+    /**
+     * 
+     * @param updateQuery 
+     */
+    public static void insertFUSEKI(String updateQuery){
+        ParameterizedSparqlString s = new ParameterizedSparqlString();
+        s.setCommandText(updateQuery);
+        org.apache.jena.update.UpdateRequest update = s.asUpdate();
+        org.apache.jena.update.UpdateProcessor proc =  UpdateExecutionFactory.createRemote(update, UPDATE_FUSEKI_CLIENT_URL);
+        proc.execute();
     }
 
 }
