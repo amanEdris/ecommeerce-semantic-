@@ -70,11 +70,10 @@ public class BookController extends HttpServlet {
             Book b = new Book();
             forward = SHOW_Books;
             int productId = Integer.parseInt(request.getParameter("productNo"));
-            String category = (request.getParameter("category"));
 
-            b = bookDao.getBookbyProductNumber(productId, category);
+            b = bookDao.getBookbyProductNumber(productId, request.getParameter("category"));
             request.setAttribute("book", b);
-            request.setAttribute("category",category);
+            request.setAttribute("category",request.getParameter("category"));
 
         } else if (action.equalsIgnoreCase("listBooks")) {
             forward = LIST_Books;
@@ -84,12 +83,21 @@ public class BookController extends HttpServlet {
                 if (NonFictionalBook.NonFictionalCategory.getEnumByString(category) != null) {
                     request.setAttribute("cat", 1);               
                     request.setAttribute("nonfibooks", nonFcitionDao.getAllNonFictionalBookByCategory(category));
+                    if(nonFcitionDao.getAllNonFictionalBookByCategory(category).isEmpty()){
+                        request.setAttribute("message","Sorry, no books in this ");
+                    }
                 } else if (category.equals("Kids Book")) {
-                     request.setAttribute("cat", 2);
+                    request.setAttribute("cat", 2);
                     request.setAttribute("kidbooks", kidDao.getAllKidsBook());
+                    if(kidDao.getAllKidsBook().isEmpty()){
+                        request.setAttribute("message","Sorry, no books in this ");
+                    }
                 } else {
                      request.setAttribute("cat", 3);
                     request.setAttribute("books", fictionDao.getAllFictionalBookByCategory(category));
+                    if(fictionDao.getAllFictionalBookByCategory(category).isEmpty()){
+                        request.setAttribute("message","Sorry, no books in this ");
+                    }               
                 }
             } else {
                 request.setAttribute("category", category);

@@ -166,7 +166,7 @@
                                                                     <b>I am a returning customer</b>
                                                                 </div>
                                                             </div>
-                                                            <form class="form-horizontal" action="/UniqueBookApp/account?action=login" method="post" enctype="multipart/form-data" id="login">
+                                                            <form class="form-horizontal" action="/login" method="post"  id="login">
                                                                 <div class="content">
                                                                     <div class="form-group">
                                                                         <label class="padd-form control-label col-sm-5" for="email">E-Mail Address:</label>
@@ -182,6 +182,7 @@
                                                                     </div>
                                                                     <div class="login-buttons">
                                                                         <input type="submit" value="LOGIN" class="buttons"/>
+                                                                        <i style="color: red">${message}</i>
                                                                     </div>
                                                                 </div>
                                                             </form>

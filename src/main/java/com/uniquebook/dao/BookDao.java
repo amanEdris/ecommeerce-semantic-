@@ -71,14 +71,18 @@ public class BookDao {
         return b;
     }
 
-    public Product getProductbyProductNumber(int productNumber, String category) {
+    public Product getProductbyProductNumber(int productNumber, String category) throws Exception {
+        if(productNumber == 0 || category == null){
+           throw new Exception("the product doesn't exist in our system!");
+        }
         Book b = this.getBookbyProductNumber(productNumber, category);
         Product p = new Product();
         p.setDescription(b.getDescription());
         p.setImagepath(b.getImagepath());
         p.setPrice(b.getPrice());
-        p.setProductName(b.getProductName());
+        p.setProductName(b.getTitle());
         p.setProductNumber(b.getProductNumber());
+        p.setQuantity(b.getQuantity());
         return p;
     }
 

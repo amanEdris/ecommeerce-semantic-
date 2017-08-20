@@ -47,7 +47,7 @@ public class FusekiClient {
      * 
      * @param updateQuery 
      */
-    public static void insertFUSEKI(String updateQuery){
+    public static void insertFUSEKI(String updateQuery) throws Exception{
         ParameterizedSparqlString s = new ParameterizedSparqlString();
         s.setCommandText(updateQuery);
         org.apache.jena.update.UpdateRequest update = s.asUpdate();

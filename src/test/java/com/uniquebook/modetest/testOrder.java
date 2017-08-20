@@ -27,14 +27,14 @@ public class testOrder {
             l.setCity("this city");
             l.setCountry("this country");
             
-            Customer p = new Customer(l);
-            p.setEmail("dd@mail.com");
-            p.setFirstName("man");
-            p.setGender("amle");
-            p.setLastName("dandy");
-            p.setPassword("password");
-            p.setPhone("82938928988");
-                        
+//            Customer p = new Customer(l);
+//            p.setEmail("dd@mail.com");
+//            p.setFirstName("man");
+//            p.setGender("amle");
+//            p.setLastName("dandy");
+//            p.setPassword("password");
+//            p.setPhone("82938928988");
+//                        
             Date deliveryDate = new Date();
             //Create delivery
             Delivery  d= new Delivery(deliveryDate, l);
@@ -64,7 +64,7 @@ public class testOrder {
             Order o = new Order();
             o.setOrderstatus("delivered");
             o.setSales(sales);
-            o.setCusotmer(p);
+//            o.setCusotmer(p);
             o.setOrderNumber(12);
             o.setTotalPrice((float) 12.50);
             o.setDelivery(d);                  

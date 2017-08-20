@@ -5,47 +5,147 @@
  */
 package com.uniquebook.dao;
 
-import com.hp.hpl.jena.rdf.model.Model;
+import com.hp.hpl.jena.query.QuerySolution;
+import com.hp.hpl.jena.query.ResultSet;
 import com.uniquebook.models.Customer;
+import com.uniquebook.models.Location;
 import com.uniquebook.utils.FusekiClient;
+import com.uniquebook.utils.HelperUtil;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * getting individual customer
+ *
  * @author edris
  */
 public class CustomerDao {
-    
-            
+
+    private HelperUtil helperUtil;
+
     public CustomerDao() {
+        helperUtil = new HelperUtil();
     }
-    
-    public void addCustomer(Customer b){
+
+    public void addCustomer(Customer b) {
         try {
+            Location l = b.getLocation();
+            String locationSubject = helperUtil.generateNames();
             
-        } catch (Exception e) {
+            String insertQuery = "INSERT DATA"
+                    + "{"
+                    + ""
+                    + " r:" + helperUtil.generateNames() + " a r:Customer;\n"
+                    + "           r:hasPhone \"" + b.getPhone() + "\"^^xsd:string ;\n"
+                    + "           r:hasPassword \"" + b.getPassword() + "\"^^xsd:string ;\n\n"
+                    + "           r:hasEmail  \"" + b.getEmail() + "\"^^xsd:string ;\n"
+                    + "           r:hasLastName  \"" + b.getLastName() + "\"^^xsd:string ;\n"
+                    + "           r:hasFirstName \"" + b.getFirstName() + "\"^^xsd:string ;\n"
+                    + "           r:hasGender  \"" + b.getGender() + "\"^^xsd:string ;\n"
+                    + "           r:hasLocation r:" + locationSubject + " .\n"
+                    + "       r:" + locationSubject + "  rdf:type r:Location;\n"
+                    + "         r:" + locationSubject + "  r:hasPostalCode \"" + l.getPostalCode() + "\"^^xsd:string ;\n"
+                    + "          r:" + locationSubject + " r:hasCity \"" + l.getCity() + "\"^^xsd:string ;\n"
+                    + "         r:" + locationSubject + "  r:hasCountry \"" + l.getCountry() + "\"^^xsd:string ;\n"
+                    + "          r:" + locationSubject + "   r:hasAddress \"" + l.getAddress() + "\"^^xsd:string ;\n"
+                    + "}";
+            
+            FusekiClient.insertFUSEKI(insertQuery);
+        } catch (Exception ex) {
+            Logger.getLogger(CustomerDao.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
     }
-    
-    
-    public void deleteCustomer(int productNumber){
-        
+
+    public void deleteCustomer(int productNumber) {
+
     }
-    
-    public void updateCustomer(Customer b){
-        
+
+    public void updateCustomer(Customer b) {
+        try {
+            Location l = b.getLocation();
+            
+            String insertQuery = "INSERT DATA"
+                    + "{"
+                    + ""
+                    + " ?x a r:Customer;\n"
+                    + "           r:hasPhone \"" + b.getPhone() + "\"^^xsd:string ;\n"
+                    + "           r:hasPassword \"" + b.getPassword() + "\"^^xsd:string ;\n\n"
+                    + "           r:hasEmail  \"" + b.getEmail() + "\"^^xsd:string ;\n"
+                    + "           r:hasLastName  \"" + b.getLastName() + "\"^^xsd:string ;\n"
+                    + "           r:hasFirstName \"" + b.getFirstName() + "\"^^xsd:string ;\n"
+                    + "           r:hasGender  \"" + b.getGender() + "\"^^xsd:string ;\n"
+                    + "           r:hasLocation ?location. \n"
+                    + "           ?location rdf:type r:Location;\n"
+                    + "           ?location  r:hasPostalCode \"" + l.getPostalCode() + "\"^^xsd:string ;\n"
+                    + "           ?location r:hasCity \"" + l.getCity() + "\"^^xsd:string ;\n"
+                    + "           ?location  r:hasCountry \"" + l.getCountry() + "\"^^xsd:string ;\n"
+                    + "           ?location   r:hasAddress \"" + l.getAddress() + "\"^^xsd:string ;\n"
+                    + "}";
+            
+            FusekiClient.insertFUSEKI(insertQuery);
+        } catch (Exception ex) {
+            Logger.getLogger(CustomerDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
-    
-    public List<Customer> getAllCustomer(){
+
+    public List<Customer> getAllCustomer() {
         return null;
-        
+
     }
-    
-    public List<Customer> getCustomerByName(){
-        return null;
-        
+
+    public Customer getCustomerByEmailAndPassword(String email, String password) {
+        Customer c = new Customer();
+
+        String customerQuery = "prefix r: <http://localhost:8080/UniqueBookshop/onto/Ecommerce.owl/>\n"
+                + "prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> \n"
+                + "prefix xsd: <http://www.w3.org/2001/XMLSchema#> \n"
+                + "prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> \n"
+                + "\n"
+                + "SELECT  *\n"
+                + "\n"
+                + "WHERE\n"
+                + "{\n"
+                + "     ?x a r:Customer.\n"
+                + "          ?x r:hasPhone ?phone.\n"
+                + "          ?x  r:hasPassword ?password.\n"
+                + "          ?x  r:hasEmail  ?email.\n"
+                + "          ?x  r:hasLastName  ?lastName.\n"
+                + "          ?x  r:hasFirstName  ?firstName.\n"
+                + "          ?x  r:hasGender  ?gender.\n"
+                + "          ?x r:hasLocation ?location.\n"
+                + "          ?location rdf:type r:Location.\n"
+                + "          ?location r:hasPostalCode ?postalcode.\n"
+                + "          ?location r:hasCity ?city.\n"
+                + "          ?location r:hasCountry ?country.\n"
+                + "          ?location  r:hasAddress ?address.\n"
+                + "   FILTER (?email  = \"" + email + "\"^^xsd:string && ?password = \"" + password + "\" )\n"
+                + "}";
+        queryCustomer(customerQuery, c);
+        return c;
+
     }
-    
-    
+
+    private void queryCustomer(String customerQuery, Customer customer) {
+        Location customerLocation = new Location();
+        ResultSet results = FusekiClient.queryFUSEKI(customerQuery);
+        while (results.hasNext()) {
+            QuerySolution row = results.next();
+
+            customerLocation.setAddress(row.getLiteral("address").getString());
+            customerLocation.setCity(row.getLiteral("city").getString());
+            customerLocation.setCountry(row.getLiteral("country").getString());
+            customerLocation.setPostalCode(row.getLiteral("postalcode").getString());
+
+            customer.setLocation(customerLocation);
+            customer.setEmail(row.getLiteral("email").getString());
+            customer.setFirstName(row.getLiteral("firstName").getString());
+            customer.setLastName(row.getLiteral("lastName").getString());
+            customer.setPassword(row.getLiteral("password").getString());
+            customer.setPhone(row.getLiteral("phone").getString());
+            customer.setGender(row.getLiteral("gender").getString());
+        }
+    }
+
 }

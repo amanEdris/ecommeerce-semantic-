@@ -198,7 +198,7 @@ public class FictionalBooksDao {
                 book.setProductNumber(row.getLiteral("productNumber").getInt());
                 //System.out.println(row.getLiteral("fictionalCategory").getValue().toString());
                 book.setCategory(row.getLiteral("fictionalCategory").getValue().toString());
-
+                book.setProductName(book.getTitle());
             }
         } catch (ParseException ex) {
             Logger.getLogger(FictionalBooksDao.class.getName()).log(Level.SEVERE, null, ex);
@@ -230,6 +230,7 @@ public class FictionalBooksDao {
                 b.setProductNumber(row.getLiteral("productNumber").getInt());
                 //System.out.println(row.getLiteral("fictionalCategory").getValue().toString());
                 b.setCategory(row.getLiteral("fictionalCategory").getValue().toString());
+                b.setProductName(b.getTitle());
                 books.add(b);
 
             }

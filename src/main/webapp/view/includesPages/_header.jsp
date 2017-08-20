@@ -7,28 +7,43 @@
                 <div class="col-sm-12">
                     <div class="toprow">
                         <ul class="links">
-                       
-                            <li class="first"><a class="active" href="/UniqueBookApp"><i class="fa fa-home"></i>Home</a></li>
-                            <li><a class="" href="/UniqueBookApp/account?action=edit&data=show"><i class="fa fa-user"></i>My Account</a></li>
-                            <li><a class="" href="/UniqueBookApp/cart?action=show"><i class="fa fa-shopping-cart"></i>Shopping Cart</a></li>
-                            <li><a class="" href="/UniqueBookApp/cart?action=checkout"><i class="fa fa-check"></i>Checkout</a></li>
 
-                            <li><a href="/UniqueBookApp/account?action=edit"><i class="fa fa-user"></i>Create an account</a></li>
-                            <li class="login_h last"> <a href="/UniqueBookApp/account?action=login"><i class="fa fa-lock"></i>Login</a></li>
+                            <li class="first"><a class="active" href="/UniqueBookApp"><i class="fa fa-home"></i>Home</a></li>
+                            <c:if  test="${!empty User}">
+                               <li><a class="" href="/UniqueBookApp/account?action=edit&data=show"><i class="fa fa-user"></i>My Account</a></li>
+                            </c:if>
+                            
+                            <li><a class="" href="/UniqueBookApp/viewCart"><i class="fa fa-shopping-cart"></i>Shopping Cart</a></li>
+                            <li><a class="" href="/UniqueBookApp/order?action=checkout"><i class="fa fa-check"></i>Checkout</a></li>
+                            <c:if  test="${empty User}">
+                             <li><a href="/UniqueBookApp/account?action=edit"><i class="fa fa-user"></i>Create an account</a></li>
+                             <li class="login_h last"> <a href="/UniqueBookApp/account?action=login&type=show"><i class="fa fa-lock"></i>Login</a></li>
+                            </c:if>
+                            <c:if  test="${!empty User}">
+                            <li class="login_h last"> <a href="/UniqueBookApp/account?action=logout"><i class="fa fa-lock"></i>Logout</a> <i>${User.lastName}</i></li>
+                            </c:if>
                         </ul>
                         <div class="clear"></div>
                     </div>
-
-
                     <div class="cart-position">
                         <div class="cart-inner"><div id="cart">
-
                                 <div class="heading">
                                     <span class="link_a">
                                         <i class="fa fa-shopping-cart"></i>
                                         <b>Cart:</b>
                                         <span class="sc-button"></span>
-                                        <span id="cart-total">4 item(s) 0.56$</span>
+                                        <c:if test="${empty cart}">
+                                            <span id="cart-total">0 item(s) 0.00$</span>
+                                        </c:if>          
+                                        <c:if test="${!empty cart}">
+                                            <span id="cart-total">
+                                                ${cart.numberOfItems} item(s) ${cart.total} $
+                                            </span>
+                                        </c:if>
+
+                                        <c:forEach var="cartItem" items="${cart.items}" varStatus="iter">   
+                                            <c:set var="product" value="${cartItem.product}"/>
+                                        </c:forEach>
                                         <i class="fa fa-angle-down"></i>
                                         <span class="clear"></span>
                                     </span>
@@ -36,11 +51,43 @@
 
                                 <div class="content">
                                     <div class="content-scroll">
+                                        <c:if test="${empty cart}"> 
+                                            <div class="empty">Your shopping cart is empty!</div> 
+                                        </c:if>
+                                        <div class="mini-cart-info">  
+                                            <table class="cart">
+                                                <tbody>
+                                                    <c:forEach var="cartItem" items="${cart.items}" varStatus="iter"> 
+                                                        <c:set var="product" value="${cartItem.product}"/>
 
-                                        <div class="empty">Your shopping cart is empty!</div>
+
+                                                        <tr class="first">
+                                                            <td class="image">	
+                                                                <a href="/UniqueBookApp/book?action=show&productNo=<c:out value="${product.productNumber}" />&category=<c:out value="${category}"/>">
+                                                                    <img src="${product.imagepath}" alt="${product.productName}" title="${product.productName}">
+                                                                </a>
+                                                            </td>
+                                                            <td class="name"><a href="">${product.productName}</a>
+                                                                <div>
+                                                                </div>
+                                                                <span class="quantity">${cartItem.quantity}</span>item
+                                                                <span class="total">subtotal:${cartItem.total}</span>
+
+                                                            </td>
+
+                                                        </tr>
+                                                    </c:forEach>    
+                                                </tbody>
+                                            </table>
+                                            <c:if test="${empty cart}">
+                                                total: ${cart.total} 
+                                            </c:if>
+                                        </div>  
+                                            
                                     </div>
                                 </div>
                             </div>
+
                         </div>
                     </div>
 

@@ -9,20 +9,25 @@ package com.uniquebook.models;
  *
  * @author edris
  */
-public class Customer extends Person{
+public class Customer extends Person {
 
     private Location location;
 
+    public Customer() {
 
-    public Customer(Location location) {
+    }
+
+    public Location getLocation() {
+        return location;
+    }
+
+    public void setLocation(Location location) {
         this.location = location;
     }
-    
-    
-    
+
     @Override
     public String toString() {
-        return "Customer{" + "location=" + location + '}'+super.toString();
+        return "Customer{" + "location=" + location + '}' + super.toString();
     }
-    
+
 }

@@ -44,10 +44,18 @@ public class Location {
         this.address = address;
     }
     
+    public String getPostalCode() {
+        return postalCode;
+    }
+
+    public void setPostalCode(String postalCode) {
+        this.postalCode = postalCode;
+    }
+    
     
     private String city;
     private String country;
     private String address;
-    
+    private String postalCode;
     
 }

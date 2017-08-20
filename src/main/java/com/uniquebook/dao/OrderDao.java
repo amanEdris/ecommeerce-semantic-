@@ -23,6 +23,7 @@ public class OrderDao {
     
     
     public void addOrder(Order b){
+        //hasPostalCode
         
     }
     

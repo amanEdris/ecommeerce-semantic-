@@ -170,6 +170,10 @@
                                                                     <span>Availability:</span><div class="prod-stock">In Stock</div>
 
                                                                 </c:if>
+                                                                <c:if  test="${book.quantity == 0}">
+                                                                    <span>Availability:</span><div class="prod-stock-2">Not In Stock</div>
+
+                                                                </c:if>
                                                             </div>
 
                                                             <div class="price">
@@ -180,11 +184,11 @@
                                                             <div class="cart">
                                                                 <div class="prod-row">
                                                                     <div class="cart-top">
-                                                                        <form  action="addToCart" method="post">
+                                                                        <form  action="<c:url value='addToCart'/>" method="post">
 
                                                                             <div class="cart-top-padd form-inline">
                                                                                 <label>Qty: <input class="q-mini" type="text" name="quantity" size="2" value="1">
-                                                                                    <input class="q-mini" type="hidden" name="productNo" size="2" value="<c:out value="${book.productNumber}"/>">
+                                                                                    <input class="q-mini" type="hidden" name="productNo" size="2" value="<c:out value="${book.productNumber}"/>"/>
                                                                                     <input type="hidden" name="category" value="<c:out value="${category}"/>" />
 
                                                                                 </label>
@@ -194,7 +198,7 @@
 
 
                                                                         </form>
-                                                                        </a>
+                                                                        
                                                                     </div>
                                                                     <div class="clear"></div>
                                                                 </div>

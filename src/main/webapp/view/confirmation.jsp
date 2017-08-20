@@ -3,9 +3,8 @@
 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE html>
-<html dir="ltr" lang="en"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core">
+<html dir="ltr" lang="en">
+
     <head>
         <title>Start Page</title>
 
@@ -99,11 +98,7 @@
                             </div>
                         </div>
                         <ul>
-                            <form action="#" method="post" enctype="multipart/form-data">
-                                <li><a title="US Dollar"><span class="act">$</span></a></li>
-                                <input type="hidden" name="currency_code" value="">
-                                <input type="hidden" name="redirect" value="">
-                            </form>
+                            
                         </ul>
 
                     </div>
@@ -136,84 +131,21 @@
 
                                         <div class="col-sm-9 col-sm-12    right" id="content">  <div class="breadcrumb">
                                                 <a href="/UniqueBookApp">Home</a>
-                                            <c:if  test="${empty User}">
-                                                » <a href="/UniqueBookApp/account?action=show">Account</a>
-                                                » <a href="/UniqueBookApp/account?action=edit" class="last">Register</a>
-                                            </c:if>
-                                            <c:if  test="${!empty User}">
-                                                <a href="/UniqueBookApp/account?action=edit&data=show">>> My Account</a>
-                                            </c:if>
+                                                » <a href="/UniqueBookApp/viewCart">Order</a>
+                                                » <a href="#" class="last">Checkout</a>
                                             </div>
-                                            
-                                        <c:if  test="${empty User}">
-                                            <h1>Register Account</h1>
-                                        </c:if>
+                                            <h1>Check out order</h1>
+
                                             <div class="box-container">
-                                                 <c:if  test="${empty User}">
-                                                <p>If you already have an account with us, please login at the <a href="/UniqueBookApp/account?action=login&type=show">login page</a>.</p>
-                                                <form class="form-horizontal" action="account" method="post"  id="register">
-                                                </c:if>
-                                                <c:if  test="${!empty User}">
-                                                 <form class="form-horizontal" action="updateAccount" method="post"  id="register">  
-                                                </c:if>
                                                 
-                                                    <h2>Your Personal Details</h2>
-                                                    <div class="content">
-                                                        <table class="form">      
-                                                            <tbody><tr>
-                                                                    <td>
-                                                                        <div class="form-group">
-                                                                            <label class="control-label col-sm-5" for="firstname"><span class="required">*</span> First Name:</label>
-                                                                            <div class="controls col-sm-7">
-                                                                                <input class="q1" type="text" name="firstname" value="${User.firstName}">
-                                                                            </div>
-                                                                        </div>
-                                                                    </td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td>
-                                                                        <div class="form-group">
-                                                                            <label class="control-label col-sm-5" for="lastname"><span class="required">*</span> Last Name:</label>
-                                                                            <div class="controls col-sm-7">
-                                                                                <input class="q1" type="text" name="lastname" value="${User.lastName}">
-                                                                            </div>
-                                                                        </div>
-                                                                    </td>
-                                                                </tr>
-                                                                 <tr>
-                                                                    <td>
-                                                                        <div class="form-group"><!--if gender male or female select-->
-                                                                            <label class="control-label col-sm-5" for="gender"><span class="required">*</span> Gender</label>
-                                                                            <div class="controls col-sm-7">
-                                                                                <input type="radio" name="male" value="male" checked="checked" />  Male     <input type="radio" name="male" value="female" checked="checked" />  Female
-                                                                            </div>
-                                                                        </div>
-                                                                    </td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td>
-                                                                        <div class="form-group">
-                                                                            <label class="control-label col-sm-5" for="email"><span class="required">*</span> E-Mail:</label>
-                                                                            <div class="controls col-sm-7">
-                                                                                <input class="q1" type="text" name="email" value="${User.email}">
-                                                                            </div>
-                                                                        </div>
-                                                                    </td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td>
-                                                                        <div class="form-group">
-                                                                            <label class="control-label col-sm-5" for="telephone"><span class="required">*</span> Telephone:</label>
-                                                                            <div class="controls col-sm-7">
-                                                                                <input class="q1" type="text" name="telephone" value="${User.phone}">
-                                                                            </div>
-                                                                        </div>
-                                                                    </td>
-                                                                </tr>
-                                                               
-                                                            </tbody></table>
-                                                    </div>
-                                                    <h2>Your Address</h2>
+                                                <form class="form-horizontal" action="account" method="post"  id="register">
+                                                      <label class="checkbox inline">
+                                                        <input type="checkbox" name="agree" value="1">
+                                                       I want to use my registered  <a class="colorbox" href="/UniqueBookApp/account?action=edit&data=show"><b>Address</b></a>
+                                                      </label>
+                                                    <hr>
+                                                    <p>If you want to use your registered address for shipping,   please provide the following information!</p>
+                                                    <h2>Your new Address</h2>
                                                     <div class="content">
                                                         <table class="form">
                                                             <tbody><tr>
@@ -221,10 +153,10 @@
                                                               
                                                                 <tr>
                                                                     <td>
-                                                                        <div class="form-group">   <c:set var="location" value="${User.location}"/>
+                                                                        <div class="form-group">
                                                                             <label class="control-label col-sm-5" for="address_1"><span class="required">*</span> Address:</label>
                                                                             <div class="controls col-sm-7">
-                                                                                <input class="q1" type="text" name="address_1" value="${location.address}">
+                                                                                <input class="q1" type="text" name="address_1" value="">
                                                                             </div>
                                                                         </div>
                                                                     </td>
@@ -235,7 +167,7 @@
                                                                         <div class="form-group">
                                                                             <label class="control-label col-sm-5" for="city"><span class="required">*</span> City:</label>
                                                                             <div class="controls col-sm-7">
-                                                                                <input class="q1" type="text" name="city" value="${location.city}">
+                                                                                <input class="q1" type="text" name="city" value="">
                                                                             </div>
                                                                         </div>
                                                                     </td>
@@ -245,7 +177,7 @@
                                                                         <div class="form-group">
                                                                             <label class="control-label col-sm-5" for="postcode"><span id="postcode-required" class="required" style="display: none;">*</span> Post Code:</label>
                                                                             <div class="controls col-sm-7">
-                                                                                <input class="q1" type="text" name="postcode" value="${location.postalCode}">
+                                                                                <input class="q1" type="text" name="postcode" value="">
                                                                             </div>
                                                                         </div>
                                                                     </td>
@@ -257,13 +189,12 @@
                                                                             <div class="controls col-sm-7">
                                                                                 <select name="country_id">
                                                                                     <option value=""> --- Please Select --- </option>
-                                                                                    <option value="${location.country}" selected="selected">${location.country}</option>
-                                                                                    <option value="Aaland Islands">Aaland Islands</option>
-                                                                                    <option value="Afghanistan">Afghanistan</option>
-                                                                                    <option value="Albania">Albania</option>
-                                                                                    <option value="Algeria<">Algeria</option>
-                                                                                    <option value="American Samoa">American Samoa</option>
-                                                                                    <option value="Andorra">Andorra</option>
+                                                                                    <option value="244">Aaland Islands</option>
+                                                                                    <option value="1">Afghanistan</option>
+                                                                                    <option value="2">Albania</option>
+                                                                                    <option value="3">Algeria</option>
+                                                                                    <option value="4">American Samoa</option>
+                                                                                    <option value="5">Andorra</option>
                                                                                     <option value="6">Angola</option>
                                                                                     <option value="7">Anguilla</option>
                                                                                     <option value="8">Antarctica</option>
@@ -491,7 +422,7 @@
                                                                                     <option value="219">Uganda</option>
                                                                                     <option value="220">Ukraine</option>
                                                                                     <option value="221">United Arab Emirates</option>
-                                                                                    <option value="222">United Kingdom</option>
+                                                                                    <option value="222" selected="selected">United Kingdom</option>
                                                                                     <option value="223">United States</option>
                                                                                     <option value="224">United States Minor Outlying Islands</option>
                                                                                     <option value="225">Uruguay</option>
@@ -516,39 +447,10 @@
                                                                 
                                                             </tbody></table>
                                                     </div>
-                                                    <h2>Your Password</h2>
-                                                    <div class="content">
-                                                        <table class="form">
-                                                            <tbody><tr>
-                                                                    <td>
-                                                                        <div class="form-group">
-                                                                            <label class="control-label col-sm-5" for="password"><span class="required">*</span> Password:</label>
-                                                                            <div class="controls col-sm-7">
-                                                                                <input class="q1" type="password" name="password" value="${User.password}">
-                                                                            </div>
-                                                                        </div>
-                                                                    </td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td>
-                                                                        <div class="form-group">
-                                                                            <label class="control-label col-sm-5" for="confirm"><span class="required">*</span> Password Confirm:</label>
-                                                                            <div class="controls col-sm-7">
-                                                                                <input class="q1" type="password" name="confirm" value="${User.password}">
-                                                                            </div>
-                                                                        </div>
-                                                                    </td>
-                                                                </tr>
-                                                            </tbody></table>
-                                                    </div>
-
                                                     <div class="buttons">
                                                         <div class="right">
-                                                            <label class="checkbox inline"> 
-                                                                <c:if  test="${empty User}">
-                                                                    <input type="checkbox" name="agree" value="1">
-                                                                    I have read and agree to the <a class="colorbox" href="#" alt="Privacy Policy"><b>Privacy Policy</b></a></label>
-                                                                </c:if>                                                                
+                                                           
+
                                                             <input type="submit" value="Submit" class="buttons"/>
                                                         </div>
                                                     </div>
@@ -557,17 +459,12 @@
                                         </div>
                                         <aside class="col-sm-2" id="column-right">
                                             <div class="box account">
-                                                <div class="box-heading">Account</div>
+                                                <div class="box-heading">Order</div>
                                                 <div class="box-content">
                                                     <ul class="acount">
-                                                        <c:if  test="${empty User}">
-                                                         <li><a href="/UniqueBookApp/account?action=login&type=show">Login</a> / <a href="http://localhost:8080/UniqueBookApp/account?action=edit">Register</a></li>                                                           
-                                                        </c:if>
-                                                        <c:if  test="${!empty User}">
-                                                            <li><a href="/UniqueBookApp/account?action=edit&data=show">My Account</a></li>
-                                                            <li><a href="/UniqueBookApp/order?action=show">Order History</a></li>
-                                                        </c:if>
-                                                        
+                                                        <li>Next day delivery is guaranteed <br/> Delivery sub charge:<c:set var="deliveryCharge" value="3.00"  /> <c:out value="${deliveryCharge}"/></li>
+                                                        <li>Subtotal: ${cart.total}<br/> Delivery charge:  <c:out value="${deliveryCharge}"/> </li>
+                                                        <li>total: ${cart.total + deliveryCharge}</li>
                                                 </div>
                                             </div>
                                         </aside>

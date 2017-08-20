@@ -14,10 +14,30 @@ public class ShoppingCartItem {
    
     private Product p;
     private int quantity;
+    private double total;
+
+    public Product getP() {
+        return p;
+    }
+
+    public void setP(Product p) {
+        this.p = p;
+    }
+
+    public double getTotal() {
+        return total;
+    }
+
+    public void setTotal(double total) {
+        this.total = total;
+    }
+    
 
     public ShoppingCartItem(Product p, int quantity) {
+        this.total = 0.00;
+        this.quantity =0;
         this.p = p;
-        this.quantity = quantity;
+        this.setQuantity(quantity);
     }
 
     public Product getProduct() {
@@ -33,19 +53,18 @@ public class ShoppingCartItem {
     }
 
     public void setQuantity(int quantity) {
-        if(this.quantity > 0){
-           this.quantity += quantity;
-        }else{
            this.quantity = quantity;
-        }
+          
     }
               
     public ShoppingCartItem() {
     }
-    
-     @Override
+
+    @Override
     public String toString() {
-        return "ShoppingCartItem{" + "p=" + p + ", quantity=" + quantity + '}';
+        return "ShoppingCartItem{" + "p=" + p + ", quantity=" + quantity + ", total=" + total + '}';
     }
+    
+   
     
 }

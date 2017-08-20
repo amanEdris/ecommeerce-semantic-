@@ -6,7 +6,6 @@
 package com.uniquebook.controllers;
 
 import com.uniquebook.dao.BookDao;
-import com.uniquebook.models.Book;
 import com.uniquebook.models.Product;
 import com.uniquebook.models.ShoppingCart;
 import com.uniquebook.models.ShoppingCartItem;
@@ -25,10 +24,10 @@ import javax.servlet.http.HttpSession;
  *
  * @author edris
  */
-@WebServlet(name = "CartController", loadOnStartup = 1, urlPatterns = {"/addToCart", "/updateCart", "/viewCart"})
+@WebServlet(name = "CartController", loadOnStartup = 1, urlPatterns = {"/deleteCart", "/addToCart", "/updateCart", "/viewCart"})
 public class CartController extends HttpServlet {
 
-    private static String INSERT_OR_EDIT = "/view/cart.jsp";
+    private static final String INSERT_OR_EDIT = "/view/cart.jsp";
     private BookDao bookDao;
 
     public CartController() {
@@ -40,16 +39,22 @@ public class CartController extends HttpServlet {
             throws ServletException, IOException {
         String userPath = request.getServletPath();
         String forward = "";
-        if (userPath.equalsIgnoreCase("delete")) {
+        HttpSession session = request.getSession();
+        ShoppingCart cart = (ShoppingCart) session.getAttribute("cart");
+        String action = request.getParameter("action");
+
+        if (userPath.equalsIgnoreCase("/viewCart")) {
             forward = INSERT_OR_EDIT;
-            // TODO: implement delete cart items 
-        } else if (userPath.equalsIgnoreCase("viewCart")) {
-            forward = INSERT_OR_EDIT;
-            // TODO: implement update to cart 
 
         } else {
-            // TODO: implement list cart items page
-
+            if (!action.isEmpty()) {
+                if (action.equalsIgnoreCase("clear")) {
+                    forward = INSERT_OR_EDIT;
+                    cart.removeAllItems();
+                    cart = null;
+                    session.invalidate();
+                }
+            }
         }
         RequestDispatcher view = request.getRequestDispatcher(forward);
         view.forward(request, response);
@@ -58,53 +63,41 @@ public class CartController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String userPath = request.getServletPath();
+        Product product = null;
+        String userPath = request.getServletPath(); 
         String forward = INSERT_OR_EDIT;
         HttpSession session = request.getSession();
         ShoppingCart cart = (ShoppingCart) session.getAttribute("cart");
+        int productId = Integer.parseInt(request.getParameter("productNo"));
+        int quantity = Integer.parseInt(request.getParameter("quantity"));
+        String category = request.getParameter("category");
+        request.setAttribute("category", category);
 
-        // if addToCart action is called
+        BookDao nnd = new BookDao();
+        try {
+            product = nnd.getProductbyProductNumber(productId, category);
+        } catch (Exception ex) {
+            PrintWriter out = response.getWriter();
+            out.println(ex.getLocalizedMessage().toString());
+        }
+
         if (userPath.equals("/addToCart")) {
-            // TODO: Implement add product to cart action
             if (cart == null) {
                 cart = new ShoppingCart();
                 session.setAttribute("cart", cart);
             }
+            ShoppingCartItem item = new ShoppingCartItem(product, quantity);
+            cart.addItem(item);
 
-            int productId = Integer.parseInt(request.getParameter("productNo"));
-            int quantity = Integer.parseInt(request.getParameter("quantity"));
-            String category = (request.getParameter("category"));
-            
-            Book b = bookDao.getBookbyProductNumber(productId, category);
-            response.setContentType("text/html;charset=UTF-8");
-            try (PrintWriter out = response.getWriter()) {
-                /* TODO output your page here. You may use following sample code. */
-                out.println("<!DOCTYPE html>");
-                out.println("<html>");
-                out.println("<head>");
-                out.println("<title>Servlet OrderController</title>");
-                out.println("</head>");
-                out.println("<body>");
-                out.println("<h1>product number at " + productId + "</h1>");
-                out.println("<h1>Quantity at " + quantity+ "</h1>");
-                out.println("<h1>category at " + category + "</h1>");
-                out.println("</body>");
-                out.println("</html>");
-            }
+        } else if (userPath.equals("/updateCart")) {
+            ShoppingCartItem item = new ShoppingCartItem(product, quantity);
+            cart.updateItem(item);
+        } else {
 
-//            ShoppingCartItem item = new ShoppingCartItem(p, quantity);
-//            cart.addItem(item);
-//            session.setAttribute("cart", cart);
-//            forward = request.getRequestURL().toString();
         }
 
-//        else if (userPath.equals("/purchase")) {
-//            // TODO: Implement purchase action
-//            userPath = "/confirmation";
-//        }
-//
-//        RequestDispatcher view = request.getRequestDispatcher(forward);
-//        view.forward(request, response);
+        RequestDispatcher view = request.getRequestDispatcher(forward);
+        view.forward(request, response);
     }
 
     @Override

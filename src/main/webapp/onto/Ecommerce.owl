@@ -208,16 +208,19 @@ xsd:date rdf:type rdfs:Datatype .
                                                                      rdf:rest [ rdf:type rdf:List ;
                                                                                 rdf:first "Lierature" ;
                                                                                 rdf:rest [ rdf:type rdf:List ;
-                                                                                           rdf:first "Poetry" ;
+                                                                                           rdf:first "Mistry" ;
                                                                                            rdf:rest [ rdf:type rdf:List ;
-                                                                                                      rdf:first "Romance" ;
+                                                                                                      rdf:first "Poetry" ;
                                                                                                       rdf:rest [ rdf:type rdf:List ;
-                                                                                                                 rdf:first "Science Fiction" ;
+                                                                                                                 rdf:first "Romance" ;
                                                                                                                  rdf:rest [ rdf:type rdf:List ;
-                                                                                                                            rdf:first "Thrillers" ;
+                                                                                                                            rdf:first "Science Fiction" ;
                                                                                                                             rdf:rest [ rdf:type rdf:List ;
-                                                                                                                                       rdf:first "Westerns" ;
-                                                                                                                                       rdf:rest rdf:nil
+                                                                                                                                       rdf:first "Thrillers" ;
+                                                                                                                                       rdf:rest [ rdf:type rdf:List ;
+                                                                                                                                                  rdf:first "Westerns" ;
+                                                                                                                                                  rdf:rest rdf:nil
+                                                                                                                                                ]
                                                                                                                                      ]
                                                                                                                           ]
                                                                                                                ]
@@ -320,39 +323,39 @@ xsd:date rdf:type rdfs:Datatype .
                          
                          rdfs:range [ rdf:type rdfs:Datatype ;
                                       owl:oneOf [ rdf:type rdf:List ;
-                                                  rdf:first " History" ;
+                                                  rdf:first " Home & Garden" ;
                                                   rdf:rest [ rdf:type rdf:List ;
-                                                             rdf:first " Home & Garden" ;
+                                                             rdf:first "Activity & Game Boosk" ;
                                                              rdf:rest [ rdf:type rdf:List ;
-                                                                        rdf:first "Activity & Game Boosk" ;
+                                                                        rdf:first "Antiques & Collectibles " ;
                                                                         rdf:rest [ rdf:type rdf:List ;
-                                                                                   rdf:first "Antiques & Collectibles " ;
+                                                                                   rdf:first "Architecture" ;
                                                                                    rdf:rest [ rdf:type rdf:List ;
-                                                                                              rdf:first "Architecture" ;
+                                                                                              rdf:first "Art" ;
                                                                                               rdf:rest [ rdf:type rdf:List ;
-                                                                                                         rdf:first "Art" ;
+                                                                                                         rdf:first "Bibles & Christanity" ;
                                                                                                          rdf:rest [ rdf:type rdf:List ;
-                                                                                                                    rdf:first "Bibles & Christanity" ;
+                                                                                                                    rdf:first "Biography" ;
                                                                                                                     rdf:rest [ rdf:type rdf:List ;
-                                                                                                                               rdf:first "Biography" ;
+                                                                                                                               rdf:first "Business Books" ;
                                                                                                                                rdf:rest [ rdf:type rdf:List ;
-                                                                                                                                          rdf:first "Business Books" ;
+                                                                                                                                          rdf:first "Computers" ;
                                                                                                                                           rdf:rest [ rdf:type rdf:List ;
-                                                                                                                                                     rdf:first "Computers" ;
+                                                                                                                                                     rdf:first "Cookbooks, Food & Wine" ;
                                                                                                                                                      rdf:rest [ rdf:type rdf:List ;
-                                                                                                                                                                rdf:first "Cookbooks, Food & Wine" ;
+                                                                                                                                                                rdf:first "Crafts & Hobbies" ;
                                                                                                                                                                 rdf:rest [ rdf:type rdf:List ;
-                                                                                                                                                                           rdf:first "Crafts & Hobbies" ;
+                                                                                                                                                                           rdf:first "Current Affairs & Politics" ;
                                                                                                                                                                            rdf:rest [ rdf:type rdf:List ;
-                                                                                                                                                                                      rdf:first "Current Affairs & Politics" ;
+                                                                                                                                                                                      rdf:first "Education" ;
                                                                                                                                                                                       rdf:rest [ rdf:type rdf:List ;
-                                                                                                                                                                                                 rdf:first "Diet, Health & Fitness" ;
+                                                                                                                                                                                                 rdf:first "Engineering" ;
                                                                                                                                                                                                  rdf:rest [ rdf:type rdf:List ;
-                                                                                                                                                                                                            rdf:first "Education" ;
+                                                                                                                                                                                                            rdf:first "Foriegn Languages" ;
                                                                                                                                                                                                             rdf:rest [ rdf:type rdf:List ;
-                                                                                                                                                                                                                       rdf:first "Engineering" ;
+                                                                                                                                                                                                                       rdf:first "Health Fitness" ;
                                                                                                                                                                                                                        rdf:rest [ rdf:type rdf:List ;
-                                                                                                                                                                                                                                  rdf:first "Foriegn Languages" ;
+                                                                                                                                                                                                                                  rdf:first "History" ;
                                                                                                                                                                                                                                   rdf:rest [ rdf:type rdf:List ;
                                                                                                                                                                                                                                              rdf:first "Home" ;
                                                                                                                                                                                                                                              rdf:rest [ rdf:type rdf:List ;

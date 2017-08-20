@@ -6,13 +6,15 @@
 package com.uniquebook.modetest;
 
 import com.uniquebook.dao.BookDao;
+import com.uniquebook.dao.CustomerDao;
 import com.uniquebook.dao.FictionalBooksDao;
 import com.uniquebook.dao.KidsBookDao;
+import com.uniquebook.dao.ManagerDao;
 import com.uniquebook.dao.NonFictionalBooksDao;
-import com.uniquebook.models.Book;
-import java.util.ArrayList;
+import com.uniquebook.models.Customer;
+import com.uniquebook.models.Manager;
+import com.uniquebook.models.Product;
 import java.util.Date;
-import java.util.List;
 
 /**
  *
@@ -21,6 +23,21 @@ import java.util.List;
 public class testDao {
 
     public static void main(String[] args) throws Exception {
+        
+//        Manager c = new Manager();
+//        ManagerDao cd = new ManagerDao();
+//        
+//        c = cd.getManagerByEmailAndPassword("edi@gmail.com", "ed");
+//        
+//        System.out.println("manager data is:"+c.toString());
+//        
+        
+        Customer c = new Customer();
+        CustomerDao cd = new CustomerDao();
+        
+        c = cd.getCustomerByEmailAndPassword("fljori@gmail.com", "fljori");
+        
+        System.out.println("manager data is:"+c.toString());
 
         NonFictionalBooksDao nonficational = new NonFictionalBooksDao();
         //test can get non ficitonal list of books by category
@@ -70,10 +87,12 @@ public class testDao {
 //         * test can delete a book given producer consumer
 //         */
         BookDao nnd = new BookDao();
+        Product bb = nnd.getProductbyProductNumber(2, "Mistry");
+       // System.out.println("the product is :"+bb );
       //  nnd.deleteBooks(bbn.getProductNumber());
        // System.out.println("you deleted a book" + bw.getFictionalBookByProductNumber(bbn.getProductNumber()));
 //          
-//          System.out.println(nnd.getAllBooksbyCategory("History").toString());
+         //System.out.println(nnd.getAllBooksbyCategory("History").toString());
 //          
 //          List<Book> books = new ArrayList<Book>();
  

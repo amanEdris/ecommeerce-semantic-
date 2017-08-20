@@ -10,8 +10,10 @@ r:edi rdf:type r:Manager;
 
      r:hasPhone "+358440993393"^^xsd:string ;
 
-     r:hasName "Edi man"^^xsd:string ;
+     r:hasFirstName "dd"^^xsd:string;
 
+     r:hasLastName "bnb"^^xsd:string;
+     
      r:hasPassword "admin"^^xsd:string ;
 
      r:hasEmail "edi@gmail.com"^^xsd:string ;
