@@ -166,7 +166,7 @@
                                                                     <b>I am a returning customer</b>
                                                                 </div>
                                                             </div>
-                                                            <form class="form-horizontal" action="/login" method="post"  id="login">
+                                                            <form class="form-horizontal" action="<c:url value='login'/>" method="post"  id="login">
                                                                 <div class="content">
                                                                     <div class="form-group">
                                                                         <label class="padd-form control-label col-sm-5" for="email">E-Mail Address:</label>
@@ -197,8 +197,11 @@
                                                 <div class="box-content">
                                                     <ul class="acount">
                                                         <li><a href="/UniqueBookApp/account?action=login">Login</a> / <a href="http://localhost:8080/UniqueBookApp/account?action=edit">Register</a></li>
-                                                        <li><a href="/UniqueBookApp/account?action=edit&data=show">My Account</a></li>
-                                                        <li><a href="/UniqueBookApp/order?action=show">Order History</a></li>
+                                                        <c:if test="${!empty User}">
+                                                            <li><a href="/UniqueBookApp/account?action=edit&data=show">My Account</a></li>
+                                                            <li><a href="/UniqueBookApp/order?action=show">Order History</a></li>
+                                                        </c:if>
+                                                        
                                                 </div>
                                             </div>
                                         </aside>

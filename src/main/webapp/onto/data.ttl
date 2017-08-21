@@ -13,7 +13,7 @@ r:edi rdf:type r:Manager;
      r:hasFirstName "dd"^^xsd:string;
 
      r:hasLastName "bnb"^^xsd:string;
-     
+
      r:hasPassword "admin"^^xsd:string ;
 
      r:hasEmail "edi@gmail.com"^^xsd:string ;
@@ -237,7 +237,6 @@ r:fljori rdf:type r:Customer;
 
         r:hasEmail "fljori@gmail.com"^^xsd:string ;
 
-        r:hasPassword "flori"^^xsd:string ;
 
         r:hasLocation r:fljoriLocation ;
         r:hasFirstName "dd" .

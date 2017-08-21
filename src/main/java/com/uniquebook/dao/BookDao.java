@@ -5,22 +5,10 @@
  */
 package com.uniquebook.dao;
 
-import com.hp.hpl.jena.rdf.model.Model;
-import com.hp.hpl.jena.update.UpdateAction;
 import com.uniquebook.models.Book;
-import com.uniquebook.models.FictionalBook;
 import com.uniquebook.models.KidsBook;
 import com.uniquebook.models.NonFictionalBook;
 import com.uniquebook.models.Product;
-import com.uniquebook.utils.FusekiClient;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  *

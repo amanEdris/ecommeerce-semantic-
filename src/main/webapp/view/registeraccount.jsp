@@ -156,7 +156,7 @@
                                                 <c:if  test="${!empty User}">
                                                  <form class="form-horizontal" action="updateAccount" method="post"  id="register">  
                                                 </c:if>
-                                                
+                                                     <i>${message}</i>
                                                     <h2>Your Personal Details</h2>
                                                     <div class="content">
                                                         <table class="form">      

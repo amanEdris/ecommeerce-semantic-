@@ -8,7 +8,6 @@ package com.uniquebook.controllers;
 import com.uniquebook.dao.CustomerDao;
 import com.uniquebook.models.Customer;
 import com.uniquebook.models.Location;
-import com.uniquebook.models.ShoppingCart;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.RequestDispatcher;
@@ -23,7 +22,7 @@ import javax.servlet.http.HttpSession;
  *
  * @author edris
  */
-@WebServlet(name = "AccountController", urlPatterns = {"/account", "/updateAccount","login"})
+@WebServlet(name = "AccountController", urlPatterns = {"/account", "/updateAccount","/login"})
 public class AccountController extends HttpServlet {
 
     private CustomerDao customerDao;
@@ -48,6 +47,7 @@ public class AccountController extends HttpServlet {
         } else if (action.equalsIgnoreCase("login")) {
             forward = LOGIN_PAGE;
         } else if (action.equalsIgnoreCase("edit")) {
+            
             forward = INSERT_OR_EDIT;
             //TODO: Edit customer data admin 
 
@@ -88,7 +88,7 @@ public class AccountController extends HttpServlet {
         } else if (userPath.equals("/updateAccount")) {
             // TODO:implement update to customer account
             //get all customer data use javascript validation
-            
+            HttpSession session = request.getSession();       
             Customer c = new Customer();
             Location l = new Location();
             l.setAddress(request.getParameter("address_1"));
@@ -102,7 +102,17 @@ public class AccountController extends HttpServlet {
             c.setPassword(request.getParameter("password"));
             c.setGender(request.getParameter("male"));
             c.setPhone(request.getParameter("telephone"));           
-            customerDao.updateCustomer(c);   
+            
+            Customer customerOld= (Customer) session.getAttribute("User");
+            boolean updated = customerDao.updateCustomer(c,customerOld);  
+            
+            if(updated){
+                customerOld =  c;                    
+            }else{
+                request.setAttribute("message", "unable to update account please check all the values");
+            }
+ 
+            
             forward = INSERT_OR_EDIT;
         }
         
