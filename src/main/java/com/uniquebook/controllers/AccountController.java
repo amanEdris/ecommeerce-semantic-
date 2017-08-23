@@ -22,7 +22,7 @@ import javax.servlet.http.HttpSession;
  *
  * @author edris
  */
-@WebServlet(name = "AccountController", urlPatterns = {"/account", "/updateAccount","/login"})
+@WebServlet(name = "AccountController", urlPatterns = {"/account", "/updateAccount", "/login"})
 public class AccountController extends HttpServlet {
 
     private CustomerDao customerDao;
@@ -41,20 +41,22 @@ public class AccountController extends HttpServlet {
         String forward = "";
         String action = request.getParameter("action");
         HttpSession session = request.getSession();
+        String userPath = request.getServletPath();
 
         if (action.equalsIgnoreCase("delete")) {
             //TODO: delete account for customer admin 
         } else if (action.equalsIgnoreCase("login")) {
             forward = LOGIN_PAGE;
         } else if (action.equalsIgnoreCase("edit")) {
-            
+
             forward = INSERT_OR_EDIT;
             //TODO: Edit customer data admin 
 
         } else if (action.equalsIgnoreCase("logout")) {
-             Customer c =  (Customer) session.getAttribute("User");
-             c= null;
-             session.invalidate();
+
+            Customer c = (Customer) session.getAttribute("User");
+            c = null;
+            session.removeAttribute("User");
         } else {
 
         }
@@ -67,7 +69,7 @@ public class AccountController extends HttpServlet {
             throws ServletException, IOException {
 
         String forward = "";
-        String userPath = request.getServletPath(); 
+        String userPath = request.getServletPath();
 
         if (userPath.equals("/login")) {
             String password = request.getParameter("password");
@@ -75,7 +77,7 @@ public class AccountController extends HttpServlet {
             String message = " ";
 
             Customer customer = customerDao.getCustomerByEmailAndPassword(email, password);
-
+            
             if (customer.getLocation() == null) {
                 message = "Password or Email is not correct";
                 request.setAttribute("message", message);
@@ -86,9 +88,7 @@ public class AccountController extends HttpServlet {
                 forward = INSERT_OR_EDIT;
             }
         } else if (userPath.equals("/updateAccount")) {
-            // TODO:implement update to customer account
-            //get all customer data use javascript validation
-            HttpSession session = request.getSession();       
+            HttpSession session = request.getSession();
             Customer c = new Customer();
             Location l = new Location();
             l.setAddress(request.getParameter("address_1"));
@@ -101,21 +101,21 @@ public class AccountController extends HttpServlet {
             c.setLastName(request.getParameter("lastname"));
             c.setPassword(request.getParameter("password"));
             c.setGender(request.getParameter("male"));
-            c.setPhone(request.getParameter("telephone"));           
-            
-            Customer customerOld= (Customer) session.getAttribute("User");
-            boolean updated = customerDao.updateCustomer(c,customerOld);  
-            
-            if(updated){
-                customerOld =  c;                    
-            }else{
+            c.setPhone(request.getParameter("telephone"));
+
+            Customer customerOld = (Customer) session.getAttribute("User");
+            boolean updated = customerDao.updateCustomer(c, customerOld);
+
+            if (updated) {
+                customerOld.clone(c);
+            } else {
                 request.setAttribute("message", "unable to update account please check all the values");
             }
- 
-            
             forward = INSERT_OR_EDIT;
+        } else {
+
         }
-        
+
         RequestDispatcher view = request.getRequestDispatcher(forward);
         view.forward(request, response);
 

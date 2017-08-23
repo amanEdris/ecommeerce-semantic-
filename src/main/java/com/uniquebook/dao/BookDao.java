@@ -5,10 +5,13 @@
  */
 package com.uniquebook.dao;
 
+import com.hp.hpl.jena.query.QuerySolution;
+import com.hp.hpl.jena.query.ResultSet;
 import com.uniquebook.models.Book;
 import com.uniquebook.models.KidsBook;
 import com.uniquebook.models.NonFictionalBook;
 import com.uniquebook.models.Product;
+import com.uniquebook.utils.FusekiClient;
 
 /**
  *
@@ -26,22 +29,6 @@ public class BookDao {
         kidDao = new KidsBookDao();
     }
 
-    /**
-     * public void deleteBooks(int productNumber) { FileOutputStream stream =
-     * null; try { String deleteQuery = FusekiClient.PREFIX; deleteQuery +=
-     * "DELETE {?s ?p ?o}\n" + " \n" + "WHERE { ?s ?p ?o ." + " ?s
-     * r:productNumber ?r. \n" + " FILTER (?o = " + productNumber + ") \n" + "}
-     * "; System.out.println(deleteQuery);
-     * UpdateAction.parseExecute(deleteQuery, model); File file = new
-     * File(FusekiClient.RDF_DATA_MODEL_PATH); stream = new
-     * FileOutputStream(file); model.write(stream, "TTL"); } catch
-     * (FileNotFoundException ex) {
-     * Logger.getLogger(BookDao.class.getName()).log(Level.SEVERE, null, ex); }
-     * finally { try { stream.close(); } catch (IOException ex) {
-     * Logger.getLogger(BookDao.class.getName()).log(Level.SEVERE, null, ex); }
-     * }
-    }*
-     */
     public Book getBookbyProductNumber(int productNumber, String category) {
         Book b = new Book();
 
@@ -60,8 +47,8 @@ public class BookDao {
     }
 
     public Product getProductbyProductNumber(int productNumber, String category) throws Exception {
-        if(productNumber == 0 || category == null){
-           throw new Exception("the product doesn't exist in our system!");
+        if (productNumber == 0 || category == null) {
+            throw new Exception("the product doesn't exist in our system!");
         }
         Book b = this.getBookbyProductNumber(productNumber, category);
         Product p = new Product();
@@ -72,6 +59,29 @@ public class BookDao {
         p.setProductNumber(b.getProductNumber());
         p.setQuantity(b.getQuantity());
         return p;
+    }
+
+    public String getSubjectName(Product p) {
+        String selectQuery = null;
+        String subjectName = null;
+        selectQuery = FusekiClient.PREFIX;
+        selectQuery += "SELECT  ?x\n"
+                + "\n"
+                + "WHERE\n"
+                + "{ \n"
+                + "  ?x a ?o;\n"
+                + "     r:productNumber  \"" + p.getProductNumber() + "\"^^xsd:nonNegativeInteger.\n"
+                + "\n"
+                + " }";
+
+        System.out.println("subject query for this product is:  " + selectQuery);
+
+        ResultSet results = FusekiClient.queryFUSEKI(selectQuery);
+        while (results.hasNext()) {
+            QuerySolution row = results.next();
+            subjectName = row.getResource("x").getLocalName();
+        }
+        return subjectName;
     }
 
 }

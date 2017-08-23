@@ -27,7 +27,7 @@ import javax.servlet.http.HttpSession;
 @WebServlet(name = "CartController", loadOnStartup = 1, urlPatterns = {"/deleteCart", "/addToCart", "/updateCart", "/viewCart"})
 public class CartController extends HttpServlet {
 
-    private static final String INSERT_OR_EDIT = "/view/cart.jsp";
+    private static String INSERT_OR_EDIT = "/view/cart.jsp";
     private BookDao bookDao;
 
     public CartController() {
@@ -39,7 +39,7 @@ public class CartController extends HttpServlet {
             throws ServletException, IOException {
         String userPath = request.getServletPath();
         String forward = "";
-        HttpSession session = request.getSession();
+        HttpSession session = request.getSession( );
         ShoppingCart cart = (ShoppingCart) session.getAttribute("cart");
         String action = request.getParameter("action");
 
@@ -64,7 +64,7 @@ public class CartController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         Product product = null;
-        String userPath = request.getServletPath(); 
+        String userPath = request.getServletPath();
         String forward = INSERT_OR_EDIT;
         HttpSession session = request.getSession();
         ShoppingCart cart = (ShoppingCart) session.getAttribute("cart");

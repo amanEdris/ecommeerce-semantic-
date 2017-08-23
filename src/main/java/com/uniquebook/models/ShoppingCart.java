@@ -7,7 +7,6 @@ package com.uniquebook.models;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 /**
  *
@@ -166,36 +165,19 @@ public class ShoppingCart {
         }
     }
 
-    public static void main(String arg[]) {
-        Product p = new Product();
-        p.setDescription("nothing is well!");
-        p.setImagepath("/images/dawg.png");
-        p.setPrice(1);
-        p.setProductName("Jambo");
-        p.setProductNumber(12);
-        p.setQuantity(5);
 
-        Product pe = new Product();
-        pe.setDescription("nothing is wwell!");
-        pe.setImagepath("/images/dawgw.png");
-        pe.setPrice(1);
-        pe.setQuantity(10);
-        pe.setProductName("Jambwo");
-        pe.setProductNumber(13);
-
-        ShoppingCart c = new ShoppingCart();
-        ShoppingCartItem sc = new ShoppingCartItem(p, 1);
-        ShoppingCartItem sd = new ShoppingCartItem(p, 2);
-        c.addItem(sc);
-        c.addItem(sd);
-
-        ShoppingCartItem snd = new ShoppingCartItem(pe, 2);
-        c.addItem(snd);
-
-        System.out.println("shopping cart     =======================:" + c.toString());
-
+    public List<Sale> getSalesList(){
+         List<Sale> sales = new ArrayList<Sale>();
+         if (!items.isEmpty()) {
+            for (int i = 0; i < items.size(); i++) {
+                Sale tempsale = new Sale(items.get(i).getQuantity(),items.get(i).getProduct());
+                sales.add(tempsale);
+            }
+         }       
+         return sales;       
     }
-
+    
+    
     @Override
     public String toString() {
         return "ShoppingCart{" + "total=" + total + ", numberOfItems=" + numberOfItems + ", items=" + items + '}';

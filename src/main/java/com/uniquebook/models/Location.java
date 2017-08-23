@@ -57,5 +57,12 @@ public class Location {
     private String country;
     private String address;
     private String postalCode;
+
+    public void clone(Location location) {
+        this.city = location.getCity();
+        this.address = location.getAddress();
+        this.country = location.getCountry();
+        this.postalCode = location.getPostalCode();
+    }
     
 }

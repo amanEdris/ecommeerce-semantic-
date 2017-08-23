@@ -43,6 +43,13 @@ public class FusekiClient {
         return results;
     }
     
+     public static boolean askFUSEKI(String BooksQuery) {
+        Query query = QueryFactory.create(BooksQuery, Syntax.syntaxARQ);
+        QueryExecution qe = QueryExecutionFactory.sparqlService(QUERY_FUSEKI_CLIENT_URL, query);
+        boolean results = qe.execAsk();
+        return results;
+    }
+    
     /**
      * 
      * @param updateQuery 

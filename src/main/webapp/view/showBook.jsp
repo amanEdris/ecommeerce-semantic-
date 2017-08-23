@@ -80,34 +80,17 @@
                         <li><a class="" href="#"><i class="fa fa-check"></i>Checkout</a></li>
                         <li><a href="#"><i class="fa fa-user"></i>Create an account</a></li><li class="login_h"><a href="#"><i class="fa fa-lock"></i>Login</a></li>   					</ul>
 
-                    <div id="language" class="header-button">
-                        <div class="heading">en<i class="fa fa-angle-down"></i></div>
-                        <div class="heading1"><i class="fa fa-globe"></i>Language<i class="fa fa-angle-down"></i></div>
-                        <ul>
+               
 
-                        </ul>
-                    </div>
-
-                    <div id="currency" class="header-button">
-                        <div>
-                            <div class="heading-1"><i class="fa fa-money"></i>Currency<i class="fa fa-angle-down"></i></div>
-                            <div class="heading">
-                                $<i class="fa fa-angle-down"></i>
-                            </div>
-                        </div>
-
-
-                    </div>
+                  
 
                     <ul class="foot">
                         <li><a href="#about">About</a></li>
-                        <li><a href="#delivery">Delivery</a></li>
                         <li><a href="#">Privacy Policy</a></li>
                         <li><a href="#">Terms &amp; Conditions</a></li>
                     </ul>
                     <ul class="foot foot-1">
                         <li><a href="#">Contact Us</a></li>
-                        <li><a href="#">Returns</a></li>
                     </ul>
                     <ul class="foot foot-2">
                     </ul>
@@ -130,7 +113,7 @@
                                     <div class="row">
                                         <div class="col-sm-12    right" id="content">
                                             <div class="col-sm-10 col-sm-12    right" id="content">	<div class="breadcrumb">
-                                                    <a href="http://localhost:8080/UniqueBookApp/">Home</a>
+                                                    <a href="/UniqueBookApp">Home</a>
                                                     » <a href="http://localhost:8080/UniqueBookApp/book?action=show&productNo=#" class="last"><c:out value="${book.title}" /></a>
                                             </div>
                                             <div class="product-info">

@@ -7,8 +7,6 @@ package com.uniquebook.dao;
 
 import com.hp.hpl.jena.query.QuerySolution;
 import com.hp.hpl.jena.query.ResultSet;
-import com.hp.hpl.jena.rdf.model.Model;
-import com.hp.hpl.jena.update.UpdateAction;
 import com.uniquebook.models.FictionalBook;
 import com.uniquebook.utils.HelperUtil;
 import com.uniquebook.utils.FusekiClient;

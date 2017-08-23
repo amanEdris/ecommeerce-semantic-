@@ -29,6 +29,7 @@ public class CustomerDao {
     }
 
     public void addCustomer(Customer b) {
+        //use Ask query to check if email is registerd
         try {
             Location l = b.getLocation();
             String locationSubject = helperUtil.generateNames();
@@ -58,67 +59,102 @@ public class CustomerDao {
 
     }
 
-    public void deleteCustomer(int productNumber) {
-
-    }
-
     public boolean updateCustomer(Customer b, Customer c) {
-        String  updateCustomerQuery = null;
+        String updateCustomerQuery = null;
         try {
             Location l = b.getLocation();
-           
+
             updateCustomerQuery = FusekiClient.PREFIX;
             updateCustomerQuery += "DELETE"
                     + "{"
-                    + "  ?location a r:Location;\n"
-                    + "     r:hasPostalCode ?postalCode; \n"
-                    + "     r:hasCity ?city ;\n"
-                    + "     r:hasCountry ?country ; \n"
-                    + "     r:hasAddress ?address. \n"
-                    + "  ?c a   r:Customer;\n"
-                    + "     r:hasPhone ?phone;\n"
+                    + "  ?c r:hasPhone ?phone;\n"
                     + "     r:hasPassword ?password;\n"
                     + "     r:hasEmail   ?email;\n"
                     + "     r:hasLastName   ?lastname;\n"
                     + "     r:hasFirstName  ?firstname;\n"
                     + "     r:hasGender     ?gender.\n"
+                    + "  ?location   r:hasPostalCode ?postalCode; \n"
+                    + "     r:hasCity ?city ;\n"
+                    + "     r:hasCountry ?country ; \n"
+                    + "     r:hasAddress ?address. \n"
                     + "}"
-//                    + "INSERT "
-//                    + "{"
-//                    + "	?location a r:Location;\n"
-//                    + "  		r:hasPostalCode \""+l.getPostalCode()+"\"^^xsd:nonNegativeInteger ;\n"
-//                    + "             r:hasCity \""+l.getCity()+"\"^^xsd:string ;\n"
-//                    + "  		r:hasCountry \""+l.getCountry()+"\"^^xsd:string ;\n"
-//                    + "  	        r:hasAddress \""+l.getAddress()+"\"^^xsd:string.\n"
-//                    + "     ?c   a   r:Customer;\n"
-//                    + " r:hasPhone \"" + b.getPhone() + "\"^^xsd:string ; \n"
-//                    + " r:hasPassword \"" + b.getPassword() + "\"^^xsd:string ;\n"
-//                    + " r:hasEmail \"" + b.getEmail() + "\"^^xsd:string ;\n"
-//                    + " r:hasLastName \"" + b.getLastName() + "\"^^xsd:string ;\n"
-//                    + " r:hasFirstName \"" + b.getFirstName() + "\"^^xsd:string; \n"
-//                    + " r:hasGender \"" + b.getGender() + "\"^^xsd:string .\n"
-//                    + "}"
-                    + " WHERE { \n"
+                    + "INSERT "
+                    + "{"
+                    + "	?location a r:Location;\n"
+                    + "  		r:hasPostalCode \"" + l.getPostalCode() + "\"^^xsd:nonNegativeInteger ;\n"
+                    + "             r:hasCity \"" + l.getCity() + "\"^^xsd:string ;\n"
+                    + "  		r:hasCountry \"" + l.getCountry() + "\"^^xsd:string ;\n"
+                    + "  	        r:hasAddress \"" + l.getAddress() + "\"^^xsd:string.\n"
+                    + "     ?c   a   r:Customer;\n"
+                    + " r:hasPhone \"" + b.getPhone() + "\"^^xsd:string ; \n"
+                    + " r:hasPassword \"" + b.getPassword() + "\"^^xsd:string ;\n"
+                    + " r:hasEmail \"" + b.getEmail() + "\"^^xsd:string ;\n"
+                    + " r:hasLastName \"" + b.getLastName() + "\"^^xsd:string ;\n"
+                    + " r:hasFirstName \"" + b.getFirstName() + "\"^^xsd:string; \n"
+                    + " r:hasGender \"" + b.getGender() + "\"^^xsd:string .\n"
+                    + ""
+                    + "} WHERE { \n"
                     + " ?c rdf:type r:Customer.\n"
                     + " ?c r:hasEmail ?email.\n"
-                    + " ?c r:hasPassword ?password.\n"
-                    + " ?c r:hasLocation ?location.\n"
+                    + " ?c r:hasLastName   ?lastname.\n"
+                    + " ?c r:hasPhone ?phone."
+                    + " ?c r:hasPassword ?password."
+                    + " ?c r:hasFirstName  ?firstname."
+                    + " ?c r:hasLocation ?location."
+                    + "?c r:hasGender     ?gender.\n"
                     + " ?location a r:Location.\n"
-                    + "  FILTER (?email = \""+c.getEmail()+"\"^^xsd:string ) \n"
+                    + " ?location   r:hasPostalCode ?postalCode. \n"
+                    + " ?location   r:hasCity ?city.\n"
+                    + " ?location   r:hasCountry ?country . \n"
+                    + " ?location   r:hasAddress ?address. \n"
+                    + "  FILTER (?email = \"" + c.getEmail() + "\"^^xsd:string ) \n"
                     + "}";
-            
+            System.out.println("Update customer query is: " + updateCustomerQuery);
             FusekiClient.insertFUSEKI(updateCustomerQuery);
         } catch (Exception ex) {
-             System.err.println("Error"+ex.getLocalizedMessage());
+            System.err.println("Error" + ex.getLocalizedMessage());
             Logger.getLogger(CustomerDao.class.getName()).log(Level.SEVERE, null, ex);
             return false;
         }
         return true;
     }
 
-    public List<Customer> getAllCustomer() {
-        return null;
+    public String getSubjectName(String email) {
+        String selectQuery = null;
+        String subjectName = null;
+        selectQuery = FusekiClient.PREFIX;
+        selectQuery += "SELECT  ?c "
+                + "WHERE { \n"
+                + " ?c rdf:type r:Customer.\n"
+                + " ?c r:hasEmail ?email.\n"
+                + "  FILTER (?email = \"" + email + "\"^^xsd:string ) \n"
+                + "}"
+                + "";
 
+        ResultSet results = FusekiClient.queryFUSEKI(selectQuery);
+        while (results.hasNext()) {
+            QuerySolution row = results.next();
+            subjectName = row.getResource("c").getLocalName();
+        }
+
+        return subjectName;
+    }
+
+    /**
+     * Check customer email not reserved
+     *
+     * @param email
+     * @return
+     */
+    public boolean checkCustomerEmailIsFree(String email) {
+        boolean check = false;
+        String askQuery = FusekiClient.PREFIX + "ASK{  ?c a r:Customer.\n"
+                + " ?c r:hasEmail ?email.\n"
+                + "  FILTER (?email = \"" + email + "\"^^xsd:string ) \n"
+                + "}";
+        check = FusekiClient.askFUSEKI(askQuery);
+
+        return check;
     }
 
     public Customer getCustomerByEmailAndPassword(String email, String password) {
@@ -149,7 +185,17 @@ public class CustomerDao {
                 + "   FILTER (?email  = \"" + email + "\"^^xsd:string && ?password = \"" + password + "\" )\n"
                 + "}";
         queryCustomer(customerQuery, c);
+
         return c;
+
+    }
+
+    public List<Customer> getAllCustomer() {
+        return null;
+
+    }
+
+    public void deleteCustomer(String Email) {
 
     }
 

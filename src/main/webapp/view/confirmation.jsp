@@ -98,7 +98,7 @@
                             </div>
                         </div>
                         <ul>
-                            
+
                         </ul>
 
                     </div>
@@ -137,20 +137,20 @@
                                             <h1>Check out order</h1>
 
                                             <div class="box-container">
-                                                
-                                                <form class="form-horizontal" action="account" method="post"  id="register">
-                                                      <label class="checkbox inline">
+
+                                                <form class="form-horizontal" action="checkout" method="post"  id="register">
+                                                    <label class="checkbox inline">
                                                         <input type="checkbox" name="agree" value="1">
-                                                       I want to use my registered  <a class="colorbox" href="/UniqueBookApp/account?action=edit&data=show"><b>Address</b></a>
-                                                      </label>
+                                                        I want to use my registered  <a class="colorbox" href="/UniqueBookApp/account?action=edit&data=show"><b>Address</b></a>
+                                                    </label>
                                                     <hr>
-                                                    <p>If you want to use your registered address for shipping,   please provide the following information!</p>
+                                                    <p>If you want to use a different address for shipping,   please provide the following information!</p>
                                                     <h2>Your new Address</h2>
                                                     <div class="content">
                                                         <table class="form">
                                                             <tbody><tr>
                                                                 </tr>
-                                                              
+
                                                                 <tr>
                                                                     <td>
                                                                         <div class="form-group">
@@ -161,7 +161,7 @@
                                                                         </div>
                                                                     </td>
                                                                 </tr>
-                                                               
+
                                                                 <tr>
                                                                     <td>
                                                                         <div class="form-group">
@@ -444,14 +444,14 @@
                                                                     </td>
                                                                 </tr>
                                                                 <tr>
-                                                                
+
                                                             </tbody></table>
                                                     </div>
                                                     <div class="buttons">
                                                         <div class="right">
-                                                           
 
-                                                            <input type="submit" value="Submit" class="buttons"/>
+
+                                                            <input type="submit" value="Confirm order" class="buttons"/>
                                                         </div>
                                                     </div>
                                                 </form>
@@ -460,22 +460,22 @@
                                         <aside class="col-sm-2" id="column-right">
                                             <div class="box account">
                                                 <div class="box-heading">Order</div>
-                                                <div class="box-content">
+                                                <div class="box-content" style="background-color: white">
                                                     <ul class="acount">
                                                         <li>Next day delivery is guaranteed <br/> Delivery sub charge:<c:set var="deliveryCharge" value="3.00"  /> <c:out value="${deliveryCharge}"/></li>
                                                         <li>Subtotal: ${cart.total}<br/> Delivery charge:  <c:out value="${deliveryCharge}"/> </li>
                                                         <li>total: ${cart.total + deliveryCharge}</li>
-                                                </div>
                                             </div>
-                                        </aside>
+                                        </div>
+                                    </aside>
 
-                                    </div>
                                 </div>
                             </div>
-                    </div>
+                        </div>
+                </div>
 
-                    <div class="clear"></div>
-                    </section>
+                <div class="clear"></div>
+                </section>
                 <jsp:include page="includesPages/_footer.jsp"></jsp:include>
 
             </div>

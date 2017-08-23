@@ -74,49 +74,25 @@
         <c:set var="urlRequest" value="http://localhost:8080/UniqueBookApp/book?" scope="page" />
         <div id="body">
             <div class="swipe" style="height: 330px;">
-                <div class="swipe-menu">
+                     <div class="swipe-menu">
                     <ul class="links">
                         <li class="first"><a class="active" href="#"><i class="fa fa-home"></i>Home</a></li>
-                        <li><a class="" href="/UniqueBookApp/account?action=show"><i class="fa fa-user"></i>My Account</a></li>
-                        <li><a class="" href="/UniqueBookApp/cart?action=show"><i class="fa fa-shopping-cart"></i>Shopping Cart</a></li>
-                        <li><a class="" href="/UniqueBookApp/cart?action=checkout"><i class="fa fa-check"></i>Checkout</a></li>
-                        <li><a href="/UniqueBookApp/account?action=edit"><i class="fa fa-user"></i>Create an account</a></li>
-                        <li class="login_h"><a href="/UniqueBookApp/account?action=login"><i class="fa fa-lock"></i>Login</a></li>   					</ul>
+                        <li><a class="" href="#"><i class="fa fa-user"></i>My Account</a></li>
+                        <li><a class="" href="#"><i class="fa fa-shopping-cart"></i>Shopping Cart</a></li>
+                        <li><a class="" href="#"><i class="fa fa-check"></i>Checkout</a></li>
+                        <li><a href="#"><i class="fa fa-user"></i>Create an account</a></li><li class="login_h"><a href="#"><i class="fa fa-lock"></i>Login</a></li>   					</ul>
 
-                    <div id="language" class="header-button">
-                        <div class="heading">en<i class="fa fa-angle-down"></i></div>
-                        <div class="heading1"><i class="fa fa-globe"></i>Language<i class="fa fa-angle-down"></i></div>
-                        <ul>
+               
 
-                        </ul>
-                    </div>
-
-                    <div id="currency" class="header-button">
-                        <div>
-                            <div class="heading-1"><i class="fa fa-money"></i>Currency<i class="fa fa-angle-down"></i></div>
-                            <div class="heading">
-                                $<i class="fa fa-angle-down"></i>
-                            </div>
-                        </div>
-                        <ul>
-                            <form action="#" method="post" enctype="multipart/form-data">
-                                <li><a title="US Dollar"><span class="act">$</span></a></li>
-                                <input type="hidden" name="currency_code" value="">
-                                <input type="hidden" name="redirect" value="">
-                            </form>
-                        </ul>
-
-                    </div>
+                  
 
                     <ul class="foot">
                         <li><a href="#about">About</a></li>
-                        <li><a href="#delivery">Delivery</a></li>
                         <li><a href="#">Privacy Policy</a></li>
                         <li><a href="#">Terms &amp; Conditions</a></li>
                     </ul>
                     <ul class="foot foot-1">
                         <li><a href="#">Contact Us</a></li>
-                        <li><a href="#">Returns</a></li>
                     </ul>
                     <ul class="foot foot-2">
                     </ul>

@@ -14,7 +14,9 @@
                             </c:if>
                             
                             <li><a class="" href="/UniqueBookApp/viewCart"><i class="fa fa-shopping-cart"></i>Shopping Cart</a></li>
-                            <li><a class="" href="/UniqueBookApp/order?action=checkout"><i class="fa fa-check"></i>Checkout</a></li>
+                            <c:if  test="${!empty cart}">
+                                <li><a class="" href="/UniqueBookApp/order?action=checkout"><i class="fa fa-check"></i>Checkout</a></li>
+                            </c:if> 
                             <c:if  test="${empty User}">
                              <li><a href="/UniqueBookApp/account?action=edit"><i class="fa fa-user"></i>Create an account</a></li>
                              <li class="login_h last"> <a href="/UniqueBookApp/account?action=login&type=show"><i class="fa fa-lock"></i>Login</a></li>

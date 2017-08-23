@@ -7,11 +7,14 @@ package com.uniquebook.modetest;
 
 import com.uniquebook.dao.BookDao;
 import com.uniquebook.dao.CustomerDao;
+import com.uniquebook.dao.DeliveryDao;
 import com.uniquebook.dao.FictionalBooksDao;
 import com.uniquebook.dao.KidsBookDao;
 import com.uniquebook.dao.ManagerDao;
 import com.uniquebook.dao.NonFictionalBooksDao;
 import com.uniquebook.models.Customer;
+import com.uniquebook.models.Delivery;
+import com.uniquebook.models.Location;
 import com.uniquebook.models.Manager;
 import com.uniquebook.models.Product;
 import java.util.Date;
@@ -24,6 +27,35 @@ public class testDao {
 
     public static void main(String[] args) throws Exception {
         
+        Product p = new Product();
+        p.setProductNumber(2);
+        
+        BookDao bb  = new BookDao();
+        System.out.println("book"+bb.getSubjectName(p));
+        
+ /**
+  * test location Dao
+  * 
+r:uavzmgafmksuziacsomfnkmoekqlhhdpchojd
+        a                          r:Sale ;
+        r:hasProduct               r:truefale ;
+        r:hasProductSalesQuantity  "1"^^xsd:nonNegativeInteger .
+
+r:gbcyzxoqsuajzmwxpqr
+        a                  r:Delivery ;
+        r:hasDeliveryDate  "Wed Aug 23 19:43:23 EAT 2017"^^xsd:dateTime ;
+        r:hasLocation      r:null .
+
+r:mftkpeadgwhhhsyuphxowbpookqwewwvneeievnrgeyj
+        a                r:Order ;
+        r:hasCustomer    r:edia ;
+        r:hasDelivery    r:gbcyzxoqsuajzmwxpqr ;
+        r:hasSales       r:uavzmgafmksuziacsomfnkmoekqlhhdpchojd ;
+        r:hasTotalPrice  "28.0"^^xsd:nonNegativeInteger ;
+        r:orderNumber    "f3252e6b-1364-4e3d-bf21-658e64bd4dcd" ;
+        r:orderStatus    "pending" .
+  */
+        
 //        Manager c = new Manager();
 //        ManagerDao cd = new ManagerDao();
 //        
@@ -35,9 +67,29 @@ public class testDao {
         Customer c = new Customer();
         CustomerDao cd = new CustomerDao();
         
-        c = cd.getCustomerByEmailAndPassword("fljori@gmail.com", "fljori");
         
-        System.out.println("manager data is:"+c.toString());
+//        String name = cd.getSubjectName("fljori@gmail.com");
+//        System.out.println("The  subject is: "+name);
+        
+//        cd.checkCustomerEmailIsFree("fljori@gmail.com");
+        Location l = new Location();
+        l.setAddress("Kirstinharju 1b 21");
+        l.setCity("Espoo");
+        l.setCountry("Finland");
+        l.setPostalCode("20590");
+        
+        //how to XSD date and time to Java date and time
+        
+//        Date d = new Date("2017", "09", "09", "10", "20", "15");
+//        Delivery d = new Delivery("2017-09-09T10:20:15", l);
+//        DeliveryDao dd = new  DeliveryDao();
+//        dd.addDelivery(delivery);
+        
+        
+        
+//        c = cd.getCustomerByEmailAndPassword("fljori@gmail.com", "fljori");
+//        
+//        System.out.println("manager data is:"+c.toString());
 
         NonFictionalBooksDao nonficational = new NonFictionalBooksDao();
         //test can get non ficitonal list of books by category
@@ -87,7 +139,7 @@ public class testDao {
 //         * test can delete a book given producer consumer
 //         */
         BookDao nnd = new BookDao();
-        Product bb = nnd.getProductbyProductNumber(2, "Mistry");
+//        Product bb = nnd.getProductbyProductNumber(2, "Mistry");
        // System.out.println("the product is :"+bb );
       //  nnd.deleteBooks(bbn.getProductNumber());
        // System.out.println("you deleted a book" + bw.getFictionalBookByProductNumber(bbn.getProductNumber()));

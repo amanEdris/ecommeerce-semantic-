@@ -30,4 +30,14 @@ public class Customer extends Person {
         return "Customer{" + "location=" + location + '}' + super.toString();
     }
 
+    public void clone(Customer c) {
+        this.setEmail(c.getEmail());
+        this.setFirstName(c.getFirstName());
+        this.setLastName(c.getLastName());
+        this.setGender(c.getGender());
+        this.setPassword(c.getPassword());
+        this.setPhone(c.getPhone());
+        this.setLocation(c.getLocation());
+    }
+
 }
