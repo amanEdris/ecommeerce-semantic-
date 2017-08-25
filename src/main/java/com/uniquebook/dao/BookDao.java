@@ -67,7 +67,7 @@ public class BookDao {
         String subjectName = null;
         try {
             String selectQuery = null;
-            
+
             selectQuery = FusekiClient.PREFIX;
             selectQuery += "SELECT  ?x\n"
                     + "\n"
@@ -77,24 +77,52 @@ public class BookDao {
                     + "     r:productNumber  \"" + p.getProductNumber() + "\"^^xsd:nonNegativeInteger.\n"
                     + "\n"
                     + " }";
-            
+
             System.out.println("subject query for this product is:  " + selectQuery);
-            
+
             ResultSet results = FusekiClient.queryFUSEKI(selectQuery);
             while (results.hasNext()) {
                 QuerySolution row = results.next();
                 subjectName = row.getResource("x").getLocalName();
             }
-            
+
         } catch (Exception ex) {
             Logger.getLogger(BookDao.class.getName()).log(Level.SEVERE, null, ex);
         }
         return subjectName;
     }
 
-    
     //All Book products count 
-    public int getBookProductCount(){
-        return 1;
+    public int getBookProductCount() {
+        int count = 0;
+        try {
+            String selectQuery = FusekiClient.PREFIX;
+            selectQuery += "SELECT (count(?x)+count(?b)+count(?c) As ?products)\n"
+                    + "WHERE\n"
+                    + "{\n"
+                    + "{ \n"
+                    + "  ?x a r:Nonfiction.\n"
+                    + "\n"
+                    + " } \n"
+                    + "UNION\n"
+                    + "{\n"
+                    + " ?b a r:KidsBook.\n"
+                    + "}\n"
+                    + " UNION\n"
+                    + "{\n"
+                    + "   ?c a r:FictionAndLiterature.   \n"
+                    + "}\n"
+                    + "}";
+
+            ResultSet results = FusekiClient.queryFUSEKI(selectQuery);
+            while (results.hasNext()) {
+                QuerySolution row = results.next();
+                count = row.getLiteral("products").getInt();
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(CustomerDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return count;
     }
 }

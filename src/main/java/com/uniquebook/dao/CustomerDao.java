@@ -11,6 +11,7 @@ import com.uniquebook.models.Customer;
 import com.uniquebook.models.Location;
 import com.uniquebook.utils.FusekiClient;
 import com.uniquebook.utils.HelperUtil;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -198,7 +199,33 @@ public class CustomerDao {
     }
 
     public List<Customer> getAllCustomer() {
-        return null;
+        List<Customer> customers = new ArrayList<Customer>();
+
+        String customerQuery = "prefix r: <http://localhost:8080/UniqueBookshop/onto/Ecommerce.owl/>\n"
+                + "prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> \n"
+                + "prefix xsd: <http://www.w3.org/2001/XMLSchema#> \n"
+                + "prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> \n"
+                + "\n"
+                + "SELECT  *\n"
+                + "\n"
+                + "WHERE\n"
+                + "{\n"
+                + "     ?x a r:Customer.\n"
+                + "          ?x r:hasPhone ?phone.\n"
+                + "          ?x  r:hasPassword ?password.\n"
+                + "          ?x  r:hasEmail  ?email.\n"
+                + "          ?x  r:hasLastName  ?lastName.\n"
+                + "          ?x  r:hasFirstName  ?firstName.\n"
+                + "          ?x  r:hasGender  ?gender.\n"
+                + "          ?x r:hasLocation ?location.\n"
+                + "          ?location rdf:type r:Location.\n"
+                + "          ?location r:hasPostalCode ?postalcode.\n"
+                + "          ?location r:hasCity ?city.\n"
+                + "          ?location r:hasCountry ?country.\n"
+                + "          ?location  r:hasAddress ?address.\n"
+                + "}";
+        queryAllCustomers(customerQuery, customers);
+        return customers;
 
     }
 
@@ -213,18 +240,7 @@ public class CustomerDao {
             while (results.hasNext()) {
                 QuerySolution row = results.next();
 
-                customerLocation.setAddress(row.getLiteral("address").getString());
-                customerLocation.setCity(row.getLiteral("city").getString());
-                customerLocation.setCountry(row.getLiteral("country").getString());
-                customerLocation.setPostalCode(row.getLiteral("postalcode").getString());
-
-                customer.setLocation(customerLocation);
-                customer.setEmail(row.getLiteral("email").getString());
-                customer.setFirstName(row.getLiteral("firstName").getString());
-                customer.setLastName(row.getLiteral("lastName").getString());
-                customer.setPassword(row.getLiteral("password").getString());
-                customer.setPhone(row.getLiteral("phone").getString());
-                customer.setGender(row.getLiteral("gender").getString());
+                setCustomerDataFromResult(customerLocation, row, customer);
             }
         } catch (Exception ex) {
             Logger.getLogger(CustomerDao.class.getName()).log(Level.SEVERE, null, ex);
@@ -251,4 +267,35 @@ public class CustomerDao {
         return count;
     }
 
+    private void queryAllCustomers(String customerQuery, List<Customer> customers) {
+        try {
+            ResultSet results = FusekiClient.queryFUSEKI(customerQuery);
+
+            while (results.hasNext()) {
+                Location customerLocation = new Location();
+                Customer customer = new Customer();
+
+                QuerySolution row = results.next();
+                setCustomerDataFromResult(customerLocation, row, customer);
+                customers.add(customer);
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(CustomerDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    private void setCustomerDataFromResult(Location customerLocation, QuerySolution row, Customer customer) {
+        customerLocation.setAddress(row.getLiteral("address").getString());
+        customerLocation.setCity(row.getLiteral("city").getString());
+        customerLocation.setCountry(row.getLiteral("country").getString());
+        customerLocation.setPostalCode(row.getLiteral("postalcode").getString());
+
+        customer.setLocation(customerLocation);
+        customer.setEmail(row.getLiteral("email").getString());
+        customer.setFirstName(row.getLiteral("firstName").getString());
+        customer.setLastName(row.getLiteral("lastName").getString());
+        customer.setPassword(row.getLiteral("password").getString());
+        customer.setPhone(row.getLiteral("phone").getString());
+        customer.setGender(row.getLiteral("gender").getString());
+    }
 }

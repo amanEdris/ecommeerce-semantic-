@@ -47,7 +47,6 @@ public class SalesDao {
                         + "            r:hasProduct r:" + tempproductSubjectName + "."
                         + "}";
                 FusekiClient.insertFUSEKI(insertQuery);
-                decrementStock(sale);
                 salesSubjectNames[i] = tempsalesSubject;
                 i++;
 
@@ -61,7 +60,7 @@ public class SalesDao {
     }
 
     /**
-     * Subtract product quantity according to sale
+     * Decrement quantity when delivery is processed!
      */
     public void decrementStock(Sale s) {
 

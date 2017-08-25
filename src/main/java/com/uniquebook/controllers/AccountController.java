@@ -24,7 +24,7 @@ import org.apache.commons.lang.StringUtils;
  *
  * @author edris
  */
-@WebServlet(name = "AccountController", urlPatterns = {"/account", "/updateAccount", "/login"})
+@WebServlet(name = "AccountController", urlPatterns = {"/account", "/updateAccount", "/login", "/addAccount"})
 public class AccountController extends HttpServlet {
 
     private CustomerDao customerDao;
@@ -45,31 +45,30 @@ public class AccountController extends HttpServlet {
         String action = request.getParameter("action");
         HttpSession session = request.getSession();
         String userPath = request.getServletPath();
-        
-         if(StringUtils.isEmpty(action)){
-             forward = LOGIN_PAGE;
-        }else{
-             if (action.equalsIgnoreCase("delete")) {
-                 //TODO: delete account for customer admin 
 
-             } else if (action.equalsIgnoreCase("login")) {
-                 forward = LOGIN_PAGE;
-             } else if (action.equalsIgnoreCase("edit")) {
+        if (StringUtils.isEmpty(action)) {
+            forward = LOGIN_PAGE;
+        } else {
+            if (action.equalsIgnoreCase("delete")) {
+                //TODO: delete account for customer admin 
 
-                 forward = INSERT_OR_EDIT;
-                 //TODO: Edit customer data admin 
+            } else if (action.equalsIgnoreCase("login")) {
+                forward = LOGIN_PAGE;
+            } else if (action.equalsIgnoreCase("edit")) {
 
-             } else if (action.equalsIgnoreCase("logout")) {
+                forward = INSERT_OR_EDIT;
+                //TODO: Edit customer data admin 
 
-                 Customer c = (Customer) session.getAttribute("User");
-                 c = null;
-                 session.removeAttribute("User");
-             } else {
+            } else if (action.equalsIgnoreCase("logout")) {
 
-             }
-         }
+                Customer c = (Customer) session.getAttribute("User");
+                c = null;
+                session.removeAttribute("User");
+            } else {
 
-     
+            }
+        }
+
         RequestDispatcher view = request.getRequestDispatcher(forward);
         view.forward(request, response);
     }
@@ -103,6 +102,28 @@ public class AccountController extends HttpServlet {
                 }
 
             }
+        } else if (userPath.equals("/addAccount")) {
+                Customer c = new Customer();
+                Location l = new Location();
+                l.setAddress(request.getParameter("address_1"));
+                l.setCity(request.getParameter("city"));
+                l.setCountry(request.getParameter("country_id"));
+                l.setPostalCode(request.getParameter("postcode"));
+                c.setLocation(l);
+                c.setEmail(request.getParameter("email"));
+                c.setFirstName(request.getParameter("firstname"));
+                c.setLastName(request.getParameter("lastname"));
+                c.setPassword(request.getParameter("password"));
+                c.setGender(request.getParameter("male"));
+                c.setPhone(request.getParameter("telephone"));
+                boolean check = customerDao.addCustomer(c);
+                if (check) {
+                    request.setAttribute("message", "Email  regitered please use different Email!");
+                } else {
+                    request.setAttribute("goodmessage", "sucessfully registered user!");
+                }
+
+
         } else if (userPath.equals("/updateAccount")) {
             HttpSession session = request.getSession();
             Customer c = new Customer();
@@ -146,14 +167,14 @@ public class AccountController extends HttpServlet {
                 c.setGender(request.getParameter("male"));
                 c.setPhone(request.getParameter("telephone"));
                 boolean check = customerDao.addCustomer(c);
-                if(check){
-                   request.setAttribute("message", "Email  regitered please use different Email!"); 
-                }else{
-                   request.setAttribute("goodmessage", "sucessfully registered user!"); 
+                if (check) {
+                    request.setAttribute("message", "Email  regitered please use different Email!");
+                } else {
+                    request.setAttribute("goodmessage", "sucessfully registered user!");
                 }
-                
+
             } else {
-                   request.setAttribute("message", "Unable to register please agree to the Privacy Policy!"); 
+                request.setAttribute("message", "Unable to register please agree to the Privacy Policy!");
             }
 
         } else {
