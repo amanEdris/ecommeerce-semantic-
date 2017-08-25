@@ -11,8 +11,11 @@ import com.uniquebook.models.Delivery;
 import com.uniquebook.models.Location;
 import com.uniquebook.utils.FusekiClient;
 import com.uniquebook.utils.HelperUtil;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.openrdf.model.datatypes.XMLDatatypeUtil;
 
 /**
  *
@@ -22,12 +25,20 @@ public class DeliveryDao {
 
     private HelperUtil helperUtil;
     private LocationDao locationDao;
+    private final int DEFAULT_DELIVERY_PERIOD_IN_DAYS = 7;
+
 
     public DeliveryDao() {
         helperUtil = new HelperUtil();
         locationDao = new LocationDao();
 
     }
+    
+    /**
+     * 
+     * @param delivery
+     * @return 
+     */
 
     public String addDelivery(Delivery delivery) {
         boolean check = false;
@@ -47,7 +58,7 @@ public class DeliveryDao {
                 insertQuery += "INSERT DATA\n"
                         + "{\n"
                         + "   r:"+ subjectName + "   a r:Delivery;\n"
-                        + "          r:hasDeliveryDate \"" + delivery.getDeliveryDate() + "\"^^xsd:dateTime;\n"
+                        + "          r:hasDeliveryDate \"" + this.generateXSDDateTime(delivery.getDeliveryDate()) + "\"^^xsd:dateTime;\n"
                         + "          r:hasLocation r:" + LocationSubjectName + " .\n"
                         + "}";
 
@@ -59,6 +70,14 @@ public class DeliveryDao {
         }
         return subjectName;
 
+    }
+    
+ 
+    public String generateXSDDateTime(Date date) {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+        Date tempDateStartMax = new Date(date.getTime() + DEFAULT_DELIVERY_PERIOD_IN_DAYS * 24 * 3600 * 1000);
+        String deliverydate = XMLDatatypeUtil.normalizeDateTime(sdf.format(tempDateStartMax));
+        return deliverydate;
     }
 
     /**

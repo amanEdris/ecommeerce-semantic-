@@ -19,6 +19,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import org.apache.commons.lang.StringUtils;
 
 /**
  *
@@ -39,20 +40,19 @@ public class CartController extends HttpServlet {
             throws ServletException, IOException {
         String userPath = request.getServletPath();
         String forward = "";
-        HttpSession session = request.getSession( );
+        HttpSession session = request.getSession();
         ShoppingCart cart = (ShoppingCart) session.getAttribute("cart");
         String action = request.getParameter("action");
 
         if (userPath.equalsIgnoreCase("/viewCart")) {
             forward = INSERT_OR_EDIT;
-
         } else {
-            if (!action.isEmpty()) {
+            if (StringUtils.isNotBlank(action)) {
                 if (action.equalsIgnoreCase("clear")) {
                     forward = INSERT_OR_EDIT;
                     cart.removeAllItems();
                     cart = null;
-                    session.invalidate();
+                    session.removeAttribute("cart");
                 }
             }
         }

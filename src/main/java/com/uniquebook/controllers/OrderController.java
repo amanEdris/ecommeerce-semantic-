@@ -12,7 +12,6 @@ import com.uniquebook.models.Location;
 import com.uniquebook.models.Order;
 import com.uniquebook.models.ShoppingCart;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.Date;
 import java.util.UUID;
 import javax.servlet.RequestDispatcher;
@@ -22,6 +21,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import org.apache.commons.lang.StringUtils;
 
 /**
  *
@@ -33,7 +33,6 @@ public class OrderController extends HttpServlet {
     private static String CONFIRMATION_PAGE = "/view/confirmation.jsp";
     private static String LOGIN_PAGE = "/view/login.jsp";
     private static String CHECKOUT_PAGE = "/view/checkout.jsp";
-    private final int DEFAULT_DELIVERY_PERIOD_IN_DAYS = 7;
     private final static String NEW_ORDER_STATUS = "pending";
     private final static int DELIVERY_CHARGE = 3;
     private OrderDao orderDao;
@@ -51,14 +50,20 @@ public class OrderController extends HttpServlet {
         Customer c = (Customer) session.getAttribute("User");
         String action = request.getParameter("action");
 
-        if (action.equalsIgnoreCase("checkout")) {
-            if (c == null) {
-                forward = LOGIN_PAGE;
-            } else {
-                forward = CONFIRMATION_PAGE;
-            }
+        if(StringUtils.isEmpty(action)){
+             forward = LOGIN_PAGE;
+        }else{
+            if (action.equalsIgnoreCase("checkout")) {
+                if (c == null) {
+                    forward = LOGIN_PAGE;
 
+                } else {
+                    forward = CONFIRMATION_PAGE;
+                }
+
+            }
         }
+      
         RequestDispatcher view = request.getRequestDispatcher(forward);
         view.forward(request, response);
     }
@@ -77,11 +82,17 @@ public class OrderController extends HttpServlet {
         if (userPath.equals("/checkout")) {
             String agree = request.getParameter("agree");
 
-            if (agree != null) {
+            if (StringUtils.isNotEmpty(agree)) {
                 l.clone(c.getLocation());
                 Order order = createNewOrder(c, cart, l);
                 String ordername = orderDao.addOrder(order);
-                forward = CHECKOUT_PAGE;
+                if (StringUtils.isNotEmpty(ordername)) {
+                    forward = CHECKOUT_PAGE;
+                    cart.removeAllItems();
+                    cart = null;
+                    session.removeAttribute("cart");
+
+                }
 
             } else {
                 address = request.getParameter("address_1");
@@ -94,13 +105,17 @@ public class OrderController extends HttpServlet {
                 l.setCountry(country);
                 l.setPostalCode(postalcode);
                 Order order = createNewOrder(c, cart, l);
-                orderDao.addOrder(order);
-                forward = CHECKOUT_PAGE;
+                String ordername = orderDao.addOrder(order);
+                if (StringUtils.isNotEmpty(ordername)) {
+                    forward = CHECKOUT_PAGE;
+                    cart.removeAllItems();
+                    cart = null;
+                    session.removeAttribute("cart");
+                }
             }
         }
         RequestDispatcher view = request.getRequestDispatcher(forward);
         view.forward(request, response);
-
     }
 
     private Order createNewOrder(Customer c, ShoppingCart cart, Location l) {
@@ -108,9 +123,8 @@ public class OrderController extends HttpServlet {
 
         id = UUID.randomUUID().toString();
         //xsd date 
-        Date deliveryDate = new Date();
-        //@TODO daysToAdd * 24 * 3600 * 1000
-        Delivery d = new Delivery(deliveryDate, l);
+        Date deliveryStartDate = new Date();
+        Delivery d = new Delivery(deliveryStartDate, l);
         Order order = new Order();
         order.setCusotmer(c);
         order.setDelivery(d);

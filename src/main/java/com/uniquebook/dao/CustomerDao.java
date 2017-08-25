@@ -23,40 +23,42 @@ import java.util.logging.Logger;
 public class CustomerDao {
 
     private HelperUtil helperUtil;
+    private LocationDao locationDao;
 
     public CustomerDao() {
         helperUtil = new HelperUtil();
+        locationDao = new LocationDao();
     }
 
-    public void addCustomer(Customer b) {
-        //use Ask query to check if email is registerd
+    public boolean addCustomer(Customer b) {
+        boolean flagCustomerExist = false;
         try {
-            Location l = b.getLocation();
-            String locationSubject = helperUtil.generateNames();
-            String insertQuery = FusekiClient.PREFIX;
-            insertQuery += "INSERT DATA"
-                    + "{"
-                    + ""
-                    + " r:" + helperUtil.generateNames() + " a r:Customer;\n"
-                    + "           r:hasPhone \"" + b.getPhone() + "\"^^xsd:string ;\n"
-                    + "           r:hasPassword \"" + b.getPassword() + "\"^^xsd:string ;\n\n"
-                    + "           r:hasEmail  \"" + b.getEmail() + "\"^^xsd:string ;\n"
-                    + "           r:hasLastName  \"" + b.getLastName() + "\"^^xsd:string ;\n"
-                    + "           r:hasFirstName \"" + b.getFirstName() + "\"^^xsd:string ;\n"
-                    + "           r:hasGender  \"" + b.getGender() + "\"^^xsd:string ;\n"
-                    + "           r:hasLocation r:" + locationSubject + " .\n"
-                    + "       r:" + locationSubject + "  rdf:type r:Location;\n"
-                    + "         r:" + locationSubject + "  r:hasPostalCode \"" + l.getPostalCode() + "\"^^xsd:string ;\n"
-                    + "          r:" + locationSubject + " r:hasCity \"" + l.getCity() + "\"^^xsd:string ;\n"
-                    + "         r:" + locationSubject + "  r:hasCountry \"" + l.getCountry() + "\"^^xsd:string ;\n"
-                    + "          r:" + locationSubject + "   r:hasAddress \"" + l.getAddress() + "\"^^xsd:string ;\n"
-                    + "}";
+            boolean check = this.checkCustomerEmailIsFree(b.getEmail());
+            if (check) {
+                flagCustomerExist = check;
+            } else {
+                Location location = b.getLocation();
+                String LocationSubjectName = locationDao.addLocation(location);
+                String insertQuery = FusekiClient.PREFIX;
+                insertQuery += "INSERT DATA"
+                        + "{"
+                        + ""
+                        + " r:" + helperUtil.generateNames() + " a r:Customer;\n"
+                        + "           r:hasPhone \"" + b.getPhone() + "\"^^xsd:string ;\n"
+                        + "           r:hasPassword \"" + b.getPassword() + "\"^^xsd:string ;\n\n"
+                        + "           r:hasEmail  \"" + b.getEmail() + "\"^^xsd:string ;\n"
+                        + "           r:hasLastName  \"" + b.getLastName() + "\"^^xsd:string ;\n"
+                        + "           r:hasFirstName \"" + b.getFirstName() + "\"^^xsd:string ;\n"
+                        + "           r:hasGender  \"" + b.getGender() + "\"^^xsd:string ;\n"
+                        + "           r:hasLocation r:" + LocationSubjectName + " .\n"
+                        + "}";
 
-            FusekiClient.insertFUSEKI(insertQuery);
+                FusekiClient.insertFUSEKI(insertQuery);
+            }
         } catch (Exception ex) {
             Logger.getLogger(CustomerDao.class.getName()).log(Level.SEVERE, null, ex);
         }
-
+        return flagCustomerExist;
     }
 
     public boolean updateCustomer(Customer b, Customer c) {

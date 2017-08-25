@@ -86,8 +86,6 @@
 
                     <ul class="foot">
                         <li><a href="#about">About</a></li>
-                        <li><a href="#">Privacy Policy</a></li>
-                        <li><a href="#">Terms &amp; Conditions</a></li>
                     </ul>
                     <ul class="foot foot-1">
                         <li><a href="#">Contact Us</a></li>

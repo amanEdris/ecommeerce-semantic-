@@ -8,6 +8,7 @@ package com.uniquebook.controllers;
 import com.uniquebook.dao.CustomerDao;
 import com.uniquebook.models.Customer;
 import com.uniquebook.models.Location;
+import com.uniquebook.models.ShoppingCart;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.RequestDispatcher;
@@ -28,6 +29,7 @@ public class AccountController extends HttpServlet {
     private CustomerDao customerDao;
     private static String INSERT_OR_EDIT = "/view/registeraccount.jsp";
     private static String LOGIN_PAGE = "/view/login.jsp";
+    private static String CONFIRMATION_PAGE = "/view/confirmation.jsp";
 
     public AccountController() {
         super();
@@ -45,12 +47,16 @@ public class AccountController extends HttpServlet {
 
         if (action.equalsIgnoreCase("delete")) {
             //TODO: delete account for customer admin 
+            
+            
         } else if (action.equalsIgnoreCase("login")) {
             forward = LOGIN_PAGE;
         } else if (action.equalsIgnoreCase("edit")) {
 
             forward = INSERT_OR_EDIT;
             //TODO: Edit customer data admin 
+            
+            
 
         } else if (action.equalsIgnoreCase("logout")) {
 
@@ -77,7 +83,7 @@ public class AccountController extends HttpServlet {
             String message = " ";
 
             Customer customer = customerDao.getCustomerByEmailAndPassword(email, password);
-            
+
             if (customer.getLocation() == null) {
                 message = "Password or Email is not correct";
                 request.setAttribute("message", message);
@@ -85,7 +91,13 @@ public class AccountController extends HttpServlet {
             } else {
                 HttpSession session = request.getSession();
                 session.setAttribute("User", customer);
-                forward = INSERT_OR_EDIT;
+                ShoppingCart cart = (ShoppingCart) session.getAttribute("cart");
+                if (cart == null) {
+                    forward = INSERT_OR_EDIT;
+                } else {
+                    forward = CONFIRMATION_PAGE;
+                }
+
             }
         } else if (userPath.equals("/updateAccount")) {
             HttpSession session = request.getSession();
@@ -112,6 +124,34 @@ public class AccountController extends HttpServlet {
                 request.setAttribute("message", "unable to update account please check all the values");
             }
             forward = INSERT_OR_EDIT;
+        } else if (userPath.equals("/account")) {
+            String agree = request.getParameter("agree");
+            forward = INSERT_OR_EDIT;
+            if (agree != null) {
+                Customer c = new Customer();
+                Location l = new Location();
+                l.setAddress(request.getParameter("address_1"));
+                l.setCity(request.getParameter("city"));
+                l.setCountry(request.getParameter("country_id"));
+                l.setPostalCode(request.getParameter("postcode"));
+                c.setLocation(l);
+                c.setEmail(request.getParameter("email"));
+                c.setFirstName(request.getParameter("firstname"));
+                c.setLastName(request.getParameter("lastname"));
+                c.setPassword(request.getParameter("password"));
+                c.setGender(request.getParameter("male"));
+                c.setPhone(request.getParameter("telephone"));
+                boolean check = customerDao.addCustomer(c);
+                if(check){
+                   request.setAttribute("message", "Email  regitered please use different Email!"); 
+                }else{
+                   request.setAttribute("goodmessage", "sucessfully registered user!"); 
+                }
+                
+            } else {
+                   request.setAttribute("message", "Unable to register please agree to the Privacy Policy!"); 
+            }
+
         } else {
 
         }

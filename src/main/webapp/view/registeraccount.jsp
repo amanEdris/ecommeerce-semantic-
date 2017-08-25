@@ -74,7 +74,7 @@
         <c:set var="urlRequest" value="http://localhost:8080/UniqueBookApp/book?" scope="page" />
         <div id="body">
             <div class="swipe" style="height: 330px;">
-                   <div class="swipe-menu">
+                <div class="swipe-menu">
                     <ul class="links">
                         <li class="first"><a class="active" href="#"><i class="fa fa-home"></i>Home</a></li>
                         <li><a class="" href="#"><i class="fa fa-user"></i>My Account</a></li>
@@ -82,9 +82,9 @@
                         <li><a class="" href="#"><i class="fa fa-check"></i>Checkout</a></li>
                         <li><a href="#"><i class="fa fa-user"></i>Create an account</a></li><li class="login_h"><a href="#"><i class="fa fa-lock"></i>Login</a></li>   					</ul>
 
-               
 
-                  
+
+
 
                     <ul class="foot">
                         <li><a href="#about">About</a></li>
@@ -119,20 +119,20 @@
                                             <c:if  test="${!empty User}">
                                                 <a href="/UniqueBookApp/account?action=edit&data=show">>> My Account</a>
                                             </c:if>
-                                            </div>
-                                            
+                                        </div>
+
                                         <c:if  test="${empty User}">
                                             <h1>Register Account</h1>
                                         </c:if>
-                                            <div class="box-container">
-                                                 <c:if  test="${empty User}">
+                                        <div class="box-container">
+                                            <c:if  test="${empty User}">
                                                 <p>If you already have an account with us, please login at the <a href="/UniqueBookApp/account?action=login&type=show">login page</a>.</p>
+                                                <b style="color: red">${message}</b> <h1><b style="color: lawngreen">${goodmessage}</b></h1>
                                                 <form class="form-horizontal" action="account" method="post"  id="register">
                                                 </c:if>
                                                 <c:if  test="${!empty User}">
-                                                 <form class="form-horizontal" action="updateAccount" method="post"  id="register">  
-                                                </c:if>
-                                                     <i>${message}</i>
+                                                    <form class="form-horizontal" action="updateAccount" method="post"  id="register">  
+                                                    </c:if>
                                                     <h2>Your Personal Details</h2>
                                                     <div class="content">
                                                         <table class="form">      
@@ -156,24 +156,24 @@
                                                                         </div>
                                                                     </td>
                                                                 </tr>
-                                                                 <tr>
+                                                                <tr>
                                                                     <td>
                                                                         <div class="form-group"><!--if gender male or female select-->
                                                                             <label class="control-label col-sm-5" for="gender"><span class="required">*</span> Gender</label>
                                                                             <div class="controls col-sm-7">
-                                                                                 <c:set var="checked" value="checked" scope="page" />
+                                                                                <c:set var="checked" value="checked" scope="page" />
                                                                                 <input type="radio" name="male" value="male" <c:if test="${User.gender =='male'}">checked="${checked}"</c:if> />
                                                                                 Male     <input type="radio" name="male" value="female" <c:if test="${User.gender =='female'}">checked="${checked}"</c:if> />  Female
+                                                                                </div>
                                                                             </div>
-                                                                        </div>
-                                                                    </td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td>
-                                                                        <div class="form-group">
-                                                                            <label class="control-label col-sm-5" for="email"><span class="required">*</span> E-Mail:</label>
-                                                                            <div class="controls col-sm-7">
-                                                                                <input class="q1" type="text" name="email" value="${User.email}">
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td>
+                                                                            <div class="form-group">
+                                                                                <label class="control-label col-sm-5" for="email"><span class="required">*</span> E-Mail:</label>
+                                                                                <div class="controls col-sm-7">
+                                                                                    <input class="q1" type="text" name="email" value="${User.email}">
                                                                             </div>
                                                                         </div>
                                                                     </td>
@@ -188,7 +188,7 @@
                                                                         </div>
                                                                     </td>
                                                                 </tr>
-                                                               
+
                                                             </tbody></table>
                                                     </div>
                                                     <h2>Your Address</h2>
@@ -196,7 +196,7 @@
                                                         <table class="form">
                                                             <tbody><tr>
                                                                 </tr>
-                                                              
+
                                                                 <tr>
                                                                     <td>
                                                                         <div class="form-group">   <c:set var="location" value="${User.location}"/>
@@ -207,7 +207,7 @@
                                                                         </div>
                                                                     </td>
                                                                 </tr>
-                                                               
+
                                                                 <tr>
                                                                     <td>
                                                                         <div class="form-group">
@@ -242,23 +242,23 @@
                                                                                     <option value="Algeria<">Algeria</option>
                                                                                     <option value="American Samoa">American Samoa</option>
                                                                                     <option value="Andorra">Andorra</option>
-                                                                                    <option value="6">Angola</option>
-                                                                                    <option value="7">Anguilla</option>
-                                                                                    <option value="8">Antarctica</option>
-                                                                                    <option value="9">Antigua and Barbuda</option>
-                                                                                    <option value="10">Argentina</option>
-                                                                                    <option value="11">Armenia</option>
-                                                                                    <option value="12">Aruba</option>
-                                                                                    <option value="13">Australia</option>
-                                                                                    <option value="14">Austria</option>
-                                                                                    <option value="15">Azerbaijan</option>
-                                                                                    <option value="16">Bahamas</option>
-                                                                                    <option value="17">Bahrain</option>
-                                                                                    <option value="18">Bangladesh</option>
-                                                                                    <option value="19">Barbados</option>
-                                                                                    <option value="20">Belarus</option>
-                                                                                    <option value="21">Belgium</option>
-                                                                                    <option value="22">Belize</option>
+                                                                                    <option value="Angola">Angola</option>
+                                                                                    <option value="Anguilla">Anguilla</option>
+                                                                                    <option value="Antarctica">Antarctica</option>
+                                                                                    <option value="Antigua and Barbuda">Antigua and Barbuda</option>
+                                                                                    <option value="Argentina">Argentina</option>
+                                                                                    <option value="Armenia">Armenia</option>
+                                                                                    <option value="Aruba">Aruba</option>
+                                                                                    <option value="Australia">Australia</option>
+                                                                                    <option value="Austria">Austria</option>
+                                                                                    <option value="Azerbaijan">Azerbaijan</option>
+                                                                                    <option value="Bahamas">Bahamas</option>
+                                                                                    <option value="Bahrain">Bahrain</option>
+                                                                                    <option value="Bangladesh">Bangladesh</option>
+                                                                                    <option value="Barbados">Barbados</option>
+                                                                                    <option value="Belarus">Belarus</option>
+                                                                                    <option value="Belgium">Belgium</option>
+                                                                                    <option value="Belize">Belize</option>
                                                                                     <option value="23">Benin</option>
                                                                                     <option value="24">Bermuda</option>
                                                                                     <option value="25">Bhutan</option>
@@ -491,7 +491,7 @@
                                                                     </td>
                                                                 </tr>
                                                                 <tr>
-                                                                
+
                                                             </tbody></table>
                                                     </div>
                                                     <h2>Your Password</h2>
@@ -531,32 +531,32 @@
                                                         </div>
                                                     </div>
                                                 </form>
-                                            </div>
                                         </div>
-                                        <aside class="col-sm-2" id="column-right">
-                                            <div class="box account">
-                                                <div class="box-heading">Account</div>
-                                                <div class="box-content">
-                                                    <ul class="acount">
-                                                        <c:if  test="${empty User}">
-                                                            <li><i class="fa fa-lock"></i>&nbsp;&nbsp;<a href="/UniqueBookApp/account?action=login&type=show">Login</a> / <a href="http://localhost:8080/UniqueBookApp/account?action=edit">Register</a></li>                                                           
+                                    </div>
+                                    <aside class="col-sm-2" id="column-right">
+                                        <div class="box account">
+                                            <div class="box-heading">Account</div>
+                                            <div class="box-content">
+                                                <ul class="acount">
+                                                    <c:if  test="${empty User}">
+                                                        <li><i class="fa fa-lock"></i>&nbsp;&nbsp;<a href="/UniqueBookApp/account?action=login&type=show">Login</a> / <a href="http://localhost:8080/UniqueBookApp/account?action=edit">Register</a></li>                                                           
                                                         </c:if>
                                                         <c:if  test="${!empty User}">
-                                                                <li><i class="fa fa-user"></i>&nbsp;&nbsp;<b><a href="/UniqueBookApp/account?action=edit&data=show">My Account</a></b></li>
-                                                                <li><i class="fa fa-print"></i>&nbsp;&nbsp;<b><a href="/UniqueBookApp/order?action=show">Order History</a></b></li>
+                                                        <li><i class="fa fa-user"></i>&nbsp;&nbsp;<b><a href="/UniqueBookApp/account?action=edit&data=show">My Account</a></b></li>
+                                                        <li><i class="fa fa-print"></i>&nbsp;&nbsp;<b><a href="/UniqueBookApp/order?action=show">Order History</a></b></li>
                                                         </c:if>
-                                                        
-                                                </div>
-                                            </div>
-                                        </aside>
 
-                                    </div>
+                                            </div>
+                                        </div>
+                                    </aside>
+
                                 </div>
                             </div>
-                    </div>
+                        </div>
+                </div>
 
-                    <div class="clear"></div>
-                    </section>
+                <div class="clear"></div>
+                </section>
                 <jsp:include page="includesPages/_footer.jsp"></jsp:include>
 
             </div>

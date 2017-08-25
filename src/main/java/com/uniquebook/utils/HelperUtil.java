@@ -5,13 +5,16 @@
  */
 package com.uniquebook.utils;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Random;
+import org.openrdf.model.datatypes.XMLDatatypeUtil;
 
 /**
- *Utility class to generate names for created objects
+ * Utility class to generate names for created objects
  */
-public class HelperUtil{
-    
+public class HelperUtil {
+
     private char getRandomCharacter() {
         char[] alphabet = "abcdefghijklmnopqrstuvwxyz".toCharArray();
         return alphabet[random(alphabet.length)];
@@ -27,6 +30,8 @@ public class HelperUtil{
 
         return sb.toString();
     }
+
+ 
 
     private int random(int length) {
         return new Random().nextInt(length);

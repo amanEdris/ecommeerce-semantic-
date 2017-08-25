@@ -16,7 +16,7 @@ public class Delivery {
     
     private Date deliveryDate;
     private Location location;
-
+ 
     @Override
     public String toString() {
         return "Delivery{" + "deliveryDate=" + deliveryDate + ", location=" + location + '}';

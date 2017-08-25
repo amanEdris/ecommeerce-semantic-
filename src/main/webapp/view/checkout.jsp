@@ -82,18 +82,15 @@
                         <li><a href="/UniqueBookApp/account?action=edit"><i class="fa fa-user"></i>Create an account</a></li>
                         <li class="login_h"><a href="/UniqueBookApp/account?action=login"><i class="fa fa-lock"></i>Login</a></li>   					</ul>
 
-                   
 
-               
+
+
                     <ul class="foot">
                         <li><a href="#about">About</a></li>
-                        <li><a href="#delivery">Delivery</a></li>
                         <li><a href="#">Privacy Policy</a></li>
-                        <li><a href="#">Terms &amp; Conditions</a></li>
                     </ul>
                     <ul class="foot foot-1">
                         <li><a href="#">Contact Us</a></li>
-                        <li><a href="#">Returns</a></li>
                     </ul>
                     <ul class="foot foot-2">
                     </ul>
@@ -115,12 +112,15 @@
                                                 <a href="/UniqueBookApp">Home</a>
                                                 » <a href="/UniqueBookApp/viewCart">Order</a>
                                                 » <a href="#" class="last">Checkout</a>
+                                                » <a href="#" class="last">Success</a>
                                             </div>
-                                            <h1>Check out order</h1>
+                                            <h1>Your order have been placed successfully!</h1>
 
                                             <div class="box-container">
-                                                <p>Your order have been placed sucessfully!</p>
-                 
+                                                <div class="box-container">
+                                                    <p>You can view your order history by going to the <a href="/UniqueBookApp/account?action=edit&data=show">my account</a> page and by clicking on <a href="/UniqueBookApp/order?action=show">history</a>.</p><p>Please direct any questions you have to the <a href="#">store owner</a>.</p><p>Thanks for shopping with us online!</p>    <div class="buttons">
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                         <aside class="col-sm-2" id="column-right">
@@ -128,25 +128,25 @@
                                                 <div class="box-heading">Account</div>
                                                 <div class="box-content">
                                                     <ul class="acount">
-                                                        <c:if  test="${empty User}">
-                                                            <li><i class="fa fa-lock"></i>&nbsp;&nbsp;<a href="/UniqueBookApp/account?action=login&type=show">Login</a> / <a href="http://localhost:8080/UniqueBookApp/account?action=edit">Register</a></li>                                                           
+                                                    <c:if  test="${empty User}">
+                                                        <li><i class="fa fa-lock"></i>&nbsp;&nbsp;<a href="/UniqueBookApp/account?action=login&type=show">Login</a> / <a href="http://localhost:8080/UniqueBookApp/account?action=edit">Register</a></li>                                                           
                                                         </c:if>
                                                         <c:if  test="${!empty User}">
-                                                                <li><i class="fa fa-user"></i>&nbsp;&nbsp;<b><a href="/UniqueBookApp/account?action=edit&data=show">My Account</a></b></li>
-                                                                <li><i class="fa fa-print"></i>&nbsp;&nbsp;<b><a href="/UniqueBookApp/order?action=show">Order History</a></b></li>
+                                                        <li><i class="fa fa-user"></i>&nbsp;&nbsp;<b><a href="/UniqueBookApp/account?action=edit&data=show">My Account</a></b></li>
+                                                        <li><i class="fa fa-print"></i>&nbsp;&nbsp;<b><a href="/UniqueBookApp/order?action=show">Order History</a></b></li>
                                                         </c:if>
-                                                        
-                                                </div>
-                                            </div>
-                                        </aside>
 
-                                    </div>
+                                            </div>
+                                        </div>
+                                    </aside>
+
                                 </div>
                             </div>
-                    </div>
+                        </div>
+                </div>
 
-                    <div class="clear"></div>
-                    </section>
+                <div class="clear"></div>
+                </section>
                 <jsp:include page="includesPages/_footer.jsp"></jsp:include>
 
             </div>
