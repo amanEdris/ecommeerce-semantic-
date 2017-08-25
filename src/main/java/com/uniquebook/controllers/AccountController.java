@@ -18,6 +18,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import org.apache.commons.lang.StringUtils;
 
 /**
  *
@@ -44,28 +45,31 @@ public class AccountController extends HttpServlet {
         String action = request.getParameter("action");
         HttpSession session = request.getSession();
         String userPath = request.getServletPath();
+        
+         if(StringUtils.isEmpty(action)){
+             forward = LOGIN_PAGE;
+        }else{
+             if (action.equalsIgnoreCase("delete")) {
+                 //TODO: delete account for customer admin 
 
-        if (action.equalsIgnoreCase("delete")) {
-            //TODO: delete account for customer admin 
-            
-            
-        } else if (action.equalsIgnoreCase("login")) {
-            forward = LOGIN_PAGE;
-        } else if (action.equalsIgnoreCase("edit")) {
+             } else if (action.equalsIgnoreCase("login")) {
+                 forward = LOGIN_PAGE;
+             } else if (action.equalsIgnoreCase("edit")) {
 
-            forward = INSERT_OR_EDIT;
-            //TODO: Edit customer data admin 
-            
-            
+                 forward = INSERT_OR_EDIT;
+                 //TODO: Edit customer data admin 
 
-        } else if (action.equalsIgnoreCase("logout")) {
+             } else if (action.equalsIgnoreCase("logout")) {
 
-            Customer c = (Customer) session.getAttribute("User");
-            c = null;
-            session.removeAttribute("User");
-        } else {
+                 Customer c = (Customer) session.getAttribute("User");
+                 c = null;
+                 session.removeAttribute("User");
+             } else {
 
-        }
+             }
+         }
+
+     
         RequestDispatcher view = request.getRequestDispatcher(forward);
         view.forward(request, response);
     }

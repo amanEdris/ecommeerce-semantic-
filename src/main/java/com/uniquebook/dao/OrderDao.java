@@ -5,6 +5,8 @@
  */
 package com.uniquebook.dao;
 
+import com.hp.hpl.jena.query.QuerySolution;
+import com.hp.hpl.jena.query.ResultSet;
 import com.uniquebook.models.Customer;
 import java.lang.String;
 import com.uniquebook.models.Order;
@@ -133,6 +135,26 @@ public class OrderDao {
             }
         }
         return insertPart.toString();
+    }
+
+    public int getOrderCount() {
+        int count = 0;
+        try {
+            String selectQuery = FusekiClient.PREFIX;
+            selectQuery += "SELECT (count(?c) As ?orders)\n"
+                    + "where{\n"
+                    + "	?c a r:Order.\n"
+                    + "}";
+
+            ResultSet results = FusekiClient.queryFUSEKI(selectQuery);
+            while (results.hasNext()) {
+                QuerySolution row = results.next();
+                count = row.getLiteral("orders").getInt();
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(CustomerDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return count;
     }
 
 }

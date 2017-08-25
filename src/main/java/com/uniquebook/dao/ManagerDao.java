@@ -12,6 +12,8 @@ import com.uniquebook.models.Location;
 import com.uniquebook.models.Manager;
 import com.uniquebook.utils.FusekiClient;
 import java.text.SimpleDateFormat;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -52,17 +54,40 @@ public class ManagerDao {
     }
 
     private void queryManager(String managerQuery, Manager manager) {
-        ResultSet results = FusekiClient.queryFUSEKI(managerQuery);
-        while (results.hasNext()) {
-            QuerySolution row = results.next();
-          
-            manager.setEmail(row.getLiteral("email").getString());
-            manager.setFirstName(row.getLiteral("firstName").getString());
-            manager.setLastName(row.getLiteral("lastName").getString());
-            manager.setPassword(row.getLiteral("password").getString());
-            manager.setPhone(row.getLiteral("phone").getString());     
-            manager.setGender(row.getLiteral("gender").getString());
-        }
+         try {
+             ResultSet results = FusekiClient.queryFUSEKI(managerQuery);
+             while (results.hasNext()) {
+                 QuerySolution row = results.next();
+                 
+                 manager.setEmail(row.getLiteral("email").getString());
+                 manager.setFirstName(row.getLiteral("firstName").getString());
+                 manager.setLastName(row.getLiteral("lastName").getString());
+                 manager.setPassword(row.getLiteral("password").getString());
+                 manager.setPhone(row.getLiteral("phone").getString());
+                 manager.setGender(row.getLiteral("gender").getString());
+             }} catch (Exception ex) {
+             Logger.getLogger(ManagerDao.class.getName()).log(Level.SEVERE, null, ex);
+         }
     }
     
+      public int getManagerCount() {
+        int count = 0;
+        try {
+            String selectQuery = FusekiClient.PREFIX;
+            selectQuery += "SELECT (count(?c) As ?manager)\n"
+                    + "where{\n"
+                    + "	?c a r:Manager.\n"
+                    + "}";
+
+            ResultSet results = FusekiClient.queryFUSEKI(selectQuery);
+            while (results.hasNext()) {
+                QuerySolution row = results.next();
+                count = row.getLiteral("manager").getInt();
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(CustomerDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return count;
+    }
+
 }

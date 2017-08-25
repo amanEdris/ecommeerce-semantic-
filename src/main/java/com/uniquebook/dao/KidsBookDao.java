@@ -199,6 +199,8 @@ public class KidsBookDao {
             }
         } catch (ParseException ex) {
             Logger.getLogger(FictionalBooksDao.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception ex) {
+            Logger.getLogger(KidsBookDao.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     
@@ -233,6 +235,8 @@ public class KidsBookDao {
             }
         } catch (ParseException ex) {
             Logger.getLogger(NonFictionalBooksDao.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception ex) {
+            Logger.getLogger(KidsBookDao.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 }

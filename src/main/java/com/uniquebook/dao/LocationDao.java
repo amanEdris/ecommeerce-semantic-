@@ -55,24 +55,30 @@ public class LocationDao {
     }
 
     public String getSubjectName(Location location) {
-        String selectQuery = null;
         String subjectName = null;
-        selectQuery = FusekiClient.PREFIX;
-        selectQuery += "SELECT  ?l WHERE { "
-                + "  ?l a r:Location;\n"
-                + "           r:hasPostalCode \"" + location.getPostalCode() + "\"^^xsd:nonNegativeInteger ;\n"
-                + "           r:hasCity \"" + location.getCity() + "\"^^xsd:string ;\n"
-                + "           r:hasCountry \"" + location.getCountry() + "\"^^xsd:string ;\n"
-                + "           r:hasAddress \"" + location.getAddress() + "\"^^xsd:string .\n"
-                + "}";
-
-        System.out.println("Location for registerd user delivery: "+selectQuery);
-        ResultSet results = FusekiClient.queryFUSEKI(selectQuery);
-        while (results.hasNext()) {
-            QuerySolution row = results.next();
-            subjectName = row.getResource("l").getLocalName();
+        try {
+            String selectQuery = null;
+            
+            selectQuery = FusekiClient.PREFIX;
+            selectQuery += "SELECT  ?l WHERE { "
+                    + "  ?l a r:Location;\n"
+                    + "           r:hasPostalCode \"" + location.getPostalCode() + "\"^^xsd:nonNegativeInteger ;\n"
+                    + "           r:hasCity \"" + location.getCity() + "\"^^xsd:string ;\n"
+                    + "           r:hasCountry \"" + location.getCountry() + "\"^^xsd:string ;\n"
+                    + "           r:hasAddress \"" + location.getAddress() + "\"^^xsd:string .\n"
+                    + "}";
+            
+            System.out.println("Location for registerd user delivery: "+selectQuery);
+            ResultSet results = FusekiClient.queryFUSEKI(selectQuery);
+            while (results.hasNext()) {
+                QuerySolution row = results.next();
+                subjectName = row.getResource("l").getLocalName();
+            }
+            
+            
+        } catch (Exception ex) {
+            Logger.getLogger(LocationDao.class.getName()).log(Level.SEVERE, null, ex);
         }
-
         return subjectName;
     }
 

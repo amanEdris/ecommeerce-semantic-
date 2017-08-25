@@ -18,6 +18,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.apache.commons.lang.StringUtils;
 
 /**
  *
@@ -51,66 +52,72 @@ public class BookController extends HttpServlet {
 
         String forward = "";
         String action = request.getParameter("action");
-        if (action.equalsIgnoreCase("delete")) {
-             // TODO:  delete book 
-            forward = LIST_Books;
-            //get all books 
-            //forward to  book list jsp
-            request.setAttribute("books", kidDao.getAllKidsBook());
-        } else if (action.equalsIgnoreCase("edit")) {
-            forward = INSERT_OR_EDIT;
-             // TODO: getBookby product number
-             // TODO: set to request
+        
+        if(StringUtils.isEmpty(action)){
+             forward = LIST_Books;
+        }else{
+            if (action.equalsIgnoreCase("delete")) {
+                // TODO:  delete book 
+                forward = LIST_Books;
+                //get all books 
+                //forward to  book list jsp
+                request.setAttribute("books", kidDao.getAllKidsBook());
+            } else if (action.equalsIgnoreCase("edit")) {
+                forward = INSERT_OR_EDIT;
+                // TODO: getBookby product number
+                // TODO: set to request
 
-        } else if (action.equalsIgnoreCase("list")) {
-            forward = LIST_Books;
-             // TODO: list all books 
+            } else if (action.equalsIgnoreCase("list")) {
+                forward = LIST_Books;
+                // TODO: list all books 
 
-        }else if (action.equalsIgnoreCase("show")) {
-            Book b = new Book();
-            forward = SHOW_Books;
-            int productId = Integer.parseInt(request.getParameter("productNo"));
+            } else if (action.equalsIgnoreCase("show")) {
+                Book b = new Book();
+                forward = SHOW_Books;
+                int productId = Integer.parseInt(request.getParameter("productNo"));
 
-            b = bookDao.getBookbyProductNumber(productId, request.getParameter("category"));
-            request.setAttribute("book", b);
-            request.setAttribute("category",request.getParameter("category"));
+                b = bookDao.getBookbyProductNumber(productId, request.getParameter("category"));
+                request.setAttribute("book", b);
+                request.setAttribute("category", request.getParameter("category"));
 
-        } else if (action.equalsIgnoreCase("listBooks")) {
-            forward = LIST_Books;
-            String category = (request.getParameter("category"));
-            request.setAttribute("category",category);
-            if (category != null) {
-                if (NonFictionalBook.NonFictionalCategory.getEnumByString(category) != null) {
-                    request.setAttribute("cat", 1);               
-                    request.setAttribute("nonfibooks", nonFcitionDao.getAllNonFictionalBookByCategory(category));
-                    if(nonFcitionDao.getAllNonFictionalBookByCategory(category).isEmpty()){
-                        request.setAttribute("message","Sorry, no books in this ");
-                    }
-                } else if (category.equals("Kids Book")) {
-                    request.setAttribute("cat", 2);
-                    request.setAttribute("kidbooks", kidDao.getAllKidsBook());
-                    if(kidDao.getAllKidsBook().isEmpty()){
-                        request.setAttribute("message","Sorry, no books in this ");
+            } else if (action.equalsIgnoreCase("listBooks")) {
+                forward = LIST_Books;
+                String category = (request.getParameter("category"));
+                request.setAttribute("category", category);
+                if (category != null) {
+                    if (NonFictionalBook.NonFictionalCategory.getEnumByString(category) != null) {
+                        request.setAttribute("cat", 1);
+                        request.setAttribute("nonfibooks", nonFcitionDao.getAllNonFictionalBookByCategory(category));
+                        if (nonFcitionDao.getAllNonFictionalBookByCategory(category).isEmpty()) {
+                            request.setAttribute("message", "Sorry, no books in this ");
+                        }
+                    } else if (category.equals("Kids Book")) {
+                        request.setAttribute("cat", 2);
+                        request.setAttribute("kidbooks", kidDao.getAllKidsBook());
+                        if (kidDao.getAllKidsBook().isEmpty()) {
+                            request.setAttribute("message", "Sorry, no books in this ");
+                        }
+                    } else {
+                        request.setAttribute("cat", 3);
+                        request.setAttribute("books", fictionDao.getAllFictionalBookByCategory(category));
+                        if (fictionDao.getAllFictionalBookByCategory(category).isEmpty()) {
+                            request.setAttribute("message", "Sorry, no books in this ");
+                        }
                     }
                 } else {
-                     request.setAttribute("cat", 3);
-                    request.setAttribute("books", fictionDao.getAllFictionalBookByCategory(category));
-                    if(fictionDao.getAllFictionalBookByCategory(category).isEmpty()){
-                        request.setAttribute("message","Sorry, no books in this ");
-                    }               
+                    request.setAttribute("category", category);
+                    request.setAttribute("nonfibooks", nonFcitionDao.getAllNonFictionalBook());
+                    request.setAttribute("kidbooks", kidDao.getAllKidsBook());
+                    request.setAttribute("books", fictionDao.getAllFictionalBook());
+
                 }
+
             } else {
-                request.setAttribute("category", category);
-                request.setAttribute("nonfibooks", nonFcitionDao.getAllNonFictionalBook());
-                request.setAttribute("kidbooks", kidDao.getAllKidsBook());
-                request.setAttribute("books", fictionDao.getAllFictionalBook());
+                forward = ADD_Books;
 
             }
-
-        } else {
-             forward = ADD_Books;
-
         }
+       
         RequestDispatcher view = request.getRequestDispatcher(forward);
         view.forward(request, response);
     }

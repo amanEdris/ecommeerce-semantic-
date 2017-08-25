@@ -12,6 +12,7 @@ import com.uniquebook.dao.FictionalBooksDao;
 import com.uniquebook.dao.KidsBookDao;
 import com.uniquebook.dao.ManagerDao;
 import com.uniquebook.dao.NonFictionalBooksDao;
+import com.uniquebook.dao.OrderDao;
 import com.uniquebook.models.Customer;
 import com.uniquebook.models.Delivery;
 import com.uniquebook.models.Location;
@@ -27,12 +28,16 @@ public class testDao {
 
     public static void main(String[] args) throws Exception {
         
-        Product p = new Product();
-        p.setProductNumber(2);
+        OrderDao od = new OrderDao();
+        System.out.println(od.getOrderCount());
         
-        BookDao bb  = new BookDao();
-        System.out.println("book"+bb.getSubjectName(p));
         
+//        Product p = new Product();
+//        p.setProductNumber(2);
+//        
+//        BookDao bb  = new BookDao();
+//        System.out.println("book"+bb.getSubjectName(p));
+//        
  /**
   * test location Dao
   * 

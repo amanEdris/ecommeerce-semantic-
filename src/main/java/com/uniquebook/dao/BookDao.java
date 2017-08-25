@@ -12,6 +12,8 @@ import com.uniquebook.models.KidsBook;
 import com.uniquebook.models.NonFictionalBook;
 import com.uniquebook.models.Product;
 import com.uniquebook.utils.FusekiClient;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -62,26 +64,37 @@ public class BookDao {
     }
 
     public String getSubjectName(Product p) {
-        String selectQuery = null;
         String subjectName = null;
-        selectQuery = FusekiClient.PREFIX;
-        selectQuery += "SELECT  ?x\n"
-                + "\n"
-                + "WHERE\n"
-                + "{ \n"
-                + "  ?x a ?o;\n"
-                + "     r:productNumber  \"" + p.getProductNumber() + "\"^^xsd:nonNegativeInteger.\n"
-                + "\n"
-                + " }";
-
-        System.out.println("subject query for this product is:  " + selectQuery);
-
-        ResultSet results = FusekiClient.queryFUSEKI(selectQuery);
-        while (results.hasNext()) {
-            QuerySolution row = results.next();
-            subjectName = row.getResource("x").getLocalName();
+        try {
+            String selectQuery = null;
+            
+            selectQuery = FusekiClient.PREFIX;
+            selectQuery += "SELECT  ?x\n"
+                    + "\n"
+                    + "WHERE\n"
+                    + "{ \n"
+                    + "  ?x a ?o;\n"
+                    + "     r:productNumber  \"" + p.getProductNumber() + "\"^^xsd:nonNegativeInteger.\n"
+                    + "\n"
+                    + " }";
+            
+            System.out.println("subject query for this product is:  " + selectQuery);
+            
+            ResultSet results = FusekiClient.queryFUSEKI(selectQuery);
+            while (results.hasNext()) {
+                QuerySolution row = results.next();
+                subjectName = row.getResource("x").getLocalName();
+            }
+            
+        } catch (Exception ex) {
+            Logger.getLogger(BookDao.class.getName()).log(Level.SEVERE, null, ex);
         }
         return subjectName;
     }
 
+    
+    //All Book products count 
+    public int getBookProductCount(){
+        return 1;
+    }
 }

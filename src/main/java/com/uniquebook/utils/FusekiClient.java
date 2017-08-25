@@ -36,7 +36,7 @@ public class FusekiClient {
      * @param BooksQuery
      * @return Result set from Db
      */
-    public static ResultSet queryFUSEKI(String BooksQuery) {
+    public static ResultSet queryFUSEKI(String BooksQuery) throws Exception{
         Query query = QueryFactory.create(BooksQuery, Syntax.syntaxARQ);
         QueryExecution qe = QueryExecutionFactory.sparqlService(QUERY_FUSEKI_CLIENT_URL, query);
         ResultSet results = qe.execSelect();

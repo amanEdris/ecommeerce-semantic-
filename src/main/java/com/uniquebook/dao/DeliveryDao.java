@@ -27,19 +27,17 @@ public class DeliveryDao {
     private LocationDao locationDao;
     private final int DEFAULT_DELIVERY_PERIOD_IN_DAYS = 7;
 
-
     public DeliveryDao() {
         helperUtil = new HelperUtil();
         locationDao = new LocationDao();
 
     }
-    
-    /**
-     * 
-     * @param delivery
-     * @return 
-     */
 
+    /**
+     *
+     * @param delivery
+     * @return
+     */
     public String addDelivery(Delivery delivery) {
         boolean check = false;
         String LocationSubjectName = null;
@@ -57,7 +55,7 @@ public class DeliveryDao {
                 String insertQuery = FusekiClient.PREFIX;
                 insertQuery += "INSERT DATA\n"
                         + "{\n"
-                        + "   r:"+ subjectName + "   a r:Delivery;\n"
+                        + "   r:" + subjectName + "   a r:Delivery;\n"
                         + "          r:hasDeliveryDate \"" + this.generateXSDDateTime(delivery.getDeliveryDate()) + "\"^^xsd:dateTime;\n"
                         + "          r:hasLocation r:" + LocationSubjectName + " .\n"
                         + "}";
@@ -71,8 +69,7 @@ public class DeliveryDao {
         return subjectName;
 
     }
-    
- 
+
     public String generateXSDDateTime(Date date) {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
         Date tempDateStartMax = new Date(date.getTime() + DEFAULT_DELIVERY_PERIOD_IN_DAYS * 24 * 3600 * 1000);
@@ -87,20 +84,26 @@ public class DeliveryDao {
      * @return
      */
     public String getSubjectName(Delivery delivery, String locationSubjectName) {
-        String selectQuery = null;
         String subjectName = null;
-        selectQuery = FusekiClient.PREFIX;
-        selectQuery += "SELECT  ?d "
-                + "   WHERE { "
-                + "   ?d rdf:type r:Delivery;\n"
-                + "          r:hasDeliveryDate \"" + delivery.getDeliveryDate() + "\"^^xsd:dateTime;\n"
-                + "          r:hasLocation r:" + locationSubjectName + " .\n"
-                + "}";
+        try {
+            String selectQuery = null;
 
-        ResultSet results = FusekiClient.queryFUSEKI(selectQuery);
-        while (results.hasNext()) {
-            QuerySolution row = results.next();
-            subjectName = row.getResource("l").getLocalName();
+            selectQuery = FusekiClient.PREFIX;
+            selectQuery += "SELECT  ?d "
+                    + "   WHERE { "
+                    + "   ?d rdf:type r:Delivery;\n"
+                    + "          r:hasDeliveryDate \"" + delivery.getDeliveryDate() + "\"^^xsd:dateTime;\n"
+                    + "          r:hasLocation r:" + locationSubjectName + " .\n"
+                    + "}";
+
+            ResultSet results = FusekiClient.queryFUSEKI(selectQuery);
+            while (results.hasNext()) {
+                QuerySolution row = results.next();
+                subjectName = row.getResource("l").getLocalName();
+            }
+
+        } catch (Exception ex) {
+            Logger.getLogger(DeliveryDao.class.getName()).log(Level.SEVERE, null, ex);
         }
         return subjectName;
     }
@@ -122,5 +125,7 @@ public class DeliveryDao {
 
         return check;
     }
+    
+    //Delivery count 
 
 }

@@ -204,6 +204,8 @@ public class NonFictionalBooksDao {
             }
         } catch (ParseException ex) {
             Logger.getLogger(FictionalBooksDao.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception ex) {
+            Logger.getLogger(NonFictionalBooksDao.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -235,6 +237,8 @@ public class NonFictionalBooksDao {
 
             }
         } catch (ParseException ex) {
+            Logger.getLogger(NonFictionalBooksDao.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception ex) {
             Logger.getLogger(NonFictionalBooksDao.class.getName()).log(Level.SEVERE, null, ex);
         }
     }

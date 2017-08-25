@@ -122,23 +122,28 @@ public class CustomerDao {
     }
 
     public String getSubjectName(String email) {
-        String selectQuery = null;
         String subjectName = null;
-        selectQuery = FusekiClient.PREFIX;
-        selectQuery += "SELECT  ?c "
-                + "WHERE { \n"
-                + " ?c rdf:type r:Customer.\n"
-                + " ?c r:hasEmail ?email.\n"
-                + "  FILTER (?email = \"" + email + "\"^^xsd:string ) \n"
-                + "}"
-                + "";
+        try {
+            String selectQuery = null;
 
-        ResultSet results = FusekiClient.queryFUSEKI(selectQuery);
-        while (results.hasNext()) {
-            QuerySolution row = results.next();
-            subjectName = row.getResource("c").getLocalName();
+            selectQuery = FusekiClient.PREFIX;
+            selectQuery += "SELECT  ?c "
+                    + "WHERE { \n"
+                    + " ?c rdf:type r:Customer.\n"
+                    + " ?c r:hasEmail ?email.\n"
+                    + "  FILTER (?email = \"" + email + "\"^^xsd:string ) \n"
+                    + "}"
+                    + "";
+
+            ResultSet results = FusekiClient.queryFUSEKI(selectQuery);
+            while (results.hasNext()) {
+                QuerySolution row = results.next();
+                subjectName = row.getResource("c").getLocalName();
+            }
+
+        } catch (Exception ex) {
+            Logger.getLogger(CustomerDao.class.getName()).log(Level.SEVERE, null, ex);
         }
-
         return subjectName;
     }
 
@@ -202,24 +207,48 @@ public class CustomerDao {
     }
 
     private void queryCustomer(String customerQuery, Customer customer) {
-        Location customerLocation = new Location();
-        ResultSet results = FusekiClient.queryFUSEKI(customerQuery);
-        while (results.hasNext()) {
-            QuerySolution row = results.next();
+        try {
+            Location customerLocation = new Location();
+            ResultSet results = FusekiClient.queryFUSEKI(customerQuery);
+            while (results.hasNext()) {
+                QuerySolution row = results.next();
 
-            customerLocation.setAddress(row.getLiteral("address").getString());
-            customerLocation.setCity(row.getLiteral("city").getString());
-            customerLocation.setCountry(row.getLiteral("country").getString());
-            customerLocation.setPostalCode(row.getLiteral("postalcode").getString());
+                customerLocation.setAddress(row.getLiteral("address").getString());
+                customerLocation.setCity(row.getLiteral("city").getString());
+                customerLocation.setCountry(row.getLiteral("country").getString());
+                customerLocation.setPostalCode(row.getLiteral("postalcode").getString());
 
-            customer.setLocation(customerLocation);
-            customer.setEmail(row.getLiteral("email").getString());
-            customer.setFirstName(row.getLiteral("firstName").getString());
-            customer.setLastName(row.getLiteral("lastName").getString());
-            customer.setPassword(row.getLiteral("password").getString());
-            customer.setPhone(row.getLiteral("phone").getString());
-            customer.setGender(row.getLiteral("gender").getString());
+                customer.setLocation(customerLocation);
+                customer.setEmail(row.getLiteral("email").getString());
+                customer.setFirstName(row.getLiteral("firstName").getString());
+                customer.setLastName(row.getLiteral("lastName").getString());
+                customer.setPassword(row.getLiteral("password").getString());
+                customer.setPhone(row.getLiteral("phone").getString());
+                customer.setGender(row.getLiteral("gender").getString());
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(CustomerDao.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    public int getCustomerCount() {
+        int count = 0;
+        try {
+            String selectQuery = FusekiClient.PREFIX;
+            selectQuery += "SELECT (count(?c) As ?customers)\n"
+                    + "where{\n"
+                    + "	?c a r:Customer.\n"
+                    + "}";
+
+            ResultSet results = FusekiClient.queryFUSEKI(selectQuery);
+            while (results.hasNext()) {
+                QuerySolution row = results.next();
+                count = row.getLiteral("customers").getInt();
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(CustomerDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return count;
     }
 
 }
