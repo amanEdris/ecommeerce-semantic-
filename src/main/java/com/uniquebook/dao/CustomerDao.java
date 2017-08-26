@@ -13,6 +13,7 @@ import com.uniquebook.utils.FusekiClient;
 import com.uniquebook.utils.HelperUtil;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -32,6 +33,7 @@ public class CustomerDao {
     }
 
     public boolean addCustomer(Customer b) {
+        String id = UUID.randomUUID().toString();
         boolean flagCustomerExist = false;
         try {
             boolean check = this.checkCustomerEmailIsFree(b.getEmail());
@@ -51,6 +53,7 @@ public class CustomerDao {
                         + "           r:hasLastName  \"" + b.getLastName() + "\"^^xsd:string ;\n"
                         + "           r:hasFirstName \"" + b.getFirstName() + "\"^^xsd:string ;\n"
                         + "           r:hasGender  \"" + b.getGender() + "\"^^xsd:string ;\n"
+                        + "           r:customerId  \"" + id + "\"^^xsd:string ;\n"
                         + "           r:hasLocation r:" + LocationSubjectName + " .\n"
                         + "}";
 
@@ -103,6 +106,7 @@ public class CustomerDao {
                     + " ?c r:hasPhone ?phone."
                     + " ?c r:hasPassword ?password."
                     + " ?c r:hasFirstName  ?firstname."
+                    + " ?c  r:customerId   ?customerId."
                     + " ?c r:hasLocation ?location."
                     + "?c r:hasGender     ?gender.\n"
                     + " ?location a r:Location.\n"
@@ -110,7 +114,7 @@ public class CustomerDao {
                     + " ?location   r:hasCity ?city.\n"
                     + " ?location   r:hasCountry ?country . \n"
                     + " ?location   r:hasAddress ?address. \n"
-                    + "  FILTER (?email = \"" + c.getEmail() + "\"^^xsd:string ) \n"
+                    + "  FILTER (?customerId = \"" + b.getCutomerId() + "\"^^xsd:string ) \n"
                     + "}";
             System.out.println("Update customer query is: " + updateCustomerQuery);
             FusekiClient.insertFUSEKI(updateCustomerQuery);
@@ -178,13 +182,14 @@ public class CustomerDao {
                 + "WHERE\n"
                 + "{\n"
                 + "     ?x a r:Customer.\n"
-                + "          ?x r:hasPhone ?phone.\n"
+                + "          ?x  r:hasPhone ?phone.\n"
                 + "          ?x  r:hasPassword ?password.\n"
                 + "          ?x  r:hasEmail  ?email.\n"
                 + "          ?x  r:hasLastName  ?lastName.\n"
                 + "          ?x  r:hasFirstName  ?firstName.\n"
                 + "          ?x  r:hasGender  ?gender.\n"
-                + "          ?x r:hasLocation ?location.\n"
+                + "          ?x  r:hasLocation ?location.\n"
+                + "          ?x  r:customerId   ?customerId."
                 + "          ?location rdf:type r:Location.\n"
                 + "          ?location r:hasPostalCode ?postalcode.\n"
                 + "          ?location r:hasCity ?city.\n"
@@ -192,6 +197,7 @@ public class CustomerDao {
                 + "          ?location  r:hasAddress ?address.\n"
                 + "   FILTER (?email  = \"" + email + "\"^^xsd:string && ?password = \"" + password + "\" )\n"
                 + "}";
+        
         queryCustomer(customerQuery, c);
 
         return c;
@@ -216,6 +222,7 @@ public class CustomerDao {
                 + "          ?x  r:hasEmail  ?email.\n"
                 + "          ?x  r:hasLastName  ?lastName.\n"
                 + "          ?x  r:hasFirstName  ?firstName.\n"
+                + "          ?x  r:customerId   ?customerId."
                 + "          ?x  r:hasGender  ?gender.\n"
                 + "          ?x r:hasLocation ?location.\n"
                 + "          ?location rdf:type r:Location.\n"
@@ -229,11 +236,44 @@ public class CustomerDao {
 
     }
 
-    public void deleteCustomer(String Email) {
+    public void deleteCustomer(String customerId) throws Exception {
+        String deleteCustomerQuery = FusekiClient.PREFIX;
+        deleteCustomerQuery += "DELETE"
+                + "{"
+                + "  ?c r:hasPhone ?phone;\n"
+                + "     r:hasPassword ?password;\n"
+                + "     r:hasEmail   ?email;\n"
+                + "     r:hasLastName   ?lastname;\n"
+                + "     r:hasFirstName  ?firstname;\n"
+                + "     r:hasGender     ?gender.\n"
+                + "  ?location   r:hasPostalCode ?postalCode; \n"
+                + "     r:hasCity ?city ;\n"
+                + "     r:hasCountry ?country ; \n"
+                + "     r:hasAddress ?address. \n"
+                + "} WHERE { \n"
+                + " ?c rdf:type r:Customer.\n"
+                + " ?c r:hasEmail ?email.\n"
+                + " ?c r:hasLastName   ?lastname.\n"
+                + " ?c r:hasPhone ?phone."
+                + " ?c r:hasPassword ?password."
+                + " ?c  r:customerId   ?customerId."
+                + " ?c r:hasFirstName  ?firstname."
+                + " ?c r:hasLocation ?location."
+                + "?c r:hasGender     ?gender.\n"
+                + " ?location a r:Location.\n"
+                + " ?location   r:hasPostalCode ?postalCode. \n"
+                + " ?location   r:hasCity ?city.\n"
+                + " ?location   r:hasCountry ?country . \n"
+                + " ?location   r:hasAddress ?address. \n"
+                + "  FILTER (?customerId = \"" + customerId + "\"^^xsd:string ) \n"
+                + "}";
+
+        System.out.println("Cutomer deleet query" + deleteCustomerQuery);
+        FusekiClient.insertFUSEKI(deleteCustomerQuery);
 
     }
 
-    private void queryCustomer(String customerQuery, Customer customer) {
+    public void queryCustomer(String customerQuery, Customer customer) {
         try {
             Location customerLocation = new Location();
             ResultSet results = FusekiClient.queryFUSEKI(customerQuery);
@@ -284,12 +324,13 @@ public class CustomerDao {
         }
     }
 
-    private void setCustomerDataFromResult(Location customerLocation, QuerySolution row, Customer customer) {
+    public void setCustomerDataFromResult(Location customerLocation, QuerySolution row, Customer customer) {
+        
         customerLocation.setAddress(row.getLiteral("address").getString());
         customerLocation.setCity(row.getLiteral("city").getString());
         customerLocation.setCountry(row.getLiteral("country").getString());
         customerLocation.setPostalCode(row.getLiteral("postalcode").getString());
-
+        customer.setCutomerId(row.getLiteral("customerId").getString());
         customer.setLocation(customerLocation);
         customer.setEmail(row.getLiteral("email").getString());
         customer.setFirstName(row.getLiteral("firstName").getString());
@@ -297,5 +338,46 @@ public class CustomerDao {
         customer.setPassword(row.getLiteral("password").getString());
         customer.setPhone(row.getLiteral("phone").getString());
         customer.setGender(row.getLiteral("gender").getString());
+    }
+
+    public List<Customer> getAllCustomer(int startPageIndex, int recordsPerPage) {
+        List<Customer> customers = new ArrayList<Customer>();
+        int offset;
+        if (startPageIndex == 1 || startPageIndex == 0) {
+            offset = 0;
+        } else {
+            offset = ((startPageIndex - 1) * (recordsPerPage) + 1);
+        }
+
+        String customerQuery = "prefix r: <http://localhost:8080/UniqueBookshop/onto/Ecommerce.owl/>\n"
+                + "prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> \n"
+                + "prefix xsd: <http://www.w3.org/2001/XMLSchema#> \n"
+                + "prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> \n"
+                + "\n"
+                + "SELECT  *\n"
+                + "\n"
+                + "WHERE\n"
+                + "{\n"
+                + "     ?x a r:Customer.\n"
+                + "          ?x r:hasPhone ?phone.\n"
+                + "          ?x  r:hasPassword ?password.\n"
+                + "          ?x  r:hasEmail  ?email.\n"
+                + "          ?x  r:hasLastName  ?lastName.\n"
+                + "          ?x  r:hasFirstName  ?firstName.\n"
+                + "          ?x  r:customerId   ?customerId."
+                + "          ?x  r:hasGender  ?gender.\n"
+                + "          ?x r:hasLocation ?location.\n"
+                + "          ?location rdf:type r:Location.\n"
+                + "          ?location r:hasPostalCode ?postalcode.\n"
+                + "          ?location r:hasCity ?city.\n"
+                + "          ?location r:hasCountry ?country.\n"
+                + "          ?location  r:hasAddress ?address.\n"
+                + "}"
+                + "LIMIT " + recordsPerPage + "\n"
+                + "OFFSET" + offset + ""
+                + "";
+        queryAllCustomers(customerQuery, customers);
+        System.out.println("the query for customer data is:" + customerQuery.toString());
+        return customers;
     }
 }

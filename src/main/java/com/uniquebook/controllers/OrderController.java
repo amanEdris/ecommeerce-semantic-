@@ -12,7 +12,9 @@ import com.uniquebook.models.Location;
 import com.uniquebook.models.Order;
 import com.uniquebook.models.ShoppingCart;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -50,9 +52,9 @@ public class OrderController extends HttpServlet {
         Customer c = (Customer) session.getAttribute("User");
         String action = request.getParameter("action");
 
-        if(StringUtils.isEmpty(action)){
-             forward = LOGIN_PAGE;
-        }else{
+        if (StringUtils.isEmpty(action)) {
+            forward = LOGIN_PAGE;
+        } else {
             if (action.equalsIgnoreCase("checkout")) {
                 if (c == null) {
                     forward = LOGIN_PAGE;
@@ -61,9 +63,25 @@ public class OrderController extends HttpServlet {
                     forward = CONFIRMATION_PAGE;
                 }
 
+            } else if (action.equalsIgnoreCase("show")) {
+                List<Order> orders = orderDao.getCustomerOrders(c);
+                response.setContentType("text/html;charset=UTF-8");
+
+                try (PrintWriter out = response.getWriter()) {
+                    /* TODO output your page here. You may use following sample code. */
+                    out.println("<!DOCTYPE html>");
+                    out.println("<html>");
+                    out.println("<head>");
+                    out.println("<title>Servlet OrderController</title>");
+                    out.println("</head>");
+                    out.println("<body>");
+                    out.println("<h1>the quantities are  " + c.toString() + "</h1>");
+                    out.println("</body>");
+                    out.println("</html>");
+                }
             }
         }
-      
+
         RequestDispatcher view = request.getRequestDispatcher(forward);
         view.forward(request, response);
     }
@@ -137,5 +155,3 @@ public class OrderController extends HttpServlet {
     }
 
 }
-
-

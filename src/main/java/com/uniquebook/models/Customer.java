@@ -11,6 +11,8 @@ package com.uniquebook.models;
  */
 public class Customer extends Person {
 
+    private String customerId;
+
     private Location location;
 
     public Customer() {
@@ -25,9 +27,17 @@ public class Customer extends Person {
         this.location = location;
     }
 
+    public String getCutomerId() {
+        return customerId;
+    }
+
+    public void setCutomerId(String cutomerId) {
+        this.customerId = cutomerId;
+    }
+
     @Override
     public String toString() {
-        return "Customer{" + "location=" + location + '}' + super.toString();
+        return "Customer{" + "location=" + location + '}' + super.toString()+this.customerId;
     }
 
     public void clone(Customer c) {
@@ -38,6 +48,7 @@ public class Customer extends Person {
         this.setPassword(c.getPassword());
         this.setPhone(c.getPhone());
         this.setLocation(c.getLocation());
+        this.setCutomerId(c.getCutomerId());
     }
 
 }

@@ -438,7 +438,11 @@ xsd:date rdf:type rdfs:Datatype .
           
           rdfs:range xsd:string .
 
-
+:customerId rdf:type owl:DatatypeProperty ;
+          
+          rdfs:domain :Customer ;
+          
+          rdfs:range xsd:string .
 
 ###  http://www.semanticweb.org/edris/ontologies/2017/7/untitled-ontology-208#hasPostalCode
 

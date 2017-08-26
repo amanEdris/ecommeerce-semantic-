@@ -22,14 +22,21 @@
 			$(document).ready(function () {
 				$('#Dashboard').jtable({
 					title: 'Customers', paging: true, //Enable paging
-					pageSize: 3, //Set page size (default: 10)
+					pageSize: 2, //Set page size (default: 10)
 					actions: {
-						listAction: 'dashboard?action=listCustomer',
-						createAction: 'Controller?action=create',
-						updateAction: 'Controller?action=update',
-						deleteAction: 'Controller?action=delete'
+						listAction: 'dashboard?action=listcustomer',
+						createAction: 'dashboard?action=createcustomer',
+						updateAction: 'dashboard?action=updatecustomer',
+						deleteAction: 'dashboard?action=deletecustomer'
 					},
 					fields: {
+
+                                                customerId: {
+							title: 'CustomerId',
+							key: true,
+							width: '20%',
+							edit: false
+						},
 						firstName: {
 							title: 'First Name',
 							key: false,
@@ -63,32 +70,44 @@
 						},
 						email: {
 							title: 'Email',
-							key: true,
+							key: false,
 							width: '20%',
 							edit: true
 						},
-						city: {
+                                                city: {
+                                                        key: false,
+                                                        edit: true,
+							width: '20%',
 							title: 'City',
 							display: function (data) {
 								return data.record.location.city;
 							}
 						},
 						country: {
+                                                        key: false,
+                                                        edit: true,
+							width: '20%',
 							title: 'Country',
 							display: function (data) {
-								return data.record.location.city;
+								return data.record.location.country;
 							}
 						},
 						address: {
+                                                        key: false,
+                                                        edit: true,
+							width: '20%',
 							title: 'Address',
 							display: function (data) {
-								return data.record.location.city;
+								return data.record.location.address;
 							}
 						},
 						postalCode: {
+                                                                key: false,
+                                                                edit: true,
+                                                                width: '20%',
 								title: 'PostalCode',
 								display: function (data) {
-									return data.record.location.city;
+									return data.record.location.postalCode;
 								}
 							}
 

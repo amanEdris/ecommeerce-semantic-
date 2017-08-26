@@ -8,6 +8,8 @@
 
 r:edi rdf:type r:Manager;
 
+     r:managerId "dfsfasdfd"^^xsd:string;
+
      r:hasPhone "+358440993393"^^xsd:string ;
 
      r:hasFirstName "dd"^^xsd:string;
@@ -236,6 +238,7 @@ r:fljori rdf:type r:Customer;
         r:hasPassword "fljori"^^xsd:string ;
 
         r:hasEmail "fljori@gmail.com"^^xsd:string ;
+        r:customerId "dfsf1dddasdfd"^^xsd:string;
 
 
         r:hasLocation r:fljoriLocation ;
@@ -246,6 +249,8 @@ r:edia rdf:type r:Customer;
         r:hasName "edi minasa"^^xsd:string ;
         r:hasGender "male"^^xsd:string ;
         r:hasPassword "ed"^^xsd:string ;
+        r:customerId "dfsf1dddasdeefd"^^xsd:string;
+
         r:hasEmail "edi@gmail.com"^^xsd:string ;
         r:hasPassword "ed"^^xsd:string ;
         r:hasLocation r:ediLocation;

@@ -24,7 +24,7 @@ import org.apache.commons.lang.StringUtils;
  *
  * @author edris
  */
-@WebServlet(name = "AccountController", urlPatterns = {"/account", "/updateAccount", "/login", "/addAccount"})
+@WebServlet(name = "AccountController", urlPatterns = {"/account", "/updateAccount", "/login", })
 public class AccountController extends HttpServlet {
 
     private CustomerDao customerDao;
@@ -102,28 +102,6 @@ public class AccountController extends HttpServlet {
                 }
 
             }
-        } else if (userPath.equals("/addAccount")) {
-                Customer c = new Customer();
-                Location l = new Location();
-                l.setAddress(request.getParameter("address_1"));
-                l.setCity(request.getParameter("city"));
-                l.setCountry(request.getParameter("country_id"));
-                l.setPostalCode(request.getParameter("postcode"));
-                c.setLocation(l);
-                c.setEmail(request.getParameter("email"));
-                c.setFirstName(request.getParameter("firstname"));
-                c.setLastName(request.getParameter("lastname"));
-                c.setPassword(request.getParameter("password"));
-                c.setGender(request.getParameter("male"));
-                c.setPhone(request.getParameter("telephone"));
-                boolean check = customerDao.addCustomer(c);
-                if (check) {
-                    request.setAttribute("message", "Email  regitered please use different Email!");
-                } else {
-                    request.setAttribute("goodmessage", "sucessfully registered user!");
-                }
-
-
         } else if (userPath.equals("/updateAccount")) {
             HttpSession session = request.getSession();
             Customer c = new Customer();
@@ -139,8 +117,9 @@ public class AccountController extends HttpServlet {
             c.setPassword(request.getParameter("password"));
             c.setGender(request.getParameter("male"));
             c.setPhone(request.getParameter("telephone"));
-
+            
             Customer customerOld = (Customer) session.getAttribute("User");
+            c.setCutomerId(customerOld.getCutomerId());
             boolean updated = customerDao.updateCustomer(c, customerOld);
 
             if (updated) {

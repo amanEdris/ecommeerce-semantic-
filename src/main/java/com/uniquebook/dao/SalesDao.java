@@ -5,10 +5,13 @@
  */
 package com.uniquebook.dao;
 
+import com.hp.hpl.jena.query.QuerySolution;
+import com.hp.hpl.jena.query.ResultSet;
 import com.uniquebook.models.Product;
 import com.uniquebook.models.Sale;
 import com.uniquebook.utils.FusekiClient;
 import com.uniquebook.utils.HelperUtil;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -33,9 +36,9 @@ public class SalesDao {
 
     public String[] addSales(List<Sale> sales) {
         String salesSubjectNames[] = new String[sales.size()];
-         int i = 0;
+        int i = 0;
         for (Sale sale : sales) {
-           
+
             try {
                 String tempsalesSubject = helperUtil.generateNames();
                 String tempproductSubjectName = bookDao.getSubjectName(sale.getProduct());
@@ -73,7 +76,7 @@ public class SalesDao {
             String queryUpdate = FusekiClient.PREFIX;
             queryUpdate += "DELETE\n"
                     + "{\n"
-                    + " ?s r:hasQuantity  \"" +s.getProduct().getQuantity()+ "\"^^xsd:nonNegativeInteger;\n"
+                    + " ?s r:hasQuantity  \"" + s.getProduct().getQuantity() + "\"^^xsd:nonNegativeInteger;\n"
                     + "}\n"
                     + "INSERT\n"
                     + "{\n"
@@ -85,7 +88,7 @@ public class SalesDao {
                     + "}\n"
                     + "";
             FusekiClient.insertFUSEKI(queryUpdate);
-            System.out.println("insert query for sale stock quantituy: "+queryUpdate);
+            System.out.println("insert query for sale stock quantituy: " + queryUpdate);
         } catch (Exception ex) {
             Logger.getLogger(SalesDao.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -100,9 +103,47 @@ public class SalesDao {
 
     }
 
-    public List<Sale> getAllSalesByOrderNumber() {
-        return null;
+    public List<Sale> getAllSalesByOrderNumber(String orderNumber) {
+        List<Sale> sales = new ArrayList<Sale>();
+        try {
+            String querySales = FusekiClient.PREFIX;
+            querySales += "SELECT  DISTINCT ?description ?quantity ?image ?price ?title ?productNumber ?productQuantity\n"
+                    + "{\n"
+                    + "     ?o  a r:Order.\n"
+                    + "  	?o r:orderNumber ?orderNumber.\n"
+                    + "    ?o r:hasSales ?sale.\n"
+                    + "    ?sale r:hasProductSalesQuantity  ?productQuantity.\n"
+                    + "    ?sale  r:hasProduct  ?product.\n"
+                    + "     ?product r:productNumber ?productNumber.\n"
+                    + "  ?product  r:hasTitle  ?title.\n"
+                    + "  ?product    r:hasPrice ?price.\n"
+                    + "   ?product r:hasImage ?image.\n"
+                    + "  ?product   r:hasDescription ?description.\n"
+                    + "   ?product r:hasQuantity ?quantity.\n"
+                    + "  \n"
+                    + "   FILTER (?orderNumber = \""+orderNumber+"\"^^xsd:string )\n"
+                    + "\n"
+                    + "}";
 
+            ResultSet results = FusekiClient.queryFUSEKI(querySales);
+            while (results.hasNext()) {
+                QuerySolution row = results.next();
+                
+                Product p = new Product();
+                p.setDescription(row.getLiteral("description").getString());
+                p.setImagepath(row.getLiteral("image").getString());
+                p.setPrice(row.getLiteral("price").getFloat());
+                p.setProductName(row.getLiteral("title").getString());
+                p.setProductNumber(row.getLiteral("productNumber").getInt());
+                p.setQuantity(row.getLiteral("quantity").getInt());
+                Sale sale = new Sale( row.getLiteral("productQuantity").getInt(),p);
+                sales.add(sale);
+            }
+
+        } catch (Exception ex) {
+            Logger.getLogger(SalesDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return sales;
     }
 
     public List<Sale> getSalesByOrder() {
