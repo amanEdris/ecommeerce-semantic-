@@ -10,6 +10,7 @@
         <table width="100%" aria-describedby="dataTables-example_info" class="table table-striped table-bordered table-hover dataTable no-footer dtr-inline" id="dataTables-customerOrder" role="grid">
             <thead>
              <tr>
+
                     <th>Product Number</th>
                     <th>Product Name</th>
                     <th>Description</th>
@@ -22,12 +23,14 @@
                     <th>Publisher</th>
                     <th>Category</th>
                     <th>Revision</th>
+                    <th></th>
             </tr>
             </thead>
 
             <tbody>
               <c:forEach var="fictionalbook" items="${fictional}">
                 <tr>
+
                     <td>${fictionalbook.productNumber}</td>
                     <td>${fictionalbook.title}</td>
                     <td>${fictionalbook.description}</td>
@@ -40,10 +43,18 @@
                     <td>${fictionalbook.publisher}</td>
                     <td>${fictionalbook.category}</td>
                     <td>${fictionalbook.revisionNo}</td>
+                    <td>
+                      <a href="/UniqueBookApp/dashboard?action=editProduct&productNumber=${fictionalbook.productNumber}&category=${fictionalbook.category}">
+                        <i class="fa fa-edit fa-2x"></i> </a>
+                        <br>
+                        <a href="/UniqueBookApp/dashboard?action=deleteProduct&productNumber=${fictionalbook.productNumber}&category=${fictionalbook.category}">
+                          <i class="fa fa-trash-o-o  fa-2x"></i> </a>
+                    </td>
                 </tr>
               </c:forEach>
               <c:forEach var="nonfiction" items="${nonfiction}">
                 <tr>
+
                     <td>${nonfiction.productNumber}</td>
                     <td>${nonfiction.title}</td>
                     <td>${nonfiction.description}</td>
@@ -56,10 +67,17 @@
                     <td>${nonfiction.publisher}</td>
                     <td>${nonfiction.category}</td>
                     <td>${nonfiction.revisionNo}</td>
+                    <td><a href="/UniqueBookApp/dashboard?action=editProduct&productNumber=${nonfiction.productNumber}&category=${nonfiction.category}">
+                      <i class="fa fa-edit fa-2x"></i> </a>
+                      <br>
+                      <a href="/UniqueBookApp/dashboard?action=deleteProduct&productNumber=${nonfiction.productNumber}&category=${nonfiction.category}">
+                        <i class="fa fa-trash-o-o  fa-2x"></i> </a>
+                    </td>
                 </tr>
               </c:forEach>
               <c:forEach var="kidbooks" items="${kidbooks}">
                 <tr>
+
                     <td>${kidbooks.productNumber}</td>
                     <td>${kidbooks.title}</td>
                     <td>${kidbooks.description}</td>
@@ -72,6 +90,12 @@
                     <td>${kidbooks.publisher}</td>
                     <td>${kidbooks.category}</td>
                     <td>${kidbooks.revisionNo}</td>
+                    <td><a href="/UniqueBookApp/dashboard?action=editProduct&productNumber=${kidbooks.productNumber}&category=${kidbooks.category}">
+                      <i class="fa fa-edit fa-2x"></i> </a>
+                      <br>
+                      <a href="/UniqueBookApp/dashboard?action=deleteProduct&productNumber=${kidbooks.productNumber}&category=${kidbooks.category}">
+                        <i class="fa fa-trash-o-o  fa-2x"></i> </a>
+                    </td>
                 </tr>
               </c:forEach>
             </tbody>

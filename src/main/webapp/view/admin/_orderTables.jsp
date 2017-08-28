@@ -13,7 +13,7 @@
                 <tr>
                     <th>Order Number</th>
                     <th>Item</th>
-                    <th>Quantity * price</th>
+                    <th>Quantity <i class="fa-times"></i> price</th>
                     <th>Customer</th>
                     <th>order Status</th>
                     <th>Delivery Address</th>
@@ -44,7 +44,7 @@
                                     <c:set var="product" value="${sale.product}"/>
 
                                     <li>
-                                        ${product.price} * ${sale.productQuantity}</li>
+                                        ${product.price} <i class="fa-times"></i> ${sale.productQuantity}</li>
                                     </c:forEach>
                             </ol>
                         </td>

@@ -20,7 +20,6 @@ public class Config implements ServletContextListener {
         event.getServletContext().setAttribute("fictionalCategory", FictionalBook.FictionalCategory.values());
         event.getServletContext().setAttribute("nonfictionCategory",NonFictionalBook.NonFictionalCategory.values() );
         event.getServletContext().setAttribute("kidsCategory",KidsBook.kidsBookCategory.values() );
-      
     }
 
     @Override

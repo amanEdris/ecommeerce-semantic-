@@ -82,7 +82,7 @@ public class BookController extends HttpServlet {
 
             } else if (action.equalsIgnoreCase("listBooks")) {
                 forward = LIST_Books;
-                String category = (request.getParameter("category"));
+                String category = (request.getParameter("category").trim());
                 request.setAttribute("category", category);
                 if (category != null) {
                     if (NonFictionalBook.NonFictionalCategory.getEnumByString(category) != null) {

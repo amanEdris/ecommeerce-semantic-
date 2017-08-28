@@ -9,13 +9,13 @@
   <div class="panel-body">
     <div class="col-lg-6">
       <form role="form" action="addProduct">
-        <div class="form-group">
-          <label>Product Name:</label>
-          <input class="form-control" name="productName" type="text">
-            <!-- <p class="help-block">Example block-level help text here.</p>-->
-          </div>
+         <div class="form-group">
+                          <label>Title:</label>
+                          <input class="form-control" name="title" type="text">
+                            <!-- <p class="help-block">Example block-level help text here.</p>-->
+         </div>
           <div class="form-group">
-            <label>Product price:</label>
+            <label>Price:</label>
             <input class="form-control" name="productPrice" type="text">
               <!-- <p class="help-block">Example block-level help text here.</p>-->
             </div>
@@ -46,14 +46,10 @@
                       </div>
                       <div class="form-group">
                         <label>Published Year:</label>
-                        <input class="form-control" name="PublishedYear" type="year">
-                          <!-- <p class="help-block">Example block-level help text here.</p>-->
+                        <input class="form-control" name="PublishedYear">
+                         <p class="help-block">eg. 2005-01-01</p>
                         </div>
-                        <div class="form-group">
-                          <label>Title:</label>
-                          <input class="form-control" name="title" type="text">
-                            <!-- <p class="help-block">Example block-level help text here.</p>-->
-                          </div>
+                       
                           <div class="form-group">
                             <label>Author:</label>
                             <input class="form-control" name="author">
@@ -64,18 +60,18 @@
                               <input type="file" name="imagePath"></div>
                               <div class="form-group">
                                 <label>Product description</label>
-                                <textarea class="form-control" rows="3" name="productDetail" type="text"></textarea>
+                                <textarea class="form-control" rows="3" name="productDetail"></textarea>
                               </div>
 
                               <div class="form-group">
                                 <label>category</label>
-                                <select class="form-control" name="maincategory">
+                                <select class="form-control" name="maincategory" id="maincategory">
                                   <option value="kids">Kids book</option>
                                   <option value="fictional">fictional</option>
                                   <option value="nonfictioanl">nonfictional</option>
                                 </select>
                               </div>
-                              <div class="form-group">
+                              <div class="fictional box form-group">
                                 <label>Sub category</label>
                                 <select class="form-control" name="category" id="fictional">
                                   <c:forEach items="${fictionalCategory}" var="fiction">
@@ -83,7 +79,7 @@
                                   </c:forEach>
                                 </select>
                               </div>
-                              <div class="form-group">
+                              <div class="nonfictioanl box form-group">
                                 <label>Sub category</label>
                                 <select class="form-control" name="category" id="nonfictional">
                                   <c:forEach items="${nonfictionCategory}" var="nonfiction">
@@ -91,7 +87,7 @@
                                   </c:forEach>
                                 </select>
                               </div>
-                              <div class="form-group">
+                              <div class="kids  box form-group">
                                 <label>Sub category</label>
                                 <select class="form-control" name="category" id="kidsbook">
                                   <c:forEach items="${kidsCategory}" var="kidsbook">

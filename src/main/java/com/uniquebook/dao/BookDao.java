@@ -122,7 +122,25 @@ public class BookDao {
         } catch (Exception ex) {
             Logger.getLogger(CustomerDao.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         return count;
+    }
+
+    public void deleteBook(String subjetName) {
+        try {
+            String deleteQuery = FusekiClient.PREFIX;
+            deleteQuery += "DELETE {" + subjetName + " ?p ?o}\n"
+                    + "WHERE  { \n"
+                    + "       " + subjetName + " ?p ?o . \n"
+                    + "\n"
+                    + "\n"
+                    + "}	";
+            
+            FusekiClient.insertFUSEKI(deleteQuery);
+           
+        } catch (Exception ex) {
+             System.err.println("for query book delete:"+ex.getLocalizedMessage());
+            Logger.getLogger(BookDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }

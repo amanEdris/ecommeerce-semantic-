@@ -7,6 +7,7 @@ package com.uniquebook.controllers;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.uniquebook.dao.BookDao;
 import com.uniquebook.dao.CustomerDao;
 import com.uniquebook.dao.FictionalBooksDao;
 import com.uniquebook.dao.KidsBookDao;
@@ -19,6 +20,7 @@ import com.uniquebook.models.Location;
 import com.uniquebook.models.Manager;
 import com.uniquebook.models.NonFictionalBook;
 import com.uniquebook.models.Order;
+import com.uniquebook.models.Product;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
@@ -48,6 +50,7 @@ public class DashBoardController extends HttpServlet {
     private FictionalBooksDao fictionBookDao;
     private NonFictionalBooksDao nonFictionBookDao;
     private KidsBookDao kidbookDao;
+    private BookDao bookDao;
 
     private HashMap<String, Object> JSONROOT = new HashMap<String, Object>();
 
@@ -58,6 +61,7 @@ public class DashBoardController extends HttpServlet {
         fictionBookDao = new FictionalBooksDao();
         nonFictionBookDao = new NonFictionalBooksDao();
         kidbookDao = new KidsBookDao();
+        bookDao = new BookDao();
     }
 
     @Override
@@ -104,7 +108,21 @@ public class DashBoardController extends HttpServlet {
                 }else if (action.equals("addProducts")) {
                     request.setAttribute("path", ADD_PRODUCT_PAGE);
                     request.setAttribute("type", "Addproducts");
+                }else if (action.equals("deleteProduct")) {
+                    int productId = Integer.parseInt(request.getParameter("productNumber"));
+                    String category = request.getParameter("category").toString();
+                    Product p = bookDao.getBookbyProductNumber(productId, category);
+                    String subjectName = bookDao.getSubjectName(p);
+                    bookDao.deleteBook(subjectName);
+                    
+                    //send back to the refere
+                    response.sendRedirect(request.getContextPath());
+                }else if (action.equals("editProduct")) {
+                    int productId = Integer.parseInt(request.getParameter("productNumber"));
+                    String category = request.getParameter("category").toString();
+                    
                 }
+
             }
 
         } else {
