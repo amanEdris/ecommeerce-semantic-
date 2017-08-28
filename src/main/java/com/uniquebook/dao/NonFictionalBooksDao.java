@@ -212,7 +212,8 @@ public class NonFictionalBooksDao {
     private void queryAllBooks(String BooksQuery, List<NonFictionalBook> books) {
         try {
            ResultSet results = FusekiClient.queryFUSEKI(BooksQuery);
-           
+                       int tempProductNumber = 0;
+
             while (results.hasNext()) {
 
                 QuerySolution row = results.next();
@@ -233,7 +234,12 @@ public class NonFictionalBooksDao {
                 b.setProductNumber(row.getLiteral("productNumber").getInt());
                 String category = row.getLiteral("nonFictionalCategory").getValue().toString();
                 b.setCategory(category);
-                books.add(b);
+                if(tempProductNumber == row.getLiteral("productNumber").getInt()){
+                    
+                }else{
+                    books.add(b);
+                    tempProductNumber = row.getLiteral("productNumber").getInt(); 
+                }
 
             }
         } catch (ParseException ex) {

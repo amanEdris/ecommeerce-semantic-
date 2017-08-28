@@ -207,6 +207,7 @@ public class KidsBookDao {
       private void queryAllBooks(String BooksQuery, List<KidsBook> books) {
         try {
             ResultSet results = FusekiClient.queryFUSEKI(BooksQuery);
+            int tempProductNumber = 0;
 
             while (results.hasNext()) {
 
@@ -229,8 +230,13 @@ public class KidsBookDao {
                 b.setCategory(category);
 
                 //System.out.println("book added with category" + b.getCategory() + "where category name is:" + category);
-
-                books.add(b);
+       if(tempProductNumber == row.getLiteral("productNumber").getInt()){
+                    
+                }else{
+                    books.add(b);
+                    tempProductNumber = row.getLiteral("productNumber").getInt(); 
+                }
+               
 
             }
         } catch (ParseException ex) {

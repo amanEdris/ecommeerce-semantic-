@@ -209,7 +209,7 @@ public class FictionalBooksDao {
         try {
             
             ResultSet results = FusekiClient.queryFUSEKI(BooksQuery);
-
+            int tempProductNumber = 0;
             while (results.hasNext()) {
 
                 QuerySolution row = results.next();
@@ -231,7 +231,14 @@ public class FictionalBooksDao {
                 //System.out.println(row.getLiteral("fictionalCategory").getValue().toString());
                 b.setCategory(row.getLiteral("fictionalCategory").getValue().toString());
                 b.setProductName(b.getTitle());
-                books.add(b);
+                
+                if(tempProductNumber == row.getLiteral("productNumber").getInt()){
+                    
+                }else{
+                    books.add(b);
+                    tempProductNumber = row.getLiteral("productNumber").getInt(); 
+                }
+               
 
             }
         } catch (ParseException ex) {
