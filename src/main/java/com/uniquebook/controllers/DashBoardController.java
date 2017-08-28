@@ -5,17 +5,21 @@
  */
 package com.uniquebook.controllers;
 
-import com.ctc.wstx.util.StringUtil;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-import com.google.gson.reflect.TypeToken;
 import com.uniquebook.dao.CustomerDao;
+import com.uniquebook.dao.FictionalBooksDao;
+import com.uniquebook.dao.KidsBookDao;
+import com.uniquebook.dao.NonFictionalBooksDao;
+import com.uniquebook.dao.OrderDao;
 import com.uniquebook.models.Customer;
+import com.uniquebook.models.FictionalBook;
+import com.uniquebook.models.KidsBook;
 import com.uniquebook.models.Location;
+import com.uniquebook.models.Manager;
+import com.uniquebook.models.NonFictionalBook;
+import com.uniquebook.models.Order;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.List;
 import javax.servlet.RequestDispatcher;
@@ -24,6 +28,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import org.apache.commons.lang.StringUtils;
 
 /**
@@ -33,53 +38,83 @@ import org.apache.commons.lang.StringUtils;
 @WebServlet(name = "DashBoardController", urlPatterns = {"/dashboard"})
 public class DashBoardController extends HttpServlet {
 
+    private static String DASHBOARD_PAGE_ADMIN = "/view/admin/admindashboard.jsp";
     private static String DASHBOARD_PAGE_CUSTOMER = "/view/dashboard.jsp";
+    private static String LOGIN_ADMIN_PAGE = "/view/admin/login.jsp";
+
     private CustomerDao customerDao;
+    private OrderDao orderDao;
+    private FictionalBooksDao fictionBookDao;
+    private NonFictionalBooksDao nonFictionBookDao;
+    private KidsBookDao kidbookDao;
+
     private HashMap<String, Object> JSONROOT = new HashMap<String, Object>();
 
     public DashBoardController() {
         super();
         customerDao = new CustomerDao();
+        orderDao = new OrderDao();
+        fictionBookDao = new FictionalBooksDao();
+        nonFictionBookDao = new NonFictionalBooksDao();
+        kidbookDao = new KidsBookDao();
     }
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
+        String forward = DASHBOARD_PAGE_ADMIN;
         String action = request.getParameter("action");
         String userPath = request.getServletPath();
 
         if (userPath.equals("/dashboard")) {
-            String forward = DASHBOARD_PAGE_CUSTOMER;
-            response.setContentType("application/json");
-
+            HttpSession session = request.getSession();
+            Manager manger = (Manager) session.getAttribute("adminUser");
+            if (manger == null) {
+                forward = LOGIN_ADMIN_PAGE;
+            }
+            forward = DASHBOARD_PAGE_ADMIN;
             if (StringUtils.isNotEmpty(action)) {
-                if (action.equals("listCustomer")) {
-                    List<Customer> customersList = customerDao.getAllCustomer();
-                    Gson gson = new Gson();
-                    JsonElement element = gson.toJsonTree(customersList, new TypeToken<List<Customer>>() {
-                    }.getType());
-                    JsonArray jsonArray = element.getAsJsonArray();
-                    String listData = jsonArray.toString();
-
-                    listData = "{\"Result\":\"OK\",\"Records\":" + listData + "}";
-                    response.getWriter().print(listData);
-                    System.out.println(listData);
+                if (action.equals("pendingOrder")) {//dashboard?action=pendingOrder
+                    List<Order> orders = orderDao.getAllOrderBystatus("pending");
+                    request.setAttribute("orders", orders);
+                    request.setAttribute("type", "pending");
+                } else if (action.equals("approvedOrder")) {
+                    List<Order> orders = orderDao.getAllOrderBystatus("approved");
+                    request.setAttribute("orders", orders);
+                    request.setAttribute("type", "approved");
+                } else if (action.equals("deliveredOrder")) {
+                    List<Order> orders = orderDao.getAllOrderBystatus("delivered");
+                    request.setAttribute("orders", orders);
+                    request.setAttribute("type", "delivered");
+                } else if (action.equals("listcustomers")) {
+                    List<Customer> customer = customerDao.getAllCustomer();
+                    request.setAttribute("customers", customer);
+                    request.setAttribute("type", "customer");
+                } else if (action.equals("listProduct")) {
+                    //list products with each
+                    List<FictionalBook>  fictionList = fictionBookDao.getAllFictionalBook();
+                    List<NonFictionalBook> nonfiction = nonFictionBookDao.getAllNonFictionalBook();
+                    List<KidsBook> kidbooks =  kidbookDao.getAllKidsBook();
+                    
+                    request.setAttribute("fictional", fictionList);
+                    request.setAttribute("nonfiction", nonfiction);
+                    request.setAttribute("kidbooks", kidbooks);
+                    request.setAttribute("type", "products");
                 }
-
-            } else {
-                RequestDispatcher view = request.getRequestDispatcher(forward);
-                view.forward(request, response);
             }
 
+        } else {
+            forward = DASHBOARD_PAGE_ADMIN;
         }
+        RequestDispatcher view = request.getRequestDispatcher(forward);
+        view.forward(request, response);
 
-        //convert to json and write to webpage
-        //Orders
-        //Books list handle conditions
-        //Order list handle conditions
     }
 
+    //convert to json and write to webpage
+    //Orders
+    //Books list handle conditions
+    //Order list handle conditions
     protected void doPost(HttpServletRequest request,
             HttpServletResponse response) throws ServletException, IOException {
 
@@ -124,7 +159,7 @@ public class DashBoardController extends HttpServlet {
                     c.setPassword(request.getParameter("password"));
                     c.setGender(request.getParameter("gender"));
                     c.setPhone(request.getParameter("phone"));
-                    c.setCutomerId(request.getParameter("customerId"));
+                    c.setCustomerId(request.getParameter("customerId"));
 
                     if (action.equals("createcustomer")) {
                         boolean check = customerDao.addCustomer(c);
@@ -195,7 +230,7 @@ public class DashBoardController extends HttpServlet {
                     c.setPassword(request.getParameter("password"));
                     c.setGender(request.getParameter("gender"));
                     c.setPhone(request.getParameter("phone"));
-                    c.setCutomerId(request.getParameter("customerId"));
+                    c.setCustomerId(request.getParameter("customerId"));
 
                     if (action.equals("createcustomer")) {
                         boolean check = customerDao.addCustomer(c);

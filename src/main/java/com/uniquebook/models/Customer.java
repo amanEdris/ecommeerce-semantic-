@@ -13,6 +13,14 @@ public class Customer extends Person {
 
     private String customerId;
 
+    public String getCustomerId() {
+        return customerId;
+    }
+
+    public void setCustomerId(String customerId) {
+        this.customerId = customerId;
+    }
+
     private Location location;
 
     public Customer() {
@@ -26,14 +34,14 @@ public class Customer extends Person {
     public void setLocation(Location location) {
         this.location = location;
     }
-
-    public String getCutomerId() {
-        return customerId;
-    }
-
-    public void setCutomerId(String cutomerId) {
-        this.customerId = cutomerId;
-    }
+//
+//    public String getCutomerId() {
+//        return customerId;
+//    }
+//
+//    public void setCutomerId(String cutomerId) {
+//        this.customerId = cutomerId;
+//    }
 
     @Override
     public String toString() {
@@ -48,7 +56,7 @@ public class Customer extends Person {
         this.setPassword(c.getPassword());
         this.setPhone(c.getPhone());
         this.setLocation(c.getLocation());
-        this.setCutomerId(c.getCutomerId());
+        this.setCustomerId(c.getCustomerId());
     }
 
 }

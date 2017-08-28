@@ -5,9 +5,13 @@
  */
 package com.uniquebook.controllers;
 
+import com.uniquebook.dao.BookDao;
 import com.uniquebook.dao.CustomerDao;
+import com.uniquebook.dao.ManagerDao;
+import com.uniquebook.dao.OrderDao;
 import com.uniquebook.models.Customer;
 import com.uniquebook.models.Location;
+import com.uniquebook.models.Manager;
 import com.uniquebook.models.ShoppingCart;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -24,17 +28,27 @@ import org.apache.commons.lang.StringUtils;
  *
  * @author edris
  */
-@WebServlet(name = "AccountController", urlPatterns = {"/account", "/updateAccount", "/login", })
+@WebServlet(name = "AccountController", urlPatterns = {"/account", "/updateAccount", "/login", "/admin"})
 public class AccountController extends HttpServlet {
 
     private CustomerDao customerDao;
+    private OrderDao orderDao;
+    private BookDao bookDao;
+    private ManagerDao managerDao;
+
+    private static String DASHBOARD_PAGE_ADMIN = "/view/admin/admindashboard.jsp";
+    private static String DASHBOARD_PAGE_CUSTOMER = "/view/dashboard.jsp";
     private static String INSERT_OR_EDIT = "/view/registeraccount.jsp";
     private static String LOGIN_PAGE = "/view/login.jsp";
     private static String CONFIRMATION_PAGE = "/view/confirmation.jsp";
+    private static String LOGIN_ADMIN_PAGE = "/view/admin/login.jsp";
 
     public AccountController() {
         super();
         customerDao = new CustomerDao();
+        managerDao = new ManagerDao();
+        orderDao  = new OrderDao();
+        bookDao = new BookDao();
     }
 
     @Override
@@ -46,8 +60,31 @@ public class AccountController extends HttpServlet {
         HttpSession session = request.getSession();
         String userPath = request.getServletPath();
 
+        //handle admin account
+        if (userPath.equals("/admin")) {
+            Manager manger = (Manager) session.getAttribute("adminUser");
+            if(manger == null){
+                forward = LOGIN_ADMIN_PAGE;
+            }
+            else{
+                int customerCount = customerDao.getCustomerCount();
+                int orderCount  = orderDao.getOrderCount();
+                int productCount = bookDao.getBookProductCount();
+                request.setAttribute("customersNumber", customerCount);
+                request.setAttribute("orderNumber", orderCount);
+                request.setAttribute("productNumber", productCount);
+                forward = DASHBOARD_PAGE_ADMIN;
+            }
+              RequestDispatcher view = request.getRequestDispatcher(forward);
+        view.forward(request, response);
+            
+        }
+
+        //handle customer account
         if (StringUtils.isEmpty(action)) {
             forward = LOGIN_PAGE;
+              RequestDispatcher view = request.getRequestDispatcher(forward);
+        view.forward(request, response);
         } else {
             if (action.equalsIgnoreCase("delete")) {
                 //TODO: delete account for customer admin 
@@ -67,10 +104,11 @@ public class AccountController extends HttpServlet {
             } else {
 
             }
+              RequestDispatcher view = request.getRequestDispatcher(forward);
+        view.forward(request, response);
         }
 
-        RequestDispatcher view = request.getRequestDispatcher(forward);
-        view.forward(request, response);
+      
     }
 
     @Override
@@ -117,9 +155,9 @@ public class AccountController extends HttpServlet {
             c.setPassword(request.getParameter("password"));
             c.setGender(request.getParameter("male"));
             c.setPhone(request.getParameter("telephone"));
-            
+
             Customer customerOld = (Customer) session.getAttribute("User");
-            c.setCutomerId(customerOld.getCutomerId());
+            c.setCustomerId(customerOld.getCustomerId());
             boolean updated = customerDao.updateCustomer(c, customerOld);
 
             if (updated) {
@@ -154,6 +192,31 @@ public class AccountController extends HttpServlet {
 
             } else {
                 request.setAttribute("message", "Unable to register please agree to the Privacy Policy!");
+            }
+
+        } else if (userPath.equals("/admin")) {
+            String password = request.getParameter("password");
+            String email = request.getParameter("email");
+            String message = " ";
+
+            Manager manager = managerDao.getManagerByEmailAndPassword(email, password);
+            
+            if (manager.getFirstName() == null) {
+                message = "Password or Email is not correct";
+                request.setAttribute("message", message);
+                forward = LOGIN_ADMIN_PAGE;
+            } else {
+                HttpSession session = request.getSession();
+                session.setAttribute("adminUser", manager);
+                int customerCount = customerDao.getCustomerCount();
+                int orderCount  = orderDao.getOrderCount();
+                int productCount = bookDao.getBookProductCount();
+                request.setAttribute("customersNumber", customerCount);
+                request.setAttribute("orderNumber", orderCount);
+                request.setAttribute("productNumber", productCount);
+                
+                forward = DASHBOARD_PAGE_ADMIN;
+
             }
 
         } else {

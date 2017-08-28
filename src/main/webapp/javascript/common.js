@@ -1,4 +1,4 @@
-$(document).ready(function(){$('.button-search').bind('click',function(){url=$('#hidden').attr('href')+'index.php?route=product/search';var search=$('input[name=\'search\']').attr('value');if(search){url+='&search='+ encodeURIComponent(search);}
+$(document).ready(function(){$('.button-search').bind('click',function(){url='/UniqueBookApp/search';var search=$('input[name=\'search\']').attr('value');if(search){url+='&search='+ encodeURIComponent(search);}
 location=url;});$('#header input[name=\'search\']').bind('keydown',function(e){if(e.keyCode==13){url=$('#hidden').attr('href')+'index.php?route=product/search';var search=$('input[name=\'search\']').attr('value');if(search){url+='&search='+ encodeURIComponent(search);}
 location=url;}});if($('body').width()<980){$('#cart .heading span.link_a').live("click",function(){if($('#cart').hasClass('active')){jQuery('#cart').removeClass('active');}
 else{$('#cart').addClass('active');}})}else{$('#cart > .heading span.link_a').live('mouseover',function(){$('#cart').addClass('active');$('#cart').load('index.php?route=module/cart #cart > *');$('#cart').live('mouseleave',function(){$(this).removeClass('active');});});}

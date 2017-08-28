@@ -53,7 +53,7 @@ public class OrderDao {
                     + ""
                     + " r:" + orderSubject + " a r:Order;\n"
                     + "             r:orderNumber \"" + b.getOrderNumber() + "\"^^xsd:string ;\n"
-                    + "             r:hasTotalPrice \"" + b.getTotalPrice() + "\"^^xsd:nonNegativeInteger ;\n"
+                    + "             r:hasTotalPrice \"" + b.getTotalPrice() + "\"^^xsd:float ;\n"
                     + "             r:orderStatus \"" + b.getOrderStatus() + "\"^^xsd:string ;\n"
                     + "             r:hasCustomer r:" + customerSubjectName + " ;\n"
                     + "             r:hasDelivery r:" + deliverySubjectName + " ;\n"
@@ -74,22 +74,87 @@ public class OrderDao {
 
     }
 
-    public List<Order> getAllOrder() {
-        //for a customer
-        //for admin
-        return null;
-
+    //get all orders by status
+    public List<Order> getAllOrderBystatus(String orderStatus) {
+        List<Order> orders = new ArrayList<Order>();
+        try {
+            String query = FusekiClient.PREFIX;
+            query += "SELECT  * WHERE{\n"
+                    + "            ?o  a r:Order.\n"
+                    + "             ?o     r:orderNumber ?orderNumber.\n"
+                    + "             ?o     r:orderStatus ?status.\n"
+                    + "            ?o      r:hasTotalPrice ?totalPrice.\n"
+                    + "           ?o   r:hasCustomer ?customer.\n"
+                    + "{\n"
+                    + "select * WHERE{\n"
+                    + "         ?customer r:customerId   ?customerId.\n"
+                    + "         ?customer r:hasPassword ?password.\n"
+                    + "         ?customer r:hasEmail   ?email.\n"
+                    + "}\n"
+                    + "}\n"
+                    + "           ?o           r:hasDelivery ?delivery.\n"
+                    + "{\n"
+                    + "select * WHERE{\n"
+                    + "        ?delivery  r:hasDeliveryDate  ?deliveryDate.\n"
+                    + "        ?delivery  r:hasLocation  ?location;\n"
+                    + "}\n"
+                    + "}\n"
+                    + "{\n"
+                    + "select * WHERE{\n"
+                    + "        ?location  r:hasCity  ?city.\n"
+                    + "        ?location  r:hasCountry  ?country.\n"
+                    + "        ?location  r:hasAddress   ?address.\n"
+                    + "        ?location  r:hasPostalCode ?postalcode. \n"
+                    + "}\n"
+                    + "}\n"
+                    + "  FILTER (?status = \"" +orderStatus+ "\"^^xsd:string ) \n"
+                    + "}"
+                    + "order by(?deliveryDate)"
+                    + "";
+            
+            System.out.println("customer orde query: \n"+query);
+            ResultSet results = FusekiClient.queryFUSEKI(query);
+            while (results.hasNext()) {
+                Location deliveryLocation = new Location();
+                Order order = new Order();
+                QuerySolution row = results.next();
+                
+                deliveryLocation.setAddress(row.getLiteral("address").getString());
+                deliveryLocation.setCity(row.getLiteral("city").getString());
+                deliveryLocation.setCountry(row.getLiteral("country").getString());
+                deliveryLocation.setPostalCode(row.getLiteral("postalcode").getString());  
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+                Date deliveryDate = sdf.parse(row.getLiteral("deliveryDate").getValue().toString());
+                Delivery delivery = new Delivery(deliveryDate, deliveryLocation);
+                order.setDelivery(delivery);
+                order.setCusotmer(customerDao.getCustomerByEmailAndPassword(row.getLiteral("email").getString(), 
+                        row.getLiteral("password").getString()));
+                order.setOrderNumber(row.getLiteral("orderNumber").getString());
+                order.setOrderStatus(row.getLiteral("status").getString());
+                order.setSales(salesDao.getAllSalesByOrderNumber(row.getLiteral("orderNumber").getString()));
+                order.setTotalPrice(row.getLiteral("totalPrice").getFloat());
+                orders.add(order);
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(OrderDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return orders;
     }
 
+    /**
+     * Get customer order list
+     * @param customer
+     * @return 
+     */
     public List<Order> getCustomerOrders(Customer customer) {
         List<Order> orders = new ArrayList<Order>();
         try {
             String query = FusekiClient.PREFIX;
             query += "SELECT  * WHERE{\n"
-                    + "            ?o  a r:Order;\n"
-                    + "                  r:orderNumber ?orderNumber;\n"
-                    + "                  r:orderStatus ?status.\n"
-                    + "                  r:hasTotalPrice ?totalPrice.\n"
+                    + "            ?o  a r:Order.\n"
+                    + "             ?o     r:orderNumber ?orderNumber.\n"
+                    + "             ?o     r:orderStatus ?status.\n"
+                    + "            ?o      r:hasTotalPrice ?totalPrice.\n"
                     + "           ?o   r:hasCustomer ?customer.\n"
                     + "{\n"
                     + "select * WHERE{\n"
@@ -107,15 +172,16 @@ public class OrderDao {
                     + "select * WHERE{\n"
                     + "        ?location  r:hasCity  ?city.\n"
                     + "        ?location  r:hasCountry  ?country.\n"
-                    + "        ?location  r:hasAddress   ?address;\n"
+                    + "        ?location  r:hasAddress   ?address.\n"
                     + "        ?location  r:hasPostalCode ?postalcode. \n"
                     + "}\n"
                     + "}\n"
-                    + "  FILTER (?customerId = \"" + customer.getCutomerId() + "\"^^xsd:string ) \n"
+                    + "  FILTER (?customerId = \"" + customer.getCustomerId()+ "\"^^xsd:string ) \n"
                     + "}"
                     + "order by(?deliveryDate)"
                     + "";
             
+            System.out.println("customer orde query: \n"+query);
             ResultSet results = FusekiClient.queryFUSEKI(query);
             while (results.hasNext()) {
                 Location deliveryLocation = new Location();

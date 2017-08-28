@@ -72,7 +72,7 @@
         <c:set var="urlRequest" value="http://localhost:8080/UniqueBookApp/book?" scope="page" />
         <div id="body">
             <div class="swipe" style="height: 330px;">
-                   <div class="swipe-menu">
+                <div class="swipe-menu">
                     <ul class="links">
                         <li class="first"><a class="active" href="#"><i class="fa fa-home"></i>Home</a></li>
                         <li><a class="" href="#"><i class="fa fa-user"></i>My Account</a></li>
@@ -80,9 +80,9 @@
                         <li><a class="" href="#"><i class="fa fa-check"></i>Checkout</a></li>
                         <li><a href="#"><i class="fa fa-user"></i>Create an account</a></li><li class="login_h"><a href="#"><i class="fa fa-lock"></i>Login</a></li>   					</ul>
 
-               
 
-                  
+
+
 
                     <ul class="foot">
                         <li><a href="#about">About</a></li>
@@ -397,7 +397,7 @@
                                                                                         <div class="extra-button">
                                                                                             <button style="border: 1px;background: whitesmoke"><span>Add to Cart</span><i class="fa fa-shopping-cart"></i></button>
                                                                                     </form>
-                                                                                  </div>
+                                                                                </div>
                                                                                 <span class="clear"></span>
                                                                             </div>
 
@@ -430,22 +430,22 @@
                                                                                     <c:out value="${nonbook.price}" />$
                                                                                 </div>
                                                                                 <div class="cart">
-                                                                 <form  action="<c:url value='addToCart'/>" method="post">
+                                                                                    <form  action="<c:url value='addToCart'/>" method="post">
 
-                                                                            <div class="cart-top-padd form-inline">
-                                                                                <label>Qty: <input class="q-mini" type="text" name="quantity" size="2" value="1">
-                                                                                    <input class="q-mini" type="hidden" name="productNo" size="2" value="<c:out value="${nonbook.productNumber}"/>"/>
-                                                                                    <input type="hidden" name="category" value="<c:out value="${nonbook.category}"/>" />
+                                                                                        <div class="cart-top-padd form-inline">
+                                                                                            <label>Qty: <input class="q-mini" type="text" name="quantity" size="2" value="1">
+                                                                                                <input class="q-mini" type="hidden" name="productNo" size="2" value="<c:out value="${nonbook.productNumber}"/>"/>
+                                                                                                <input type="hidden" name="category" value="<c:out value="${nonbook.category}"/>" />
 
-                                                                                </label>
-                                                                            </div>
-                                                                            <div class="extra-button">
-                                                                                <button style="border: 1px;background: whitesmoke"><span>Add to Cart</span><i class="fa fa-shopping-cart"></i></button>
+                                                                                            </label>
+                                                                                        </div>
+                                                                                        <div class="extra-button">
+                                                                                            <button style="border: 1px;background: whitesmoke"><span>Add to Cart</span><i class="fa fa-shopping-cart"></i></button>
 
 
-                                                                        </form>
-                                                                                
-                                                                                
+                                                                                    </form>
+
+
                                                                                 </div>
                                                                                 <span class="clear"></span>
                                                                             </div>
@@ -505,22 +505,22 @@
                                                                                     <c:out value="${kidbook.price}" />$
                                                                                 </div>
                                                                                 <div class="cart">
-                                                       <form  action="<c:url value='addToCart'/>" method="post">
+                                                                                    <form  action="<c:url value='addToCart'/>" method="post">
 
-                                                                            <div class="cart-top-padd form-inline">
-                                                                                <label>Qty: <input class="q-mini" type="text" name="quantity" size="2" value="1">
-                                                                                    <input class="q-mini" type="hidden" name="productNo" size="2" value="<c:out value="${kidbook.productNumber}"/>"/>
-                                                                                    <input type="hidden" name="category" value="<c:out value="${kidbook.category}"/>" />
+                                                                                        <div class="cart-top-padd form-inline">
+                                                                                            <label>Qty: <input class="q-mini" type="text" name="quantity" size="2" value="1">
+                                                                                                <input class="q-mini" type="hidden" name="productNo" size="2" value="<c:out value="${kidbook.productNumber}"/>"/>
+                                                                                                <input type="hidden" name="category" value="<c:out value="${kidbook.category}"/>" />
 
-                                                                                </label>
-                                                                            </div>
-                                                                            <div class="extra-button">
-                                                                                <button style="border: 1px;background: whitesmoke"><span>Add to Cart</span><i class="fa fa-shopping-cart"></i></button>
+                                                                                            </label>
+                                                                                        </div>
+                                                                                        <div class="extra-button">
+                                                                                            <button style="border: 1px;background: whitesmoke"><span>Add to Cart</span><i class="fa fa-shopping-cart"></i></button>
 
 
-                                                                        </form>
-                                                                                
-                                                                                
+                                                                                    </form>
+
+
                                                                                 </div>
                                                                                 <span class="clear"></span>
                                                                             </div>
@@ -551,21 +551,21 @@
                                                                                     <c:out value="${kidbook.price}" />$
                                                                                 </div>
                                                                                 <div class="cart">
-                                                     <form  action="<c:url value='addToCart'/>" method="post">
+                                                                                    <form  action="<c:url value='addToCart'/>" method="post">
 
-                                                                            <div class="cart-top-padd form-inline">
-                                                                                <label>Qty: <input class="q-mini" type="text" name="quantity" size="2" value="1">
-                                                                                    <input class="q-mini" type="hidden" name="productNo" size="2" value="<c:out value="${kidbook.productNumber}"/>"/>
-                                                                                    <input type="hidden" name="category" value="<c:out value="${kidbook.category}"/>" />
+                                                                                        <div class="cart-top-padd form-inline">
+                                                                                            <label>Qty: <input class="q-mini" type="text" name="quantity" size="2" value="1">
+                                                                                                <input class="q-mini" type="hidden" name="productNo" size="2" value="<c:out value="${kidbook.productNumber}"/>"/>
+                                                                                                <input type="hidden" name="category" value="<c:out value="${kidbook.category}"/>" />
 
-                                                                                </label>
-                                                                            </div>
-                                                                            <div class="extra-button">
-                                                                                <button style="border: 1px;background: whitesmoke"><span>Add to Cart</span><i class="fa fa-shopping-cart"></i></button>
+                                                                                            </label>
+                                                                                        </div>
+                                                                                        <div class="extra-button">
+                                                                                            <button style="border: 1px;background: whitesmoke"><span>Add to Cart</span><i class="fa fa-shopping-cart"></i></button>
 
 
-                                                                        </form>
-                                                                                   </div>
+                                                                                    </form>
+                                                                                </div>
                                                                                 <span class="clear"></span>
                                                                             </div>
 
@@ -598,19 +598,19 @@
                                                                                     <c:out value="${kidbook.price}" />$
                                                                                 </div>
                                                                                 <div class="cart">
-                                                       <form  action="<c:url value='addToCart'/>" method="post">
+                                                                                    <form  action="<c:url value='addToCart'/>" method="post">
 
-                                                                            <div class="cart-top-padd form-inline">
-                                                                                <label>Qty: <input class="q-mini" type="text" name="quantity" size="2" value="1">
-                                                                                    <input class="q-mini" type="hidden" name="productNo" size="2" value="<c:out value="${kidbook.productNumber}"/>"/>
-                                                                                    <input type="hidden" name="category" value="<c:out value="${kidbook.category}"/>" />
+                                                                                        <div class="cart-top-padd form-inline">
+                                                                                            <label>Qty: <input class="q-mini" type="text" name="quantity" size="2" value="1">
+                                                                                                <input class="q-mini" type="hidden" name="productNo" size="2" value="<c:out value="${kidbook.productNumber}"/>"/>
+                                                                                                <input type="hidden" name="category" value="<c:out value="${kidbook.category}"/>" />
 
-                                                                                </label>
-                                                                            </div>
-                                                                            <div class="extra-button">
-                                                                                <button style="border: 1px;background: whitesmoke"><span>Add to Cart</span><i class="fa fa-shopping-cart"></i></button>
-                                                                          </form>
-                                                                                
+                                                                                            </label>
+                                                                                        </div>
+                                                                                        <div class="extra-button">
+                                                                                            <button style="border: 1px;background: whitesmoke"><span>Add to Cart</span><i class="fa fa-shopping-cart"></i></button>
+                                                                                    </form>
+
                                                                                 </div>
                                                                                 <span class="clear"></span>
                                                                             </div>
@@ -672,5 +672,7 @@
             </div>
         </div>
     </div>
+    
+
 </body>
 </html>

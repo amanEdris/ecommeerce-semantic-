@@ -48,7 +48,8 @@ public class ManagerDao {
                 + "          ?x  r:hasGender  ?gender.\n"
                 + "   FILTER (?email  = \""+email+"\"^^xsd:string && ?password = \""+password+"\" )\n"
                 + "}";
-
+        
+        queryManager(managerQuery, m);
         return m;
 
     }

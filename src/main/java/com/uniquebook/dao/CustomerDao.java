@@ -114,7 +114,7 @@ public class CustomerDao {
                     + " ?location   r:hasCity ?city.\n"
                     + " ?location   r:hasCountry ?country . \n"
                     + " ?location   r:hasAddress ?address. \n"
-                    + "  FILTER (?customerId = \"" + b.getCutomerId() + "\"^^xsd:string ) \n"
+                    + "  FILTER (?customerId = \"" + b.getCustomerId()+ "\"^^xsd:string ) \n"
                     + "}";
             System.out.println("Update customer query is: " + updateCustomerQuery);
             FusekiClient.insertFUSEKI(updateCustomerQuery);
@@ -307,6 +307,7 @@ public class CustomerDao {
         return count;
     }
 
+    
     private void queryAllCustomers(String customerQuery, List<Customer> customers) {
         try {
             ResultSet results = FusekiClient.queryFUSEKI(customerQuery);
@@ -330,7 +331,7 @@ public class CustomerDao {
         customerLocation.setCity(row.getLiteral("city").getString());
         customerLocation.setCountry(row.getLiteral("country").getString());
         customerLocation.setPostalCode(row.getLiteral("postalcode").getString());
-        customer.setCutomerId(row.getLiteral("customerId").getString());
+        customer.setCustomerId(row.getLiteral("customerId").getString());
         customer.setLocation(customerLocation);
         customer.setEmail(row.getLiteral("email").getString());
         customer.setFirstName(row.getLiteral("firstName").getString());
@@ -380,4 +381,6 @@ public class CustomerDao {
         System.out.println("the query for customer data is:" + customerQuery.toString());
         return customers;
     }
+    
+   
 }

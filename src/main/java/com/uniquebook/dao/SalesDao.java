@@ -126,6 +126,7 @@ public class SalesDao {
                     + "}";
 
             ResultSet results = FusekiClient.queryFUSEKI(querySales);
+            int tempProductNumber = 0;
             while (results.hasNext()) {
                 QuerySolution row = results.next();
                 
@@ -136,8 +137,17 @@ public class SalesDao {
                 p.setProductName(row.getLiteral("title").getString());
                 p.setProductNumber(row.getLiteral("productNumber").getInt());
                 p.setQuantity(row.getLiteral("quantity").getInt());
+                
                 Sale sale = new Sale( row.getLiteral("productQuantity").getInt(),p);
-                sales.add(sale);
+                if(tempProductNumber == row.getLiteral("productNumber").getInt()){
+                    
+                }else{
+                    if (sales.contains(sale) == false) {
+                        sales.add(sale);
+                        tempProductNumber = row.getLiteral("productNumber").getInt();
+                    }
+                }
+               
             }
 
         } catch (Exception ex) {

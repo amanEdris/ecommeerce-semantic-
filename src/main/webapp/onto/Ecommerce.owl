@@ -112,6 +112,16 @@ xsd:date rdf:type rdfs:Datatype .
 #################################################################
 
 
+###  http://www.semanticweb.org/edris/ontologies/2017/7/untitled-ontology-208#customerId
+
+:customerId rdf:type owl:DatatypeProperty ;
+            
+            rdfs:domain :Customer ;
+            
+            rdfs:range xsd:string .
+
+
+
 ###  http://www.semanticweb.org/edris/ontologies/2017/7/untitled-ontology-208#hasAddress
 
 :hasAddress rdf:type owl:DatatypeProperty ;
@@ -438,11 +448,7 @@ xsd:date rdf:type rdfs:Datatype .
           
           rdfs:range xsd:string .
 
-:customerId rdf:type owl:DatatypeProperty ;
-          
-          rdfs:domain :Customer ;
-          
-          rdfs:range xsd:string .
+
 
 ###  http://www.semanticweb.org/edris/ontologies/2017/7/untitled-ontology-208#hasPostalCode
 
@@ -522,7 +528,7 @@ xsd:date rdf:type rdfs:Datatype .
                
                rdfs:domain :Order ;
                
-               rdfs:range xsd:int .
+               rdfs:range xsd:float .
 
 
 
@@ -779,7 +785,7 @@ xsd:date rdf:type rdfs:Datatype .
 :edOrder rdf:type :Order ,
                   owl:NamedIndividual ;
          
-         :hasTotalPrice "100"^^xsd:nonNegativeInteger ;
+         :hasTotalPrice "100.0"^^xsd:float ;
          
          :orderNumber "2"^^xsd:nonNegativeInteger ;
          
@@ -992,7 +998,7 @@ xsd:date rdf:type rdfs:Datatype .
              
              :orderNumber "1"^^xsd:nonNegativeInteger ;
              
-             :hasTotalPrice "100"^^xsd:nonNegativeInteger ;
+             :hasTotalPrice "100.0"^^xsd:float ;
              
              :orderStatus "pending"^^xsd:string ;
              

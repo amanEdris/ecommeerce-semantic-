@@ -49,10 +49,15 @@ public class CartController extends HttpServlet {
         } else {
             if (StringUtils.isNotBlank(action)) {
                 if (action.equalsIgnoreCase("clear")) {
-                    forward = INSERT_OR_EDIT;
-                    cart.removeAllItems();
-                    cart = null;
-                    session.removeAttribute("cart");
+                    if (cart != null) {
+                        forward = INSERT_OR_EDIT;
+                        cart.removeAllItems();
+                        cart = null;
+                        session.removeAttribute("cart");
+                    } else {
+                        forward = INSERT_OR_EDIT;
+                    }
+
                 }
             }
         }

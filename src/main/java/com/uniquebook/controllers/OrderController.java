@@ -33,6 +33,7 @@ import org.apache.commons.lang.StringUtils;
 public class OrderController extends HttpServlet {
 
     private static String CONFIRMATION_PAGE = "/view/confirmation.jsp";
+    private static String SHOW_ORDER = "/view/showorder.jsp";
     private static String LOGIN_PAGE = "/view/login.jsp";
     private static String CHECKOUT_PAGE = "/view/checkout.jsp";
     private final static String NEW_ORDER_STATUS = "pending";
@@ -64,21 +65,32 @@ public class OrderController extends HttpServlet {
                 }
 
             } else if (action.equalsIgnoreCase("show")) {
-                List<Order> orders = orderDao.getCustomerOrders(c);
-                response.setContentType("text/html;charset=UTF-8");
+                 if (c == null) {
+                    forward = LOGIN_PAGE;
 
-                try (PrintWriter out = response.getWriter()) {
-                    /* TODO output your page here. You may use following sample code. */
-                    out.println("<!DOCTYPE html>");
-                    out.println("<html>");
-                    out.println("<head>");
-                    out.println("<title>Servlet OrderController</title>");
-                    out.println("</head>");
-                    out.println("<body>");
-                    out.println("<h1>the quantities are  " + c.toString() + "</h1>");
-                    out.println("</body>");
-                    out.println("</html>");
+                } else {
+                    forward = SHOW_ORDER ;
+                     
                 }
+                  List<Order> orders = orderDao.getCustomerOrders(c);
+                
+//                response.setContentType("text/html;charset=UTF-8");
+//
+//                try (PrintWriter out = response.getWriter()) {
+//                    /* TODO output your page here. You may use following sample code. */
+//                    out.println("<!DOCTYPE html>");
+//                    out.println("<html>");
+//                    out.println("<head>");
+//                    out.println("<title>Servlet OrderController</title>");
+//                    out.println("</head>");
+//                    out.println("<body>");
+//                    out.println("<h1>the quantities are  " + orders.toString() + "</h1>");
+//                    out.println("</body>");
+//                    out.println("</html>");
+//                }
+                
+                request.setAttribute("orders", orders);
+
             }
         }
 
