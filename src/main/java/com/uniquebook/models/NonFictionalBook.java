@@ -30,6 +30,14 @@ public class NonFictionalBook extends Book {
 
         private String name;
 
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+
         private NonFictionalCategory(String stringVal) {
             name = stringVal;
         }

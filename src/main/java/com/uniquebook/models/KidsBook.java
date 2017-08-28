@@ -23,6 +23,14 @@ public class KidsBook extends Book {
 
         private String name;
 
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+
         private kidsBookCategory(String stringVal) {
             name = stringVal;
         }

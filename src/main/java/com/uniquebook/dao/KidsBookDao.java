@@ -73,6 +73,7 @@ public class KidsBookDao {
                 + "                  r:hasPublishedYear  ?publishedyear ;\n"
                 + "                  r:productNumber ?productNumber ;\n"
                 + "                  r:hasPrice ?price ;\n"
+                + "                  r:hasBookRevisionNo  ?revision ;\n"     
                 + "                  r:hasDescription ?description ;\n"
                 + "                  r:hasKidsBookCategory ?kidsCategory ;\n"
                 + "                  r:hasPublisher ?publisher ;\n"
@@ -228,6 +229,7 @@ public class KidsBookDao {
                 b.setProductNumber(row.getLiteral("productNumber").getInt());
                 String category = row.getLiteral("kidsCategory").getValue().toString();
                 b.setCategory(category);
+                b.setRevisionNo(row.getLiteral("revision").getValue().toString());
 
                 //System.out.println("book added with category" + b.getCategory() + "where category name is:" + category);
        if(tempProductNumber == row.getLiteral("productNumber").getInt()){

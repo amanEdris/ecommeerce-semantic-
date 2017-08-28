@@ -79,6 +79,7 @@ public class NonFictionalBooksDao {
                 + "                  r:hasPrice ?price ;\n"
                 + "                  r:hasDescription ?description ;\n"
                 + "                  r:hasNonFictionalCategory ?nonFictionalCategory ;\n"
+                + "                  r:hasBookRevisionNo  ?revision ;\n"                  
                 + "                  r:hasPublisher ?publisher ;\n"
                 + "                  r:hasAuthor ?author;\n"
                 + "                  r:hasTitle  ?title ;\n"
@@ -234,6 +235,8 @@ public class NonFictionalBooksDao {
                 b.setProductNumber(row.getLiteral("productNumber").getInt());
                 String category = row.getLiteral("nonFictionalCategory").getValue().toString();
                 b.setCategory(category);
+                b.setRevisionNo(row.getLiteral("revision").getValue().toString());
+
                 if(tempProductNumber == row.getLiteral("productNumber").getInt()){
                     
                 }else{

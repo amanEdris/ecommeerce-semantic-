@@ -31,7 +31,15 @@ public class FictionalBook extends Book {
         WESTERNS("Westerns"),
         MISTERY("Mistry");
 
-        private String name;
+        public String name;
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
 
         private FictionalCategory(String stringVal) {
             name = stringVal;

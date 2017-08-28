@@ -39,7 +39,7 @@
                     <td> <fmt:formatDate pattern="yyyy-MMM-dd" value="${fictionalbook.publishedYear}"/></td>
                     <td>${fictionalbook.publisher}</td>
                     <td>${fictionalbook.category}</td>
-                    <td> </td>
+                    <td>${fictionalbook.revisionNo}</td>
                 </tr>
               </c:forEach>
               <c:forEach var="nonfiction" items="${nonfiction}">
@@ -55,7 +55,7 @@
                     <td>  <fmt:formatDate pattern="yyyy-MMM-dd" value="${nonfiction.publishedYear}"/></td>
                     <td>${nonfiction.publisher}</td>
                     <td>${nonfiction.category}</td>
-                    <td> </td>
+                    <td>${nonfiction.revisionNo}</td>
                 </tr>
               </c:forEach>
               <c:forEach var="kidbooks" items="${kidbooks}">
@@ -71,7 +71,7 @@
                     <td>  <fmt:formatDate pattern="yyyy-MMM-dd" value="${kidbooks.publishedYear}"/></td>
                     <td>${kidbooks.publisher}</td>
                     <td>${kidbooks.category}</td>
-                    <td> </td>
+                    <td>${kidbooks.revisionNo}</td>
                 </tr>
               </c:forEach>
             </tbody>

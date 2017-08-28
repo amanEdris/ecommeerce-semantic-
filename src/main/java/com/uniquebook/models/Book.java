@@ -22,6 +22,15 @@ public class Book extends Product{
     private String publisher;
     private String title;
     private Date publishedYear;
+    private String revisionNo;
+
+    public String getRevisionNo() {
+        return revisionNo;
+    }
+
+    public void setRevisionNo(String revisionNo) {
+        this.revisionNo = revisionNo;
+    }
     
 
     public String getIsbn() {

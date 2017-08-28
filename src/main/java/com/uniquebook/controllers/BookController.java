@@ -12,6 +12,7 @@ import com.uniquebook.dao.KidsBookDao;
 import com.uniquebook.dao.NonFictionalBooksDao;
 import com.uniquebook.models.Book;
 import java.io.IOException;
+import java.io.PrintWriter;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -36,7 +37,6 @@ public class BookController extends HttpServlet {
     private static String LIST_Books = "/view/listBook.jsp";
     private static String SHOW_Books = "/view/showBook.jsp";
     private static String ADD_Books = "/view/book.jsp";
-    
 
     public BookController() {
         super();
@@ -52,10 +52,10 @@ public class BookController extends HttpServlet {
 
         String forward = "";
         String action = request.getParameter("action");
-        
-        if(StringUtils.isEmpty(action)){
-             forward = LIST_Books;
-        }else{
+
+        if (StringUtils.isEmpty(action)) {
+            forward = LIST_Books;
+        } else {
             if (action.equalsIgnoreCase("delete")) {
                 // TODO:  delete book 
                 forward = LIST_Books;
@@ -97,6 +97,9 @@ public class BookController extends HttpServlet {
                         if (kidDao.getAllKidsBook().isEmpty()) {
                             request.setAttribute("message", "Sorry, no books in this ");
                         }
+                    } else if (category.equals("Fiction")) {
+                        request.setAttribute("cat", 3);
+                        request.setAttribute("books", fictionDao.getAllFictionalBook());
                     } else {
                         request.setAttribute("cat", 3);
                         request.setAttribute("books", fictionDao.getAllFictionalBookByCategory(category));
@@ -117,7 +120,7 @@ public class BookController extends HttpServlet {
 
             }
         }
-       
+
         RequestDispatcher view = request.getRequestDispatcher(forward);
         view.forward(request, response);
     }

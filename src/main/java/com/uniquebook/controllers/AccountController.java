@@ -14,7 +14,6 @@ import com.uniquebook.models.Location;
 import com.uniquebook.models.Manager;
 import com.uniquebook.models.ShoppingCart;
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -84,7 +83,7 @@ public class AccountController extends HttpServlet {
         if (StringUtils.isEmpty(action)) {
             forward = LOGIN_PAGE;
               RequestDispatcher view = request.getRequestDispatcher(forward);
-        view.forward(request, response);
+              view.forward(request, response);
         } else {
             if (action.equalsIgnoreCase("delete")) {
                 //TODO: delete account for customer admin 
@@ -105,7 +104,7 @@ public class AccountController extends HttpServlet {
 
             }
               RequestDispatcher view = request.getRequestDispatcher(forward);
-        view.forward(request, response);
+              view.forward(request, response);
         }
 
       
@@ -230,17 +229,3 @@ public class AccountController extends HttpServlet {
 
 }
 
-//    response.setContentType("text/html;charset=UTF-8");
-//
-//                try (PrintWriter out = response.getWriter()) {
-//                    /* TODO output your page here. You may use following sample code. */
-//                    out.println("<!DOCTYPE html>");
-//                    out.println("<html>");
-//                    out.println("<head>");
-//                    out.println("<title>Servlet OrderController</title>");
-//                    out.println("</head>");
-//                    out.println("<body>");
-//                    out.println("<h1>the quantities are  "+customer.toString()+ "</h1>");
-//                    out.println("</body>");
-//                    out.println("</html>");
-//                }

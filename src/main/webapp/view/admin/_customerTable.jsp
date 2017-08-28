@@ -14,7 +14,8 @@
             <thead>
              <tr>
                     <th>Customer ID</th>
-                    <th>Name</th>
+                    <th>First Name</th>
+                    <th>Last Name</th>
                     <th>Gender</th>
                     <th>Phone</th>
                     <th>Password</th>
@@ -30,7 +31,8 @@
                  <c:set var="location" value="${customer.location}"/>
                   <tr>
                     <td>${customer.customerId}</td>
-                    <td>${customer.firstName} ${customer.lastName}</td>
+                    <td>${customer.firstName} </td>
+                    <td>${customer.lastName}</td>
                     <td>${customer.gender}</td>
                     <td>${customer.phone}</td>
                     <td>${customer.password}</td>

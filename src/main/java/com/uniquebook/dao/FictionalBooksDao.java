@@ -32,7 +32,8 @@ public class FictionalBooksDao {
 
     /**
      * How to presist model changes to remote file upate and delete function
-     * @param b 
+     *
+     * @param b
      */
     public void addFictionalBooks(FictionalBook b) {
 
@@ -55,10 +56,7 @@ public class FictionalBooksDao {
 
         System.out.println(insertQuery);
         //UpdateAction.parseExecute(insertQuery, model);
-        
-        
 
-        
     }
 
     public void updateFictionalBooks(FictionalBook b) {
@@ -75,6 +73,7 @@ public class FictionalBooksDao {
                 + "                  r:hasPublishedYear  ?publishedyear ;\n"
                 + "                  r:productNumber ?productNumber;\n"
                 + "                  r:hasPrice ?price ;\n"
+                + "                  r:hasBookRevisionNo  ?revision ;\n"
                 + "                  r:hasDescription ?description ;\n"
                 + "                  r:hasFictionalCategory ?fictionalCategory ;\n"
                 + "                  r:hasPublisher ?publisher ;\n"
@@ -87,29 +86,28 @@ public class FictionalBooksDao {
 
     }
 
-    
-
     public List<FictionalBook> getAllFictionalBookByCategory(String category) {
         List<FictionalBook> books = new ArrayList<FictionalBook>();
         String BooksQuery = FusekiClient.PREFIX;
         BooksQuery += "SELECT  * WHERE{\n"
-                + "   ?x a r:FictionAndLiterature;\n"
-                + "                  r:hasQuantity ?quantity;\n"
-                + "                  r:hasISBN  ?isbn ;\n"
-                + "                  r:hasPublishedYear  ?publishedyear ;\n"
-                + "                  r:productNumber ?productNumber;\n"
-                + "                  r:hasPrice ?price ;\n"
-                + "                  r:hasDescription ?description ;\n"
-                + "                  r:hasFictionalCategory ?fictionalCategory ;\n"
-                + "                  r:hasPublisher ?publisher ;\n"
-                + "                  r:hasAuthor ?author;\n"
-                + "                  r:hasTitle  ?title ;\n"
-                + "                  r:hasImage ?image .   \n"
-                + "   FILTER regex(?fictionalCategory, \"" + category + "\", \"i\")\n"
-                + "}";
-  
+                + "  ?x a r:FictionAndLiterature;\n"
+                + "        r:hasQuantity ?quantity;\n"
+                + "                               r:hasISBN  ?isbn ;\n"
+                + "                                r:hasPublishedYear  ?publishedyear ;\n"
+                + "                                 r:productNumber ?productNumber;\n"
+                + "                                  r:hasPrice ?price ;\n"
+                + "                                 r:hasDescription ?description ;\n"
+                + "                                r:hasFictionalCategory ?fictionalCategory ;\n"
+                + "                                  r:hasPublisher ?publisher ;\n"
+                + "                                r:hasAuthor ?author;\n"
+                + "                                  r:hasTitle  ?title ;\n"
+                + "                                r:hasImage ?image .   \n"
+                + "                   FILTER regex(?fictionalCategory, \"" + category + "\", \"i\")\n"
+                + "                }";
+
+        System.out.println("the fictional book: " + BooksQuery);
         queryAllBooks(BooksQuery, books);
-        
+
         return books;
     }
 
@@ -167,7 +165,6 @@ public class FictionalBooksDao {
                 + " }";
 
         //System.out.println("get book query+" + booksQuery);
-
         queryBook(booksQuery, book);
         return book;
 
@@ -207,7 +204,7 @@ public class FictionalBooksDao {
 
     private void queryAllBooks(String BooksQuery, List<FictionalBook> books) {
         try {
-            
+
             ResultSet results = FusekiClient.queryFUSEKI(BooksQuery);
             int tempProductNumber = 0;
             while (results.hasNext()) {
@@ -231,14 +228,14 @@ public class FictionalBooksDao {
                 //System.out.println(row.getLiteral("fictionalCategory").getValue().toString());
                 b.setCategory(row.getLiteral("fictionalCategory").getValue().toString());
                 b.setProductName(b.getTitle());
-                
-                if(tempProductNumber == row.getLiteral("productNumber").getInt()){
-                    
-                }else{
+                b.setRevisionNo(row.getLiteral("revision").getValue().toString());
+
+                if (tempProductNumber == row.getLiteral("productNumber").getInt()) {
+
+                } else {
                     books.add(b);
-                    tempProductNumber = row.getLiteral("productNumber").getInt(); 
+                    tempProductNumber = row.getLiteral("productNumber").getInt();
                 }
-               
 
             }
         } catch (ParseException ex) {

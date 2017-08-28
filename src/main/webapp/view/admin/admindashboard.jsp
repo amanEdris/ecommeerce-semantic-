@@ -233,6 +233,9 @@
                              <c:if test="${type == 'products' }">
                                 <jsp:include page="_productListTable.jsp"></jsp:include>
                             </c:if>
+                            <c:if test="${type == 'Addproducts' }">
+                                <jsp:include page="${path}"></jsp:include>
+                            </c:if>
                         </div>
                     </div>
                     <!-- /.col-lg-12 -->

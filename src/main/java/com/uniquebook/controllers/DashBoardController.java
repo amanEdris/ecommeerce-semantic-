@@ -35,13 +35,14 @@ import org.apache.commons.lang.StringUtils;
  *
  * @author edris
  */
-@WebServlet(name = "DashBoardController", urlPatterns = {"/dashboard"})
+@WebServlet(name = "DashBoardController", urlPatterns = {"/dashboard","/addProduct"})
 public class DashBoardController extends HttpServlet {
 
     private static String DASHBOARD_PAGE_ADMIN = "/view/admin/admindashboard.jsp";
     private static String DASHBOARD_PAGE_CUSTOMER = "/view/dashboard.jsp";
     private static String LOGIN_ADMIN_PAGE = "/view/admin/login.jsp";
-
+    private static String ADD_PRODUCT_PAGE = "/view/forms/_productAddForm.jsp";
+    
     private CustomerDao customerDao;
     private OrderDao orderDao;
     private FictionalBooksDao fictionBookDao;
@@ -100,6 +101,9 @@ public class DashBoardController extends HttpServlet {
                     request.setAttribute("nonfiction", nonfiction);
                     request.setAttribute("kidbooks", kidbooks);
                     request.setAttribute("type", "products");
+                }else if (action.equals("addProducts")) {
+                    request.setAttribute("path", ADD_PRODUCT_PAGE);
+                    request.setAttribute("type", "Addproducts");
                 }
             }
 
