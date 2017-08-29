@@ -151,7 +151,7 @@
                                                     </div>
                                                     <div class="col-xs-9 text-right">
                                                         <div class="huge">${orderNumber}</div>
-                                                        <div>New orders!</div>
+                                                        <div>New Orders!</div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -217,7 +217,7 @@
                                 </div>
                             </c:if>  </div>
                         <!-- /.row -->
-                        <div class="col-lg-12">
+                        <div class="col-lg-16">
                             <c:if test="${type == 'pending' }">
                                 <jsp:include page="_orderTables.jsp"></jsp:include>
                             </c:if>
@@ -235,6 +235,12 @@
                             </c:if>
                             <c:if test="${type == 'Addproducts' }">
                                 <jsp:include page="${path}"></jsp:include>
+                            </c:if>
+                            <c:if test="${type == 'Customeredit' }">
+                                <jsp:include page="../forms/_customerAddAdminForm.jsp"></jsp:include>
+                            </c:if>
+                            <c:if test="${type == 'createCustomer' }">
+                                <jsp:include page="../forms/_customerAddAdminForm.jsp"></jsp:include>
                             </c:if>
                         </div>
                     </div>

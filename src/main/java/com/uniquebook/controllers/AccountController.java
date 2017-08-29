@@ -75,12 +75,12 @@ public class AccountController extends HttpServlet {
                 forward = DASHBOARD_PAGE_ADMIN;
             }
               RequestDispatcher view = request.getRequestDispatcher(forward);
-        view.forward(request, response);
+              view.forward(request, response);
             
         }
 
         //handle customer account
-        if (StringUtils.isEmpty(action)) {
+        if (StringUtils.isEmpty(action) &&  !userPath.equals("/admin")) {
             forward = LOGIN_PAGE;
               RequestDispatcher view = request.getRequestDispatcher(forward);
               view.forward(request, response);

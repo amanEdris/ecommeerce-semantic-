@@ -95,6 +95,9 @@ public class CartController extends HttpServlet {
             cart.addItem(item);
 
         } else if (userPath.equals("/updateCart")) {
+            if (cart == null) {
+               forward = INSERT_OR_EDIT;
+            }
             ShoppingCartItem item = new ShoppingCartItem(product, quantity);
             cart.updateItem(item);
         } else {

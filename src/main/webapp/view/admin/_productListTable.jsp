@@ -23,7 +23,7 @@
                     <th>Publisher</th>
                     <th>Category</th>
                     <th>Revision</th>
-                    <th></th>
+                    <th>.</th>
             </tr>
             </thead>
 

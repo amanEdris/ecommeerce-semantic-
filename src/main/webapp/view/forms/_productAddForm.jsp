@@ -8,7 +8,7 @@
   <!-- /.panel-heading -->
   <div class="panel-body">
     <div class="col-lg-6">
-      <form role="form" action="addProduct">
+      <form role="form" action="addProduct" method="post" enctype="multipart/form-data">
          <div class="form-group">
                           <label>Title:</label>
                           <input class="form-control" name="title" type="text">

@@ -5,8 +5,6 @@
  */
 package com.uniquebook.controllers;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.uniquebook.dao.BookDao;
 import com.uniquebook.dao.CustomerDao;
 import com.uniquebook.dao.FictionalBooksDao;
@@ -21,9 +19,13 @@ import com.uniquebook.models.Manager;
 import com.uniquebook.models.NonFictionalBook;
 import com.uniquebook.models.Order;
 import com.uniquebook.models.Product;
+import java.io.File;
 import java.io.IOException;
-import java.util.HashMap;
+import java.io.InputStream;
+import java.io.PrintWriter;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -31,20 +33,26 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.fileupload.FileUploadException;
+import org.apache.commons.fileupload.disk.DiskFileItemFactory;
+import org.apache.commons.fileupload.servlet.ServletFileUpload;
+import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang.StringUtils;
 
 /**
  *
  * @author edris
  */
-@WebServlet(name = "DashBoardController", urlPatterns = {"/dashboard","/addProduct"})
+@WebServlet(name = "DashBoardController", urlPatterns = {"/dashboard", "/addProduct", "/addCustomer", "/updateCustomer"})
 public class DashBoardController extends HttpServlet {
 
     private static String DASHBOARD_PAGE_ADMIN = "/view/admin/admindashboard.jsp";
     private static String DASHBOARD_PAGE_CUSTOMER = "/view/dashboard.jsp";
     private static String LOGIN_ADMIN_PAGE = "/view/admin/login.jsp";
     private static String ADD_PRODUCT_PAGE = "/view/forms/_productAddForm.jsp";
-    
+    private static String INSERT_OR_EDIT = "/view/forms/_customerAddAdminForm.jsp";
+
     private CustomerDao customerDao;
     private OrderDao orderDao;
     private FictionalBooksDao fictionBookDao;
@@ -52,7 +60,12 @@ public class DashBoardController extends HttpServlet {
     private KidsBookDao kidbookDao;
     private BookDao bookDao;
 
-    private HashMap<String, Object> JSONROOT = new HashMap<String, Object>();
+    //private HashMap<String, Object> JSONROOT = new HashMap<String, Object>();
+    //handle file
+    private String filePath;
+    private int maxFileSize = 50 * 1024;
+    private int maxMemSize = 4 * 1024;
+    private File file;
 
     public DashBoardController() {
         super();
@@ -62,6 +75,11 @@ public class DashBoardController extends HttpServlet {
         nonFictionBookDao = new NonFictionalBooksDao();
         kidbookDao = new KidsBookDao();
         bookDao = new BookDao();
+    }
+
+    public void init() {
+        // Get the file location where it would be stored. 
+        filePath = getServletContext().getInitParameter("src/image");
     }
 
     @Override
@@ -79,7 +97,9 @@ public class DashBoardController extends HttpServlet {
             }
             forward = DASHBOARD_PAGE_ADMIN;
             if (StringUtils.isNotEmpty(action)) {
-                if (action.equals("pendingOrder")) {//dashboard?action=pendingOrder
+                if (manger == null) {
+                    forward = LOGIN_ADMIN_PAGE;
+                } else if (action.equals("pendingOrder")) {//dashboard?action=pendingOrder
                     List<Order> orders = orderDao.getAllOrderBystatus("pending");
                     request.setAttribute("orders", orders);
                     request.setAttribute("type", "pending");
@@ -97,30 +117,65 @@ public class DashBoardController extends HttpServlet {
                     request.setAttribute("type", "customer");
                 } else if (action.equals("listProduct")) {
                     //list products with each
-                    List<FictionalBook>  fictionList = fictionBookDao.getAllFictionalBook();
+                    List<FictionalBook> fictionList = fictionBookDao.getAllFictionalBook();
                     List<NonFictionalBook> nonfiction = nonFictionBookDao.getAllNonFictionalBook();
-                    List<KidsBook> kidbooks =  kidbookDao.getAllKidsBook();
-                    
+                    List<KidsBook> kidbooks = kidbookDao.getAllKidsBook();
+
                     request.setAttribute("fictional", fictionList);
                     request.setAttribute("nonfiction", nonfiction);
                     request.setAttribute("kidbooks", kidbooks);
                     request.setAttribute("type", "products");
-                }else if (action.equals("addProducts")) {
+                } else if (action.equals("addProducts")) {
                     request.setAttribute("path", ADD_PRODUCT_PAGE);
                     request.setAttribute("type", "Addproducts");
-                }else if (action.equals("deleteProduct")) {
+
+                } else if (action.equals("deleteProduct")) {
                     int productId = Integer.parseInt(request.getParameter("productNumber"));
                     String category = request.getParameter("category").toString();
                     Product p = bookDao.getBookbyProductNumber(productId, category);
                     String subjectName = bookDao.getSubjectName(p);
-                    bookDao.deleteBook(subjectName);
-                    
+                    boolean result = bookDao.deleteBook(subjectName);
+
                     //send back to the refere
-                    response.sendRedirect(request.getContextPath());
-                }else if (action.equals("editProduct")) {
+                    //list products with each
+                    List<FictionalBook> fictionList = fictionBookDao.getAllFictionalBook();
+                    List<NonFictionalBook> nonfiction = nonFictionBookDao.getAllNonFictionalBook();
+                    List<KidsBook> kidbooks = kidbookDao.getAllKidsBook();
+
+                    request.setAttribute("fictional", fictionList);
+                    request.setAttribute("nonfiction", nonfiction);
+                    request.setAttribute("kidbooks", kidbooks);
+                    request.setAttribute("type", "products");
+                } else if (action.equals("editProduct")) {
                     int productId = Integer.parseInt(request.getParameter("productNumber"));
                     String category = request.getParameter("category").toString();
-                    
+
+                } else if (action.equals("editCustomer")) {
+                    String customerId = request.getParameter("customerId");
+                    Customer customer = customerDao.getCustomerByID(customerId);
+                    request.setAttribute("User", customer);
+                    request.setAttribute("type", "Customeredit");
+
+                } else if (action.equals("deleteCustomer")) {
+                    try {
+                        String customerId = (request.getParameter("customerId"));
+                        customerDao.deleteCustomer(customerId);
+
+                        List<Customer> customer = customerDao.getAllCustomer();
+                        request.setAttribute("customers", customer);
+                        request.setAttribute("type", "customer");
+
+                        //delete customer 
+                    } catch (Exception ex) {
+                        Logger.getLogger(DashBoardController.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+
+                } else if (action.equals("createCustomer")) {
+                    request.setAttribute("type", "createCustomer");
+
+                } else {
+                    //action=deleteOrder&orderNumber=1
+
                 }
 
             }
@@ -132,171 +187,120 @@ public class DashBoardController extends HttpServlet {
         view.forward(request, response);
 
     }
+    
+  
 
-    //convert to json and write to webpage
-    //Orders
-    //Books list handle conditions
-    //Order list handle conditions
     protected void doPost(HttpServletRequest request,
             HttpServletResponse response) throws ServletException, IOException {
+        String userPath = request.getServletPath();
+        String forward = DASHBOARD_PAGE_ADMIN;
 
-        String action = request.getParameter("action");
-        List<Customer> customersList = customerDao.getAllCustomer();
-        Gson gson = new GsonBuilder().setPrettyPrinting().create();
-
-        response.setContentType("application/json");
-        if (StringUtils.isNotEmpty(action)) {
+        if (userPath.equals("/addProduct")) {
             try {
-                if (action.equals("listcustomer")) {
+                List<FileItem> items = new ServletFileUpload(new DiskFileItemFactory()).parseRequest(request);
+                for (FileItem item : items) {
+                    if (item.isFormField()) {
+                        String fieldName = item.getFieldName();
+                        String fieldValue = item.getString();
 
-                    // Fetch Data from User Table
-                    int startPageIndex = Integer.parseInt(request.getParameter("jtStartIndex"));
-                    int recordsPerPage = Integer.parseInt(request.getParameter("jtPageSize"));
+                    } else {
+// Process form file field (input type="file").
+                        String fieldName = item.getFieldName();
+                        String fileName = FilenameUtils.getName(item.getName());
+                        InputStream fileContent = item.getInputStream();
+                        boolean isInMemory = item.isInMemory();
+                        long sizeInBytes = item.getSize();
 
-                    // Fetch Data from Student Table
-                    customersList = customerDao.getAllCustomer(startPageIndex, recordsPerPage);
-                    // Get Total Record Count for Pagination
-                    int customerCount = customerDao.getCustomerCount();
-
-                    // Return in the format required by jTable plugin
-                    JSONROOT.put("Result", "OK");
-                    JSONROOT.put("Records", customersList);
-                    JSONROOT.put("TotalRecordCount", customerCount);
-
-                    // Convert Java Object to Json
-                    String jsonArray = gson.toJson(JSONROOT);
-                    response.getWriter().print(jsonArray);
-                } else if (action.equals("createcustomer") || action.equals("updatecustomer")) {
-
-                    Customer c = new Customer();
-                    Location l = new Location();
-                    l.setAddress(request.getParameter("address"));
-                    l.setCity(request.getParameter("city"));
-                    l.setCountry(request.getParameter("country"));
-                    l.setPostalCode(request.getParameter("postalCode"));
-                    c.setLocation(l);
-                    c.setEmail(request.getParameter("email"));
-                    c.setFirstName(request.getParameter("firstName"));
-                    c.setLastName(request.getParameter("lastName"));
-                    c.setPassword(request.getParameter("password"));
-                    c.setGender(request.getParameter("gender"));
-                    c.setPhone(request.getParameter("phone"));
-                    c.setCustomerId(request.getParameter("customerId"));
-
-                    if (action.equals("createcustomer")) {
-                        boolean check = customerDao.addCustomer(c);
-                        if (check) {
-                            JSONROOT.put("Result", "ERROR");
-                            JSONROOT.put("Message", "Email  regitered please use different Email!");
+// Write the file
+                        if (fileName.lastIndexOf("\\") >= 0) {
+                            file = new File("src/image/"
+                                    + fileName.substring(fileName.lastIndexOf("\\")));
                         } else {
-                            JSONROOT.put("Result", "OK");
-                            JSONROOT.put("Record", c);
+                            file = new File("src/image/" + fileName.substring(fileName.lastIndexOf("\\") + 1));
                         }
-                    } else if (action.equals("updatecustomer")) {
-                        Customer cc = new Customer();
-                        cc.clone(c);
-                        boolean check = customerDao.updateCustomer(c, cc);
-                        if (check) {
-                            JSONROOT.put("Result", "OK");
-                            JSONROOT.put("Record", c);
-                        } else {
-                            JSONROOT.put("Result", "ERROR");
-                            JSONROOT.put("Message", "Unable to update please check all values!");
+                        item.write(file);
+
+                        response.setContentType("text/html;charset=UTF-8");
+
+                        try (PrintWriter out = response.getWriter()) {
+
+                            out.println("<!DOCTYPE html>");
+                            out.println("<html>");
+                            out.println("<head>");
+                            out.println("<title>Servlet OrderController</title>");
+                            out.println("</head>");
+                            out.println("<body>");
+                            out.println("<h1>GET FILE PATH  " + file.getPath() + "</h1> and file path" + filePath);
+                            out.println("</body>");
+                            out.println("</html>");
                         }
-                    }
-
-                    String jsonArray = gson.toJson(JSONROOT);
-                    response.getWriter().print(jsonArray);
-                } else if (action.equals("deletecustomer")) {
-                    // Delete record
-                    if (StringUtils.isNotEmpty(request.getParameter("customerId"))) {
-                        String customerId = request.getParameter("customerId");
-                        customerDao.deleteCustomer(customerId);
-
-                        JSONROOT.put("Result", "OK");
-
-                        String jsonArray = gson.toJson(JSONROOT);
-                        response.getWriter().print(jsonArray);
-                    }
-                } else if (action.equals("listcustomer")) {
-
-                    // Fetch Data from User Table
-                    int startPageIndex = Integer.parseInt(request.getParameter("jtStartIndex"));
-                    int recordsPerPage = Integer.parseInt(request.getParameter("jtPageSize"));
-
-                    // Fetch Data from Student Table
-                    customersList = customerDao.getAllCustomer(startPageIndex, recordsPerPage);
-                    // Get Total Record Count for Pagination
-                    int customerCount = customerDao.getCustomerCount();
-
-                    // Return in the format required by jTable plugin
-                    JSONROOT.put("Result", "OK");
-                    JSONROOT.put("Records", customersList);
-                    JSONROOT.put("TotalRecordCount", customerCount);
-
-                    // Convert Java Object to Json
-                    String jsonArray = gson.toJson(JSONROOT);
-                    response.getWriter().print(jsonArray);
-                } else if (action.equals("create") || action.equals("update")) {
-
-                    Customer c = new Customer();
-                    Location l = new Location();
-                    l.setAddress(request.getParameter("address"));
-                    l.setCity(request.getParameter("city"));
-                    l.setCountry(request.getParameter("country"));
-                    l.setPostalCode(request.getParameter("postalCode"));
-                    c.setLocation(l);
-                    c.setEmail(request.getParameter("email"));
-                    c.setFirstName(request.getParameter("firstName"));
-                    c.setLastName(request.getParameter("lastName"));
-                    c.setPassword(request.getParameter("password"));
-                    c.setGender(request.getParameter("gender"));
-                    c.setPhone(request.getParameter("phone"));
-                    c.setCustomerId(request.getParameter("customerId"));
-
-                    if (action.equals("createcustomer")) {
-                        boolean check = customerDao.addCustomer(c);
-                        if (check) {
-                            JSONROOT.put("Result", "ERROR");
-                            JSONROOT.put("Message", "Email  regitered please use different Email!");
-                        } else {
-                            JSONROOT.put("Result", "OK");
-                            JSONROOT.put("Record", c);
-                        }
-                    } else if (action.equals("updatecustomer")) {
-                        Customer cc = new Customer();
-                        cc.clone(c);
-                        boolean check = customerDao.updateCustomer(c, cc);
-                        if (check) {
-                            JSONROOT.put("Result", "OK");
-                            JSONROOT.put("Record", c);
-                        } else {
-                            JSONROOT.put("Result", "ERROR");
-                            JSONROOT.put("Message", "Unable to update please check all values!");
-                        }
-                    }
-
-                    String jsonArray = gson.toJson(JSONROOT);
-                    response.getWriter().print(jsonArray);
-                } else if (action.equals("deletecustomer")) {
-                    // Delete record
-                    if (StringUtils.isNotEmpty(request.getParameter("customerId"))) {
-                        String customerId = request.getParameter("customerId");
-                        customerDao.deleteCustomer(customerId);
-
-                        JSONROOT.put("Result", "OK");
-
-                        String jsonArray = gson.toJson(JSONROOT);
-                        response.getWriter().print(jsonArray);
                     }
                 }
+            } catch (FileUploadException e) {
+                throw new ServletException("Cannot parse multipart request.", e);
             } catch (Exception ex) {
-                JSONROOT.put("Result", "ERROR");
-                JSONROOT.put("Message", ex.getMessage());
-                String error = gson.toJson(JSONROOT);
-                response.getWriter().print(error);
+                Logger.getLogger(DashBoardController.class.getName()).log(Level.SEVERE, null, ex);
             }
+
+        } else if (userPath.equals("/addCustomer")) {
+            Customer c = new Customer();
+            Location l = new Location();
+            l.setAddress(request.getParameter("address_1"));
+            l.setCity(request.getParameter("city"));
+            l.setCountry(request.getParameter("country_id"));
+            l.setPostalCode(request.getParameter("postcode"));
+            c.setLocation(l);
+            c.setEmail(request.getParameter("email"));
+            c.setFirstName(request.getParameter("firstname"));
+            c.setLastName(request.getParameter("lastname"));
+            c.setPassword(request.getParameter("password"));
+            c.setGender(request.getParameter("male"));
+            c.setPhone(request.getParameter("telephone"));
+            c.setCustomerId(request.getParameter("customerId"));
+            boolean check = customerDao.addCustomer(c);
+            request.setAttribute("type", "createCustomer");
+
+            if (check) {
+                request.setAttribute("Message", "Email regitered please use different Email!");
+            } else {
+                request.setAttribute("goodmessage", "New Customer added!");
+            }
+        } else if (userPath.equals("/updateCustomer")) {
+            Customer c = new Customer();
+            Location l = new Location();
+            l.setAddress(request.getParameter("address_1"));
+            l.setCity(request.getParameter("city"));
+            l.setCountry(request.getParameter("country_id"));
+            l.setPostalCode(request.getParameter("postcode"));
+            c.setLocation(l);
+            c.setEmail(request.getParameter("email"));
+            c.setFirstName(request.getParameter("firstname"));
+            c.setLastName(request.getParameter("lastname"));
+            c.setPassword(request.getParameter("password"));
+            c.setGender(request.getParameter("male"));
+            c.setPhone(request.getParameter("telephone"));
+            c.setCustomerId(request.getParameter("customerId"));
+            Customer cc = new Customer();
+            cc.clone(c);
+            boolean check = customerDao.updateCustomer(c, cc);
+            String customerId = request.getParameter("customerId");
+            Customer customer = customerDao.getCustomerByID(customerId);
+            request.setAttribute("User", customer);
+            request.setAttribute("type", "Customeredit");
+
+            if (check) {
+
+                request.setAttribute("Message", "Email regitered please use different Email!");
+            } else {
+                request.setAttribute("goodmessage", " Customer data updated!");
+            }
+        } else {
+
         }
+
+        RequestDispatcher view = request.getRequestDispatcher(forward);
+        view.forward(request, response);
+
     }
 }
 

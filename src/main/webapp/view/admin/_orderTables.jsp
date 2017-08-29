@@ -13,14 +13,13 @@
                 <tr>
                     <th>Order Number</th>
                     <th>Item</th>
-                    <th>Quantity <i class="fa-times"></i> price</th>
+                    <th>Quantity <i class="fa fa-times"></i> price</th>
                     <th>Customer</th>
                     <th>order Status</th>
                     <th>Delivery Address</th>
                     <th>Delivery Date</th>
                     <th>Total price</th>
-                    <th>Edit</th>
-                    <th>Delete</th>
+                    <th>.</th>
                 </tr>
             </thead>
             <tbody>
@@ -44,7 +43,7 @@
                                     <c:set var="product" value="${sale.product}"/>
 
                                     <li>
-                                        ${product.price} <i class="fa-times"></i> ${sale.productQuantity}</li>
+                                        ${product.price} <i class="fa fa-times"></i> ${sale.productQuantity}</li>
                                     </c:forEach>
                             </ol>
                         </td>
@@ -72,10 +71,11 @@
                             ${order.totalPrice}
                         </td>
                         <td>
-                            ####€€€€€
-                        </td>
-                        <td>
-                            €€€€€####
+                            <a href="/UniqueBookApp/dashboard?action=editOrder&orderNumber=${order.orderNumber}">
+                                <i class="fa fa-edit fa-2x"></i> </a>
+                            <br>
+                            <a href="/UniqueBookApp/dashboard?action=deleteOrder&orderNumber=${order.orderNumber}">
+                                <i class="fa fa-trash-o-o  fa-2x"></i> </a>
                         </td>
                     </tr>
 
