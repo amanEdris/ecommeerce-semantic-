@@ -46,7 +46,7 @@ public class AccountController extends HttpServlet {
         super();
         customerDao = new CustomerDao();
         managerDao = new ManagerDao();
-        orderDao  = new OrderDao();
+        orderDao = new OrderDao();
         bookDao = new BookDao();
     }
 
@@ -62,33 +62,34 @@ public class AccountController extends HttpServlet {
         //handle admin account
         if (userPath.equals("/admin")) {
             Manager manger = (Manager) session.getAttribute("adminUser");
-            if(manger == null){
+            if (manger == null) {
                 forward = LOGIN_ADMIN_PAGE;
-            }
-            else{
+            } else if (action.equalsIgnoreCase("logout")) {
+                forward = LOGIN_PAGE;
+                Manager manager = (Manager) session.getAttribute("adminUser");
+                manager = null;
+                session.removeAttribute("adminUser");
+            } else {
                 int customerCount = customerDao.getCustomerCount();
-                int orderCount  = orderDao.getOrderCount();
+                int orderCount = orderDao.getOrderCount();
                 int productCount = bookDao.getBookProductCount();
                 request.setAttribute("customersNumber", customerCount);
                 request.setAttribute("orderNumber", orderCount);
                 request.setAttribute("productNumber", productCount);
                 forward = DASHBOARD_PAGE_ADMIN;
             }
-              RequestDispatcher view = request.getRequestDispatcher(forward);
-              view.forward(request, response);
-            
+            RequestDispatcher view = request.getRequestDispatcher(forward);
+            view.forward(request, response);
+
         }
 
         //handle customer account
-        if (StringUtils.isEmpty(action) &&  !userPath.equals("/admin")) {
+        if (StringUtils.isEmpty(action) && !userPath.equals("/admin")) {
             forward = LOGIN_PAGE;
-              RequestDispatcher view = request.getRequestDispatcher(forward);
-              view.forward(request, response);
-        } else {
-            if (action.equalsIgnoreCase("delete")) {
-                //TODO: delete account for customer admin 
-
-            } else if (action.equalsIgnoreCase("login")) {
+            RequestDispatcher view = request.getRequestDispatcher(forward);
+            view.forward(request, response);
+        } else {//account?action=logout"
+            if (action.equalsIgnoreCase("login")) {
                 forward = LOGIN_PAGE;
             } else if (action.equalsIgnoreCase("edit")) {
 
@@ -103,11 +104,10 @@ public class AccountController extends HttpServlet {
             } else {
 
             }
-              RequestDispatcher view = request.getRequestDispatcher(forward);
-              view.forward(request, response);
+            RequestDispatcher view = request.getRequestDispatcher(forward);
+            view.forward(request, response);
         }
 
-      
     }
 
     @Override
@@ -199,7 +199,7 @@ public class AccountController extends HttpServlet {
             String message = " ";
 
             Manager manager = managerDao.getManagerByEmailAndPassword(email, password);
-            
+
             if (manager.getFirstName() == null) {
                 message = "Password or Email is not correct";
                 request.setAttribute("message", message);
@@ -208,12 +208,12 @@ public class AccountController extends HttpServlet {
                 HttpSession session = request.getSession();
                 session.setAttribute("adminUser", manager);
                 int customerCount = customerDao.getCustomerCount();
-                int orderCount  = orderDao.getOrderCount();
+                int orderCount = orderDao.getOrderCount();
                 int productCount = bookDao.getBookProductCount();
                 request.setAttribute("customersNumber", customerCount);
                 request.setAttribute("orderNumber", orderCount);
                 request.setAttribute("productNumber", productCount);
-                
+
                 forward = DASHBOARD_PAGE_ADMIN;
 
             }
@@ -228,4 +228,3 @@ public class AccountController extends HttpServlet {
     }
 
 }
-

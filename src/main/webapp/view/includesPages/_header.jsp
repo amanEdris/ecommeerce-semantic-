@@ -103,7 +103,7 @@
             <div class="row">
                 <div class="col-sm-12">
 
-                    <div id="logo"><a href="#home"><img src="./image/logo-copy.png" title="RealBooks" alt="Uniquebooks"></a></div>
+                    <div id="logo"><a href="#home"><img src="./image/logo-copy.png" title="uniquebooks" alt="Uniquebooks"></a></div>
 
                     <div id="search">
                         <div class="inner">
@@ -209,10 +209,10 @@
                                         <a href="/UniqueBookApp/book?action=listBooks&category=Mistry">Mystery</a>
                                     </li>
                                     <li class="cat_6">
-                                        <a href="/UniqueBookApp/book?action=listBooks&Politics &amp; Current Affairs">Politics &amp; Current Affairs</a>
+                                        <a href="/UniqueBookApp/book?action=listBooks&category=Politics &amp; Current Affairs">Politics &amp; Current Affairs</a>
                                     </li>
                                     <li class="cat_7">
-                                        <a href="/UniqueBookApp/book?action=listBooks&Religion">Religion</a>
+                                        <a href="/UniqueBookApp/book?action=listBooks&category=Religion">Religion</a>
                                     </li>
                                     <li class="cat_8">
                                         <a href="/UniqueBookApp/book?action=listBooks&category=Kids Book">Kids Book</a>

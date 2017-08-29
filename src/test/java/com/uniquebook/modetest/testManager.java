@@ -6,6 +6,7 @@
 package com.uniquebook.modetest;
 
 import com.uniquebook.dao.CustomerDao;
+import com.uniquebook.dao.OrderDao;
 import com.uniquebook.models.Manager;
 import com.uniquebook.models.Person;
 
@@ -17,10 +18,13 @@ public class testManager {
     
        public static void main(String[] args) throws Exception {
            // customer id => c4b8379c-644a-4607-bdd4-432015546c7d
-           CustomerDao customer =new CustomerDao();
-                   
+//           CustomerDao customer =new CustomerDao();
+//                   
+//           
+//           customer.deleteCustomer("c4b8379c-644a-4607-bdd4-432015546c7d");
            
-           customer.deleteCustomer("c4b8379c-644a-4607-bdd4-432015546c7d");
+           OrderDao orderDao = new OrderDao();
+           orderDao.deleteOrder("2");
            
 //            Manager p = new Manager();
 //            p.setEmail("dd@mail.com");

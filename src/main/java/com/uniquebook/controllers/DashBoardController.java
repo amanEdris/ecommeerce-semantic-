@@ -173,9 +173,17 @@ public class DashBoardController extends HttpServlet {
                 } else if (action.equals("createCustomer")) {
                     request.setAttribute("type", "createCustomer");
 
-                } else {
-                    //action=deleteOrder&orderNumber=1
+                } else if (action.equals("deleteOrder")) {
+                    String orderNumber = (request.getParameter("orderNumber"));
+                    //get order by order number and forward to type order status
+                    orderDao.deleteOrder(orderNumber);
+                    List<Order> orders = orderDao.getAllOrderBystatus("pending");
+                    request.setAttribute("orders", orders);
+                    request.setAttribute("type", "pending");
 
+                }else {
+                   //Edit action for order
+                   //product add and upfate features
                 }
 
             }

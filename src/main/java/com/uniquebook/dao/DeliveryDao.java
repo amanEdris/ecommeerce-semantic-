@@ -125,7 +125,33 @@ public class DeliveryDao {
 
         return check;
     }
-    
+
     //Delivery count 
+    String getSubjectNameByOrderId(String orderNumber) {
+        String subjectName = null;
+        try {
+            String selectQuery = null;
+
+            selectQuery = FusekiClient.PREFIX;
+            selectQuery += "SELECT  ?d "
+                    + "   WHERE { "
+                    + "   ?o rdf:type r:Order."
+                    + "   ?o r:orderNumber ?orderNumber.\n"
+                    + "   ?o  r:hasDelivery ?d."
+                    + "   ?d rdf:type r:Delivery;\n"
+                    + "  FILTER ( ?orderNumber = \"" + orderNumber + "\") \n"
+                    + "}";
+
+            ResultSet results = FusekiClient.queryFUSEKI(selectQuery);
+            while (results.hasNext()) {
+                QuerySolution row = results.next();
+                subjectName = row.getResource("d").getLocalName();
+            }
+
+        } catch (Exception ex) {
+            Logger.getLogger(DeliveryDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return subjectName;
+    }
 
 }

@@ -68,7 +68,7 @@
                             </li>
                             <li class="divider"></li>
                             <li>
-                                <a href="#">
+                                <a href="/UniqueBookApp/admin?action=logout" >
                                     <i class="fa fa-sign-out fa-fw"></i>
                                     Logout</a>
                             </li>

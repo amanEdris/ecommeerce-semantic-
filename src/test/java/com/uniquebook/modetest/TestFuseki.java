@@ -22,8 +22,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
-import org.apache.jena.query.ParameterizedSparqlString;
-import org.apache.jena.update.UpdateExecutionFactory;
 
 /**
  *

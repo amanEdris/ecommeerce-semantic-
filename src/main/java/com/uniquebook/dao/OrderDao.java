@@ -11,7 +11,6 @@ import com.uniquebook.models.Customer;
 import com.uniquebook.models.Delivery;
 import com.uniquebook.models.Location;
 import com.uniquebook.models.Order;
-import com.uniquebook.models.Sale;
 import com.uniquebook.utils.FusekiClient;
 import com.uniquebook.utils.HelperUtil;
 import java.text.SimpleDateFormat;
@@ -67,7 +66,78 @@ public class OrderDao {
     }
 
     public void deleteOrder(String orderNumber) {
+        try {
+            //get order subject name
+            String orderSubjectName = this.getSubjectNameByID(orderNumber.trim());
+            //get delivery subjectName
+            String deliverySubjectName = deliveryDao.getSubjectNameByOrderId(orderNumber);
+            String[] salesSubjectNames = salesDao.getSalesByOrder(orderNumber.trim());
+            
+            String getSalesSubjectPredicateObject = this.getSalesOrderPredicateObjects(salesSubjectNames);
+            String deleteCustomerQuery = FusekiClient.PREFIX + "DELETE" //r:hasDelivery r:hasSales
+                    + "{"
+                    + "  r:" + orderSubjectName + " ?p ?o.\n"
+                    + "  r:" + orderSubjectName + " r:hasDelivery  r:" + deliverySubjectName + "."
+                    + "  r:" + deliverySubjectName + "  ?r ?j. \n"
+                    + "  r:" + orderSubjectName + " r:hasSales  " + this.getSalesInsertSubjects(salesSubjectNames) + "."
+                    + " " + this.getSalesOrderPredicateObjects(salesSubjectNames) + " "
+                    + "} WHERE { \n"
+                    + "  r:" + orderSubjectName + " ?p ?o.\n"
+                    + "  r:" + orderSubjectName + " r:hasDelivery  r:" + deliverySubjectName + "."
+                    + "  r:" + deliverySubjectName + "  ?r ?j. \n"
+                    + "  r:" + orderSubjectName + " r:hasSales  " + this.getSalesInsertSubjects(salesSubjectNames) + "."
+                    + " " + this.getSalesOrderPredicateObjects(salesSubjectNames) + " "
+                    + "}";
+            
+            System.out.println("Order delete query" + deleteCustomerQuery);
+            FusekiClient.insertFUSEKI(deleteCustomerQuery);
+        } catch (Exception ex) {
+            Logger.getLogger(OrderDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
+    }
+
+    /**
+     * Generate predicate and object for sales of order
+     * For example. x:saleSubject ?p ?o.
+     * 
+     * @param salesSubjectNames
+     * @return 
+     */
+    private String getSalesOrderPredicateObjects(String[] salesSubjectNames) {
+        StringBuilder insertPart = new StringBuilder();
+        for (int i = 0; i < salesSubjectNames.length; i++) {
+            insertPart.append("r:" + salesSubjectNames[i] + " ?" + helperUtil.generateNames() + " ?" + helperUtil.generateNames() + " .");
+        }
+        return insertPart.toString();
+    }
+
+     
+
+    public String getSubjectNameByID(String orderNumber) {
+        String subjectName = null;
+        try {
+            String selectQuery = null;
+
+            selectQuery = FusekiClient.PREFIX;
+            selectQuery += "SELECT  ?o "
+                    + "WHERE { \n"
+                    + " ?o rdf:type r:Order.\n"
+                    + " ?o r:orderNumber ?orderNumber.\n"
+                    + "  FILTER ( ?orderNumber = \"" + orderNumber + "\") \n"
+                    + "}"
+                    + "";
+
+            ResultSet results = FusekiClient.queryFUSEKI(selectQuery);
+            while (results.hasNext()) {
+                QuerySolution row = results.next();
+                subjectName = row.getResource("o").getLocalName();
+            }
+
+        } catch (Exception ex) {
+            Logger.getLogger(CustomerDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return subjectName;
     }
 
     public void updateOrder(Order b) {
@@ -107,27 +177,27 @@ public class OrderDao {
                     + "        ?location  r:hasPostalCode ?postalcode. \n"
                     + "}\n"
                     + "}\n"
-                    + "  FILTER (?status = \"" +orderStatus+ "\"^^xsd:string ) \n"
+                    + "  FILTER (?status = \"" + orderStatus + "\"^^xsd:string ) \n"
                     + "}"
                     + "order by(?deliveryDate)"
                     + "";
-            
-            System.out.println("customer orde query: \n"+query);
+
+            System.out.println("customer orde query: \n" + query);
             ResultSet results = FusekiClient.queryFUSEKI(query);
             while (results.hasNext()) {
                 Location deliveryLocation = new Location();
                 Order order = new Order();
                 QuerySolution row = results.next();
-                
+
                 deliveryLocation.setAddress(row.getLiteral("address").getString());
                 deliveryLocation.setCity(row.getLiteral("city").getString());
                 deliveryLocation.setCountry(row.getLiteral("country").getString());
-                deliveryLocation.setPostalCode(row.getLiteral("postalcode").getString());  
+                deliveryLocation.setPostalCode(row.getLiteral("postalcode").getString());
                 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
                 Date deliveryDate = sdf.parse(row.getLiteral("deliveryDate").getValue().toString());
                 Delivery delivery = new Delivery(deliveryDate, deliveryLocation);
                 order.setDelivery(delivery);
-                order.setCusotmer(customerDao.getCustomerByEmailAndPassword(row.getLiteral("email").getString(), 
+                order.setCusotmer(customerDao.getCustomerByEmailAndPassword(row.getLiteral("email").getString(),
                         row.getLiteral("password").getString()));
                 order.setOrderNumber(row.getLiteral("orderNumber").getString());
                 order.setOrderStatus(row.getLiteral("status").getString());
@@ -143,8 +213,9 @@ public class OrderDao {
 
     /**
      * Get customer order list
+     *
      * @param customer
-     * @return 
+     * @return
      */
     public List<Order> getCustomerOrders(Customer customer) {
         List<Order> orders = new ArrayList<Order>();
@@ -176,22 +247,22 @@ public class OrderDao {
                     + "        ?location  r:hasPostalCode ?postalcode. \n"
                     + "}\n"
                     + "}\n"
-                    + "  FILTER (?customerId = \"" + customer.getCustomerId()+ "\"^^xsd:string ) \n"
+                    + "  FILTER (?customerId = \"" + customer.getCustomerId() + "\"^^xsd:string ) \n"
                     + "}"
                     + "order by(?deliveryDate)"
                     + "";
-            
-            System.out.println("customer orde query: \n"+query);
+
+            System.out.println("customer orde query: \n" + query);
             ResultSet results = FusekiClient.queryFUSEKI(query);
             while (results.hasNext()) {
                 Location deliveryLocation = new Location();
                 Order order = new Order();
                 QuerySolution row = results.next();
-                
+
                 deliveryLocation.setAddress(row.getLiteral("address").getString());
                 deliveryLocation.setCity(row.getLiteral("city").getString());
                 deliveryLocation.setCountry(row.getLiteral("country").getString());
-                deliveryLocation.setPostalCode(row.getLiteral("postalcode").getString());  
+                deliveryLocation.setPostalCode(row.getLiteral("postalcode").getString());
                 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
                 Date deliveryDate = sdf.parse(row.getLiteral("deliveryDate").getValue().toString());
                 Delivery delivery = new Delivery(deliveryDate, deliveryLocation);
@@ -206,11 +277,9 @@ public class OrderDao {
         } catch (Exception ex) {
             Logger.getLogger(OrderDao.class.getName()).log(Level.SEVERE, null, ex);
         }
-           return orders;
+        return orders;
     }
 
-    
-    
     private String getSalesInsertSubjects(String[] salesSubjectNames) {
         StringBuilder insertPart = new StringBuilder();
         for (int i = 0; i < salesSubjectNames.length; i++) {

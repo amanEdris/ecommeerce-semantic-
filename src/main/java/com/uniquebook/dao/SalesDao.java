@@ -121,7 +121,7 @@ public class SalesDao {
                     + "  ?product   r:hasDescription ?description.\n"
                     + "   ?product r:hasQuantity ?quantity.\n"
                     + "  \n"
-                    + "   FILTER (?orderNumber = \""+orderNumber+"\"^^xsd:string )\n"
+                    + "   FILTER (?orderNumber = \"" + orderNumber + "\"^^xsd:string )\n"
                     + "\n"
                     + "}";
 
@@ -129,7 +129,7 @@ public class SalesDao {
             int tempProductNumber = 0;
             while (results.hasNext()) {
                 QuerySolution row = results.next();
-                
+
                 Product p = new Product();
                 p.setDescription(row.getLiteral("description").getString());
                 p.setImagepath(row.getLiteral("image").getString());
@@ -137,17 +137,17 @@ public class SalesDao {
                 p.setProductName(row.getLiteral("title").getString());
                 p.setProductNumber(row.getLiteral("productNumber").getInt());
                 p.setQuantity(row.getLiteral("quantity").getInt());
-                
-                Sale sale = new Sale( row.getLiteral("productQuantity").getInt(),p);
-                if(tempProductNumber == row.getLiteral("productNumber").getInt()){
-                    
-                }else{
+
+                Sale sale = new Sale(row.getLiteral("productQuantity").getInt(), p);
+                if (tempProductNumber == row.getLiteral("productNumber").getInt()) {
+
+                } else {
                     if (sales.contains(sale) == false) {
                         sales.add(sale);
                         tempProductNumber = row.getLiteral("productNumber").getInt();
                     }
                 }
-               
+
             }
 
         } catch (Exception ex) {
@@ -156,8 +156,58 @@ public class SalesDao {
         return sales;
     }
 
-    public List<Sale> getSalesByOrder() {
-        return null;
+    public int getSalesCountForByOrderNumber(String orderNumber) {
+        int count = 0;
+        try {
+            
+            
+            String salesQuery = FusekiClient.PREFIX;
+            salesQuery += "SELECT (count(?o) As ?salesCount)"
+                    + "   WHERE { "
+                    + "   ?o rdf:type r:Order."
+                    + "   ?o r:orderNumber ?orderNumber.\n"
+                    + "    ?o r:hasSales ?sale.\n"
+                    + "    ?sale r:hasProductSalesQuantity  ?productQuantity.\n"
+                    + "    ?sale  r:hasProduct  ?product.\n"
+                    + "  FILTER ( ?orderNumber = \"" + orderNumber + "\") \n"
+                    + "}";
+            ResultSet results = FusekiClient.queryFUSEKI(salesQuery);
+            while (results.hasNext()) {
+                QuerySolution row = results.next();
+                count = row.getLiteral("salesCount").getInt();
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(SalesDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return count;
+    }
+
+    public String[] getSalesByOrder(String orderNumber) {
+        String salesSubjectNames[] = new String[this.getSalesCountForByOrderNumber(orderNumber)];
+
+        try {
+            String salesSubjectQuery = FusekiClient.PREFIX;
+            salesSubjectQuery += "SELECT  ?sale "
+                    + "   WHERE { "
+                    + "   ?o rdf:type r:Order."
+                    + "   ?o r:orderNumber ?orderNumber.\n"
+                    + "    ?o r:hasSales ?sale.\n"
+                    + "    ?sale r:hasProductSalesQuantity  ?productQuantity.\n"
+                    + "    ?sale  r:hasProduct  ?product.\n"
+                    + "  FILTER ( ?orderNumber = \"" + orderNumber + "\") \n"
+                    + "}";
+            ResultSet results = FusekiClient.queryFUSEKI(salesSubjectQuery);
+            int i = 0;
+            while (results.hasNext()) {
+                QuerySolution row = results.next();
+                 salesSubjectNames[i]  = row.getResource("sale").getLocalName();
+                i++;
+            }
+
+        } catch (Exception ex) {
+            Logger.getLogger(SalesDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return salesSubjectNames;
 
     }
 
