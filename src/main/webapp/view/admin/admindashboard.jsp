@@ -4,7 +4,6 @@
 
 <!DOCTYPE html>
 <html dir="ltr" lang="en">
-
     <head>
 
         <meta charset="utf-8">
@@ -67,8 +66,9 @@
                                     User Profile</a>
                             </li>
                             <li class="divider"></li>
-                            <li>
-                                <a href="/UniqueBookApp/admin?action=logout" >
+                            <li> <c:url var="urllogout" value="/admin?action=logout">
+                            </c:url>
+                                <a href="${urllogout}" >
                                     <i class="fa fa-sign-out fa-fw"></i>
                                     Logout</a>
                             </li>
@@ -83,27 +83,32 @@
                     <div class="sidebar-nav navbar-collapse">
                         <ul class="nav" id="side-menu">
 
+                            <c:url var="url" value="/admin">
+                            </c:url>
                             <li class="active">
-                                <!--new orders =all customers= all products  -->
-                                <a href="/UniqueBookApp/admin">
+                                <a href="${url}">
                                     <i class="fa fa-dashboard fa-fw"></i>
                                     Dashboard</a>
                             </li>
 
-                            <li>
-                                <a href="/UniqueBookApp/dashboard?action=pendingOrder">
+                            <li><c:url var="pendingurl" value="/dashboard?action=pendingOrder">
+                            </c:url>
+                                <a href="${pendingurl}">
                                     <i class="fa fa-shopping-cart fa-fw"></i>Pending Orders</a>
                             </li>
-                            <li>
-                                <a href="/UniqueBookApp/dashboard?action=approvedOrder">
+                            <li><c:url var="approvedorder" value="/dashboard?action=approvedOrder">
+                            </c:url>
+                                <a href="${approvedorder}">
                                     <i class="fa fa-check fa-fw"></i>Approved Orders</a>
                             </li>
-                            <li>
-                                <a href="/UniqueBookApp/dashboard?action=deliveredOrder">
+                            <li><c:url var="deliveredOrder" value="/dashboard?action=deliveredOrder">
+                            </c:url>
+                                <a href="${deliveredOrder}">
                                     <i class="fa fa-truck fa-fw"></i>Delivered Orders</a>
                             </li>
-                            <li>
-                                <a href="/UniqueBookApp/dashboard?action=listcustomers">
+                            <li><c:url var="listCustomers" value="/dashboard?action=listcustomers">
+                            </c:url>
+                                <a href="${listCustomers}">
                                     <i class="fa fa-user fa-fw"></i>Customers</a>
                             </li>
 
@@ -155,7 +160,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <a href="#">
+                                            <a href="/UniqueBookApp/dashboard?action=pendingOrder">
                                                 <div class="panel-footer">
                                                     <span class="pull-left">View Details</span>
                                                     <span class="pull-right">
@@ -179,7 +184,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <a href="#">
+                                            <a href="/UniqueBookApp/dashboard?action=listcustomers">
                                                 <div class="panel-footer">
                                                     <span class="pull-left">View Details</span>
                                                     <span class="pull-right">
@@ -203,7 +208,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <a href="#">
+                                            <a href="/UniqueBookApp/dashboard?action=listProduct">
                                                 <div class="panel-footer">
                                                     <span class="pull-left">View Details</span>
                                                     <span class="pull-right">
@@ -230,7 +235,7 @@
                             <c:if test="${type == 'customer' }">
                                 <jsp:include page="_customerTable.jsp"></jsp:include>
                             </c:if>
-                             <c:if test="${type == 'products' }">
+                            <c:if test="${type == 'products' }">
                                 <jsp:include page="_productListTable.jsp"></jsp:include>
                             </c:if>
                             <c:if test="${type == 'Addproducts' }">
@@ -272,15 +277,15 @@
             $(document).ready(function () {
                 $('#dataTables-customerOrder').DataTable({responsive: true});
                 $("select").change(function () {
-                  $(this).find("option:selected").each(function () {
-                    var optionValue = $(this).attr("value");
-                    if (optionValue) {
-                      $(".box").not("." + optionValue).hide();
-                      $("." + optionValue).show();
-                    } else {
-                      $(".box").hide();
-                    }
-                  });
+                    $(this).find("option:selected").each(function () {
+                        var optionValue = $(this).attr("value");
+                        if (optionValue) {
+                            $(".box").not("." + optionValue).hide();
+                            $("." + optionValue).show();
+                        } else {
+                            $(".box").hide();
+                        }
+                    });
                 }).change();
             });
         </script>

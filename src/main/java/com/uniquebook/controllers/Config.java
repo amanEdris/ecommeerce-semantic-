@@ -8,6 +8,7 @@ package com.uniquebook.controllers;
 import com.uniquebook.models.FictionalBook;
 import com.uniquebook.models.KidsBook;
 import com.uniquebook.models.NonFictionalBook;
+import com.uniquebook.models.Order;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
@@ -20,6 +21,7 @@ public class Config implements ServletContextListener {
         event.getServletContext().setAttribute("fictionalCategory", FictionalBook.FictionalCategory.values());
         event.getServletContext().setAttribute("nonfictionCategory",NonFictionalBook.NonFictionalCategory.values() );
         event.getServletContext().setAttribute("kidsCategory",KidsBook.kidsBookCategory.values() );
+        event.getServletContext().setAttribute("ordersStatus",Order.Orderstatus.values() );
     }
 
     @Override

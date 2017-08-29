@@ -5,6 +5,7 @@
  */
 package com.uniquebook.controllers;
 
+import com.hp.hpl.jena.sparql.util.Utils;
 import com.uniquebook.dao.BookDao;
 import com.uniquebook.dao.CustomerDao;
 import com.uniquebook.dao.FictionalBooksDao;
@@ -92,10 +93,9 @@ public class DashBoardController extends HttpServlet {
         if (userPath.equals("/dashboard")) {
             HttpSession session = request.getSession();
             Manager manger = (Manager) session.getAttribute("adminUser");
-            if (manger == null) {
+            if (Utils.equal(null, manger)) {
                 forward = LOGIN_ADMIN_PAGE;
             }
-            forward = DASHBOARD_PAGE_ADMIN;
             if (StringUtils.isNotEmpty(action)) {
                 if (manger == null) {
                     forward = LOGIN_ADMIN_PAGE;

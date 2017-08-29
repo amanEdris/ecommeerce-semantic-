@@ -5,6 +5,7 @@
  */
 package com.uniquebook.controllers;
 
+import com.hp.hpl.jena.sparql.util.Utils;
 import com.uniquebook.dao.BookDao;
 import com.uniquebook.dao.CustomerDao;
 import com.uniquebook.dao.ManagerDao;
@@ -14,6 +15,7 @@ import com.uniquebook.models.Location;
 import com.uniquebook.models.Manager;
 import com.uniquebook.models.ShoppingCart;
 import java.io.IOException;
+import java.io.PrintWriter;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -24,6 +26,7 @@ import javax.servlet.http.HttpSession;
 import org.apache.commons.lang.StringUtils;
 
 /**
+ * http://localhost:8080/UniqueBookApp/admin?action=logout 67
  *
  * @author edris
  */
@@ -59,13 +62,25 @@ public class AccountController extends HttpServlet {
         HttpSession session = request.getSession();
         String userPath = request.getServletPath();
 
-        //handle admin account
         if (userPath.equals("/admin")) {
-            Manager manger = (Manager) session.getAttribute("adminUser");
-            if (manger == null) {
+            Manager mancager = new Manager();
+            mancager = (Manager) session.getAttribute("adminUser");
+
+            if (Utils.equal(null, mancager)) {
+                forward = LOGIN_ADMIN_PAGE;
+            } else {
+                int customerCount = customerDao.getCustomerCount();
+                int orderCount = orderDao.getOrderCount();
+                int productCount = bookDao.getBookProductCount();
+                request.setAttribute("customersNumber", customerCount);
+                request.setAttribute("orderNumber", orderCount);
+                request.setAttribute("productNumber", productCount);
+                forward = DASHBOARD_PAGE_ADMIN;
+            }
+            if (StringUtils.isEmpty(action)) {
                 forward = LOGIN_ADMIN_PAGE;
             } else if (action.equalsIgnoreCase("logout")) {
-                forward = LOGIN_PAGE;
+                forward = LOGIN_ADMIN_PAGE;
                 Manager manager = (Manager) session.getAttribute("adminUser");
                 manager = null;
                 session.removeAttribute("adminUser");
@@ -78,17 +93,7 @@ public class AccountController extends HttpServlet {
                 request.setAttribute("productNumber", productCount);
                 forward = DASHBOARD_PAGE_ADMIN;
             }
-            RequestDispatcher view = request.getRequestDispatcher(forward);
-            view.forward(request, response);
-
-        }
-
-        //handle customer account
-        if (StringUtils.isEmpty(action) && !userPath.equals("/admin")) {
-            forward = LOGIN_PAGE;
-            RequestDispatcher view = request.getRequestDispatcher(forward);
-            view.forward(request, response);
-        } else {//account?action=logout"
+        } else if (userPath.equals("/account")) {
             if (action.equalsIgnoreCase("login")) {
                 forward = LOGIN_PAGE;
             } else if (action.equalsIgnoreCase("edit")) {
@@ -104,10 +109,13 @@ public class AccountController extends HttpServlet {
             } else {
 
             }
-            RequestDispatcher view = request.getRequestDispatcher(forward);
-            view.forward(request, response);
-        }
 
+        } else if (StringUtils.isEmpty(action)) {
+            forward = LOGIN_PAGE;
+
+        }
+        RequestDispatcher view = request.getRequestDispatcher(forward);
+        view.forward(request, response);
     }
 
     @Override
