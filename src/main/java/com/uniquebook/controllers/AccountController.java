@@ -76,23 +76,23 @@ public class AccountController extends HttpServlet {
                 request.setAttribute("orderNumber", orderCount);
                 request.setAttribute("productNumber", productCount);
                 forward = DASHBOARD_PAGE_ADMIN;
-            }
+          
             if (StringUtils.isEmpty(action)) {
-                forward = LOGIN_ADMIN_PAGE;
+                request.setAttribute("customersNumber", customerCount);
+                request.setAttribute("orderNumber", orderCount);
+                request.setAttribute("productNumber", productCount);
+                forward = DASHBOARD_PAGE_ADMIN;
             } else if (action.equalsIgnoreCase("logout")) {
                 forward = LOGIN_ADMIN_PAGE;
                 Manager manager = (Manager) session.getAttribute("adminUser");
                 manager = null;
                 session.removeAttribute("adminUser");
             } else {
-                int customerCount = customerDao.getCustomerCount();
-                int orderCount = orderDao.getOrderCount();
-                int productCount = bookDao.getBookProductCount();
                 request.setAttribute("customersNumber", customerCount);
                 request.setAttribute("orderNumber", orderCount);
                 request.setAttribute("productNumber", productCount);
                 forward = DASHBOARD_PAGE_ADMIN;
-            }
+             } }
         } else if (userPath.equals("/account")) {
             if (action.equalsIgnoreCase("login")) {
                 forward = LOGIN_PAGE;
