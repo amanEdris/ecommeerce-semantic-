@@ -24,7 +24,6 @@ import java.util.logging.Logger;
  */
 public class FictionalBooksDao {
 
-
     private HelperUtil helperUtil;
 
     public FictionalBooksDao() {
@@ -47,6 +46,7 @@ public class FictionalBooksDao {
                     + "          r:hasPrice \"" + b.getPrice() + "\"^^xsd:float ;\n"
                     + "          r:hasQuantity \"" + b.getQuantity() + "\"^^xsd:nonNegativeInteger ;\n"
                     + "          r:hasPublisher \"" + b.getPublisher() + "\"^^xsd:string ;\n"
+                    + "          r:hasBookRevisionNo " + b.getRevisionNo() + "\"^^xsd:string;\n"
                     + "          r:hasPublishedYear \"" + b.getStringPublishedYear() + "\"^^xsd:date ;\n"
                     + "          r:hasFictionalCategory \"" + b.getCategory() + "\"^^xsd:string ;\n"
                     + "          r:hasAuthor \"" + b.getAuthor() + "\"^^xsd:string ;\n"
@@ -163,6 +163,7 @@ public class FictionalBooksDao {
                 + "                  r:hasAuthor ?author;\n"
                 + "                  r:hasTitle  ?title ;\n"
                 + "                  r:hasImage ?image ;\n"
+                + "                  r:hasBookRevisionNo ?revisionNo;\n"
                 + "   FILTER (?productNumber  = " + productNumber + " )\n"
                 + "\n"
                 + " }";
@@ -197,6 +198,8 @@ public class FictionalBooksDao {
                 //System.out.println(row.getLiteral("fictionalCategory").getValue().toString());
                 book.setCategory(row.getLiteral("fictionalCategory").getValue().toString());
                 book.setProductName(book.getTitle());
+                book.setRevisionNo(row.getLiteral("revisionNo").getValue().toString());
+
             }
         } catch (ParseException ex) {
             Logger.getLogger(FictionalBooksDao.class.getName()).log(Level.SEVERE, null, ex);

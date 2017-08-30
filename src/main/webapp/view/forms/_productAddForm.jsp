@@ -5,57 +5,62 @@
   <div class="panel-heading">
     Add New Product  ${message}
   </div>
+  
   <!-- /.panel-heading -->
   <div class="panel-body">
     <div class="col-lg-6">
       <form role="form" action="addProduct" method="post" enctype="multipart/form-data">
          <div class="form-group">
                           <label>Title:</label>
-                          <input class="form-control" name="title" type="text">
+                          <input class="form-control" name="title" type="text" value="${book.title}">
+                          
+                          <input type="hidden" name="productNumber" value="${book.productNumber}">
                             <!-- <p class="help-block">Example block-level help text here.</p>-->
          </div>
           <div class="form-group">
             <label>Price:</label>
-            <input class="form-control" name="productPrice" type="text">
+            <input class="form-control" name="productPrice" type="text" value="${book.price}">
               <!-- <p class="help-block">Example block-level help text here.</p>-->
             </div>
             <div class="form-group">
               <label>ISBN:</label>
-              <input class="form-control" name="bookISBN" type="text">
+              <input class="form-control" name="bookISBN" type="text" value="${book.isbn}">
                 <!-- <p class="help-block">Example block-level help text here.</p>-->
               </div>
               <div class="form-group">
                 <label>Book Revision No:</label>
-                <input class="form-control" name="bookRevisionNo" type="text">
+                <input class="form-control" name="bookRevisionNo" type="text" value="${book.revisionNo}">
                   <!-- <p class="help-block">Example block-level help text here.</p>-->
                 </div>
                 <div class="form-group">
                   <label>Quantity</label>
-                  <input class="form-control" name="quantity" type="number">
+                  <input class="form-control" name="quantity" type="number" value="${book.quantity}" >
                     <!-- <p class="help-block">Example block-level help text here.</p>-->
                   </div>
                   <div class="form-group">
                     <label>Publisher:</label>
-                    <input class="form-control" name="publisher" type="text">
+                    <input class="form-control" name="publisher" type="text" value="${book.publisher}">
                       <!-- <p class="help-block">Example block-level help text here.</p>-->
                     </div>
                       <div class="form-group">
-                        <label>Published Year:</label>
-                        <input class="form-control" name="PublishedYear">
+                        <label>Published Year:</label> 
+                        <input class="form-control" name="PublishedYear" value="<fmt:formatDate pattern="yyyy-MMM-dd" value="${book.publishedYear}"/>">
                          <p class="help-block">eg. 2005-01-01</p>
                         </div>
                        
                           <div class="form-group">
                             <label>Author:</label>
-                            <input class="form-control" name="author">
+                            <input class="form-control" name="author" value="${book.author}">
                               <!-- <p class="help-block">Example block-level help text here.</p>-->
                             </div>
                             <div class="form-group">
                               <label>Image:</label>
-                              <input type="file" name="imagePath"></div>
+                              <input type="file" name="imagePath">
+                              <input type="text" name="imagepath" value="${book.imagepath}" id="disabledInput"> 
+                            </div>
                               <div class="form-group">
                                 <label>Product description</label>
-                                <textarea class="form-control" rows="3" name="productDetail"></textarea>
+                                <textarea class="form-control" rows="3" name="productDetail">${book.description}</textarea>
                               </div>
 
                               <div class="form-group">
@@ -70,6 +75,7 @@
                                 <label>Sub category</label>
                                 <select class="form-control" name="fiction" id="fictional">
                                   <c:forEach items="${fictionalCategory}" var="fiction">
+                                   <option value="${book.category}" selected="selected">${book.category}</option>
                                     <option value="${fiction.name}">${fiction.name}</option>
                                   </c:forEach>
                                 </select>
@@ -78,7 +84,8 @@
                                 <label>Sub category</label>
                                 <select class="form-control" name="nonfiction" id="nonfictional">
                                   <c:forEach items="${nonfictionCategory}" var="nonfiction">
-                                    <option value="${nonfiction.name}">${nonfiction.name}</option>
+                                 <option value="${book.category}" selected="selected">${book.category}</option>
+                                 <option value="${nonfiction.name}">${nonfiction.name}</option>
                                   </c:forEach>
                                 </select>
                               </div>
@@ -86,6 +93,8 @@
                                 <label>Sub category</label>
                                 <select class="form-control" name="kidbook" id="kidsbook">
                                   <c:forEach items="${kidsCategory}" var="kidsbook">
+                                     
+                                    <option value="${book.category}" selected="selected">${book.category}</option>
                                     <option value="${kidsbook.name}">${kidsbook.name}</option>
                                   </c:forEach>
                                 </select>

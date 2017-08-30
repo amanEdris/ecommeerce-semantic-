@@ -8,12 +8,15 @@ package com.uniquebook.dao;
 import com.hp.hpl.jena.query.QuerySolution;
 import com.hp.hpl.jena.query.ResultSet;
 import com.uniquebook.models.Book;
+import com.uniquebook.models.FictionalBook;
 import com.uniquebook.models.KidsBook;
 import com.uniquebook.models.NonFictionalBook;
 import com.uniquebook.models.Product;
 import com.uniquebook.utils.FusekiClient;
+import java.io.File;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.apache.commons.lang.StringUtils;
 
 /**
  *
@@ -24,6 +27,7 @@ public class BookDao {
     private FictionalBooksDao fictionDao;
     private NonFictionalBooksDao nonFcitionDao;
     private KidsBookDao kidDao;
+    private static final String UPLOAD_DIRECTORY = "image";
 
     public BookDao() {
         fictionDao = new FictionalBooksDao();
@@ -46,6 +50,39 @@ public class BookDao {
         }
 
         return b;
+    }
+
+    public void createBookProduct(String filePath, String mainCategory, Book book, Product product, String kidsCategory, String fictionalCategory, String nonficitionCategory) throws Exception {
+        if (StringUtils.equals(mainCategory, "kids")) {
+            KidsBook kid = new KidsBook();
+            kid.copyBook(book);
+            kid.copyProduct(product);
+            kid.setCategory(kidsCategory);
+            kid.setImagepath(setRelativeFilePath(filePath));
+
+            kidDao.addKidsBook(kid);
+
+        } else if (StringUtils.equals(mainCategory, "fictional")) {
+            FictionalBook fbook = new FictionalBook();
+            fbook.copyBook(book);
+            fbook.copyProduct(product);
+            fbook.setCategory(fictionalCategory);
+            fbook.setImagepath(setRelativeFilePath(filePath));
+
+            fictionDao.addFictionalBooks(fbook);
+
+        } else if (StringUtils.equals(mainCategory, "nonfictioanl")) {
+            NonFictionalBook nonFictionalBook = new NonFictionalBook();
+            nonFictionalBook.copyBook(book);
+            nonFictionalBook.copyProduct(product);
+            nonFictionalBook.setCategory(nonficitionCategory);
+            nonFictionalBook.setImagepath(setRelativeFilePath(filePath));
+            nonFcitionDao.addNonFictionalBooks(nonFictionalBook);
+
+        } else {
+
+        }
+        //end test
     }
 
     public Product getProductbyProductNumber(int productNumber, String category) throws Exception {
@@ -126,26 +163,76 @@ public class BookDao {
         return count;
     }
 
+    public int getMaxProductNumber() {
+        int tempMax, max = 0;
+        String query = FusekiClient.PREFIX;
+
+        tempMax = this.getMaxProductNumberForBookCategory("r:Nonfiction");
+        if (max < tempMax) {
+            max = tempMax;
+        }
+        tempMax = this.getMaxProductNumberForBookCategory("r:KidsBook");
+        if (max < tempMax) {
+            max = tempMax;
+        }
+        tempMax = this.getMaxProductNumberForBookCategory("r:FictionAndLiterature");
+        if (max < tempMax) {
+            max = tempMax;
+        }
+        return max;
+    }
+
+    public int getMaxProductNumberForBookCategory(String category) {
+        int max = 0;
+        try {
+
+            String query = FusekiClient.PREFIX;
+            query += "SELECT  (MAX(?a) As ?b)\n"
+                    + "WHERE{ \n"
+                    + "  ?x a " + category + ".\n"
+                    + "  ?x r:productNumber ?a.\n"
+                    + "\n"
+                    + " } ";
+            ResultSet results = FusekiClient.queryFUSEKI(query);
+
+            while (results.hasNext()) {
+                QuerySolution row = results.next();
+                max = row.getLiteral("b").getInt();
+            }
+
+        } catch (Exception ex) {
+            Logger.getLogger(BookDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return max;
+    }
+
     public boolean deleteBook(String subjetName) {
         boolean result = false;
-        
+
         try {
             String deleteQuery = FusekiClient.PREFIX;
             deleteQuery += "DELETE { r:" + subjetName + " ?p ?o}\n"
                     + "WHERE  { \n"
-                    + "       r:"+ subjetName + " ?p ?o . \n"
+                    + "       r:" + subjetName + " ?p ?o . \n"
                     + "\n"
                     + "\n"
                     + "}	";
-            
+
             FusekiClient.insertFUSEKI(deleteQuery);
             result = true;
-           
+
         } catch (Exception ex) {
             result = false;
-             System.err.println("for query book delete:"+ex.getLocalizedMessage());
+            System.err.println("for query book delete:" + ex.getLocalizedMessage());
             Logger.getLogger(BookDao.class.getName()).log(Level.SEVERE, null, ex);
         }
         return result;
+    }
+
+    private String setRelativeFilePath(String filePath) {
+        String tempName;
+        tempName = filePath.substring(filePath.lastIndexOf(File.separator + UPLOAD_DIRECTORY));
+        tempName = "." + tempName;
+        return tempName;
     }
 }

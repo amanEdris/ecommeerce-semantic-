@@ -38,7 +38,7 @@
                     <td>${fictionalbook.quantity}</td>
                     <td>${fictionalbook.author}</td>
                     <td>${fictionalbook.isbn}</td>
-                    <td><img src="${fictionalbook.imagepath}" alt="${fictionalbook.title}"/></td>
+                    <td><img src="${fictionalbook.imagepath}" alt="${fictionalbook.imagepath}"/></td>
                     <td> <fmt:formatDate pattern="yyyy-MMM-dd" value="${fictionalbook.publishedYear}"/></td>
                     <td>${fictionalbook.publisher}</td>
                     <td>${fictionalbook.category}</td>
@@ -62,7 +62,7 @@
                     <td>${nonfiction.quantity}</td>
                     <td>${nonfiction.author}</td>
                     <td>${nonfiction.isbn}</td>
-                    <td>${nonfiction.imagepath}</td>
+                    <td><img src="${nonfiction.imagepath}" alt="${nonfiction.imagepath}"/></td>
                     <td>  <fmt:formatDate pattern="yyyy-MMM-dd" value="${nonfiction.publishedYear}"/></td>
                     <td>${nonfiction.publisher}</td>
                     <td>${nonfiction.category}</td>
@@ -85,7 +85,7 @@
                     <td>${kidbooks.quantity}</td>
                     <td>${kidbooks.author}</td>
                     <td>${kidbooks.isbn}</td>
-                    <td>${kidbooks.imagepath}</td>
+                    <td><img src="${kidbooks.imagepath}" alt="${kidbooks.imagepath}"/></td>
                     <td>  <fmt:formatDate pattern="yyyy-MMM-dd" value="${kidbooks.publishedYear}"/></td>
                     <td>${kidbooks.publisher}</td>
                     <td>${kidbooks.category}</td>

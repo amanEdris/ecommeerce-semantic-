@@ -88,12 +88,29 @@ public class DashBoardController extends HttpServlet {
         String userPath = request.getServletPath();
 
         if (userPath.equals("/dashboard")) {
+
+           
             HttpSession session = request.getSession();
             Manager manger = (Manager) session.getAttribute("adminUser");
             if (Utils.equal(null, manger)) {
                 forward = LOGIN_ADMIN_PAGE;
             }
             if (StringUtils.isNotEmpty(action)) {
+//                 response.setContentType("text/html;charset=UTF-8");
+//
+//            try (PrintWriter out = response.getWriter()) {
+//
+//                out.println("<!DOCTYPE html>");
+//                out.println("<html>");
+//                out.println("<head>");
+//                out.println("<title>Servlet OrderController</title>");
+//                out.println("</head>");
+//                out.println("<body>");
+//                out.println("<h1>Here is a Book:" +request.getParameter("productNumber") +" [ ] "+
+//                        action.toString()+ "</h1>");
+//                out.println("</body>");
+//                out.println("</html>");
+//            }
                 if (manger == null) {
                     forward = LOGIN_ADMIN_PAGE;
                 } else if (action.equals("pendingOrder")) {//dashboard?action=pendingOrder
@@ -143,9 +160,15 @@ public class DashBoardController extends HttpServlet {
                     request.setAttribute("nonfiction", nonfiction);
                     request.setAttribute("kidbooks", kidbooks);
                     request.setAttribute("type", "products");
-                } else if (action.equals("editProduct")) {
+                }  else if (action.equals("editProduct")) {
                     int productId = Integer.parseInt(request.getParameter("productNumber"));
                     String category = request.getParameter("category").toString();
+                    Book b = bookDao.getBookbyProductNumber(productId, category);
+
+                    request.setAttribute("path", ADD_PRODUCT_PAGE);
+                    request.setAttribute("type", "Addproducts");
+                    request.setAttribute("book", b);
+                    request.setAttribute("update", true);
 
                 } else if (action.equals("editCustomer")) {
                     String customerId = request.getParameter("customerId");
@@ -177,7 +200,7 @@ public class DashBoardController extends HttpServlet {
                     List<Order> orders = orderDao.getAllOrderBystatus("pending");
                     request.setAttribute("orders", orders);
                     request.setAttribute("type", "pending");
-                } else {
+                }else {
                     //Edit action for order
                     //product add and upfate features
                 }
@@ -321,50 +344,8 @@ public class DashBoardController extends HttpServlet {
 
                     }
 
-                    if (StringUtils.equals(mainCategory, "kids")) {
-                        KidsBook kid = new KidsBook();
-                        kid.copyBook(book);
-                        kid.copyProduct(product);
-                        kid.setCategory(kidsCategory);
-                        kid.setImagepath(setRelativeFilePath());
-
-                        kidbookDao.addKidsBook(kid);
-                        
-                                response.setContentType("text/html;charset=UTF-8");
- 
-  try (PrintWriter out = response.getWriter()) { 
-                    out.println("<!DOCTYPE html>");
-                    out.println("<html>");
-                    out.println("<head>");
-                    out.println("<title>Servlet OrderController</title>");
-                    out.println("</head>");
-                    out.println("<body>");
-                    out.println("<h1>the book added  " + kid.toString() +"</h1>");
-                    out.println("</body>");
-                    out.println("</html>");
-                }
-
-
-                    } else if (StringUtils.equals(mainCategory, "fictional")) {
-                        FictionalBook fbook = new FictionalBook();
-                        fbook.copyBook(book);
-                        fbook.copyProduct(product);
-                        fbook.setCategory(fictionalCategory);
-                        fbook.setImagepath(setRelativeFilePath());
-                        fictionBookDao.addFictionalBooks(fbook);
-
-                    } else if (StringUtils.equals(mainCategory, "nonfictioanl")) {
-                        NonFictionalBook nonFictionalBook = new NonFictionalBook();
-                        nonFictionalBook.copyBook(book);
-                        nonFictionalBook.copyProduct(product);
-                        nonFictionalBook.setCategory(nonficitionCategory);
-                        nonFictionalBook.setImagepath(setRelativeFilePath());
-                        nonFictionBookDao.addNonFictionalBooks(nonFictionalBook);
-
-                    } else {
-
-                    }
-                    //end test
+                    bookDao.createBookProduct(filePath, mainCategory, book, product, kidsCategory,
+                            fictionalCategory, nonficitionCategory);
 
                 }
 
@@ -433,12 +414,6 @@ public class DashBoardController extends HttpServlet {
 
     }
 
-    private String setRelativeFilePath() {
-        String tempName;
-        tempName = filePath.substring(filePath.lastIndexOf(File.separator+UPLOAD_DIRECTORY));
-        tempName = "." + tempName;
-        return tempName;
-    }
 }
 
 /**

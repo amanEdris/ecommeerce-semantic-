@@ -28,8 +28,12 @@ public class testDao {
 
     public static void main(String[] args) throws Exception {
         
-        OrderDao od = new OrderDao();
-        System.out.println(od.getOrderCount());
+        BookDao bookDao = new BookDao();
+        System.out.println(bookDao.getMaxProductNumber());
+        
+        
+//        OrderDao od = new OrderDao();
+//        System.out.println(od.getOrderCount());
         
         
 //        Product p = new Product();

@@ -45,6 +45,7 @@ public class NonFictionalBooksDao {
                     + "          r:hasPrice \"" + b.getPrice() + "\"^^xsd:float ;\n"
                     + "          r:hasQuantity \"" + b.getQuantity() + "\"^^xsd:nonNegativeInteger ;\n"
                     + "          r:hasPublisher \"" + b.getPublisher() + "\"^^xsd:string ;\n"
+                    + "          r:hasBookRevisionNo " + b.getRevisionNo() + "\"^^xsd:string;\n"
                     + "          r:hasPublishedYear \"" + b.getStringPublishedYear() + "\"^^xsd:date ;\n"
                     + "          r:hasNonFictionalCategory \"" + b.getCategory() + "\"^^xsd:string ;\n"
                     + "          r:hasAuthor \"" + b.getAuthor() + "\"^^xsd:string ;\n"
@@ -147,6 +148,7 @@ public class NonFictionalBooksDao {
 
     }
 
+    
     public NonFictionalBook getNonFictionalByProductNumber(int productNumber) {
         NonFictionalBook book = new NonFictionalBook();
         String booksQuery = FusekiClient.PREFIX;
@@ -160,6 +162,7 @@ public class NonFictionalBooksDao {
                 + "                  r:hasISBN  ?isbn ;\n"
                 + "                  r:hasPublishedYear  ?publishedyear ;\n"
                 + "                  r:productNumber  ?productNumber;\n"
+                + "                  r:hasBookRevisionNo ?revisionNo;\n" 
                 + "                  r:hasPrice ?price ;\n"
                 + "                  r:hasDescription ?description ;\n"
                 + "                  r:hasNonFictionalCategory ?nonFictionalCategory ;\n"
@@ -198,7 +201,7 @@ public class NonFictionalBooksDao {
                 book.setQuantity(row.getLiteral("quantity").getInt());
                 book.setProductNumber(row.getLiteral("productNumber").getInt());
                 book.setCategory(row.getLiteral("nonFictionalCategory").getValue().toString());
-
+                book.setRevisionNo(row.getLiteral("revisionNo").getValue().toString());
             }
         } catch (ParseException ex) {
             Logger.getLogger(FictionalBooksDao.class.getName()).log(Level.SEVERE, null, ex);
