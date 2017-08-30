@@ -26,7 +26,6 @@ import java.util.logging.Logger;
  */
 public class KidsBookDao {
 
-    private Model model;
     private HelperUtil helperUtil;
 
     public KidsBookDao() {
@@ -34,25 +33,28 @@ public class KidsBookDao {
     }
 
     public void addKidsBook(KidsBook b) {
-        String insertQuery = FusekiClient.PREFIX;
-        insertQuery += "INSERT\n"
-                + "{\n"
-                + " r:" + helperUtil.generateNames() + "   a   r:KidsBook;\n"
-                + "          r:productNumber \"" + b.getProductNumber() + "\"^^xsd:nonNegativeInteger ;\n"
-                + "          r:hasISBN \"" + b.getIsbn() + "\"^^xsd:string ;\n"
-                + "          r:hasPrice \"" + b.getPrice() + "\"^^xsd:float ;\n"
-                + "          r:hasQuantity \"" + b.getQuantity() + "\"^^xsd:nonNegativeInteger ;\n"
-                + "          r:hasPublisher \"" + b.getPublisher() + "\"^^xsd:string ;\n"
-                + "          r:hasPublishedYear \"" + b.getStringPublishedYear() + "\"^^xsd:date ;\n"
-                + "          r:hasKidsBookCategory \"" + b.getCategory() + "\"^^xsd:string ;\n"
-                + "          r:hasAuthor \"" + b.getAuthor() + "\"^^xsd:string ;\n"
-                + "          r:hasDescription \"" + b.getDescription() + "\"^^xsd:string ;\n"
-                + "          r:hasTitle \"" + b.getTitle() + "\"^^xsd:string ;\n"
-                + "          r:hasImage \"" + b.getImagepath() + "\"^^xsd:string ."
-                + "}";
-
-        System.out.println(insertQuery);
-        UpdateAction.parseExecute(insertQuery, model);
+        try {
+            String insertQuery = FusekiClient.PREFIX;
+            insertQuery += "INSERT\n"
+                    + "{\n"
+                    + " r:" + helperUtil.generateNames() + "   a   r:KidsBook;\n"
+                    + "          r:productNumber \"" + b.getProductNumber() + "\"^^xsd:nonNegativeInteger ;\n"
+                    + "          r:hasISBN \"" + b.getIsbn() + "\"^^xsd:string ;\n"
+                    + "          r:hasPrice \"" + b.getPrice() + "\"^^xsd:float ;\n"
+                    + "          r:hasQuantity \"" + b.getQuantity() + "\"^^xsd:nonNegativeInteger ;\n"
+                    + "          r:hasPublisher \"" + b.getPublisher() + "\"^^xsd:string ;\n"
+                    + "          r:hasPublishedYear \"" + b.getStringPublishedYear() + "\"^^xsd:date ;\n"
+                    + "          r:hasKidsBookCategory \"" + b.getCategory() + "\"^^xsd:string ;\n"
+                    + "          r:hasAuthor \"" + b.getAuthor() + "\"^^xsd:string ;\n"
+                    + "          r:hasDescription \"" + b.getDescription() + "\"^^xsd:string ;\n"
+                    + "          r:hasTitle \"" + b.getTitle() + "\"^^xsd:string ;\n"
+                    + "          r:hasImage \"" + b.getImagepath() + "\"^^xsd:string ."
+                    + "}";
+            
+            FusekiClient.insertFUSEKI(insertQuery);
+        } catch (Exception ex) {
+            Logger.getLogger(KidsBookDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
     }
 

@@ -17,6 +17,24 @@ public class KidsBook extends Book {
 
     }
 
+    public void copyProduct(Product product) {
+        this.setDescription(product.getDescription());
+        this.setPrice(product.getPrice());
+        this.setQuantity(product.getQuantity());
+        this.setProductNumber(product.getProductNumber());
+        this.setProductName(product.getProductName());
+        this.setImagepath(product.getImagepath());
+    }
+
+    public void copyBook(Book b) {
+        this.setIsbn(b.getIsbn());
+        this.setAuthor(b.getAuthor());
+        this.setPublisher(b.getPublisher());
+        this.setTitle(b.getTitle());
+        this.setPublishedYear(b.getPublishedYear());
+        this.setRevisionNo(b.getRevisionNo());
+    }
+
     public enum kidsBookCategory {
         AGE0_2("Age 0-2"), AGE3_5("Age 3-5"), AGE6_8("Age 6-8"),
         AGES9_12("Ages 9-12"), TEENS("Teens");
@@ -60,7 +78,7 @@ public class KidsBook extends Book {
 
     @Override
     public String toString() {
-        return "KidsBook{" + "book="+category+"--" + super.toString();
+        return "KidsBook{" + "book=" + category + "--" + super.toString();
     }
 
 }

@@ -26,7 +26,6 @@ import javax.servlet.http.HttpSession;
 import org.apache.commons.lang.StringUtils;
 
 /**
- * http://localhost:8080/UniqueBookApp/admin?action=logout 67
  *
  * @author edris
  */

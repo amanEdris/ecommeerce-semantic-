@@ -5,19 +5,11 @@
  */
 package com.uniquebook.dao;
 
-import com.hp.hpl.jena.query.Query;
-import com.hp.hpl.jena.query.QueryExecution;
-import com.hp.hpl.jena.query.QueryExecutionFactory;
-import com.hp.hpl.jena.query.QueryFactory;
 import com.hp.hpl.jena.query.QuerySolution;
 import com.hp.hpl.jena.query.ResultSet;
-import com.hp.hpl.jena.query.Syntax;
-import com.hp.hpl.jena.rdf.model.Model;
-import com.hp.hpl.jena.update.UpdateAction;
 import com.uniquebook.models.NonFictionalBook;
 import com.uniquebook.utils.HelperUtil;
 import com.uniquebook.utils.FusekiClient;
-import com.uniquebook.utils.TestRDFfile;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -40,26 +32,28 @@ public class NonFictionalBooksDao {
     }
 
     public void addNonFictionalBooks(NonFictionalBook b) {
-        String insertQuery = FusekiClient.PREFIX;
-        insertQuery += "INSERT\n"
-                + "{\n"
-                + " r:" + helperUtil.generateNames() + "   a   r:Nonfiction;\n"
-                + "          r:productNumber \"" + b.getProductNumber() + "\"^^xsd:nonNegativeInteger ;\n"
-                + "          r:hasISBN \"" + b.getIsbn() + "\"^^xsd:string ;\n"
-                + "          r:hasPrice \"" + b.getPrice() + "\"^^xsd:float ;\n"
-                + "          r:hasQuantity \"" + b.getQuantity() + "\"^^xsd:nonNegativeInteger ;\n"
-                + "          r:hasPublisher \"" + b.getPublisher() + "\"^^xsd:string ;\n"
-                + "          r:hasPublishedYear \"" + b.getStringPublishedYear() + "\"^^xsd:date ;\n"
-                + "          r:hasNonFictionalCategory \"" + b.getCategory() + "\"^^xsd:string ;\n"
-                + "          r:hasAuthor \"" + b.getAuthor() + "\"^^xsd:string ;\n"
-                + "          r:hasDescription \"" + b.getDescription() + "\"^^xsd:string ;\n"
-                + "          r:hasTitle \"" + b.getTitle() + "\"^^xsd:string ;\n"
-                + "          r:hasImage \"" + b.getImagepath() + "\"^^xsd:string ."
-                + "}";
-
-//        UpdateAction.parseExecute(insertQuery, model);
-//        System.out.println("Model  updated  by book class is:");
-//        model.write(System.out, "N3");
+        try {
+            String insertQuery = FusekiClient.PREFIX;
+            insertQuery += "INSERT\n"
+                    + "{\n"
+                    + " r:" + helperUtil.generateNames() + "   a   r:Nonfiction;\n"
+                    + "          r:productNumber \"" + b.getProductNumber() + "\"^^xsd:nonNegativeInteger ;\n"
+                    + "          r:hasISBN \"" + b.getIsbn() + "\"^^xsd:string ;\n"
+                    + "          r:hasPrice \"" + b.getPrice() + "\"^^xsd:float ;\n"
+                    + "          r:hasQuantity \"" + b.getQuantity() + "\"^^xsd:nonNegativeInteger ;\n"
+                    + "          r:hasPublisher \"" + b.getPublisher() + "\"^^xsd:string ;\n"
+                    + "          r:hasPublishedYear \"" + b.getStringPublishedYear() + "\"^^xsd:date ;\n"
+                    + "          r:hasNonFictionalCategory \"" + b.getCategory() + "\"^^xsd:string ;\n"
+                    + "          r:hasAuthor \"" + b.getAuthor() + "\"^^xsd:string ;\n"
+                    + "          r:hasDescription \"" + b.getDescription() + "\"^^xsd:string ;\n"
+                    + "          r:hasTitle \"" + b.getTitle() + "\"^^xsd:string ;\n"
+                    + "          r:hasImage \"" + b.getImagepath() + "\"^^xsd:string ."
+                    + "}";
+            
+            FusekiClient.insertFUSEKI(insertQuery);
+        } catch (Exception ex) {
+            Logger.getLogger(NonFictionalBooksDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
     }
 

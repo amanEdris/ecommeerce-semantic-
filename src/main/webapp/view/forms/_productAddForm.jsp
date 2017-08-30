@@ -39,11 +39,6 @@
                     <input class="form-control" name="publisher" type="text">
                       <!-- <p class="help-block">Example block-level help text here.</p>-->
                     </div>
-                    <div class="form-group">
-                      <label>Publisher:</label>
-                      <input class="form-control" name="publisher" type="text">
-                        <!-- <p class="help-block">Example block-level help text here.</p>-->
-                      </div>
                       <div class="form-group">
                         <label>Published Year:</label>
                         <input class="form-control" name="PublishedYear">
@@ -73,7 +68,7 @@
                               </div>
                               <div class="fictional box form-group">
                                 <label>Sub category</label>
-                                <select class="form-control" name="category" id="fictional">
+                                <select class="form-control" name="fiction" id="fictional">
                                   <c:forEach items="${fictionalCategory}" var="fiction">
                                     <option value="${fiction.name}">${fiction.name}</option>
                                   </c:forEach>
@@ -81,7 +76,7 @@
                               </div>
                               <div class="nonfictioanl box form-group">
                                 <label>Sub category</label>
-                                <select class="form-control" name="category" id="nonfictional">
+                                <select class="form-control" name="nonfiction" id="nonfictional">
                                   <c:forEach items="${nonfictionCategory}" var="nonfiction">
                                     <option value="${nonfiction.name}">${nonfiction.name}</option>
                                   </c:forEach>
@@ -89,7 +84,7 @@
                               </div>
                               <div class="kids  box form-group">
                                 <label>Sub category</label>
-                                <select class="form-control" name="category" id="kidsbook">
+                                <select class="form-control" name="kidbook" id="kidsbook">
                                   <c:forEach items="${kidsCategory}" var="kidsbook">
                                     <option value="${kidsbook.name}">${kidsbook.name}</option>
                                   </c:forEach>

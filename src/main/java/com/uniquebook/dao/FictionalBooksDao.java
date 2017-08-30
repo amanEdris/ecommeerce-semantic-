@@ -30,32 +30,31 @@ public class FictionalBooksDao {
         helperUtil = new HelperUtil();
     }
 
-    /**
-     * How to presist model changes to remote file upate and delete function
-     *
-     * @param b
-     */
+   
     public void addFictionalBooks(FictionalBook b) {
 
-        String insertQuery = FusekiClient.PREFIX;
-        insertQuery += "INSERT\n"
-                + "{\n"
-                + " r:" + helperUtil.generateNames() + "   a   r:FictionAndLiterature;\n"
-                + "          r:productNumber \"" + b.getProductNumber() + "\"^^xsd:nonNegativeInteger ;\n"
-                + "          r:hasISBN \"" + b.getIsbn() + "\"^^xsd:string ;\n"
-                + "          r:hasPrice \"" + b.getPrice() + "\"^^xsd:float ;\n"
-                + "          r:hasQuantity \"" + b.getQuantity() + "\"^^xsd:nonNegativeInteger ;\n"
-                + "          r:hasPublisher \"" + b.getPublisher() + "\"^^xsd:string ;\n"
-                + "          r:hasPublishedYear \"" + b.getStringPublishedYear() + "\"^^xsd:date ;\n"
-                + "          r:hasFictionalCategory \"" + b.getCategory() + "\"^^xsd:string ;\n"
-                + "          r:hasAuthor \"" + b.getAuthor() + "\"^^xsd:string ;\n"
-                + "          r:hasDescription \"" + b.getDescription() + "\"^^xsd:string ;\n"
-                + "          r:hasTitle \"" + b.getTitle() + "\"^^xsd:string ;\n"
-                + "          r:hasImage \"" + b.getImagepath() + "\"^^xsd:string ."
-                + "}";
-
-        System.out.println(insertQuery);
-        //UpdateAction.parseExecute(insertQuery, model);
+        try {
+            String insertQuery = FusekiClient.PREFIX;
+            insertQuery += "INSERT\n"
+                    + "{\n"
+                    + " r:" + helperUtil.generateNames() + "   a   r:FictionAndLiterature;\n"
+                    + "          r:productNumber \"" + b.getProductNumber() + "\"^^xsd:nonNegativeInteger ;\n"
+                    + "          r:hasISBN \"" + b.getIsbn() + "\"^^xsd:string ;\n"
+                    + "          r:hasPrice \"" + b.getPrice() + "\"^^xsd:float ;\n"
+                    + "          r:hasQuantity \"" + b.getQuantity() + "\"^^xsd:nonNegativeInteger ;\n"
+                    + "          r:hasPublisher \"" + b.getPublisher() + "\"^^xsd:string ;\n"
+                    + "          r:hasPublishedYear \"" + b.getStringPublishedYear() + "\"^^xsd:date ;\n"
+                    + "          r:hasFictionalCategory \"" + b.getCategory() + "\"^^xsd:string ;\n"
+                    + "          r:hasAuthor \"" + b.getAuthor() + "\"^^xsd:string ;\n"
+                    + "          r:hasDescription \"" + b.getDescription() + "\"^^xsd:string ;\n"
+                    + "          r:hasTitle \"" + b.getTitle() + "\"^^xsd:string ;\n"
+                    + "          r:hasImage \"" + b.getImagepath() + "\"^^xsd:string ."
+                    + "}";
+            
+            FusekiClient.insertFUSEKI(insertQuery);
+        } catch (Exception ex) {
+            Logger.getLogger(FictionalBooksDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
     }
 
