@@ -62,11 +62,6 @@ public class DashBoardController extends HttpServlet {
     private BookDao bookDao;
 
     //private HashMap<String, Object> JSONROOT = new HashMap<String, Object>();
-    //handle file
-    private int maxFileSize = 50 * 1024;
-    private int maxMemSize = 4 * 1024;
-    private File file;
-
     // location to store file uploaded
     private static final String UPLOAD_DIRECTORY = "image";
     // upload settings
@@ -182,7 +177,6 @@ public class DashBoardController extends HttpServlet {
                     List<Order> orders = orderDao.getAllOrderBystatus("pending");
                     request.setAttribute("orders", orders);
                     request.setAttribute("type", "pending");
-
                 } else {
                     //Edit action for order
                     //product add and upfate features
@@ -207,6 +201,8 @@ public class DashBoardController extends HttpServlet {
         String fictionalCategory = null, nonficitionCategory = null, kidsCategory = null;
 
         if (userPath.equals("/addProduct")) {
+            request.setAttribute("path", ADD_PRODUCT_PAGE);
+            request.setAttribute("type", "Addproducts");
             Product product = new Product();
             Book book = new Book();
 
@@ -255,6 +251,8 @@ public class DashBoardController extends HttpServlet {
                         // processes only fields that are not form fields
                         if (!item.isFormField()) {
                             String fileName = new File(item.getName()).getName();
+                            //add change file name
+                            //@todo check if upload image
                             filePath = uploadPath + File.separator + fileName;
                             File storeFile = new File(filePath);
 
@@ -262,86 +260,118 @@ public class DashBoardController extends HttpServlet {
                             item.write(storeFile);
                             request.setAttribute("message",
                                     "Upload has been done successfully!");
+
                         } else {
                             String fieldName = item.getFieldName();
                             String fieldValue = item.getString();
 
                             if (null == fieldName) {
                                 product.setImagepath(filePath);
-                            } else switch (fieldName) {
-                                case "title":
-                                    product.setProductName(fieldValue);
-                                    break;
-                                case "productPrice":
-                                    product.setPrice(Float.parseFloat(fieldValue));
-                                    break;
-                                case "bookISBN":
-                                    book.setIsbn(fieldValue);
-                                    break;
-                                case "bookRevisionNo":
-                                    book.setRevisionNo(fieldValue);
-                                    break;
-                                case "quantity":
-                                    product.setQuantity(Integer.parseInt(fieldValue));
-                                    break;
-                                case "publisher":
-                                    book.setPublisher(fieldValue);
-                                    break;
-                                case "PublishedYear":
-                                    book.setPublishedYear(sdf.parse(fieldValue));
-                                    break;
-                                case "author":
-                                    book.setAuthor(fieldValue);
-                                    break;
-                                case "productDetail":
-                                    book.setDescription(fieldValue);
-                                    break;
-                                case "maincategory":
-                                    mainCategory = fieldValue;
-                                    break;
-                                case "fiction":
-                                    fictionalCategory = fieldValue;
-                                    break;
-                                case "nonfiction":
-                                    nonficitionCategory = fieldValue;
-                                    break;
-                                case "kidbook":
-                                    kidsCategory = fieldValue;
-                                    break;
-                                default:
-                                    product.setImagepath(filePath);
-                                    break;
+                            } else {
+                                switch (fieldName) {//productDetail
+                                    case "title":
+                                        product.setProductName(fieldValue);
+                                        book.setTitle(fieldValue);
+                                        break;
+                                    case "productPrice":
+                                        product.setPrice(Float.parseFloat(fieldValue));
+                                        break;
+                                    case "bookISBN":
+                                        book.setIsbn(fieldValue);
+                                        break;
+                                    case "bookRevisionNo":
+                                        book.setRevisionNo(fieldValue);
+                                        break;
+                                    case "quantity":
+                                        product.setQuantity(Integer.parseInt(fieldValue));
+                                        break;
+                                    case "publisher":
+                                        book.setPublisher(fieldValue);
+                                        break;
+                                    case "PublishedYear":
+                                        book.setPublishedYear(sdf.parse(fieldValue));
+                                        break;
+                                    case "author":
+                                        book.setAuthor(fieldValue);
+                                        break;
+                                    case "productDetail":
+                                        book.setDescription(fieldValue);
+                                        product.setDescription(fieldValue);
+                                        break;
+                                    case "maincategory":
+                                        mainCategory = fieldValue;
+                                        break;
+                                    case "fiction":
+                                        fictionalCategory = fieldValue;
+                                        break;
+                                    case "nonfiction":
+                                        nonficitionCategory = fieldValue;
+                                        break;
+                                    case "kidbook":
+                                        kidsCategory = fieldValue;
+                                        break;
+                                    default:
+                                        product.setImagepath(filePath);
+                                        break;
+
+                                }
                             }
 
-                            if (mainCategory == "Kids book") {
-                                KidsBook kid = new KidsBook();
-                                kid.copyBook(book);
-                                kid.copyProduct(product);
-                                kid.setCategory(kidsCategory);
-                                kidbookDao.addKidsBook(kid);
-                            }else if(mainCategory == "fictional"){
-                                FictionalBook fbook = new FictionalBook();
-                                fbook.copyBook(book);
-                                fbook.copyProduct(product);
-                                fbook.setCategory(fictionalCategory);
-                                fictionBookDao.addFictionalBooks(fbook);
-                            }else if(mainCategory == "nonfictional"){
-                                NonFictionalBook nonFictionalBook =new NonFictionalBook();
-                                nonFictionalBook.copyBook(book);
-                                nonFictionalBook.copyProduct(product);
-                                nonFictionalBook.setCategory(nonficitionCategory);
-                                nonFictionBookDao.addNonFictionalBooks(nonFictionalBook);
-                            }else{
-                                
-                            }
                         }
+
                     }
+
+                    if (StringUtils.equals(mainCategory, "kids")) {
+                        KidsBook kid = new KidsBook();
+                        kid.copyBook(book);
+                        kid.copyProduct(product);
+                        kid.setCategory(kidsCategory);
+                        kid.setImagepath(setRelativeFilePath());
+
+                        kidbookDao.addKidsBook(kid);
+                        
+                                response.setContentType("text/html;charset=UTF-8");
+ 
+  try (PrintWriter out = response.getWriter()) { 
+                    out.println("<!DOCTYPE html>");
+                    out.println("<html>");
+                    out.println("<head>");
+                    out.println("<title>Servlet OrderController</title>");
+                    out.println("</head>");
+                    out.println("<body>");
+                    out.println("<h1>the book added  " + kid.toString() +"</h1>");
+                    out.println("</body>");
+                    out.println("</html>");
                 }
+
+
+                    } else if (StringUtils.equals(mainCategory, "fictional")) {
+                        FictionalBook fbook = new FictionalBook();
+                        fbook.copyBook(book);
+                        fbook.copyProduct(product);
+                        fbook.setCategory(fictionalCategory);
+                        fbook.setImagepath(setRelativeFilePath());
+                        fictionBookDao.addFictionalBooks(fbook);
+
+                    } else if (StringUtils.equals(mainCategory, "nonfictioanl")) {
+                        NonFictionalBook nonFictionalBook = new NonFictionalBook();
+                        nonFictionalBook.copyBook(book);
+                        nonFictionalBook.copyProduct(product);
+                        nonFictionalBook.setCategory(nonficitionCategory);
+                        nonFictionalBook.setImagepath(setRelativeFilePath());
+                        nonFictionBookDao.addNonFictionalBooks(nonFictionalBook);
+
+                    } else {
+
+                    }
+                    //end test
+
+                }
+
             } catch (Exception ex) {
                 request.setAttribute("message",
                         "There was an error: " + ex.getMessage());
             }
-
         } else if (userPath.equals("/addCustomer")) {
             Customer c = new Customer();
             Location l = new Location();
@@ -401,6 +431,13 @@ public class DashBoardController extends HttpServlet {
         RequestDispatcher view = request.getRequestDispatcher(forward);
         view.forward(request, response);
 
+    }
+
+    private String setRelativeFilePath() {
+        String tempName;
+        tempName = filePath.substring(filePath.lastIndexOf(File.separator+UPLOAD_DIRECTORY));
+        tempName = "." + tempName;
+        return tempName;
     }
 }
 

@@ -24,18 +24,22 @@ import java.util.logging.Logger;
  */
 public class FictionalBooksDao {
 
+
     private HelperUtil helperUtil;
 
     public FictionalBooksDao() {
         helperUtil = new HelperUtil();
+
     }
 
-   
     public void addFictionalBooks(FictionalBook b) {
+        BookDao bookDao;
+        bookDao = new BookDao();
+        b.setProductNumber(bookDao.getBookProductCount() + 1);
 
         try {
             String insertQuery = FusekiClient.PREFIX;
-            insertQuery += "INSERT\n"
+            insertQuery += "INSERT DATA\n"
                     + "{\n"
                     + " r:" + helperUtil.generateNames() + "   a   r:FictionAndLiterature;\n"
                     + "          r:productNumber \"" + b.getProductNumber() + "\"^^xsd:nonNegativeInteger ;\n"
@@ -50,7 +54,7 @@ public class FictionalBooksDao {
                     + "          r:hasTitle \"" + b.getTitle() + "\"^^xsd:string ;\n"
                     + "          r:hasImage \"" + b.getImagepath() + "\"^^xsd:string ."
                     + "}";
-            
+
             FusekiClient.insertFUSEKI(insertQuery);
         } catch (Exception ex) {
             Logger.getLogger(FictionalBooksDao.class.getName()).log(Level.SEVERE, null, ex);

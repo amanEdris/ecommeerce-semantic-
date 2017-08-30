@@ -32,10 +32,12 @@ public class KidsBookDao {
         helperUtil = new HelperUtil();
     }
 
-    public void addKidsBook(KidsBook b) {
-        try {
+    public void addKidsBook(KidsBook b) throws Exception {
+        BookDao bookDao;
+        bookDao = new BookDao();
+        b.setProductNumber(bookDao.getBookProductCount() + 1);
             String insertQuery = FusekiClient.PREFIX;
-            insertQuery += "INSERT\n"
+            insertQuery += "INSERT DATA\n"
                     + "{\n"
                     + " r:" + helperUtil.generateNames() + "   a   r:KidsBook;\n"
                     + "          r:productNumber \"" + b.getProductNumber() + "\"^^xsd:nonNegativeInteger ;\n"
@@ -50,12 +52,10 @@ public class KidsBookDao {
                     + "          r:hasTitle \"" + b.getTitle() + "\"^^xsd:string ;\n"
                     + "          r:hasImage \"" + b.getImagepath() + "\"^^xsd:string ."
                     + "}";
-            
+
             FusekiClient.insertFUSEKI(insertQuery);
-        } catch (Exception ex) {
-            Logger.getLogger(KidsBookDao.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
+     
+
     }
 
     public void updateKidsBook(KidsBook b) {
@@ -75,7 +75,7 @@ public class KidsBookDao {
                 + "                  r:hasPublishedYear  ?publishedyear ;\n"
                 + "                  r:productNumber ?productNumber ;\n"
                 + "                  r:hasPrice ?price ;\n"
-                + "                  r:hasBookRevisionNo  ?revision ;\n"     
+                + "                  r:hasBookRevisionNo  ?revision ;\n"
                 + "                  r:hasDescription ?description ;\n"
                 + "                  r:hasKidsBookCategory ?kidsCategory ;\n"
                 + "                  r:hasPublisher ?publisher ;\n"
@@ -86,8 +86,6 @@ public class KidsBookDao {
         queryAllBooks(BooksQuery, books);
         return books;
     }
-
-  
 
     public List<KidsBook> getAllKidsBookByCategory(String category) {
         List<KidsBook> books = new ArrayList<KidsBook>();
@@ -169,7 +167,6 @@ public class KidsBookDao {
                 + " }";
 
         //System.out.println("get book query+" + booksQuery);
-
         queryBook(booksQuery, book);
         return book;
 
@@ -178,7 +175,7 @@ public class KidsBookDao {
     private void queryBook(String booksQuery, KidsBook book) {
         try {
             ResultSet results = FusekiClient.queryFUSEKI(booksQuery);
-           
+
             while (results.hasNext()) {
 
                 QuerySolution row = results.next();
@@ -206,8 +203,8 @@ public class KidsBookDao {
             Logger.getLogger(KidsBookDao.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-      private void queryAllBooks(String BooksQuery, List<KidsBook> books) {
+
+    private void queryAllBooks(String BooksQuery, List<KidsBook> books) {
         try {
             ResultSet results = FusekiClient.queryFUSEKI(BooksQuery);
             int tempProductNumber = 0;
@@ -234,13 +231,12 @@ public class KidsBookDao {
                 b.setRevisionNo(row.getLiteral("revision").getValue().toString());
 
                 //System.out.println("book added with category" + b.getCategory() + "where category name is:" + category);
-       if(tempProductNumber == row.getLiteral("productNumber").getInt()){
-                    
-                }else{
+                if (tempProductNumber == row.getLiteral("productNumber").getInt()) {
+
+                } else {
                     books.add(b);
-                    tempProductNumber = row.getLiteral("productNumber").getInt(); 
+                    tempProductNumber = row.getLiteral("productNumber").getInt();
                 }
-               
 
             }
         } catch (ParseException ex) {

@@ -38,7 +38,7 @@
                     <td>${fictionalbook.quantity}</td>
                     <td>${fictionalbook.author}</td>
                     <td>${fictionalbook.isbn}</td>
-                    <td>${fictionalbook.imagepath}</td>
+                    <td><img src="${fictionalbook.imagepath}" alt="${fictionalbook.title}"/></td>
                     <td> <fmt:formatDate pattern="yyyy-MMM-dd" value="${fictionalbook.publishedYear}"/></td>
                     <td>${fictionalbook.publisher}</td>
                     <td>${fictionalbook.category}</td>

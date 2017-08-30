@@ -32,9 +32,12 @@ public class NonFictionalBooksDao {
     }
 
     public void addNonFictionalBooks(NonFictionalBook b) {
+        BookDao bookDao;
+        bookDao = new BookDao();
+        b.setProductNumber(bookDao.getBookProductCount() + 1);
         try {
             String insertQuery = FusekiClient.PREFIX;
-            insertQuery += "INSERT\n"
+            insertQuery += "INSERT DATA\n"
                     + "{\n"
                     + " r:" + helperUtil.generateNames() + "   a   r:Nonfiction;\n"
                     + "          r:productNumber \"" + b.getProductNumber() + "\"^^xsd:nonNegativeInteger ;\n"
@@ -49,7 +52,7 @@ public class NonFictionalBooksDao {
                     + "          r:hasTitle \"" + b.getTitle() + "\"^^xsd:string ;\n"
                     + "          r:hasImage \"" + b.getImagepath() + "\"^^xsd:string ."
                     + "}";
-            
+
             FusekiClient.insertFUSEKI(insertQuery);
         } catch (Exception ex) {
             Logger.getLogger(NonFictionalBooksDao.class.getName()).log(Level.SEVERE, null, ex);
@@ -73,7 +76,7 @@ public class NonFictionalBooksDao {
                 + "                  r:hasPrice ?price ;\n"
                 + "                  r:hasDescription ?description ;\n"
                 + "                  r:hasNonFictionalCategory ?nonFictionalCategory ;\n"
-                + "                  r:hasBookRevisionNo  ?revision ;\n"                  
+                + "                  r:hasBookRevisionNo  ?revision ;\n"
                 + "                  r:hasPublisher ?publisher ;\n"
                 + "                  r:hasAuthor ?author;\n"
                 + "                  r:hasTitle  ?title ;\n"
@@ -206,8 +209,8 @@ public class NonFictionalBooksDao {
 
     private void queryAllBooks(String BooksQuery, List<NonFictionalBook> books) {
         try {
-           ResultSet results = FusekiClient.queryFUSEKI(BooksQuery);
-                       int tempProductNumber = 0;
+            ResultSet results = FusekiClient.queryFUSEKI(BooksQuery);
+            int tempProductNumber = 0;
 
             while (results.hasNext()) {
 
@@ -231,11 +234,11 @@ public class NonFictionalBooksDao {
                 b.setCategory(category);
                 b.setRevisionNo(row.getLiteral("revision").getValue().toString());
 
-                if(tempProductNumber == row.getLiteral("productNumber").getInt()){
-                    
-                }else{
+                if (tempProductNumber == row.getLiteral("productNumber").getInt()) {
+
+                } else {
                     books.add(b);
-                    tempProductNumber = row.getLiteral("productNumber").getInt(); 
+                    tempProductNumber = row.getLiteral("productNumber").getInt();
                 }
 
             }

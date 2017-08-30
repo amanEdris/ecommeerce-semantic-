@@ -276,7 +276,7 @@
         <script>
             $(document).ready(function () {
                 $('#dataTables-customerOrder').DataTable({responsive: true});
-                $("select").change(function () {
+                $("#maincategory").change(function () {
                     $(this).find("option:selected").each(function () {
                         var optionValue = $(this).attr("value");
                         if (optionValue) {

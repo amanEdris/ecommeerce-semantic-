@@ -3,7 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <div class="panel panel-default">
   <div class="panel-heading">
-    Add New Product
+    Add New Product  ${message}
   </div>
   <!-- /.panel-heading -->
   <div class="panel-body">
