@@ -89,28 +89,13 @@ public class DashBoardController extends HttpServlet {
 
         if (userPath.equals("/dashboard")) {
 
-           
             HttpSession session = request.getSession();
             Manager manger = (Manager) session.getAttribute("adminUser");
             if (Utils.equal(null, manger)) {
                 forward = LOGIN_ADMIN_PAGE;
             }
             if (StringUtils.isNotEmpty(action)) {
-//                 response.setContentType("text/html;charset=UTF-8");
-//
-//            try (PrintWriter out = response.getWriter()) {
-//
-//                out.println("<!DOCTYPE html>");
-//                out.println("<html>");
-//                out.println("<head>");
-//                out.println("<title>Servlet OrderController</title>");
-//                out.println("</head>");
-//                out.println("<body>");
-//                out.println("<h1>Here is a Book:" +request.getParameter("productNumber") +" [ ] "+
-//                        action.toString()+ "</h1>");
-//                out.println("</body>");
-//                out.println("</html>");
-//            }
+
                 if (manger == null) {
                     forward = LOGIN_ADMIN_PAGE;
                 } else if (action.equals("pendingOrder")) {//dashboard?action=pendingOrder
@@ -141,6 +126,7 @@ public class DashBoardController extends HttpServlet {
                     request.setAttribute("type", "products");
                 } else if (action.equals("addProducts")) {
                     request.setAttribute("path", ADD_PRODUCT_PAGE);
+                    request.setAttribute("update", false);
                     request.setAttribute("type", "Addproducts");
 
                 } else if (action.equals("deleteProduct")) {
@@ -160,11 +146,11 @@ public class DashBoardController extends HttpServlet {
                     request.setAttribute("nonfiction", nonfiction);
                     request.setAttribute("kidbooks", kidbooks);
                     request.setAttribute("type", "products");
-                }  else if (action.equals("editProduct")) {
+                } else if (action.equals("editProduct")) {
                     int productId = Integer.parseInt(request.getParameter("productNumber"));
                     String category = request.getParameter("category").toString();
                     Book b = bookDao.getBookbyProductNumber(productId, category);
-
+                    request.setAttribute("publisheYear", b.getStringPublishedYear());
                     request.setAttribute("path", ADD_PRODUCT_PAGE);
                     request.setAttribute("type", "Addproducts");
                     request.setAttribute("book", b);
@@ -200,7 +186,7 @@ public class DashBoardController extends HttpServlet {
                     List<Order> orders = orderDao.getAllOrderBystatus("pending");
                     request.setAttribute("orders", orders);
                     request.setAttribute("type", "pending");
-                }else {
+                } else {
                     //Edit action for order
                     //product add and upfate features
                 }
@@ -221,7 +207,7 @@ public class DashBoardController extends HttpServlet {
         String forward = DASHBOARD_PAGE_ADMIN;
         String mainCategory = null;
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        String fictionalCategory = null, nonficitionCategory = null, kidsCategory = null;
+        String imagePath = null;
 
         if (userPath.equals("/addProduct")) {
             request.setAttribute("path", ADD_PRODUCT_PAGE);
@@ -274,15 +260,34 @@ public class DashBoardController extends HttpServlet {
                         // processes only fields that are not form fields
                         if (!item.isFormField()) {
                             String fileName = new File(item.getName()).getName();
-                            //add change file name
-                            //@todo check if upload image
-                            filePath = uploadPath + File.separator + fileName;
-                            File storeFile = new File(filePath);
 
-                            // saves the file on disk
-                            item.write(storeFile);
-                            request.setAttribute("message",
-                                    "Upload has been done successfully!");
+                            response.setContentType("text/html;charset=UTF-8");
+                            try (PrintWriter out = response.getWriter()) {
+
+                                out.println("<!DOCTYPE html>");
+                                out.println("<html>");
+                                out.println("<head>");
+                                out.println("<title>Servlet OrderController</title>");
+                                out.println("</head>");
+                                out.println("<body>");
+                                out.println("<h1>Here is a Book: file path" + fileName.toString());
+
+                                out.println("</body>");
+                                out.println("</html>");
+                            }
+
+                            if (StringUtils.isNotEmpty(fileName)) {
+                                //add change file name
+                                //@todo check if upload image
+                                filePath = uploadPath + File.separator + fileName;
+                                File storeFile = new File(filePath);
+
+                                // saves the file on disk
+                                item.write(storeFile);
+                                request.setAttribute("goodmessage",
+                                        "Upload has been done successfully!");
+
+                            }
 
                         } else {
                             String fieldName = item.getFieldName();
@@ -291,7 +296,7 @@ public class DashBoardController extends HttpServlet {
                             if (null == fieldName) {
                                 product.setImagepath(filePath);
                             } else {
-                                switch (fieldName) {//productDetail
+                                switch (fieldName) {
                                     case "title":
                                         product.setProductName(fieldValue);
                                         book.setTitle(fieldValue);
@@ -307,6 +312,7 @@ public class DashBoardController extends HttpServlet {
                                         break;
                                     case "quantity":
                                         product.setQuantity(Integer.parseInt(fieldValue));
+                                        book.setQuantity(Integer.parseInt(fieldValue));
                                         break;
                                     case "publisher":
                                         book.setPublisher(fieldValue);
@@ -321,37 +327,44 @@ public class DashBoardController extends HttpServlet {
                                         book.setDescription(fieldValue);
                                         product.setDescription(fieldValue);
                                         break;
-                                    case "maincategory":
-                                        mainCategory = fieldValue;
-                                        break;
                                     case "fiction":
-                                        fictionalCategory = fieldValue;
+                                        mainCategory = StringUtils.isNotEmpty(fieldValue) ? fieldValue : mainCategory;
                                         break;
                                     case "nonfiction":
-                                        nonficitionCategory = fieldValue;
+                                        mainCategory = StringUtils.isNotEmpty(fieldValue) ? fieldValue : mainCategory;
                                         break;
                                     case "kidbook":
-                                        kidsCategory = fieldValue;
+                                        mainCategory = StringUtils.isNotEmpty(fieldValue) ? fieldValue : mainCategory;
+                                        break;
+                                    case "imagepath":
+                                        imagePath = StringUtils.isEmpty(filePath) ? fieldValue : filePath;
+                                        product.setImagepath(imagePath);
+                                        break;
+                                    case "productNumber":
+                                        product.setProductNumber(StringUtils.equals(fieldValue, null) ? 0 : Integer.parseInt(fieldValue));
                                         break;
                                     default:
                                         product.setImagepath(filePath);
                                         break;
-
                                 }
                             }
-
                         }
-
                     }
 
-                    bookDao.createBookProduct(filePath, mainCategory, book, product, kidsCategory,
-                            fictionalCategory, nonficitionCategory);
+                    if (product.getProductNumber() == 0) {
+
+                        bookDao.createBookProduct(filePath, mainCategory, book, product);
+                        filePath = null;
+                    } else {
+
+                        bookDao.updateBookProduct(imagePath, mainCategory, book, product);
+                    }
 
                 }
 
             } catch (Exception ex) {
                 request.setAttribute("message",
-                        "There was an error: " + ex.getMessage());
+                        "There was an error: " + ex.getLocalizedMessage());
             }
         } else if (userPath.equals("/addCustomer")) {
             Customer c = new Customer();
@@ -416,51 +429,8 @@ public class DashBoardController extends HttpServlet {
 
 }
 
-/**
- * *
- * response.setContentType("text/html;charset=UTF-8");
- *
- * try (PrintWriter out = response.getWriter()) { /* TODO output your page here.
- * You may use following sample code.
- */
-//                    out.println("<!DOCTYPE html>");
-//                    out.println("<html>");
-//                    out.println("<head>");
-//                    out.println("<title>Servlet OrderController</title>");
-//                    out.println("</head>");
-//                    out.println("<body>");
-//                    out.println("<h1>the quantities are  " + ordername +"</h1>");
-//                    out.println("</body>");
-//                    out.println("</html>");
-//                }
-//=====go to sleeep 
-//            try {
-//                List<FileItem> items = new ServletFileUpload(new DiskFileItemFactory()).parseRequest(request);
-//                for (FileItem item : items) {
-//                    if (item.isFormField()) {
-//                        String fieldName = item.getFieldName();
-//                        String fieldValue = item.getString();
-//
-//                    } else {
-//// Process form file field (input type="file").
-//                        String fieldName = item.getFieldName();
-//                        String fileName = FilenameUtils.getName(item.getName());
-//                        InputStream fileContent = item.getInputStream();
-//                        boolean isInMemory = item.isInMemory();
-//                        long sizeInBytes = item.getSize();
-//
-//// Write the file
-//                        if (fileName.lastIndexOf("\\") >= 0) {
-//                            file = new File("src/image/"
-//                                    + fileName.substring(fileName.lastIndexOf("\\")));
-//                        } else {
-//                            file = new File("src/image/" + fileName.substring(fileName.lastIndexOf("\\") + 1));
-//                        }
-//                        item.write(file);
-//
-//                        response.setContentType("text/html;charset=UTF-8");
-//
-//                        try (PrintWriter out = response.getWriter()) {
+// try (PrintWriter out = response.getWriter()) {
+//                    response.setContentType("text/html;charset=UTF-8");
 //
 //                            out.println("<!DOCTYPE html>");
 //                            out.println("<html>");
@@ -468,14 +438,9 @@ public class DashBoardController extends HttpServlet {
 //                            out.println("<title>Servlet OrderController</title>");
 //                            out.println("</head>");
 //                            out.println("<body>");
-//                            out.println("<h1>GET FILE PATH  " + file.getPath() + "</h1> and file path" + filePath);
+//                            out.println("<h1>Here is a Book: file path" + filePath + " [ ]" + mainCategory + " [ ]"
+//                                    + book.toString() + " [ ]" + product.getProductName() + " [ ]" + imagePath);
+//
 //                            out.println("</body>");
 //                            out.println("</html>");
 //                        }
-//                    }
-//                }
-//            } catch (FileUploadException e) {
-//                throw new ServletException("Cannot parse multipart request.", e);
-//            } catch (Exception ex) {
-//                Logger.getLogger(DashBoardController.class.getName()).log(Level.SEVERE, null, ex);
-//            }

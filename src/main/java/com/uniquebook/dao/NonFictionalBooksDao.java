@@ -31,11 +31,10 @@ public class NonFictionalBooksDao {
 
     }
 
-    public void addNonFictionalBooks(NonFictionalBook b) {
+    public void addNonFictionalBooks(NonFictionalBook b) throws Exception {
         BookDao bookDao;
         bookDao = new BookDao();
-        b.setProductNumber(bookDao.getBookProductCount() + 1);
-        try {
+        b.setProductNumber(bookDao.getMaxProductNumberForBook() + 1);
             String insertQuery = FusekiClient.PREFIX;
             insertQuery += "INSERT DATA\n"
                     + "{\n"
@@ -45,7 +44,7 @@ public class NonFictionalBooksDao {
                     + "          r:hasPrice \"" + b.getPrice() + "\"^^xsd:float ;\n"
                     + "          r:hasQuantity \"" + b.getQuantity() + "\"^^xsd:nonNegativeInteger ;\n"
                     + "          r:hasPublisher \"" + b.getPublisher() + "\"^^xsd:string ;\n"
-                    + "          r:hasBookRevisionNo " + b.getRevisionNo() + "\"^^xsd:string;\n"
+                    + "          r:hasBookRevisionNo \"" + b.getRevisionNo() + "\"^^xsd:string;\n"
                     + "          r:hasPublishedYear \"" + b.getStringPublishedYear() + "\"^^xsd:date ;\n"
                     + "          r:hasNonFictionalCategory \"" + b.getCategory() + "\"^^xsd:string ;\n"
                     + "          r:hasAuthor \"" + b.getAuthor() + "\"^^xsd:string ;\n"
@@ -55,10 +54,7 @@ public class NonFictionalBooksDao {
                     + "}";
 
             FusekiClient.insertFUSEKI(insertQuery);
-        } catch (Exception ex) {
-            Logger.getLogger(NonFictionalBooksDao.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
+  
     }
 
     public void updateNonFictionalBooks(NonFictionalBook b) {

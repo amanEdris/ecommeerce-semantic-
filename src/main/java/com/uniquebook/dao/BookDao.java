@@ -52,30 +52,63 @@ public class BookDao {
         return b;
     }
 
-    public void createBookProduct(String filePath, String mainCategory, Book book, Product product, String kidsCategory, String fictionalCategory, String nonficitionCategory) throws Exception {
-        if (StringUtils.equals(mainCategory, "kids")) {
+    public void createBookProduct(String filePath, String mainCategory, Book book, Product product) throws Exception {
+        if (StringUtils.isNotEmpty(KidsBook.kidsBookCategory.getEnumByString(mainCategory))) {
             KidsBook kid = new KidsBook();
             kid.copyBook(book);
             kid.copyProduct(product);
-            kid.setCategory(kidsCategory);
+            kid.setCategory(mainCategory);
             kid.setImagepath(setRelativeFilePath(filePath));
 
             kidDao.addKidsBook(kid);
 
-        } else if (StringUtils.equals(mainCategory, "fictional")) {
+        } else if (StringUtils.isNotEmpty(FictionalBook.FictionalCategory.getEnumByString(mainCategory))) {
             FictionalBook fbook = new FictionalBook();
             fbook.copyBook(book);
             fbook.copyProduct(product);
-            fbook.setCategory(fictionalCategory);
+            fbook.setCategory(mainCategory);
             fbook.setImagepath(setRelativeFilePath(filePath));
 
             fictionDao.addFictionalBooks(fbook);
 
-        } else if (StringUtils.equals(mainCategory, "nonfictioanl")) {
+        } else if (StringUtils.isNotEmpty(NonFictionalBook.NonFictionalCategory.getEnumByString(mainCategory))) {
             NonFictionalBook nonFictionalBook = new NonFictionalBook();
             nonFictionalBook.copyBook(book);
             nonFictionalBook.copyProduct(product);
-            nonFictionalBook.setCategory(nonficitionCategory);
+            nonFictionalBook.setCategory(mainCategory);
+            nonFictionalBook.setImagepath(setRelativeFilePath(filePath));
+            nonFcitionDao.addNonFictionalBooks(nonFictionalBook);
+
+        } else {
+
+        }
+        //end test
+    }
+
+    public void updateBookProduct(String filePath, String mainCategory, Book book, Product product) throws Exception {
+        if (StringUtils.isNotEmpty(KidsBook.kidsBookCategory.getEnumByString(mainCategory))) {
+            KidsBook kid = new KidsBook();
+            kid.copyBook(book);
+            kid.copyProduct(product);
+            kid.setCategory(mainCategory);
+            kid.setImagepath(setRelativeFilePath(filePath));
+
+            kidDao.updateKidsBook(kid);
+
+        } else if (StringUtils.isNotEmpty(FictionalBook.FictionalCategory.getEnumByString(mainCategory))) {
+            FictionalBook fbook = new FictionalBook();
+            fbook.copyBook(book);
+            fbook.copyProduct(product);
+            fbook.setCategory(mainCategory);
+            fbook.setImagepath(setRelativeFilePath(filePath));
+
+            fictionDao.addFictionalBooks(fbook);
+
+        } else if (StringUtils.isNotEmpty(NonFictionalBook.NonFictionalCategory.getEnumByString(mainCategory))) {
+            NonFictionalBook nonFictionalBook = new NonFictionalBook();
+            nonFictionalBook.copyBook(book);
+            nonFictionalBook.copyProduct(product);
+            nonFictionalBook.setCategory(mainCategory);
             nonFictionalBook.setImagepath(setRelativeFilePath(filePath));
             nonFcitionDao.addNonFictionalBooks(nonFictionalBook);
 
@@ -163,41 +196,22 @@ public class BookDao {
         return count;
     }
 
-    public int getMaxProductNumber() {
-        int tempMax, max = 0;
-        String query = FusekiClient.PREFIX;
-
-        tempMax = this.getMaxProductNumberForBookCategory("r:Nonfiction");
-        if (max < tempMax) {
-            max = tempMax;
-        }
-        tempMax = this.getMaxProductNumberForBookCategory("r:KidsBook");
-        if (max < tempMax) {
-            max = tempMax;
-        }
-        tempMax = this.getMaxProductNumberForBookCategory("r:FictionAndLiterature");
-        if (max < tempMax) {
-            max = tempMax;
-        }
-        return max;
-    }
-
-    public int getMaxProductNumberForBookCategory(String category) {
+    public int getMaxProductNumberForBook() {
         int max = 0;
         try {
 
             String query = FusekiClient.PREFIX;
-            query += "SELECT  (MAX(?a) As ?b)\n"
-                    + "WHERE{ \n"
-                    + "  ?x a " + category + ".\n"
-                    + "  ?x r:productNumber ?a.\n"
+            query += "PREFIX xsd:   <http://www.w3.org/2001/XMLSchema#>\n"
                     + "\n"
-                    + " } ";
+                    + "SELECT ?s ?number\n"
+                    + "WHERE { ?s r:productNumber ?number }\n"
+                    + "ORDER BY DESC(xsd:integer(?number)) LIMIT 1";
+
             ResultSet results = FusekiClient.queryFUSEKI(query);
 
             while (results.hasNext()) {
                 QuerySolution row = results.next();
-                max = row.getLiteral("b").getInt();
+                max = row.getLiteral("number").getInt();
             }
 
         } catch (Exception ex) {
@@ -229,6 +243,24 @@ public class BookDao {
         return result;
     }
 
+    public boolean checkDeliveryExists(int productNumber) {
+        boolean check = false;
+        String askQuery = FusekiClient.PREFIX
+                + "Ask\n"
+                + "WHERE { \n"
+                + "  ?s  r:productNumber         \""+productNumber+"\"^^xsd:nonNegativeInteger .\n"
+                + "}";
+        check = FusekiClient.askFUSEKI(askQuery);
+
+        return check;
+    }
+
+    /**
+     * Helper method to change full path to relative file path
+     *
+     * @param filePath
+     * @return
+     */
     private String setRelativeFilePath(String filePath) {
         String tempName;
         tempName = filePath.substring(filePath.lastIndexOf(File.separator + UPLOAD_DIRECTORY));

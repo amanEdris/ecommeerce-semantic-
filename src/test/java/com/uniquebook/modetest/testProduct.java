@@ -32,7 +32,9 @@ public class testProduct {
         kid.copyProduct(product);
         kid.copyBook(b);
         
-        System.out.println("the conetent of the book product is : "+b.toString());
+        Product p = kid;
+        
+        System.out.println("the conetent of the book product is : "+p.getProductName());
     }
 
 }

@@ -26,7 +26,7 @@ import org.apache.jena.riot.RIOT;
  */
 public class TestDB {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         FileOutputStream out = null;
         InputStream in = Utils.getResourceAsStream("onto/data.ttl");
         RIOT.init();
