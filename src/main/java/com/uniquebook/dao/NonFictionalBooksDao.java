@@ -7,7 +7,9 @@ package com.uniquebook.dao;
 
 import com.hp.hpl.jena.query.QuerySolution;
 import com.hp.hpl.jena.query.ResultSet;
+import com.uniquebook.models.FictionalBook;
 import com.uniquebook.models.NonFictionalBook;
+import com.uniquebook.models.Product;
 import com.uniquebook.utils.HelperUtil;
 import com.uniquebook.utils.FusekiClient;
 import java.text.ParseException;
@@ -57,10 +59,91 @@ public class NonFictionalBooksDao {
   
     }
 
-    public void updateNonFictionalBooks(NonFictionalBook b) {
+  public void updateNonFictionalBook(NonFictionalBook b) throws Exception {
+        String updateBookQuery = null;
+        String subjetBook = this.getSubjectName(b);
+        NonFictionalBook k = this.getNonFictionalByProductNumber(b.getProductNumber());
+        updateBookQuery = FusekiClient.PREFIX;
+        updateBookQuery += "DELETE"
+                + "{"
+                + " r:" + subjetBook + "   a   r:Nonfiction;\n"
+                + "          r:productNumber \"" + k.getProductNumber() + "\"^^xsd:nonNegativeInteger ;\n"
+                + "          r:hasISBN \"" + k.getIsbn() + "\"^^xsd:string ;\n"
+                + "          r:hasPrice \"" + k.getPrice() + "\"^^xsd:float ;\n"
+                + "          r:hasBookRevisionNo \"" + k.getRevisionNo() + "\"^^xsd:string;\n"
+                + "          r:hasQuantity \"" + k.getQuantity() + "\"^^xsd:nonNegativeInteger ;\n"
+                + "          r:hasPublisher \"" + k.getPublisher() + "\"^^xsd:string ;\n"
+                + "          r:hasPublishedYear \"" + k.getStringPublishedYear() + "\"^^xsd:date ;\n"
+                + "          r:hasKidsBookCategory \"" + k.getCategory() + "\"^^xsd:string ;\n"
+                + "          r:hasAuthor \"" + k.getAuthor() + "\"^^xsd:string ;\n"
+                + "          r:hasDescription \"" + k.getDescription() + "\"^^xsd:string ;\n"
+                + "          r:hasTitle \"" + k.getTitle() + "\"^^xsd:string ;\n"
+                + "          r:hasImage \"" + k.getImagepath() + "\"^^xsd:string ."
+                + "}"
+                + "INSERT "
+                + "{"
+                + " r:" + subjetBook + "   a   r:Nonfiction;\n"
+                + "          r:productNumber \"" + b.getProductNumber() + "\"^^xsd:nonNegativeInteger ;\n"
+                + "          r:hasISBN \"" + b.getIsbn() + "\"^^xsd:string ;\n"
+                + "          r:hasPrice \"" + b.getPrice() + "\"^^xsd:float ;\n"
+                + "          r:hasBookRevisionNo \"" + b.getRevisionNo() + "\"^^xsd:string;\n"
+                + "          r:hasQuantity \"" + b.getQuantity() + "\"^^xsd:nonNegativeInteger ;\n"
+                + "          r:hasPublisher \"" + b.getPublisher() + "\"^^xsd:string ;\n"
+                + "          r:hasPublishedYear \"" + b.getStringPublishedYear() + "\"^^xsd:date ;\n"
+                + "          r:hasKidsBookCategory \"" + b.getCategory() + "\"^^xsd:string ;\n"
+                + "          r:hasAuthor \"" + b.getAuthor() + "\"^^xsd:string ;\n"
+                + "          r:hasDescription \"" + b.getDescription() + "\"^^xsd:string ;\n"
+                + "          r:hasTitle \"" + b.getTitle() + "\"^^xsd:string ;\n"
+                + "          r:hasImage \"" + b.getImagepath() + "\"^^xsd:string ."
+                + ""
+                + "} WHERE { \n"
+                + " r:" + subjetBook + "   a   r:Nonfiction;\n"
+                + "          r:productNumber \"" + k.getProductNumber() + "\"^^xsd:nonNegativeInteger ;\n"
+                + "          r:hasISBN \"" + k.getIsbn() + "\"^^xsd:string ;\n"
+                + "          r:hasPrice \"" + k.getPrice() + "\"^^xsd:float ;\n"
+                + "          r:hasBookRevisionNo \"" + k.getRevisionNo() + "\"^^xsd:string;\n"
+                + "          r:hasQuantity \"" + k.getQuantity() + "\"^^xsd:nonNegativeInteger ;\n"
+                + "          r:hasPublisher \"" + k.getPublisher() + "\"^^xsd:string ;\n"
+                + "          r:hasPublishedYear \"" + k.getStringPublishedYear() + "\"^^xsd:date ;\n"
+                + "          r:hasKidsBookCategory \"" + k.getCategory() + "\"^^xsd:string ;\n"
+                + "          r:hasAuthor \"" + k.getAuthor() + "\"^^xsd:string ;\n"
+                + "          r:hasDescription \"" + k.getDescription() + "\"^^xsd:string ;\n"
+                + "          r:hasTitle \"" + k.getTitle() + "\"^^xsd:string ;\n"
+                + "          r:hasImage \"" + k.getImagepath() + "\"^^xsd:string ."
+                + "}";
+        System.out.println("Update customer query is: " + updateBookQuery);
+        FusekiClient.insertFUSEKI(updateBookQuery);
 
     }
 
+      public String getSubjectName(Product p) {
+        String subjectName = null;
+        try {
+            String selectQuery = null;
+
+            selectQuery = FusekiClient.PREFIX;
+            selectQuery += "SELECT  ?x\n"
+                    + "\n"
+                    + "WHERE\n"
+                    + "{ \n"
+                    + "  ?x a ?o;\n"
+                    + "     r:productNumber  \"" + p.getProductNumber() + "\"^^xsd:nonNegativeInteger.\n"
+                    + "\n"
+                    + " }";
+
+            System.out.println("subject query for this product is:  " + selectQuery);
+
+            ResultSet results = FusekiClient.queryFUSEKI(selectQuery);
+            while (results.hasNext()) {
+                QuerySolution row = results.next();
+                subjectName = row.getResource("x").getLocalName();
+            }
+
+        } catch (Exception ex) {
+            Logger.getLogger(BookDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return subjectName;
+    }
     public List<NonFictionalBook> getAllNonFictionalBook() {
         List<NonFictionalBook> books = new ArrayList<NonFictionalBook>();
         String BooksQuery = FusekiClient.PREFIX;

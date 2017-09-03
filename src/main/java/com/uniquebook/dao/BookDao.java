@@ -102,7 +102,7 @@ public class BookDao {
             fbook.setCategory(mainCategory);
             fbook.setImagepath(setRelativeFilePath(filePath));
 
-            fictionDao.addFictionalBooks(fbook);
+            fictionDao.updateFictionalBook(fbook);
 
         } else if (StringUtils.isNotEmpty(NonFictionalBook.NonFictionalCategory.getEnumByString(mainCategory))) {
             NonFictionalBook nonFictionalBook = new NonFictionalBook();
@@ -110,7 +110,7 @@ public class BookDao {
             nonFictionalBook.copyProduct(product);
             nonFictionalBook.setCategory(mainCategory);
             nonFictionalBook.setImagepath(setRelativeFilePath(filePath));
-            nonFcitionDao.addNonFictionalBooks(nonFictionalBook);
+            nonFcitionDao.updateNonFictionalBook(nonFictionalBook);
 
         } else {
 

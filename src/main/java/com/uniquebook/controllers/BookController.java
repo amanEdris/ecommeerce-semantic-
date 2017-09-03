@@ -84,7 +84,7 @@ public class BookController extends HttpServlet {
                 forward = LIST_Books;
                 String category = null;
                 if(StringUtils.isNotEmpty(request.getParameter("category"))){
-                       category = (request.getParameter("category").trim());
+                       category = (request.getParameter("category"));
   
                 }
                 request.setAttribute("category", category);
@@ -92,7 +92,7 @@ public class BookController extends HttpServlet {
                     if (NonFictionalBook.NonFictionalCategory.getEnumByString(category) != null) {
                         request.setAttribute("cat", 1);
                         request.setAttribute("nonfibooks", nonFcitionDao.getAllNonFictionalBookByCategory(category));
-                        if (nonFcitionDao.getAllNonFictionalBookByCategory(category).isEmpty()) {
+                        if (nonFcitionDao.getAllNonFictionalBookByCategory(category) == null) {
                             request.setAttribute("message", "Sorry, no books in this ");
                         }
                     } else if (category.equals("Kids Book")) {
@@ -101,9 +101,27 @@ public class BookController extends HttpServlet {
                         if (kidDao.getAllKidsBook().isEmpty()) {
                             request.setAttribute("message", "Sorry, no books in this ");
                         }
+                    }else if (category.equals("Non Fiction")) {
+                        request.setAttribute("cat", 1);
+                        request.setAttribute("nonfibooks", nonFcitionDao.getAllNonFictionalBook());
+                        if (kidDao.getAllKidsBook().isEmpty()) {
+                            request.setAttribute("message", "Sorry, no books in this ");
+                        }
                     } else if (category.equals("Fiction")) {
                         request.setAttribute("cat", 3);
                         request.setAttribute("books", fictionDao.getAllFictionalBook());
+                    }else  if (FictionalBook.FictionalCategory.getEnumByString(category) != null) {
+                        request.setAttribute("cat", 3);
+                        request.setAttribute("books", fictionDao.getAllFictionalBookByCategory(category));
+                        if (fictionDao.getAllFictionalBookByCategory(category) == null) {
+                            request.setAttribute("message", "Sorry, no books in this ");
+                        }
+                    }else  if (KidsBook.kidsBookCategory.getEnumByString(category) != null) {
+                        request.setAttribute("cat", 2);
+                        request.setAttribute("kidbooks", kidDao.getAllKidsBookByCategory(category));
+                        if (kidDao.getAllKidsBookByCategory(category) == null) {
+                            request.setAttribute("message", "Sorry, no books in this ");
+                        }
                     } else {
                         request.setAttribute("cat", 3);
                         request.setAttribute("books", fictionDao.getAllFictionalBookByCategory(category));

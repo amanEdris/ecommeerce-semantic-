@@ -30,9 +30,11 @@ public class testDao {
 
     public static void main(String[] args) throws Exception {
         
+        FictionalBooksDao fictionDao = new FictionalBooksDao();
+        fictionDao.getAllFictionalBookByCategory("Romance");
         
-        OrderDao orderDao = new OrderDao();
-        orderDao.updateOrderStatus("1", "approved","pending");
+//        OrderDao orderDao = new OrderDao();
+//        orderDao.updateOrderStatus("1", "approved","pending");
         
         
         //20000 leagues under the sea by jules verne 1 copy-131x199.png

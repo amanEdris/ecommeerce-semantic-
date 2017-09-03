@@ -72,9 +72,11 @@ public class AccountController extends HttpServlet {
                 int customerCount = customerDao.getCustomerCount();
                 int orderCount = orderDao.getOrderCount();
                 int productCount = bookDao.getBookProductCount();
+                int managerCount = managerDao.getManagerCount();
                 request.setAttribute("customersNumber", customerCount);
                 request.setAttribute("orderNumber", orderCount);
                 request.setAttribute("productNumber", productCount);
+                request.setAttribute("managerNumber", managerCount);
                 forward = DASHBOARD_PAGE_ADMIN;
           
             if (StringUtils.isEmpty(action)) {

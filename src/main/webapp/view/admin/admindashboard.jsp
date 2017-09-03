@@ -61,7 +61,7 @@
                         </a>
                         <ul class="dropdown-menu dropdown-user">
                             <li>
-                                <a href="/dashboard?action=showProfile">
+                                <a href="/UniqueBookApp/dashboard?action=showProfile">
                                     <i class="fa fa-user fa-fw"></i>
                                     User Profile</a>
                             </li>
@@ -228,11 +228,12 @@
                                             <div class="panel-heading">
                                                 <div class="row">
                                                     <div class="col-xs-3">
-                                                        <i class="fa fa-briefcase fa-users fa-5x"></i>
+                                                        <i class="fa fa-users fa-5x"></i>
+                                                         <i class="fa fa-briefcase fa-2x"></i>
                                                     </div>
                                                     <div class="col-xs-9 text-right">
-                                                        <div class="huge">${productNumber}</div>
-                                                        <div>Products!</div>
+                                                        <div class="huge">${managerNumber}</div>
+                                                        <div>Admins!</div>
                                                     </div>
                                                 </div>
                                             </div>
